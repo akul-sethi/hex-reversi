@@ -21,9 +21,9 @@ class CubeCoord {
   }
 
   CubeCoord(int row, int column) {
-    this.q = -row;
-    this.r = -row;
-    this.s =
+    this.q = column - (row  - (row&1)) / 2;
+    this.r = row;
+    this.s = -this.q - this.r;
   }
 
   @Override
