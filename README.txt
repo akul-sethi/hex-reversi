@@ -17,3 +17,4 @@ Thoughts:
     Score?
     Rendering move preview
     Maybe no CubeCord
+    Maybe too much flexibility with the board

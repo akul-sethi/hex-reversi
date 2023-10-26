@@ -6,7 +6,7 @@ import java.util.Map;
 import cs3500.reversi.Player;
 
 abstract class AReversiModel implements ReversiModel {
-   protected final Map<CubeCord, Player> tiles;
+   protected final Map<CubeCoord, Player> tiles;
    protected boolean gameStarted;
    protected Player turn;
 

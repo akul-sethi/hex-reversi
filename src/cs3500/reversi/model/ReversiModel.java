@@ -1,29 +1,32 @@
 package cs3500.reversi.model;
 
-import java.util.List;
+import java.awt.geom.Rectangle2D;
 
 import cs3500.reversi.Player;
 
 /**
- * Represents a interface which describes the functionality of Reversi Models. Utilizes cube
- * coordinates.*/
+ * Represents a interface which describes the functionality of Reversi Models. (0, 0) is in the top
+ * left.
+ * Maintains the invariant where row and column of every piece are non-negative and contains one
+ * piece where row = 0 and one were column = 0
+ */
 public interface ReversiModel {
 
   /**
-   * Starts the game with the given number of players. Game can only be started once.
-   * @param players The players in the game.
+   * Starts the game. Game can only be started once.
    * @throws IllegalStateException The game has already started.
    * @throws IllegalArgumentException The number of players is invalid.
    */
-  void startGame(List<Player> players);
+  void startGame();
 
   /**
    * Places a piece at the given coordinate.
-   * @param coordinate The coordinate to place the piece.
+   * @param row The row to place the piece.
+   * @param column The column to place the piece.
    * @throws IllegalArgumentException The coordinate is not valid.
    * @throws IllegalStateException The move is invalid or the game has not started.
    */
-  void placePiece(CubeCord coordinate);
+  void placePiece(int row, int column);
 
   /**
    * Passes the turn of the current player.
@@ -32,17 +35,32 @@ public interface ReversiModel {
   void pass();
 
   /**
-   * Returns an integer representing the player who won. <code>null</code> if no one won.
+   * Returns a Player representing the player who won. <code>null</code> if no one won.
    * @throws IllegalStateException If the has not started.
    */
-  void getWinner();
+  Player getWinner();
 
   /**
    * Returns the player at the given CubeCord. <code>null</code> if there is no player.
-   * @param coordinate The coordinate which is being queried.
+   * @param row The row which is being queried.
+   * @param column The column which is being queried.
    * @throws IllegalStateException The game has not started.
    * @throws IllegalArgumentException The coordinates are invalid.
    * */
-  int playerAt(CubeCord coordinate);
+  Player playerAt(int row, int column);
+
+  /**
+   * Get width of board.
+   */
+  int getWidth();
+
+  /**
+   * Get height of board.*/
+  int getHeight();
+
+  /**
+   * Returns true if the coordinate is valid.*/
+  boolean validCoord(int row, int column);
+
 
 }
