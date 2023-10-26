@@ -54,6 +54,7 @@ public interface ReversiModel {
    */
   int getWidth();
 
+
   /**
    * Get height of board.*/
   int getHeight();

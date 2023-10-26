@@ -38,4 +38,13 @@ class CubeCoord {
   public int hashCode() {
     return this.q * 7 + this.s * 11 + this.r * 13;
   }
+
+  public int row() {
+    return this.r + (this.q - (this.q&1));
+  }
+
+  public int column() {
+    return this.q;
+  }
+
 }
