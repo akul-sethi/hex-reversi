@@ -61,7 +61,7 @@ public interface ReversiModel {
 
   /**
    * Returns true if the coordinate is valid.*/
-  boolean validCoord(int row, int column);
+//  boolean validCoord(int row, int column);
 
 
 }

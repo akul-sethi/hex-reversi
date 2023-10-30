@@ -7,4 +7,5 @@ public interface Player {
   /**
    * Returns this player as a string*/
   public String toString();
+  public boolean equals(Object o);
 }

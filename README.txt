@@ -20,3 +20,5 @@ Thoughts:
     Maybe too much flexibility with the board
     Create concrete direction types
     Maybe make rows fields private
+    Put rows in private package
+    Abstract starting

@@ -19,7 +19,6 @@ abstract class AReversiModel implements ReversiModel {
    private int passCount = 0;
 
    protected AReversiModel(HashMap<CubeCoord, Player> hexs, List<Player> players) {
-
      this.tiles = new HashMap<>();
      this.tiles.putAll(hexs);
      this.gameStarted = false;
@@ -33,7 +32,6 @@ abstract class AReversiModel implements ReversiModel {
    }
 
    @Override
-
    public void pass() {
      this.passCount += 1;
      this.players.add(this.players.remove());
