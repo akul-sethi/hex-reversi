@@ -1,6 +1,7 @@
 package cs3500.reversi.model;
 
 import java.util.Arrays;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,9 +25,7 @@ abstract class AReversiModel implements ReversiModel {
      this.gameStarted = false;
      this.players = new LinkedList<>();
      this.players.addAll(players);
-
    }
-
    @Override
    public void startGame() {
      if(this.gameStarted) { throw new IllegalStateException("Game already started"); }
@@ -34,6 +33,7 @@ abstract class AReversiModel implements ReversiModel {
    }
 
    @Override
+
    public void pass() {
      this.passCount += 1;
      this.players.add(this.players.remove());
