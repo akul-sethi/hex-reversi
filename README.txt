@@ -18,3 +18,5 @@ Thoughts:
     Rendering move preview
     Maybe no CubeCord
     Maybe too much flexibility with the board
+    Create concrete direction types
+    Maybe make rows fields private
