@@ -109,7 +109,7 @@ abstract class AReversiModel implements ReversiModel {
   public int getWidth() {
     int max = 0;
     for(CubeCoord c : this.tiles.keySet()) {
-      if (c.row() > max) {
+      if (c.column() > max) {
         max = c.column();
       }
     }
@@ -127,6 +127,35 @@ abstract class AReversiModel implements ReversiModel {
     return max;
   }
 
+  public int[] getColExtremes() {
+    int max = 0;
+    for(CubeCoord c : this.tiles.keySet()) {
+      if (c.column() > max) {
+        max = c.column();
+      }
+    }
+    int min = 999;
+    for(CubeCoord c : this.tiles.keySet()) {
+      if (c.column() < min) {
+        min = c.column();
+      }
+    }
+    return new int[]{min, max};
+  }
 
-
+  public int[] getRowExtremes() {
+    int max = 0;
+    for(CubeCoord c : this.tiles.keySet()) {
+      if (c.row() > max) {
+        max = c.row();
+      }
+    }
+    int min = 999;
+    for(CubeCoord c : this.tiles.keySet()) {
+      if (c.row() < min) {
+        min = c.row();
+      }
+    }
+    return new int[]{min, max};
+  }
 }

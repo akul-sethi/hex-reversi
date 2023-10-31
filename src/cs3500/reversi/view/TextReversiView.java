@@ -1,6 +1,8 @@
 package cs3500.reversi.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import cs3500.reversi.Player;
 import cs3500.reversi.model.ReversiModel;
@@ -22,32 +24,40 @@ public class TextReversiView implements ReversiView {
 
   @Override
   public String toString() {
+    int[] rowExtremes = this.model.getRowExtremes();
     String rendering = "";
-    for (int row = 0; row < this.model.getHeight(); row += 1) {
+    boolean oddRow = false;
+    for (int row = rowExtremes[0]; row < rowExtremes[1] + 1; row += 1) {
+      if (oddRow) {
+        rendering += " ";
+      }
       rendering += renderRow(row) + "\n";
+      oddRow = !oddRow;
     }
     return rendering;
   }
 
   private String renderRow(int row) {
-    int rows = this.model.getHeight();
-    int columns = this.model.getWidth();
-    int middleRow = rows / 2 + 1;
-    int distanceFromMiddle = Math.abs(middleRow - row);
-    int numInRow = columns - distanceFromMiddle;
+    int[] colExtremes = this.model.getColExtremes();
     String rowString = "";
-    for (int blanks = 0; blanks < distanceFromMiddle; blanks += 1) {
-      rowString += " ";
-    }
-    for (int col = 0; col < numInRow; col += 1) {
-      Player chipInPos = this.model.playerAt(row, col);
-      if (chipInPos == null) {
-        rowString += "  ";
+    for (int col = colExtremes[0]; col < colExtremes[1] + 1; col += 1) {
+      try {
+        Player chipInPos = this.model.playerAt(row, col);
+        if (chipInPos == null) {
+          rowString += "- ";
+        }
+        else {
+          rowString += chipInPos + " ";
+        }
       }
-      else {
-        rowString += chipInPos + " ";
+      catch (IllegalArgumentException e) {
+        rowString += "  ";
       }
     }
     return rowString;
   }
+//  private String renderRow(int row) {
+//    List<Player> allInRow = new ArrayList<>();
+//    for (Player player : this.model.)
+//  }
 }

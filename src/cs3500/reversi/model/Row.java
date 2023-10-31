@@ -40,8 +40,8 @@ class Row {
     return out;
   }
 
-  public CubeCoord last() {
-    return new CubeCoord();
-  }
+//  public CubeCoord last() {
+//    return new CubeCoord();
+//  }
 
 }
