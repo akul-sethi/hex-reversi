@@ -23,14 +23,15 @@ public interface ReversiModel {
   void placePiece(int row, int column);
 
   /**
-   * Passes the turn of the current player.
+   * Passes the turn of the current player. Players are allowed to pass even if they have other
+   * valid moves.
    * @throws IllegalStateException The game has not started.
    */
   void pass();
 
   /**
    * Returns a Player representing the player who won. <code>null</code> if it is a draw.
-   * @throws IllegalStateException If the game has not started or no one won
+   * @throws IllegalStateException If the game is not over yet.
    */
   Player getWinner();
 
