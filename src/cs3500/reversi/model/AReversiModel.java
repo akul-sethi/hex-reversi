@@ -83,7 +83,7 @@ abstract class AReversiModel implements ReversiModel {
     List<Row> rows = getRadiatingRows(row, column);
     for (Row r : rows) {
       if (r.length > 0 && validCoord(r.next()) &&
-              this.tiles.get(r.next()).equals(this.players.peek())) {
+              this.tiles.get(r.next()) == this.players.peek()) {
         for (CubeCoord c : r.getCoordsInRow()) {
           this.tiles.put(c, this.players.peek());
         }
