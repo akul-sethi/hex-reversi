@@ -1,14 +1,14 @@
 package cs3500.reversi.view;
 
-import cs3500.reversi.model.ReversiModel;
+import java.io.IOException;
 
 /**
  * Represents a view for a Reversi game. */
 public interface ReversiView {
 
   /**
-   * Renders the view given a model.
-   * @param model The model which is being rendered.
+   * Renders the view in some manner. (Text, graphic, etc.)
+   * @throws IOException of the rendering fails for some reason.
    */
-  void render(ReversiModel model);
+  void render() throws IOException;
 }

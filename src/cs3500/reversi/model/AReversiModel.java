@@ -56,6 +56,7 @@ abstract class AReversiModel implements ReversiModel {
      return playerAt(new CubeCoord(row, column));
   }
 
+
   private Player playerAt(CubeCoord coordinate) throws IllegalArgumentException {
     if(!this.tiles.containsKey(coordinate)) {
       throw new IllegalArgumentException("Coordinates do not exist");

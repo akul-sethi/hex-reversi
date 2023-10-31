@@ -41,7 +41,7 @@ class Row {
   }
 
   public CubeCoord last() {
-    return new CubeCoord()
+    return new CubeCoord();
   }
 
 }
