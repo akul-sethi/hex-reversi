@@ -49,38 +49,28 @@ public interface ReversiModel {
    * */
   Player playerAt(int row, int column);
 
-  /**
-   * Get width of board.
-   */
-  int getWidth();
-
-
-  /**
-   * Get height of board.
-   */
-  int getHeight();
 
   /**
    * Finds the rightmost column.
-   * @return the index of the rightmost column of this model. (0 index is the middle)
+   * @return the index of the rightmost column of this model
    */
   public int getRightCol();
 
   /**
    * Finds the leftmost column.
-   * @return the index of the leftmost column of this model. (0 index is the middle)
+   * @return the index of the leftmost column of this model
    */
   public int getLeftCol();
 
   /**
    * Finds the topmost row.
-   * @return the index of the topmost row of this model. (0 index is the middle)
+   * @return the index of the topmost row of this model
    */
   public int getTopRow();
 
   /**
    * Finds the bottom-most row.
-   * @return the index of the bottom-most row of this model. (0 index is the middle)
+   * @return the index of the bottom-most row of this model
    */
   public int getBottomRow();
 

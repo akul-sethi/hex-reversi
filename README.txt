@@ -76,6 +76,3 @@ test - Contains all tests which test public facing code. ReversiExamples gives a
     cs3500 - Just a container for organization:
         reversi - Just a container for organization:
             model - Contains all test which are private to the model implementation
-
-
-

@@ -116,27 +116,6 @@ abstract class AReversiModel implements ReversiModel {
     return this.tiles.containsKey(coordinate);
   }
 
-  @Override
-  public int getWidth() {
-    int max = 0;
-    for (CubeCoord c : this.tiles.keySet()) {
-      if (c.column() > max) {
-        max = c.column();
-      }
-    }
-    return max;
-  }
-
-  @Override
-  public int getHeight() {
-    int max = 0;
-    for (CubeCoord c : this.tiles.keySet()) {
-      if (c.row() > max) {
-        max = c.row();
-      }
-    }
-    return max;
-  }
 
   @Override
   public int getBottomRow() {
