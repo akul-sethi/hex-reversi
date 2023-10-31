@@ -1,7 +1,7 @@
 package cs3500.reversi;
 
 /**
- * To represent a Human player,
+ * To represent a Human player, has a string len 1 name.
  */
 public final class HumanPlayer implements Player {
   private final String name;

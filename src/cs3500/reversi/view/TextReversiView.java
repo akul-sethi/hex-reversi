@@ -1,8 +1,6 @@
 package cs3500.reversi.view;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import cs3500.reversi.Player;
 import cs3500.reversi.model.ReversiModel;
