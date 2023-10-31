@@ -15,7 +15,13 @@ class Row {
   protected CubeCoord start;
 
   /**
-   * Creates a new Direction given the following parameters:*/
+   * Creates a new Direction given the following parameters:
+   * @param length The length of the row. It is the number of coordinates not including the
+   *               endpoints.
+   * @param deltaQ The change in Q which describes this row.
+   * @param deltaR The change in R which describes this row.
+   * @param deltaS The change in S which describes this row.
+   * @param start The starting coordinate in the row. The first endpoint.*/
   protected Row(int length, int deltaQ, int deltaR, int deltaS, CubeCoord start) {
     this.length = length;
     this.deltaQ = deltaQ;
@@ -24,6 +30,8 @@ class Row {
     this.start = start;
   }
 
+  /**
+   * Returns the next Coordinate in the row.*/
   public CubeCoord next() {
     return new CubeCoord(start.q + (this.length + 1) * this.deltaQ,
             start.r + (this.length + 1) * this.deltaR,
@@ -39,7 +47,5 @@ class Row {
     }
     return out;
   }
-
-
 
 }

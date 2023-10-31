@@ -6,8 +6,17 @@ import java.util.HashMap;
 import cs3500.reversi.HumanPlayer;
 import cs3500.reversi.Player;
 
+/**
+ * A concrete implementation of a ReversiModel as described in the Overview section of the
+ * README.txt.*/
 final class BasicReversi extends AReversiModel{
-   BasicReversi(int sideLength, Player one, Player two) {
+
+  /**
+   * Creates a BasicReversi with the given arguments.
+   * @param sideLength The side length of the board.
+   * @param one The first player to move. Can be AI or Human.
+   * @param two The second player to move. Can be AI or Human.*/
+  BasicReversi(int sideLength, Player one, Player two) {
     super(makeBoard(sideLength),
             Arrays.asList(one, two));
   }
@@ -36,6 +45,9 @@ final class BasicReversi extends AReversiModel{
     return tiles;
   }
 
+  /**
+   * Places the starting tiles on a board.
+   * @param tiles The board on which to place the tiles.*/
   private static void placeStarting(HashMap<CubeCoord, Player> tiles) {
     tiles.put(new CubeCoord(0, 1, -1), new HumanPlayer("X"));
     tiles.put(new CubeCoord(1, -1, 0), new HumanPlayer("X"));
