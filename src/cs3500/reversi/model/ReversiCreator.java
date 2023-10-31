@@ -4,7 +4,7 @@ import cs3500.reversi.HumanPlayer;
 
 /**
  * A Factory class for creating Reversi models without exposing their constructors.*/
-public class ReversiCreator {
+public final class ReversiCreator {
 
   /**
    * Creates a model given a GameType and a variadic list of integer parameters.

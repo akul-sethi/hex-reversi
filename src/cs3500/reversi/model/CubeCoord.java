@@ -2,7 +2,7 @@ package cs3500.reversi.model;
 
 /**
  * Represents a Cube coordinate in hexagonal boards.*/
-class CubeCoord {
+final class CubeCoord {
   //Fields are public as they must exist by definition of the class.
   public final int q;
   public final int r;
@@ -59,7 +59,5 @@ class CubeCoord {
   public int column() {
     return this.q;
   }
-
-
 
 }
