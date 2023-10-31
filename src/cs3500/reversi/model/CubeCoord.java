@@ -2,7 +2,7 @@ package cs3500.reversi.model;
 
 /**
  * Represents a Cube coordinate in hexagonal boards.*/
-class CubeCoord {
+final class CubeCoord {
   //Fields are public as they must exist by definition of the class.
   public final int q;
   public final int r;
@@ -10,6 +10,9 @@ class CubeCoord {
 
   /**
    * Creates a Cube coordinate with the given values.
+   * @param q The q value of this coordinate
+   * @param r The r value of this coordinate
+   * @param s The s value of this coordinate
    */
   CubeCoord(int q, int r, int s) throws IllegalArgumentException {
     if(q + r + s != 0) {
@@ -20,6 +23,12 @@ class CubeCoord {
     this.s = s;
   }
 
+  /**
+   * Creates a Cube coordinate from odd-r coordinates as described in the Overview section of the
+   * README.txt.
+   * @param row The row of this coordinate.
+   * @param column The column of this coordinate.
+   */
   CubeCoord(int row, int column) {
     this.q = column - (row  - (row&1)) / 2;
     this.r = row;
@@ -39,14 +48,16 @@ class CubeCoord {
     return this.q * 7 + this.s * 11 + this.r * 13;
   }
 
+  /**
+   * Returns the odd-r row value of this coordinate.*/
   public int row() {
     return this.r + (this.q - (this.q&1));
   }
 
+  /**
+   * Returns the odd-r column value of this coordinate.*/
   public int column() {
     return this.q;
   }
-
-
 
 }

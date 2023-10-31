@@ -12,12 +12,6 @@ import cs3500.reversi.Player;
  */
 public interface ReversiModel {
 
-  /**
-   * Starts the game. Game can only be started once.
-   * @throws IllegalStateException The game has already started.
-   * @throws IllegalArgumentException The number of players is invalid.
-   */
-  void startGame();
 
   /**
    * Places a piece at the given coordinate.
@@ -29,14 +23,15 @@ public interface ReversiModel {
   void placePiece(int row, int column);
 
   /**
-   * Passes the turn of the current player.
+   * Passes the turn of the current player. Players are allowed to pass even if they have other
+   * valid moves.
    * @throws IllegalStateException The game has not started.
    */
   void pass();
 
   /**
    * Returns a Player representing the player who won. <code>null</code> if it is a draw.
-   * @throws IllegalStateException If the game has not started or no one won
+   * @throws IllegalStateException If the game is not over yet.
    */
   Player getWinner();
 
@@ -49,38 +44,28 @@ public interface ReversiModel {
    * */
   Player playerAt(int row, int column);
 
-  /**
-   * Get width of board.
-   */
-  int getWidth();
-
-
-  /**
-   * Get height of board.
-   */
-  int getHeight();
 
   /**
    * Finds the rightmost column.
-   * @return the index of the rightmost column of this model. (0 index is the middle)
+   * @return the index of the rightmost column of this model
    */
   public int getRightCol();
 
   /**
    * Finds the leftmost column.
-   * @return the index of the leftmost column of this model. (0 index is the middle)
+   * @return the index of the leftmost column of this model
    */
   public int getLeftCol();
 
   /**
    * Finds the topmost row.
-   * @return the index of the topmost row of this model. (0 index is the middle)
+   * @return the index of the topmost row of this model
    */
   public int getTopRow();
 
   /**
    * Finds the bottom-most row.
-   * @return the index of the bottom-most row of this model. (0 index is the middle)
+   * @return the index of the bottom-most row of this model
    */
   public int getBottomRow();
 

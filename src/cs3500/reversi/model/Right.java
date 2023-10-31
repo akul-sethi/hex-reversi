@@ -1,12 +1,14 @@
 package cs3500.reversi.model;
 
-class Right extends Row {
+/**
+ * Represents a Row in a hex grid which goes to the right. */
+final class Right extends Row {
   /**
-   * Creates a new Direction given the following parameters:
-   *
-   * @param length
+   * Creates a new Row given the following parameters:
+   * @param length The length of the row.
+   * @param start The start of the row.
    */
-  protected Right(int length, CubeCoord start) {
+   Right(int length, CubeCoord start) {
     super(length, 1, 0, -1, start);
   }
 

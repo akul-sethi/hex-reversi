@@ -22,3 +22,4 @@ Thoughts:
     Maybe make rows fields private
     Put rows in private package
     Abstract starting
+    force passing
