@@ -5,10 +5,10 @@ import java.awt.geom.Rectangle2D;
 import cs3500.reversi.Player;
 
 /**
- * Represents a interface which describes the functionality of Reversi Models. (0, 0) is in the top
- * left.
+ * Represents an interface which describes the functionality of Reversi Models.
+ * (0, 0) is in the top left.
  * Maintains the invariant where row and column of every piece are non-negative and contains one
- * piece where row = 0 and one were column = 0
+ * piece where row = 0 and one where column = 0
  */
 public interface ReversiModel {
 
@@ -56,15 +56,32 @@ public interface ReversiModel {
 
 
   /**
-   * Get height of board.*/
+   * Get height of board.
+   */
   int getHeight();
 
   /**
-   * Returns true if the coordinate is valid.*/
-  //boolean validCoord(int row, int column);
+   * Finds the rightmost column.
+   * @return the index of the rightmost column of this model. (0 index is the middle)
+   */
+  public int getRightCol();
 
-  public int[] getColExtremes();
+  /**
+   * Finds the leftmost column.
+   * @return the index of the leftmost column of this model. (0 index is the middle)
+   */
+  public int getLeftCol();
 
-  public int[] getRowExtremes();
+  /**
+   * Finds the topmost row.
+   * @return the index of the topmost row of this model. (0 index is the middle)
+   */
+  public int getTopRow();
+
+  /**
+   * Finds the bottom-most row.
+   * @return the index of the bottom-most row of this model. (0 index is the middle)
+   */
+  public int getBottomRow();
 
 }

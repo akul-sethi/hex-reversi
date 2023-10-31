@@ -10,41 +10,45 @@ import java.util.Queue;
 import cs3500.reversi.Player;
 
 abstract class AReversiModel implements ReversiModel {
-   protected final HashMap<CubeCoord, Player> tiles;
-   protected boolean gameStarted;
+  protected final HashMap<CubeCoord, Player> tiles;
+  protected boolean gameStarted;
 
-   /**
-    * Length of players > 1 is invariant.*/
-   protected final Queue<Player> players;
-   private int passCount = 0;
+  /**
+   * Length of players > 1 is invariant.
+   */
+  protected final Queue<Player> players;
+  private int passCount = 0;
 
-   protected AReversiModel(HashMap<CubeCoord, Player> hexs, List<Player> players) {
-     this.tiles = new HashMap<>();
-     this.tiles.putAll(hexs);
-     this.gameStarted = false;
-     this.players = new LinkedList<>();
-     this.players.addAll(players);
-   }
-   @Override
-   public void startGame() {
-     if(this.gameStarted) { throw new IllegalStateException("Game already started"); }
-     this.gameStarted = true;
-   }
+  protected AReversiModel(HashMap<CubeCoord, Player> hexs, List<Player> players) {
+    this.tiles = new HashMap<>();
+    this.tiles.putAll(hexs);
+    this.gameStarted = false;
+    this.players = new LinkedList<>();
+    this.players.addAll(players);
+  }
 
-   @Override
-   public void pass() {
-     this.passCount += 1;
-     this.players.add(this.players.remove());
-   }
+  @Override
+  public void startGame() {
+    if (this.gameStarted) {
+      throw new IllegalStateException("Game already started");
+    }
+    this.gameStarted = true;
+  }
+
+  @Override
+  public void pass() {
+    this.passCount += 1;
+    this.players.add(this.players.remove());
+  }
 
   @Override
   public void placePiece(int row, int column) {
-     this.passCount = 0;
-     List<Row> rows = getRows(row, column);
-    for(Row r : rows) {
-      if(r.next() != null && this.tiles.containsKey(r.next()) &&
+    this.passCount = 0;
+    List<Row> rows = getRows(row, column);
+    for (Row r : rows) {
+      if (r.next() != null && this.tiles.containsKey(r.next()) &&
               this.tiles.get(r.next()).equals(this.players.peek())) {
-        for(CubeCoord c : r.getCoordsInRow()) {
+        for (CubeCoord c : r.getCoordsInRow()) {
           this.tiles.put(c, this.players.peek());
         }
       }
@@ -54,12 +58,12 @@ abstract class AReversiModel implements ReversiModel {
 
   @Override
   public Player playerAt(int row, int column) throws IllegalArgumentException {
-     return playerAt(new CubeCoord(row, column));
+    return playerAt(new CubeCoord(row, column));
   }
 
 
   private Player playerAt(CubeCoord coordinate) throws IllegalArgumentException {
-    if(!this.tiles.containsKey(coordinate)) {
+    if (!this.tiles.containsKey(coordinate)) {
       throw new IllegalArgumentException("Coordinates do not exist");
     }
     return this.tiles.get(coordinate);
@@ -69,19 +73,23 @@ abstract class AReversiModel implements ReversiModel {
           IllegalArgumentException {
     CubeCoord move = new CubeCoord(row, column);
 
-    if(!this.tiles.containsKey(move)) { throw new IllegalArgumentException("Invalid coordinate");}
-    if(this.tiles.get(move) != null) { throw new IllegalStateException("Someone is already here");}
+    if (!this.tiles.containsKey(move)) {
+      throw new IllegalArgumentException("Invalid coordinate");
+    }
+    if (this.tiles.get(move) != null) {
+      throw new IllegalStateException("Someone is already here");
+    }
 
     List<Row> directions = Arrays.asList(new UpRight(0, move),
             new Right(0, move), new DownRight(0, move), new DownLeft(0, move),
             new Left(0, move),
             new UpLeft(0, move));
-    for(Row r : directions) {
-        while (validCoord(r.next()) &&
-                playerAt(r.next()) != this.players.peek() &&
-                playerAt(r.next()) != null) {
-          r.length += 1;
-        }
+    for (Row r : directions) {
+      while (validCoord(r.next()) &&
+              playerAt(r.next()) != this.players.peek() &&
+              playerAt(r.next()) != null) {
+        r.length += 1;
+      }
     }
 
     return directions;
@@ -89,11 +97,13 @@ abstract class AReversiModel implements ReversiModel {
 
   @Override
   public Player getWinner() {
-    if(passCount != this.players.size()) {return null;}
+    if (passCount != this.players.size()) {
+      return null;
+    }
     int max = 0;
     Player best = this.players.peek();
-    for(Player p : this.players) {
-      int numTilesForPlayer = (int)this.tiles.values().stream().filter(x -> x.equals(p)).count();
+    for (Player p : this.players) {
+      int numTilesForPlayer = (int) this.tiles.values().stream().filter(x -> x.equals(p)).count();
       if (numTilesForPlayer > max) {
         max = numTilesForPlayer;
         best = p;
@@ -103,13 +113,13 @@ abstract class AReversiModel implements ReversiModel {
   }
 
   private boolean validCoord(CubeCoord coordinate) {
-     return this.tiles.containsKey(coordinate);
+    return this.tiles.containsKey(coordinate);
   }
 
   @Override
   public int getWidth() {
     int max = 0;
-    for(CubeCoord c : this.tiles.keySet()) {
+    for (CubeCoord c : this.tiles.keySet()) {
       if (c.column() > max) {
         max = c.column();
       }
@@ -119,44 +129,56 @@ abstract class AReversiModel implements ReversiModel {
 
   @Override
   public int getHeight() {
-     int max = 0;
-     for(CubeCoord c : this.tiles.keySet()) {
-       if (c.row() > max) {
-         max = c.row();
-       }
-     }
-    return max;
-  }
-
-  public int[] getColExtremes() {
     int max = 0;
-    for(CubeCoord c : this.tiles.keySet()) {
-      if (c.column() > max) {
-        max = c.column();
-      }
-    }
-    int min = 999;
-    for(CubeCoord c : this.tiles.keySet()) {
-      if (c.column() < min) {
-        min = c.column();
-      }
-    }
-    return new int[]{min, max};
-  }
-
-  public int[] getRowExtremes() {
-    int max = 0;
-    for(CubeCoord c : this.tiles.keySet()) {
+    for (CubeCoord c : this.tiles.keySet()) {
       if (c.row() > max) {
         max = c.row();
       }
     }
+    return max;
+  }
+
+  @Override
+  public int getBottomRow() {
     int min = 999;
-    for(CubeCoord c : this.tiles.keySet()) {
+    for (CubeCoord c : this.tiles.keySet()) {
       if (c.row() < min) {
         min = c.row();
       }
     }
-    return new int[]{min, max};
+    return min;
+  }
+
+  @Override
+  public int getTopRow() {
+    int max = 0;
+    for (CubeCoord c : this.tiles.keySet()) {
+      if (c.row() > max) {
+        max = c.row();
+      }
+    }
+    return max;
+  }
+
+  @Override
+  public int getLeftCol() {
+    int min = 999;
+    for (CubeCoord c : this.tiles.keySet()) {
+      if (c.column() < min) {
+        min = c.column();
+      }
+    }
+    return min;
+  }
+
+  @Override
+  public int getRightCol() {
+    int max = 0;
+    for (CubeCoord c : this.tiles.keySet()) {
+      if (c.column() > max) {
+        max = c.column();
+      }
+    }
+    return max;
   }
 }
