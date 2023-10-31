@@ -65,5 +65,17 @@ Key subcomponents:
         TextReversiView - A concrete implementation of a view which is text based
     Player - Describes an interface for Players which can be Human, AI, or something else
     HumanPlayer - A concrete implementation of a human player
+Source organization:
+src - All the source code for the game:
+    cs3500 - Just a container for organization:
+        reversi - Just a container for organization:
+            model - Package containing all model components
+            view - Package containing all view components
+test - Contains all tests which test public facing code. ReversiExamples gives a small overview and
+       ModelInterfaceTests do more in depth testing.
+    cs3500 - Just a container for organization:
+        reversi - Just a container for organization:
+            model - Contains all test which are private to the model implementation
+
 
 
