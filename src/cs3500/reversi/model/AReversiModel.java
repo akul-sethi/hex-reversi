@@ -81,15 +81,19 @@ abstract class AReversiModel implements ReversiModel {
     this.passCount = 0;
     requireGameNotOver();
     List<Row> rows = getRadiatingRows(row, column);
+    boolean noGoodRows = true;
     for (Row r : rows) {
-      if (r.length > 0 && validCoord(r.next()) &&
-              this.tiles.get(r.next()) == this.players.peek()) {
+      System.out.println(r.getCoordsInRow());
+      if (r.length > 0 && validCoord(r.next()) && this.tiles.get(r.next()) != null &&
+              this.tiles.get(r.next()).equals(this.players.peek())) {
         for (CubeCoord c : r.getCoordsInRow()) {
           this.tiles.put(c, this.players.peek());
         }
         this.tiles.put(new CubeCoord(row, column), this.players.peek());
+        noGoodRows = false;
       }
     }
+    if(noGoodRows) {throw new IllegalStateException("Move is not valid");}
     changeTurn();
   }
 
@@ -137,14 +141,17 @@ abstract class AReversiModel implements ReversiModel {
       throw new IllegalStateException("Someone is already here");
     }
 
-    List<Row> directions = Arrays.asList(new UpRight(0, move),
-            new Right(0, move), new DownRight(0, move), new DownLeft(0, move),
+    List<Row> directions = Arrays.asList(
+            new UpRight(0, move),
+            new Right(0, move),
+            new DownRight(0, move),
+            new DownLeft(0, move),
             new Left(0, move),
             new UpLeft(0, move));
     for (Row r : directions) {
       while (validCoord(r.next()) &&
-              playerAt(r.next()) != this.players.peek() &&
-              playerAt(r.next()) != null) {
+              playerAt(r.next()) != null &&
+              !playerAt(r.next()).equals(this.players.peek())) {
         r.length += 1;
       }
     }

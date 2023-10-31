@@ -59,5 +59,8 @@ final class CubeCoord {
   public int column() {
     return this.q;
   }
+  public String toString() {
+    return "(" + q + ", " + r + ", " + s + ")";
+  }
 
 }
