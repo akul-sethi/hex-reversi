@@ -25,8 +25,9 @@ public class TextReversiView implements ReversiView {
   @Override
   public String toString() {
     int[] rowExtremes = this.model.getRowExtremes();
+    int trueHeight = rowExtremes[1] - rowExtremes[0];
     String rendering = "";
-    boolean oddRow = false;
+    boolean oddRow = (trueHeight - 1) % 4 == 0;
     for (int row = rowExtremes[0]; row < rowExtremes[1] + 1; row += 1) {
       if (oddRow) {
         rendering += " ";
