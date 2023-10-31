@@ -162,4 +162,25 @@ abstract class AReversiModel implements ReversiModel {
     }
     return max;
   }
+
+  @Override
+  public boolean validMoveExists() {
+    boolean validMove = false;
+    try {
+      for(int row = getTopRow(); row < getBottomRow(); row++) {
+        for(int col = getLeftCol(); col < getRightCol(); col++) {
+          List<Row> rows = getRadiatingRows(row, col);
+          for(Row r : rows) {
+            if(r.length != 0 && validCoord(r.next()) &&
+                    this.tiles.get(r.next()).equals(this.players.peek())) {
+              return true;
+            }
+          }
+        }
+      }
+    } catch(IllegalArgumentException | IllegalStateException e) {
+      validMove = false;
+    }
+    return validMove;
+  }
 }

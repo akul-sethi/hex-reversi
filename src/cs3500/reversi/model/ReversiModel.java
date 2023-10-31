@@ -24,10 +24,16 @@ public interface ReversiModel {
 
   /**
    * Passes the turn of the current player. Players are allowed to pass even if they have other
-   * valid moves.
+   * valid moves. While players are required to pass if there are no valid moves, the model does
+   * force them to; pass must be called. This is similar to Klondike where players are not forced to
+   * draw even if that is there only move.
    * @throws IllegalStateException The game has not started.
    */
   void pass();
+  /**
+   * Returns true if a valid move for the current player exists.
+   */
+  boolean validMoveExists();
 
   /**
    * Returns a Player representing the player who won. <code>null</code> if it is a draw.

@@ -2,6 +2,7 @@ package cs3500.reversi.model;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import cs3500.reversi.HumanPlayer;
 import cs3500.reversi.Player;
@@ -56,4 +57,5 @@ final class BasicReversi extends AReversiModel{
     tiles.put(new CubeCoord(-1, 1, 0), new HumanPlayer("O"));
     tiles.put(new CubeCoord(-1, 0, 1), new HumanPlayer("X"));
   }
+
 }
