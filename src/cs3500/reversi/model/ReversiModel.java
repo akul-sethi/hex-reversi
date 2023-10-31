@@ -12,12 +12,6 @@ import cs3500.reversi.Player;
  */
 public interface ReversiModel {
 
-  /**
-   * Starts the game. Game can only be started once.
-   * @throws IllegalStateException The game has already started.
-   * @throws IllegalArgumentException The number of players is invalid.
-   */
-  void startGame();
 
   /**
    * Places a piece at the given coordinate.

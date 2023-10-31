@@ -14,7 +14,6 @@ abstract class AReversiModel implements ReversiModel {
    * this.tiles.size() >= 1 is a class invariant.
    */
   protected final HashMap<CubeCoord, Player> tiles;
-  protected boolean gameStarted;
 
   /**
    * Length of players > 1 is a class invariant.
@@ -31,18 +30,10 @@ abstract class AReversiModel implements ReversiModel {
     }
     this.tiles = new HashMap<>();
     this.tiles.putAll(hexs);
-    this.gameStarted = false;
     this.players = new LinkedList<>();
     this.players.addAll(players);
   }
 
-  @Override
-  public void startGame() {
-    if (this.gameStarted) {
-      throw new IllegalStateException("Game already started");
-    }
-    this.gameStarted = true;
-  }
 
   @Override
   public void pass() {

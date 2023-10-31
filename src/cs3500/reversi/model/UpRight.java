@@ -9,7 +9,6 @@ final class UpRight extends Row {
    * @param start The start of the row.
    */
    UpRight(int length, CubeCoord start) {
-
     super(length, 1, -1, 0, start);
   }
 
