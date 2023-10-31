@@ -9,7 +9,14 @@ import java.util.Queue;
 
 import cs3500.reversi.Player;
 
+/**
+ * An abstract representation of a reversi board.
+ * The coordinate system is stored internally as cube coordinates, but input is taken in linear
+ * coordinates. The middle tile is indexed at (0, 0).
+ * To the left and down is negative. To the right and up is positive.
+ */
 abstract class AReversiModel implements ReversiModel {
+  //The map for tiles to players
   protected final HashMap<CubeCoord, Player> tiles;
   protected boolean gameStarted;
 
@@ -19,6 +26,11 @@ abstract class AReversiModel implements ReversiModel {
   protected final Queue<Player> players;
   private int passCount = 0;
 
+  /**
+   * Constructor abstract reversi model.
+   * @param hexs A map of hex tiles to put in the board.
+   * @param players The list of players that will be in the game.
+   */
   protected AReversiModel(HashMap<CubeCoord, Player> hexs, List<Player> players) {
     this.tiles = new HashMap<>();
     this.tiles.putAll(hexs);
@@ -26,6 +38,7 @@ abstract class AReversiModel implements ReversiModel {
     this.players = new LinkedList<>();
     this.players.addAll(players);
   }
+
 
   @Override
   public void startGame() {
@@ -35,12 +48,20 @@ abstract class AReversiModel implements ReversiModel {
     this.gameStarted = true;
   }
 
+  /**
+   * The option to pass your turn. Puts the next player up.
+   */
   @Override
   public void pass() {
     this.passCount += 1;
     this.players.add(this.players.remove());
   }
 
+  /**
+   * The option to place a piece on the board.
+   * @param row The row to place the piece.
+   * @param column The column to place the piece.
+   */
   @Override
   public void placePiece(int row, int column) {
     this.passCount = 0;
