@@ -6,9 +6,7 @@ import cs3500.reversi.Player;
 
 /**
  * Represents an interface which describes the functionality of Reversi Models.
- * (0, 0) is in the top left.
- * Maintains the invariant where row and column of every piece are non-negative and contains one
- * piece where row = 0 and one where column = 0
+ * Row and columns work "odd-r" style as described in the README.txt overview section.
  */
 public interface ReversiModel {
 
@@ -18,7 +16,8 @@ public interface ReversiModel {
    * @param row The row to place the piece.
    * @param column The column to place the piece.
    * @throws IllegalArgumentException The coordinate is not valid.
-   * @throws IllegalStateException The move is invalid or the game has not started.
+   * @throws IllegalStateException The move is invalid or the game is over (all players passed in
+   * a row).
    */
   void placePiece(int row, int column);
 
@@ -27,7 +26,8 @@ public interface ReversiModel {
    * valid moves. While players are required to pass if there are no valid moves, the model does
    * force them to; pass must be called. This is similar to Klondike where players are not forced to
    * draw even if that is there only move.
-   * @throws IllegalStateException The game has not started.
+   * @throws IllegalStateException If the game is over (all players passed in
+   *  a row).
    */
   void pass();
   /**
@@ -45,7 +45,6 @@ public interface ReversiModel {
    * Returns the player at the given CubeCord. <code>null</code> if there is no player.
    * @param row The row which is being queried.
    * @param column The column which is being queried.
-   * @throws IllegalStateException The game has not started.
    * @throws IllegalArgumentException The coordinates are invalid.
    * */
   Player playerAt(int row, int column);

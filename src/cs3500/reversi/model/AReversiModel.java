@@ -20,6 +20,7 @@ abstract class AReversiModel implements ReversiModel {
    */
   protected final Queue<Player> players;
   private int passCount = 0;
+  private boolean gameOver;
 
   protected AReversiModel(HashMap<CubeCoord, Player> hexs, List<Player> players) {
     if(players.size() <= 1) {
@@ -37,14 +38,29 @@ abstract class AReversiModel implements ReversiModel {
 
   @Override
   public void pass() {
+    requireGameNotOver();
     this.passCount += 1;
+    changeTurn();
+  }
+
+  private void requireGameNotOver() {
+    if(gameOver) {
+      throw new IllegalStateException("Game over");
+    }
+  }
+
+  private void changeTurn() {
     this.players.add(this.players.remove());
+    if(passCount == this.players.size()) {
+      this.gameOver = true;
+    }
   }
 
   @Override
   public void placePiece(int row, int column) throws IllegalArgumentException,
           IllegalStateException {
     this.passCount = 0;
+    requireGameNotOver();
     List<Row> rows = getRadiatingRows(row, column);
     for (Row r : rows) {
       if (r.length > 0 && validCoord(r.next()) &&
@@ -55,7 +71,7 @@ abstract class AReversiModel implements ReversiModel {
         this.tiles.put(new CubeCoord(row, column), this.players.peek());
       }
     }
-    this.pass();
+    changeTurn();
   }
 
   @Override
@@ -99,7 +115,7 @@ abstract class AReversiModel implements ReversiModel {
 
   @Override
   public Player getWinner() throws IllegalStateException {
-    if (passCount != this.players.size()) {
+    if (!gameOver) {
       throw new IllegalStateException("There is no winner");
     }
     int max = 0;
