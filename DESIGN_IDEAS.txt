@@ -1,0 +1,24 @@
+Design Notes
+Hex orientation:
+    pointy top
+    flat top
+Coordinate system:
+    cube
+    axial
+    offset (odd-r, even-r, odd-q, even-q)
+
+Possible additional functionality:
+    multiple players
+    different board shapes
+    multiple pieces in a row
+
+Thoughts:
+    Player class instead of using ints
+    Score?
+    Rendering move preview
+    Maybe no CubeCord
+    Maybe too much flexibility with the board
+    Create concrete direction types
+    Maybe make rows fields private
+    Put rows in private package
+    Abstract starting

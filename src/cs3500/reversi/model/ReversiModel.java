@@ -35,8 +35,8 @@ public interface ReversiModel {
   void pass();
 
   /**
-   * Returns a Player representing the player who won. <code>null</code> if no one won.
-   * @throws IllegalStateException If the has not started.
+   * Returns a Player representing the player who won. <code>null</code> if it is a draw.
+   * @throws IllegalStateException If the game has not started or no one won
    */
   Player getWinner();
 
@@ -61,7 +61,10 @@ public interface ReversiModel {
 
   /**
    * Returns true if the coordinate is valid.*/
-//  boolean validCoord(int row, int column);
+  //boolean validCoord(int row, int column);
 
+  public int[] getColExtremes();
+
+  public int[] getRowExtremes();
 
 }

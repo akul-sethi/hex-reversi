@@ -1,7 +1,8 @@
 package cs3500.reversi;
 
-public class HumanPlayer implements Player {
+public final class HumanPlayer implements Player {
   private String name;
+
   public HumanPlayer(String name) {
     this.name = name;
   }
