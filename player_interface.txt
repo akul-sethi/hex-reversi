@@ -1,0 +1,17 @@
+A player Interface is necessary to interact with the model and create an abstraction layer to allow
+for different types of players.
+
+It is necessary for it to have a play move method which for human players can just mean playing the
+move indicated by a human, but for an AI, could mean making queries to the model to determine its
+state, and then sending the correct command to the model.
+
+It necessary for it to have access to the model, so that it can first determine the range of
+coordinate to query, then to actually query the coordinates to determine the state of the game,
+and then finally send a command to the model based on this information.
+
+The controller can then create a game by creating different types of players based on the game type,
+passing them a model and an Interface to user input if the player type requires that (is human) and
+then repeatedly calling play move between the players while viewing the game.
+
+Currently, the Player interface and HumanPlayer classes are just placeholders to indicate who is in
+every cell.

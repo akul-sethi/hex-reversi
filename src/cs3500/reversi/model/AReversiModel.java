@@ -32,7 +32,7 @@ abstract class AReversiModel implements ReversiModel {
 
   /**
    * Length of players > 1 is a class invariant.
-   * Stores the players who are playing as long as their
+   * Stores the players who are playing as well as their
    * order. The first person in the queue is the person whose turn it is. This allows for any number
    * of players to play the game but creates the above invariant.
    */
