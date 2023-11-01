@@ -23,6 +23,8 @@ public final class TextReversiView implements ReversiView {
    * @param appendable an appendable to render output to.
    */
   public TextReversiView(ReversiModel model, Appendable appendable) {
+    assert model != null;
+    assert appendable != null;
     this.model = model;
     this.appendable = appendable;
   }
@@ -34,7 +36,6 @@ public final class TextReversiView implements ReversiView {
    */
   @Override
   public void render() throws IOException {
-    assert this.appendable != null;
     this.appendable.append(this.toString());
   }
 

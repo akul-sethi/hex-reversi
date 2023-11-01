@@ -26,7 +26,7 @@ public class MockTests {
     players.clear();
     mock.pass();
     mock.pass();
-    Assert.assertEquals(1, 2-1);
+    Assert.assertEquals(1, 2 - 1);
   }
 
   @Test
