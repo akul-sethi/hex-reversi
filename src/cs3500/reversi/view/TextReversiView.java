@@ -48,13 +48,14 @@ public final class TextReversiView implements ReversiView {
     int bottom = this.model.getBottomRow();
     int trueHeight = top - bottom;
     String rendering = "";
-    boolean oddRow = (trueHeight - 1) % 4 == 0;
+
     for (int row = bottom; row < top + 1; row += 1) {
+      boolean oddRow = (bottom - row) % 2 == 0;
       if (oddRow) {
         rendering += " ";
       }
       rendering += renderRow(row) + "\n";
-      oddRow = !oddRow;
+//      oddRow = !oddRow;
     }
     return rendering;
   }

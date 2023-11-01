@@ -58,13 +58,15 @@ final class CubeCoord {
    * Returns the odd-r row value of this coordinate.
    */
   public int row() {
-    return this.r + (this.q - (this.q & 1));
+//    return this.r + (this.q - (this.q & 1));
+    return this.r;
   }
 
   /**
    * Returns the odd-r column value of this coordinate.
    */
   public int column() {
-    return this.q;
+//    return this.q;
+    return this.q + (this.r - (this.r&1)) / 2;
   }
 }

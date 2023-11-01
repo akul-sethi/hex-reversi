@@ -267,7 +267,7 @@ public class ReversiExamples {
     basicModel.pass();
     basicModel.placePiece(1, 1);
     textRV.render();
-    Assert.assertEquals("                      \n" +
+    Assert.assertEquals(
             "     - - - - - -       \n" +
             "    - - - - - - -     \n" +
             "   - - - - - - - -     \n" +
