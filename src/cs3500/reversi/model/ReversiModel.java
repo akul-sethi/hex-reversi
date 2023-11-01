@@ -67,33 +67,33 @@ public interface ReversiModel {
    *
    * @return the index of the rightmost column of this model
    */
-  public int getRightCol();
+  int getRightCol();
 
   /**
    * Finds the leftmost column. Necessary for drawing the model regardless of shape.
    *
    * @return the index of the leftmost column of this model
    */
-  public int getLeftCol();
+  int getLeftCol();
 
   /**
    * Finds the topmost row. Necessary for drawing the model regardless of shape.
    *
    * @return the index of the topmost row of this model
    */
-  public int getTopRow();
+  int getTopRow();
 
   /**
    * Finds the bottom-most row. Necessary for drawing the model regardless of shape.
    *
    * @return the index of the bottom-most row of this model
    */
-  public int getBottomRow();
+  int getBottomRow();
 
   /**
    * Gets the current turn player.
    * @return The player that is the next to act.
    */
-  public Player getCurrentTurn();
+  Player getCurrentTurn();
 
 }
