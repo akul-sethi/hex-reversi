@@ -1,7 +1,8 @@
 package cs3500.reversi.model;
 
 /**
- * Represents a Row in a hex board which goes to the Left.
+ * Represents a Row in a hex board which goes to the Left. Necessary for checking if this
+ * type of row should be flipped.
  */
 final class Left extends Row {
   /**

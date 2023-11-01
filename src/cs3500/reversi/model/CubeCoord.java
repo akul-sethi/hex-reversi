@@ -1,7 +1,8 @@
 package cs3500.reversi.model;
 
 /**
- * Represents a Cube coordinate in hexagonal boards.
+ * Represents a Cube coordinate in hexagonal boards. This makes it easier to see which coordinates
+ * are in a row as compared to offset coordinates.
  */
 final class CubeCoord {
   //Fields are public as they must exist by definition of the class.
@@ -58,17 +59,17 @@ final class CubeCoord {
    */
   public int row() {
     return this.r + (this.q - (this.q & 1));
+//    return this.r;
+
   }
 
   /**
    * Returns the odd-r column value of this coordinate.
    */
   public int column() {
-    return this.q;
+     return this.q;
+//    return this.q + (this.r - (this.r&1)) / 2;
   }
 
-  public String toString() {
-    return "(" + q + ", " + r + ", " + s + ")";
-  }
 
 }
