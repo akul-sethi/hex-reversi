@@ -270,7 +270,7 @@ abstract class AReversiModel implements ReversiModel {
             }
           }
         } catch (Exception e) {
-          // do nothing
+          validMove = false;
         }
       }
     }
