@@ -272,25 +272,26 @@ abstract class AReversiModel implements ReversiModel {
   /**
    * Method to find if the next player has any valid moves.
    * Not currently used, so not tested for. Will probably be useful in the future though.
+   *
    * @return True if there is a valid for the next player to move.
    */
   @Override
   public boolean validMoveExists() {
     boolean validMove = false;
-    try {
-      for (int row = getTopRow(); row < getBottomRow(); row++) {
-        for (int col = getLeftCol(); col < getRightCol(); col++) {
-          List<Row> rows = getRadiatingRows(row, col);
-          for (Row r : rows) {
+    for (int row = getTopRow(); row < getBottomRow(); row++) {
+      for (int col = getLeftCol(); col < getRightCol(); col++) {
+        List<Row> rows = getRadiatingRows(row, col);
+        for (Row r : rows) {
+          try {
             if (r.length != 0 && validCoord(r.next()) &&
                     this.tiles.get(r.next()).equals(this.players.peek())) {
               return true;
             }
+          } catch (Exception e) {
+            // do nothing
           }
         }
       }
-    } catch (IllegalArgumentException | IllegalStateException e) {
-      validMove = false;
     }
     return validMove;
   }

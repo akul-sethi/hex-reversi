@@ -471,30 +471,60 @@ public class ReversiExamples {
 
   @Test
   public void doesntChangeWithWallOnOtherSide() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(1, -2);
-    basicModel.placePiece(-1, 1);
-    basicModel.pass();
-    basicModel.placePiece(2, 0);
-    basicModel.placePiece(1, 1);
-    basicModel.pass();
-    basicModel.placePiece(-2, 2);
-
     textRV.render();
-    Assert.assertEquals("                      \n" +
-            "     - - - - - -       \n" +
-            "    - - - - - - -     \n" +
-            "   - - - - - - - -     \n" +
-            "  - - - - - - X - -   \n" +
-            " - - - - O O X - - -   \n" +
-            "- - - - X - X - - - - \n" +
-            " - - - X X X X - - -   \n" +
-            "  - - - - O - - - -   \n" +
-            "   - - - - - - - -     \n" +
-            "    - - - - - - -     \n" +
-            "     - - - - - -       \n", textRV.toString());
+    basicModel.pass();
+    basicModel.placePiece(-1, -2);
+    basicModel.pass();
+    basicModel.placePiece(-2, 0);
+    basicModel.placePiece(1, -2);
+    Assert.assertEquals("           \n" +
+            "  - O -   \n" +
+            " O O O -   \n" +
+            "- O - O - \n" +
+            " X X X -   \n" +
+            "  - - -   \n", textRV.toString());
+  }
+
+  @Test (expected = IllegalStateException.class)
+  public void invalidMoveWithGaps() throws IOException {
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 4);
+    ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
+    textRV.render();
+    basicModel.pass();
+    basicModel.placePiece(0, -2);
+    Assert.assertEquals("              \n" +
+            "   - - - -     \n" +
+            "  - - - - -   \n" +
+            " - - O X - -   \n" +
+            "- - X - O - - \n" +
+            " - - O X - -   \n" +
+            "  - - - - -   \n" +
+            "   - - - -     \n", textRV.toString());
+  }
+
+  @Test
+  public void validMovesNone() throws IOException {
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 2);
+    ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
+    textRV.render();
+    Assert.assertFalse(basicModel.validMoveExists());
+  }
+
+  @Test
+  public void validMovesSome() throws IOException {
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
+    textRV.render();
+    Assert.assertEquals("           \n" +
+            "  - - -   \n" +
+            " - O X -   \n" +
+            "- X - O - \n" +
+            " - O X -   \n" +
+            "  - - -   \n", textRV.toString());
+    Assert.assertTrue(basicModel.validMoveExists());
   }
 }
 
-//WALL ON OTHER SIDE
+//length board 2, valid moves
