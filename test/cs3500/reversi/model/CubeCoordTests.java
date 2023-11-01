@@ -3,6 +3,9 @@ package cs3500.reversi.model;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Represents tests for cubeCoord class.
+ */
 public class CubeCoordTests {
   @Test
   public void testRowColToCube() {

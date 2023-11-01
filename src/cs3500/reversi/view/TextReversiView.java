@@ -17,7 +17,8 @@ public final class TextReversiView implements ReversiView {
 
   /**
    * The constructor.
-   * @param model a Reversi Model passed in.
+   *
+   * @param model      a Reversi Model passed in.
    * @param appendable an appendable to render output to.
    */
   public TextReversiView(ReversiModel model, Appendable appendable) {
@@ -27,7 +28,8 @@ public final class TextReversiView implements ReversiView {
 
   /**
    * "Renders" the current game state of the model. Appends it to the appendable.
-   * @throws IOException
+   *
+   * @throws IOException if appendable is non-appendable.
    */
   @Override
   public void render() throws IOException {
@@ -37,6 +39,7 @@ public final class TextReversiView implements ReversiView {
 
   /**
    * Returns a string representation of the current game state.
+   *
    * @return A string view of the board.
    */
   @Override
@@ -66,12 +69,10 @@ public final class TextReversiView implements ReversiView {
         Player chipInPos = this.model.playerAt(row, col);
         if (chipInPos == null) {
           rowString += "- ";
-        }
-        else {
+        } else {
           rowString += chipInPos + " ";
         }
-      }
-      catch (IllegalArgumentException e) {
+      } catch (IllegalArgumentException e) {
         rowString += "  ";
       }
     }

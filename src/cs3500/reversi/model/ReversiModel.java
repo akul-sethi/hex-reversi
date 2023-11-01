@@ -1,7 +1,5 @@
 package cs3500.reversi.model;
 
-import java.awt.geom.Rectangle2D;
-
 import cs3500.reversi.Player;
 
 /**
@@ -17,7 +15,7 @@ public interface ReversiModel {
    * @param column The column to place the piece.
    * @throws IllegalArgumentException The coordinate is not valid.
    * @throws IllegalStateException The move is invalid or the game is over (all players passed in
-   * a row).
+   *     a row).
    */
   void placePiece(int row, int column);
 
@@ -27,9 +25,10 @@ public interface ReversiModel {
    * force them to; pass must be called. This is similar to Klondike where players are not forced to
    * draw even if that is there only move.
    * @throws IllegalStateException If the game is over (all players passed in
-   *  a row).
+   *     a row).
    */
   void pass();
+
   /**
    * Returns true if a valid move for the current player exists.
    */

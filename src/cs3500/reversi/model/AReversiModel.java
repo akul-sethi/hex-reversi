@@ -1,5 +1,6 @@
 package cs3500.reversi.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import java.util.HashMap;
@@ -31,14 +32,15 @@ abstract class AReversiModel implements ReversiModel {
 
   /**
    * Constructor abstract reversi model.
-   * @param hexs A map of hex tiles to put in the board.
+   *
+   * @param hexs    A map of hex tiles to put in the board.
    * @param players The list of players that will be in the game.
    */
   protected AReversiModel(HashMap<CubeCoord, Player> hexs, List<Player> players) {
-    if(players.size() <= 1) {
+    if (players.size() <= 1) {
       throw new IllegalArgumentException("Length of players must be greater than 1");
     }
-    if(hexs.isEmpty()) {
+    if (hexs.isEmpty()) {
       throw new IllegalArgumentException("Size of hexes must be greater than 0");
     }
     this.tiles = new HashMap<>();
@@ -58,21 +60,22 @@ abstract class AReversiModel implements ReversiModel {
   }
 
   private void requireGameNotOver() {
-    if(gameOver) {
+    if (gameOver) {
       throw new IllegalStateException("Game over");
     }
   }
 
   private void changeTurn() {
     this.players.add(this.players.remove());
-    if(passCount == this.players.size()) {
+    if (passCount == this.players.size()) {
       this.gameOver = true;
     }
   }
 
   /**
    * The option to place a piece on the board.
-   * @param row The row to place the piece.
+   *
+   * @param row    The row to place the piece.
    * @param column The column to place the piece.
    */
   @Override
@@ -83,7 +86,6 @@ abstract class AReversiModel implements ReversiModel {
     List<Row> rows = getRadiatingRows(row, column);
     boolean noGoodRows = true;
     for (Row r : rows) {
-      System.out.println(r.getCoordsInRow());
       if (r.length > 0 && validCoord(r.next()) && this.tiles.get(r.next()) != null &&
               this.tiles.get(r.next()).equals(this.players.peek())) {
         for (CubeCoord c : r.getCoordsInRow()) {
@@ -93,13 +95,16 @@ abstract class AReversiModel implements ReversiModel {
         noGoodRows = false;
       }
     }
-    if(noGoodRows) {throw new IllegalStateException("Move is not valid");}
+    if (noGoodRows) {
+      throw new IllegalStateException("Move is not valid");
+    }
     changeTurn();
   }
 
   /**
    * Returns the player at given coordinate, null if nobody there, error if it doesn't exist.
-   * @param row The row which is being queried.
+   *
+   * @param row    The row which is being queried.
    * @param column The column which is being queried.
    * @return The player at given coordinate, null if nobody is there.
    * @throws IllegalArgumentException if the coordinate doesn't exist.
@@ -111,6 +116,7 @@ abstract class AReversiModel implements ReversiModel {
 
   /**
    * Returns the player at the specified coordinate.
+   *
    * @param coordinate The cube coordinate to find the player at.
    * @return The player at the coordinate, null if nobody is there.
    * @throws IllegalArgumentException If coordinate doesn't exist.
@@ -124,10 +130,11 @@ abstract class AReversiModel implements ReversiModel {
 
   /**
    * Returns a list of rows in all six directions from given coordinate.
-   * @param row The row to look at lines from.
+   *
+   * @param row    The row to look at lines from.
    * @param column The column to look at lines from.
    * @return A list of rows in all six directions from given coordinate.
-   * @throws IllegalStateException If somebody already put a tile at given coordinate.
+   * @throws IllegalStateException    If somebody already put a tile at given coordinate.
    * @throws IllegalArgumentException If coordinate is invalid.
    */
   private List<Row> getRadiatingRows(int row, int column) throws IllegalStateException,
@@ -160,8 +167,9 @@ abstract class AReversiModel implements ReversiModel {
   }
 
   /**
-   * Gets the winner of the game, determined by tile count on the board.
-   * @return The player that has won the game.
+   * Gets the winners of the game, determined by tile count on the board.
+   *
+   * @return In a list, the player that won the game, or all players that tied if there is a tie.
    * @throws IllegalStateException If the game hasn't been won, each player hasn't skipped.
    */
   @Override
@@ -169,16 +177,27 @@ abstract class AReversiModel implements ReversiModel {
     if (!gameOver) {
       throw new IllegalStateException("There is no winner");
     }
+    ArrayList<Player> winners = new ArrayList<>();
     int max = 0;
-    Player best = this.players.peek();
     for (Player p : this.players) {
-      int numTilesForPlayer = (int) this.tiles.values().stream().filter(x -> x.equals(p)).count();
+      int numTilesForPlayer = 0;
+      for (Player val : this.tiles.values()) {
+        if (p == val) {
+          numTilesForPlayer += 1;
+        }
+      }
       if (numTilesForPlayer > max) {
+        winners.clear();
         max = numTilesForPlayer;
-        best = p;
+        winners.add(p);
+      } else if (numTilesForPlayer == max) {
+        winners.add(p);
       }
     }
-    return best;
+    if (winners.size() > 1) {
+      return null;
+    }
+    return winners.get(0);
   }
 
   //returns true if given coordinate exists in tiles.
@@ -188,6 +207,7 @@ abstract class AReversiModel implements ReversiModel {
 
   /**
    * Finds the bottom most row.
+   *
    * @return The index of the lowest row (middle row is indexed 0)
    */
   @Override
@@ -203,6 +223,7 @@ abstract class AReversiModel implements ReversiModel {
 
   /**
    * Finds the top most row.
+   *
    * @return The index of the highest row (middle row is indexed 0)
    */
   @Override
@@ -218,6 +239,7 @@ abstract class AReversiModel implements ReversiModel {
 
   /**
    * Finds the left most row.
+   *
    * @return The index of the leftest row (middle row is indexed 0)
    */
   @Override
@@ -233,6 +255,7 @@ abstract class AReversiModel implements ReversiModel {
 
   /**
    * Finds the right most row.
+   *
    * @return The index of the rightest row (middle row is indexed 0)
    */
   @Override
@@ -246,22 +269,27 @@ abstract class AReversiModel implements ReversiModel {
     return max;
   }
 
+  /**
+   * Method to find if the next player has any valid moves.
+   * Not currently used, so not tested for. Will probably be useful in the future though.
+   * @return True if there is a valid for the next player to move.
+   */
   @Override
   public boolean validMoveExists() {
     boolean validMove = false;
     try {
-      for(int row = getTopRow(); row < getBottomRow(); row++) {
-        for(int col = getLeftCol(); col < getRightCol(); col++) {
+      for (int row = getTopRow(); row < getBottomRow(); row++) {
+        for (int col = getLeftCol(); col < getRightCol(); col++) {
           List<Row> rows = getRadiatingRows(row, col);
-          for(Row r : rows) {
-            if(r.length != 0 && validCoord(r.next()) &&
+          for (Row r : rows) {
+            if (r.length != 0 && validCoord(r.next()) &&
                     this.tiles.get(r.next()).equals(this.players.peek())) {
               return true;
             }
           }
         }
       }
-    } catch(IllegalArgumentException | IllegalStateException e) {
+    } catch (IllegalArgumentException | IllegalStateException e) {
       validMove = false;
     }
     return validMove;

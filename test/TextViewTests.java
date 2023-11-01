@@ -9,11 +9,10 @@ import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.view.ReversiView;
 import cs3500.reversi.view.TextReversiView;
 
+/**
+ * Represent tests for the textual view of reversi boards.
+ */
 public class TextViewTests {
-
-  private void setEnvironment() {
-
-  }
 
   @Test
   public void gameJustStartedTextView() throws IOException {
@@ -69,7 +68,7 @@ public class TextViewTests {
             "      - - - - - - -       \n", emptyBuilder.toString());
   }
 
-  @Test (expected = Exception.class)
+  @Test(expected = Exception.class)
   public void gameJustStartedTooSmallTextView() throws IOException {
     Appendable emptyBuilder = new StringBuilder();
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 1);

@@ -35,7 +35,7 @@ public final class HumanPlayer implements Player {
    */
   @Override
   public boolean equals(Object o) {
-    if(!(o instanceof HumanPlayer)) {
+    if (!(o instanceof HumanPlayer)) {
       return false;
     }
     HumanPlayer h = (HumanPlayer) o;

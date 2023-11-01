@@ -12,6 +12,7 @@ public interface Player {
 
   /**
    * Compares two players for equality.
+   *
    * @param o Other object to compare.
    * @return True if both players are equal.
    */

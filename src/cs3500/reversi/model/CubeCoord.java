@@ -1,7 +1,8 @@
 package cs3500.reversi.model;
 
 /**
- * Represents a Cube coordinate in hexagonal boards.*/
+ * Represents a Cube coordinate in hexagonal boards.
+ */
 final class CubeCoord {
   //Fields are public as they must exist by definition of the class.
   public final int q;
@@ -10,12 +11,13 @@ final class CubeCoord {
 
   /**
    * Creates a Cube coordinate with the given values.
+   *
    * @param q The q value of this coordinate
    * @param r The r value of this coordinate
    * @param s The s value of this coordinate
    */
   CubeCoord(int q, int r, int s) throws IllegalArgumentException {
-    if(q + r + s != 0) {
+    if (q + r + s != 0) {
       throw new IllegalArgumentException("must sum to 0");
     }
     this.q = q;
@@ -26,18 +28,21 @@ final class CubeCoord {
   /**
    * Creates a Cube coordinate from odd-r coordinates as described in the Overview section of the
    * README.txt.
-   * @param row The row of this coordinate.
+   *
+   * @param row    The row of this coordinate.
    * @param column The column of this coordinate.
    */
   CubeCoord(int row, int column) {
-    this.q = column - (row  - (row&1)) / 2;
+    this.q = column - (row - (row & 1)) / 2;
     this.r = row;
     this.s = -this.q - this.r;
   }
 
   @Override
   public boolean equals(Object o) {
-    if(!(o instanceof CubeCoord)) return false;
+    if (!(o instanceof CubeCoord)) {
+      return false;
+    }
 
     CubeCoord c = (CubeCoord) o;
     return c.q == this.q && c.s == this.s && c.r == this.r;
@@ -49,16 +54,19 @@ final class CubeCoord {
   }
 
   /**
-   * Returns the odd-r row value of this coordinate.*/
+   * Returns the odd-r row value of this coordinate.
+   */
   public int row() {
-    return this.r + (this.q - (this.q&1));
+    return this.r + (this.q - (this.q & 1));
   }
 
   /**
-   * Returns the odd-r column value of this coordinate.*/
+   * Returns the odd-r column value of this coordinate.
+   */
   public int column() {
     return this.q;
   }
+
   public String toString() {
     return "(" + q + ", " + r + ", " + s + ")";
   }
