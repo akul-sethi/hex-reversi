@@ -11,9 +11,10 @@ import java.util.Queue;
 import cs3500.reversi.Player;
 
 /**
- * An abstract representation of a reversi board.
- * The coordinate system is stored internally as cube coordinates, but input is taken in linear
- * coordinates. The middle tile is indexed at (0, 0).
+ * An abstract representation of a reversi board allowing for games to be played with different
+ * board shapes, players, and starting pieces. Contains common functionality which would be in all
+ * reversi games. The coordinate system is stored internally as cube coordinates, but input is taken
+ * in offset coordinates. The middle tile is indexed at (0, 0).
  * To the left and down is negative. To the right and up is positive.
  */
 abstract class AReversiModel implements ReversiModel {
