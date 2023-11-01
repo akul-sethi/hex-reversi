@@ -60,12 +60,15 @@ abstract class AReversiModel implements ReversiModel {
     changeTurn();
   }
 
+  //Throws an error if the game is not over
   private void requireGameNotOver() {
     if (gameOver) {
       throw new IllegalStateException("Game over");
     }
   }
 
+
+  //Changes the turn to the next players turn
   private void changeTurn() {
     this.players.add(this.players.remove());
     if (passCount == this.players.size()) {
@@ -167,12 +170,7 @@ abstract class AReversiModel implements ReversiModel {
     return directions;
   }
 
-  /**
-   * Gets the winners of the game, determined by tile count on the board.
-   *
-   * @return In a list, the player that won the game, or all players that tied if there is a tie.
-   * @throws IllegalStateException If the game hasn't been won, each player hasn't skipped.
-   */
+
   @Override
   public Player getWinner() throws IllegalStateException {
     if (!gameOver) {
@@ -206,11 +204,6 @@ abstract class AReversiModel implements ReversiModel {
     return this.tiles.containsKey(coordinate);
   }
 
-  /**
-   * Finds the bottom most row.
-   *
-   * @return The index of the lowest row (middle row is indexed 0)
-   */
   @Override
   public int getBottomRow() {
     int min = this.tiles.keySet().stream().findAny().get().row();
@@ -222,11 +215,7 @@ abstract class AReversiModel implements ReversiModel {
     return min;
   }
 
-  /**
-   * Finds the top most row.
-   *
-   * @return The index of the highest row (middle row is indexed 0)
-   */
+
   @Override
   public int getTopRow() {
     int max = this.tiles.keySet().stream().findAny().get().row();
@@ -238,11 +227,7 @@ abstract class AReversiModel implements ReversiModel {
     return max;
   }
 
-  /**
-   * Finds the left most row.
-   *
-   * @return The index of the leftest row (middle row is indexed 0)
-   */
+
   @Override
   public int getLeftCol() {
     int min = this.tiles.keySet().stream().findAny().get().column();
@@ -254,11 +239,6 @@ abstract class AReversiModel implements ReversiModel {
     return min;
   }
 
-  /**
-   * Finds the right most row.
-   *
-   * @return The index of the rightest row (middle row is indexed 0)
-   */
   @Override
   public int getRightCol() {
     int max = this.tiles.keySet().stream().findAny().get().column();

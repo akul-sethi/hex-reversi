@@ -30,7 +30,8 @@ public interface ReversiModel {
   void pass();
 
   /**
-   * Returns true if a valid move for the current player exists.
+   * Returns true if a valid move for the current player exists. Necessary for displaying if the
+   * current player has not moves.
    */
   boolean validMoveExists();
 
@@ -50,25 +51,25 @@ public interface ReversiModel {
 
 
   /**
-   * Finds the rightmost column.
+   * Finds the rightmost column. Necessary for drawing the model regardless of shape.
    * @return the index of the rightmost column of this model
    */
   public int getRightCol();
 
   /**
-   * Finds the leftmost column.
+   * Finds the leftmost column. Necessary for drawing the model regardless of shape.
    * @return the index of the leftmost column of this model
    */
   public int getLeftCol();
 
   /**
-   * Finds the topmost row.
+   * Finds the topmost row. Necessary for drawing the model regardless of shape.
    * @return the index of the topmost row of this model
    */
   public int getTopRow();
 
   /**
-   * Finds the bottom-most row.
+   * Finds the bottom-most row. Necessary for drawing the model regardless of shape.
    * @return the index of the bottom-most row of this model
    */
   public int getBottomRow();
