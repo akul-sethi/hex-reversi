@@ -182,6 +182,10 @@ abstract class AReversiModel implements ReversiModel {
     return false;
   }
 
+  @Override
+  public Player getCurrentTurn() {
+    return this.players.peek();
+  }
 
   @Override
   public Player getWinner() throws IllegalStateException {

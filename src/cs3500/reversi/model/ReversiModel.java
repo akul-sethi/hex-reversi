@@ -90,4 +90,10 @@ public interface ReversiModel {
    */
   public int getBottomRow();
 
+  /**
+   * Gets the current turn player.
+   * @return The player that is the next to act.
+   */
+  public Player getCurrentTurn();
+
 }
