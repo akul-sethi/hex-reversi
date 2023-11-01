@@ -525,6 +525,26 @@ public class ReversiExamples {
             "  - - -   \n", textRV.toString());
     Assert.assertTrue(basicModel.validMoveExists());
   }
+
+  @Test
+  public void validMovesNoneButEmptySpaces() throws IOException {
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
+    basicModel.pass();
+    basicModel.placePiece(-2, 0);
+    basicModel.pass();
+    basicModel.placePiece(1, -2);
+    basicModel.pass();
+    basicModel.placePiece(1, 1);
+    textRV.render();
+    Assert.assertEquals("           \n" +
+            "  - O -   \n" +
+            " - O O -   \n" +
+            "- O - O - \n" +
+            " O O O O   \n" +
+            "  - - -   \n", textRV.toString());
+    Assert.assertFalse(basicModel.validMoveExists());
+  }
 }
 
 //length board 2, valid moves

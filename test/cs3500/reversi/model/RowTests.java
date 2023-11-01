@@ -44,12 +44,12 @@ public class RowTests {
     Row right = new Right(0, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(-1, 0, 1));
   }
+
   @Test
   public void testUpLeftNext() {
     Row right = new Right(0, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(0, -1, 1));
   }
-
 
 
 }

@@ -279,18 +279,18 @@ abstract class AReversiModel implements ReversiModel {
   @Override
   public boolean validMoveExists() {
     boolean validMove = false;
-    for (int row = getTopRow(); row < getBottomRow(); row++) {
+    for (int row = getBottomRow(); row < getTopRow(); row++) {
       for (int col = getLeftCol(); col < getRightCol(); col++) {
-        List<Row> rows = getRadiatingRows(row, col);
-        for (Row r : rows) {
-          try {
-            if (r.length != 0 && validCoord(r.next()) &&
+        try {
+          List<Row> rows = getRadiatingRows(row, col);
+          for (Row r : rows) {
+            if (r.length > 0 && validCoord(r.next()) && this.tiles.get(r.next()) != null &&
                     this.tiles.get(r.next()).equals(this.players.peek())) {
               return true;
             }
-          } catch (Exception e) {
-            // do nothing
           }
+        } catch (Exception e) {
+          // do nothing
         }
       }
     }
