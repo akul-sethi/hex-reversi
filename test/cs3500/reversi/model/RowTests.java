@@ -23,31 +23,31 @@ public class RowTests {
 
   @Test
   public void testUpRightNext() {
-    Row right = new Right(0, this.center);
+    Row right = new UpRight(0, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(1, -1, 0));
   }
 
   @Test
   public void testDownRightNext() {
-    Row right = new Right(0, this.center);
+    Row right = new DownRight(0, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(0, 1, -1));
   }
 
   @Test
   public void testDownLeftNext() {
-    Row right = new Right(0, this.center);
-    Assert.assertEquals(right.next(), new CubeCoord(-1, 0, 1));
+    Row right = new DownLeft(0, this.center);
+    Assert.assertEquals(right.next(), new CubeCoord(-1, 1, 0));
   }
 
   @Test
   public void testLeftNext() {
-    Row right = new Right(0, this.center);
+    Row right = new Left(0, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(-1, 0, 1));
   }
 
   @Test
   public void testUpLeftNext() {
-    Row right = new Right(0, this.center);
+    Row right = new UpLeft(0, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(0, -1, 1));
   }
 
