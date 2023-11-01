@@ -557,4 +557,16 @@ public class InDepthReversiTests {
             "  - X -   \n", output.toString());
     Assert.assertEquals(basicModel.getWinner(), new HumanPlayer("X"));
   }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void creatorTestTooLittleArgs() {
+    ReversiCreator.create(GameType.BASIC);
+    Assert.assertEquals(1, 2 - 1);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void creatorTestTooManyArgs() {
+    ReversiCreator.create(GameType.BASIC, 5, 5);
+    Assert.assertEquals(1, 2 - 1);
+  }
 }

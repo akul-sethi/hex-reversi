@@ -89,5 +89,3 @@ public class ReversiExamples {
             "     - - - - - -       \n", textRV.toString());
   }
 }
-
-//length board 2, valid moves

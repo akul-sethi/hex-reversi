@@ -17,7 +17,7 @@ public class TextViewTests {
   @Test(expected = AssertionError.class)
   public void nullAppendableTextView() {
     Appendable nullApp = null;
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
     ReversiView textView = new TextReversiView(basicModel, nullApp);
     Assert.assertEquals(1, 2 - 1);
   }
