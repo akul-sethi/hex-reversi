@@ -17,7 +17,6 @@ import cs3500.reversi.Player;
  * The coordinate system is stored internally as cube coordinates, but input is taken in offset
  * coordinates. "odd-r" and coordinate systems are explained in the README.txt. Moving right
  * increases columns count and moving down increases rows.
- *
  * This is done as Cube Coordinates make it easy to check which cubes are in a row, but for making
  * queries to the model when viewing, it is simpler to traverse the board as a grid.
  */
@@ -43,6 +42,7 @@ abstract class AReversiModel implements ReversiModel {
   /**
    * Constructs abstract reversi model. In concrete implementations new board shapes with starting
    * locations and lists of players can easily be passed in to create new game modes.
+   *
    * @param hexs    A map of hex tiles to put in the board with <code>null</code> or a Player as
    *                the values corresponding to if the tile is empty or if there is a player in the
    *                starting position.
@@ -130,6 +130,7 @@ abstract class AReversiModel implements ReversiModel {
   /**
    * Returns a list of rows in all six directions from given coordinate which extends until
    * a "wall" is met, an empty cell is met, or a cell containing the current player is met.
+   *
    * @param row    The row to look at lines from.
    * @param column The column to look at lines from.
    * @return A list of rows in all six directions from given coordinate.

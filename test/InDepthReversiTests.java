@@ -184,16 +184,16 @@ public class InDepthReversiTests {
     basicModel.placePiece(1, 1);
     textRV.render();
     Assert.assertEquals("     - - - - - -       \n" +
-                    "    - - - - - - -     \n" +
-                    "   - - - - - - - -     \n" +
-                    "  - - - - - - - - -   \n" +
-                    " - - - - O O O O - -   \n" +
-                    "- - - - X - O - - - - \n" +
-                    " - - - - O O O - - -   \n" +
-                    "  - - - - - - - - -   \n" +
-                    "   - - - - - - - -     \n" +
-                    "    - - - - - - -     \n" +
-                    "     - - - - - -       \n", textRV.toString());
+            "    - - - - - - -     \n" +
+            "   - - - - - - - -     \n" +
+            "  - - - - - - - - -   \n" +
+            " - - - - O O O O - -   \n" +
+            "- - - - X - O - - - - \n" +
+            " - - - - O O O - - -   \n" +
+            "  - - - - - - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n", textRV.toString());
   }
 
   @Test
@@ -295,12 +295,12 @@ public class InDepthReversiTests {
             "   - - - - - - - -     \n" +
             "    - - - - - - -     \n" +
             "     - - - - - -       \n", textRV.toString());
-    Assert.assertEquals(basicModel.playerAt(1,0), new HumanPlayer("O"));
-    Assert.assertEquals(basicModel.playerAt(3,0), null);
-    Assert.assertEquals(basicModel.playerAt(-3,-1), new HumanPlayer("O"));
+    Assert.assertEquals(basicModel.playerAt(1, 0), new HumanPlayer("O"));
+    Assert.assertEquals(basicModel.playerAt(3, 0), null);
+    Assert.assertEquals(basicModel.playerAt(-3, -1), new HumanPlayer("O"));
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void playerAtOutOfBounds() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
@@ -324,8 +324,8 @@ public class InDepthReversiTests {
             "   - - - - - - - -     \n" +
             "    - - - - - - -     \n" +
             "     - - - - - -       \n", textRV.toString());
-    Assert.assertEquals(basicModel.playerAt(1,0), new HumanPlayer("O"));
-    Assert.assertEquals(basicModel.playerAt(9,0), null);
+    Assert.assertEquals(basicModel.playerAt(1, 0), new HumanPlayer("O"));
+    Assert.assertEquals(basicModel.playerAt(9, 0), null);
   }
 
   @Test
@@ -394,7 +394,7 @@ public class InDepthReversiTests {
             "  - - -   \n", textRV.toString());
   }
 
-  @Test (expected = IllegalStateException.class)
+  @Test(expected = IllegalStateException.class)
   public void invalidMoveWithGaps() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 4);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
@@ -489,7 +489,72 @@ public class InDepthReversiTests {
   }
 
   @Test
-  public void immutablePlayers() {
-
+  public void fullGameTest() throws IOException {
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    Appendable output = new StringBuilder();
+    ReversiView textRV = new TextReversiView(basicModel, output);
+    textRV.render();
+    basicModel.placePiece(1, 1);
+    textRV.render();
+    basicModel.placePiece(1, -2);
+    textRV.render();
+    basicModel.placePiece(-1, -2);
+    textRV.render();
+    basicModel.placePiece(-2, 0);
+    textRV.render();
+    basicModel.placePiece(2, 0);
+    textRV.render();
+    basicModel.placePiece(-1, 1);
+    textRV.render();
+    basicModel.pass();
+    textRV.render();
+    basicModel.pass();
+    textRV.render();
+    Assert.assertEquals("  - - -   \n" +
+            " - O X -   \n" +
+            "- X - O - \n" +
+            " - O X -   \n" +
+            "  - - -   \n" +
+            "  - - -   \n" +
+            " - O X -   \n" +
+            "- X - X - \n" +
+            " - O X X   \n" +
+            "  - - -   \n" +
+            "  - - -   \n" +
+            " - O X -   \n" +
+            "- O - X - \n" +
+            " O O X X   \n" +
+            "  - - -   \n" +
+            "  - - -   \n" +
+            " X X X -   \n" +
+            "- O - X - \n" +
+            " O O X X   \n" +
+            "  - - -   \n" +
+            "  - O -   \n" +
+            " X O X -   \n" +
+            "- O - X - \n" +
+            " O O X X   \n" +
+            "  - - -   \n" +
+            "  - O -   \n" +
+            " X O X -   \n" +
+            "- X - X - \n" +
+            " O X X X   \n" +
+            "  - X -   \n" +
+            "  - O -   \n" +
+            " X O O O   \n" +
+            "- X - X - \n" +
+            " O X X X   \n" +
+            "  - X -   \n" +
+            "  - O -   \n" +
+            " X O O O   \n" +
+            "- X - X - \n" +
+            " O X X X   \n" +
+            "  - X -   \n" +
+            "  - O -   \n" +
+            " X O O O   \n" +
+            "- X - X - \n" +
+            " O X X X   \n" +
+            "  - X -   \n", output.toString());
+    Assert.assertEquals(basicModel.getWinner(), new HumanPlayer("X"));
   }
 }
