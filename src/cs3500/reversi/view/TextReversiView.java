@@ -46,16 +46,13 @@ public final class TextReversiView implements ReversiView {
   public String toString() {
     int top = this.model.getTopRow();
     int bottom = this.model.getBottomRow();
-    int trueHeight = top - bottom;
     String rendering = "";
-
     for (int row = bottom; row < top + 1; row += 1) {
-      boolean oddRow = (bottom - row) % 2 == 0;
+      boolean oddRow = row % 2 != 0;
       if (oddRow) {
         rendering += " ";
       }
       rendering += renderRow(row) + "\n";
-//      oddRow = !oddRow;
     }
     return rendering;
   }
