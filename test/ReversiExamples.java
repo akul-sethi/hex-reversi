@@ -11,7 +11,7 @@ import cs3500.reversi.view.ReversiView;
 import cs3500.reversi.view.TextReversiView;
 
 /**
- * Represents tests for sample reversi boards.
+ * Contains basic example tests for Reversi.
  */
 public class ReversiExamples {
 

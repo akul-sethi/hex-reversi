@@ -6,7 +6,8 @@ import cs3500.reversi.Player;
 import cs3500.reversi.model.ReversiModel;
 
 /**
- * To represent a Reversi game in textual view.
+ * To represent a Reversi game in textual view. Renders the board assuming "odd-r" hex board as
+ * described in the README.txt.
  */
 public final class TextReversiView implements ReversiView {
   //model to store
