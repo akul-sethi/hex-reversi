@@ -6,7 +6,6 @@ import cs3500.reversi.Player;
  * Represents an interface which describes the functionality of Reversi Models.
  * Row and columns work "odd-r" style as described in the README.txt overview section.
  * Moving right increases columns and moving down increases rows.
- * <p>
  * Utilizing offset coordinates externally is done to make viewing the model simple as a view can
  * easily use this models methods to figure out the range to query, and then query every coordinate
  * as if traversing a grid.

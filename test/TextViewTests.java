@@ -1,7 +1,5 @@
 import org.junit.Assert;
 import org.junit.Test;
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 
 import cs3500.reversi.model.GameType;
