@@ -12,3 +12,6 @@ and then finally send a command to the model based on this information.
 The controller can then create a game by creating different types of players based on the game type,
 passing them a model and an Interface to user input if the player type requires that (is human) and
 then repeatedly calling play move between the players while viewing the game.
+
+Currently, the Player interface and HumanPlayer classes are just placeholders to indicate who is in
+every cell.
