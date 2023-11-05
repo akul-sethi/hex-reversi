@@ -3,6 +3,7 @@ package cs3500.reversi.view;
 import java.io.IOException;
 
 import cs3500.reversi.Player;
+import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.model.ReversiModel;
 
 /**
@@ -11,7 +12,7 @@ import cs3500.reversi.model.ReversiModel;
  */
 public final class TextReversiView implements ReversiView {
   //model to store
-  private final ReversiModel model;
+  private final ReadOnlyReversiModel model;
 
   //appendable to append rendering to
   private final Appendable appendable;
