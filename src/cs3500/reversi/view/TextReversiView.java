@@ -40,6 +40,16 @@ public final class TextReversiView implements ReversiView {
     this.appendable.append(this.toString());
   }
 
+  @Override
+  public void addFeatures(Features features) {
+
+  }
+
+  @Override
+  public void setVisible(boolean b) {
+
+  }
+
   /**
    * Returns a string representation of the current game state.
    *
@@ -77,6 +87,8 @@ public final class TextReversiView implements ReversiView {
         rowString += "  ";
       }
     }
+
     return rowString;
+
   }
 }

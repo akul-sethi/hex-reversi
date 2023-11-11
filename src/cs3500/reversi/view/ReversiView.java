@@ -13,4 +13,10 @@ public interface ReversiView {
    * @throws IOException of the rendering fails for some reason.
    */
   void render() throws IOException;
+
+  /**
+   * Adds a Features object to this view.*/
+  void addFeatures(Features features);
+
+  void setVisible(boolean b);
 }
