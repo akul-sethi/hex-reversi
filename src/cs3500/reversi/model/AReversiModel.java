@@ -217,7 +217,7 @@ abstract class AReversiModel implements ReversiModel {
   }
 
   @Override
-  public int getBottomRow() {
+  public int getTopRow() {
     int min = this.tiles.keySet().stream().findAny().get().row();
     for (CubeCoord c : this.tiles.keySet()) {
       if (c.row() < min) {
@@ -229,7 +229,7 @@ abstract class AReversiModel implements ReversiModel {
 
 
   @Override
-  public int getTopRow() {
+  public int getBottomRow() {
     int max = this.tiles.keySet().stream().findAny().get().row();
     for (CubeCoord c : this.tiles.keySet()) {
       if (c.row() > max) {

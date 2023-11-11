@@ -8,7 +8,7 @@ import java.nio.file.Path;
 public class Hexagon extends Path2D.Double {
   private final double width;
 
-  public Hexagon(double width) {
+  public Hexagon(double centerX, double centerY, double width) {
     super();
     this.width = width;
 
@@ -17,8 +17,8 @@ public class Hexagon extends Path2D.Double {
 
       double angle_deg = 60 * vertex - 30;
       double angle_rad = Math.PI / 180 * angle_deg;
-      double x = 100 + width * Math.cos(angle_rad);
-      double y = 100 + width * Math.sin(angle_rad);
+      double x = centerX + width * Math.cos(angle_rad);
+      double y = centerY + width * Math.sin(angle_rad);
 
       if(firstPoint) {
         firstPoint = false;
@@ -26,9 +26,11 @@ public class Hexagon extends Path2D.Double {
       } else {
         this.lineTo(x, y);
       }
-      this.closePath();
-    }
 
+    }
+    this.closePath();
   }
+
+
 
 }
