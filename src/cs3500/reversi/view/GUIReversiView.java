@@ -8,6 +8,7 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
 
 public class GUIReversiView extends JFrame implements ReversiView{
   private final ReadOnlyReversiModel model;
+  private final BasicBoardView board;
   public GUIReversiView(ReadOnlyReversiModel m) {
     super("Reversi");
     this.model = m;
@@ -16,7 +17,8 @@ public class GUIReversiView extends JFrame implements ReversiView{
     setLocation(200, 200);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    add(new BasicBoardView(model));
+    this.board = new BasicBoardView(model);
+    add(this.board);
 
     pack();
     setVisible(true);
@@ -29,11 +31,16 @@ public class GUIReversiView extends JFrame implements ReversiView{
 
   @Override
   public void addFeatures(Features features) {
-
+      this.board.addFeatures(features);
   }
 
   @Override
   public void setVisible(boolean b) {
     super.setVisible(b);
+  }
+
+  @Override
+  public void previewMove(int row, int column) {
+    this.board.previewMove(row, column);
   }
 }

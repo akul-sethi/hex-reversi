@@ -50,6 +50,11 @@ public final class TextReversiView implements ReversiView {
 
   }
 
+  @Override
+  public void previewMove(int row, int column) {
+
+  }
+
   /**
    * Returns a string representation of the current game state.
    *

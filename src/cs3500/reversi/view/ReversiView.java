@@ -19,4 +19,6 @@ public interface ReversiView {
   void addFeatures(Features features);
 
   void setVisible(boolean b);
+
+  void previewMove(int row, int column);
 }
