@@ -1,5 +1,6 @@
 package cs3500.reversi.view;
 
+import java.awt.*;
 import java.io.IOException;
 
 import javax.swing.*;
@@ -17,8 +18,9 @@ public class GUIReversiView extends JFrame implements ReversiView{
     setLocation(200, 200);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    this.setLayout(new BorderLayout());
     this.board = new BasicBoardView(model);
-    add(this.board);
+    add(this.board, BorderLayout.CENTER);
 
     pack();
     setVisible(true);

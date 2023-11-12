@@ -12,7 +12,6 @@ public class ReversiController implements Features {
 
   public void setView(ReversiView view) {
       this.view = view;
-
       view.addFeatures(this);
   }
 }
