@@ -3,7 +3,7 @@ package cs3500.reversi.model;
 import java.util.HashMap;
 import java.util.List;
 
-import cs3500.reversi.Player;
+import cs3500.reversi.player.Player;
 
 /**
  * A mock implementation of reversi. Used to tests for mutability.
@@ -20,5 +20,10 @@ public class MockReversi extends AReversiModel {
    */
   protected MockReversi(HashMap<CubeCoord, Player> hexs, List<Player> players) {
     super(hexs, players);
+  }
+
+  @Override
+  public ReversiModel getModel() {
+    return null;
   }
 }

@@ -1,10 +1,12 @@
 package cs3500.reversi.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
-import cs3500.reversi.HumanPlayer;
-import cs3500.reversi.Player;
+import cs3500.reversi.player.HumanPlayer;
+import cs3500.reversi.player.Player;
 
 /**
  * A concrete implementation of a ReversiModel as described in the Overview section of the
@@ -23,6 +25,11 @@ final class BasicReversi extends AReversiModel {
     super(makeBoard(sideLength),
             Arrays.asList(one, two));
   }
+
+  BasicReversi(HashMap<CubeCoord, Player> map, List<Player> players) {
+    super(map, players);
+  }
+
 
   /**
    * Creates the board and throws and error if the sideLength is less than 2.
@@ -63,4 +70,10 @@ final class BasicReversi extends AReversiModel {
     tiles.put(new CubeCoord(-1, 0, 1), new HumanPlayer("X"));
   }
 
+  @Override
+  public ReversiModel getModel() {
+    List<Player> players = new ArrayList<>(this.players);
+    HashMap<CubeCoord, Player> map = new HashMap<>(this.tiles);
+    return new BasicReversi(map, players);
+  }
 }

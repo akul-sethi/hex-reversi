@@ -8,8 +8,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import cs3500.reversi.HumanPlayer;
-import cs3500.reversi.Player;
+import cs3500.reversi.player.HumanPlayer;
+import cs3500.reversi.player.Player;
 
 /**
  * Tests for mutability etc of the mock reversi class.

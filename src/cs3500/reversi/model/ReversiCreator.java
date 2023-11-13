@@ -2,7 +2,8 @@ package cs3500.reversi.model;
 
 import java.util.Objects;
 
-import cs3500.reversi.HumanPlayer;
+import cs3500.reversi.player.HumanPlayer;
+import cs3500.reversi.player.Player;
 
 /**
  * A Factory class for creating Reversi models without exposing their constructors.
@@ -16,14 +17,19 @@ public final class ReversiCreator {
    * @param params The parameters necessary for this type of game. This can be found in the GameType
    *               enum.
    */
-  public static ReversiModel create(GameType type, int... params) throws IllegalArgumentException {
+  public static ReversiModel create(GameType type, Object... params) throws IllegalArgumentException {
     //WRITTEN AS IF STATEMENT FOR COMPLIANCE WITH STYlE GUIDE!
     //WILL CHANGE TO SWITCH STATEMENT IN FUTURE
     if (Objects.requireNonNull(type) == GameType.BASIC) {
-      if (params.length != 1) {
+      if (params.length != 1 && params.length != 3) {
         throw new IllegalArgumentException("Incorrect num params");
       }
-      return new BasicReversi(params[0], new HumanPlayer("X"), new HumanPlayer("O"));
+      if (params.length == 1) {
+        return new BasicReversi((Integer) params[0], new HumanPlayer("X"), new HumanPlayer("O"));
+      }
+      if (params.length == 3) {
+        return new BasicReversi((Integer) params[0], (Player) params[1], (Player) params[2]);
+      }
     }
     throw new IllegalArgumentException("Something incorrect was provided");
 

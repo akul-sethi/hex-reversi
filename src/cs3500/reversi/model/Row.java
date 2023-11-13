@@ -7,6 +7,7 @@ import java.util.List;
  * Represents a row of Hexes in a Hex grid with length being the number of hexes in between
  * the two end points of the row. Necessary to easily check along a row which deciding which pieces
  * to flip.
+ * //TODO: ENUM
  */
 class Row {
   //Length represents the number of tiles between the two end hexes
@@ -53,5 +54,6 @@ class Row {
     }
     return out;
   }
+
 
 }

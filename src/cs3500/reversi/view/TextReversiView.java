@@ -2,7 +2,8 @@ package cs3500.reversi.view;
 
 import java.io.IOException;
 
-import cs3500.reversi.Player;
+import cs3500.reversi.player.Player;
+import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.model.ReversiModel;
 
 /**
@@ -11,7 +12,7 @@ import cs3500.reversi.model.ReversiModel;
  */
 public final class TextReversiView implements ReversiView {
   //model to store
-  private final ReversiModel model;
+  private final ReadOnlyReversiModel model;
 
   //appendable to append rendering to
   private final Appendable appendable;
@@ -39,6 +40,31 @@ public final class TextReversiView implements ReversiView {
     this.appendable.append(this.toString());
   }
 
+  @Override
+  public void addFeatures(Features features) {
+
+  }
+
+  @Override
+  public void setVisible(boolean b) {
+
+  }
+
+  @Override
+  public void previewMove(int row, int column) {
+
+  }
+
+  @Override
+  public void refresh() {
+
+  }
+
+  @Override
+  public void resetFocus() {
+
+  }
+
   /**
    * Returns a string representation of the current game state.
    *
@@ -49,7 +75,7 @@ public final class TextReversiView implements ReversiView {
     int top = this.model.getTopRow();
     int bottom = this.model.getBottomRow();
     String rendering = "";
-    for (int row = bottom; row < top + 1; row += 1) {
+    for (int row = top; row < bottom + 1; row += 1) {
       boolean oddRow = row % 2 != 0;
       if (oddRow) {
         rendering += " ";
@@ -76,6 +102,8 @@ public final class TextReversiView implements ReversiView {
         rowString += "  ";
       }
     }
+
     return rowString;
+
   }
 }

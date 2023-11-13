@@ -1,4 +1,7 @@
-package cs3500.reversi;
+package cs3500.reversi.player;
+
+import cs3500.reversi.model.LinearCoord;
+import cs3500.reversi.model.ReadOnlyReversiModel;
 
 /**
  * Represents a player in a game of Reversi. Necessary to describe the behavior of all types of
@@ -18,4 +21,11 @@ public interface Player {
    * @return True if both players are equal.
    */
   public boolean equals(Object o);
+
+  /**
+   * Gets the move from the player given the boardState.
+   * @param readOnlyModel
+   * @return
+   */
+  public LinearCoord getMove(ReadOnlyReversiModel readOnlyModel);
 }

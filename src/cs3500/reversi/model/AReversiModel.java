@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import cs3500.reversi.Player;
+import cs3500.reversi.player.Player;
 
 /**
  * An abstract representation of a reversi board allowing for games to be played with different
@@ -195,12 +195,7 @@ abstract class AReversiModel implements ReversiModel {
     ArrayList<Player> winners = new ArrayList<>();
     int max = 0;
     for (Player p : this.players) {
-      int numTilesForPlayer = 0;
-      for (Player val : this.tiles.values()) {
-        if (p == val) {
-          numTilesForPlayer += 1;
-        }
-      }
+      int numTilesForPlayer = this.getPlayerScore(p);
       if (numTilesForPlayer > max) {
         winners.clear();
         max = numTilesForPlayer;
@@ -215,13 +210,24 @@ abstract class AReversiModel implements ReversiModel {
     return winners.get(0);
   }
 
+  @Override
+  public int getPlayerScore(Player player) throws IllegalStateException {
+    int numTilesForPlayer = 0;
+    for (Player val : this.tiles.values()) {
+      if (player == val) {
+        numTilesForPlayer += 1;
+      }
+    }
+    return numTilesForPlayer;
+  }
+
   //returns true if given coordinate exists in tiles.
   private boolean validCoord(CubeCoord coordinate) {
     return this.tiles.containsKey(coordinate);
   }
 
   @Override
-  public int getBottomRow() {
+  public int getTopRow() {
     int min = this.tiles.keySet().stream().findAny().get().row();
     for (CubeCoord c : this.tiles.keySet()) {
       if (c.row() < min) {
@@ -233,7 +239,7 @@ abstract class AReversiModel implements ReversiModel {
 
 
   @Override
-  public int getTopRow() {
+  public int getBottomRow() {
     int max = this.tiles.keySet().stream().findAny().get().row();
     for (CubeCoord c : this.tiles.keySet()) {
       if (c.row() > max) {
@@ -266,4 +272,8 @@ abstract class AReversiModel implements ReversiModel {
     return max;
   }
 
+  @Override
+  public Player nextToPlay() {
+    return this.players.peek();
+  }
 }

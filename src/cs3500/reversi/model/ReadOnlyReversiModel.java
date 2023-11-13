@@ -3,39 +3,9 @@ package cs3500.reversi.model;
 import cs3500.reversi.player.Player;
 
 /**
- * Represents an interface which describes the functionality of Reversi Models.
- * Row and columns work "odd-r" style as described in the README.txt overview section.
- * Moving right increases columns and moving down increases rows.
- * Utilizing offset coordinates externally is done to make viewing the model simple as a view can
- * easily use this models methods to figure out the range to query, and then query every coordinate
- * as if traversing a grid.
- */
-public interface ReversiModel extends ReadOnlyReversiModel {
-
-
-  /**
-   * Places a piece at the given coordinate. Necessary to allow players to move.
-   *
-   * @param row    The row to place the piece.
-   * @param column The column to place the piece.
-   * @throws IllegalArgumentException The coordinate is not valid.
-   * @throws IllegalStateException    The move is invalid or the game is over (all players passed in
-   *                                  a row).
-   */
-  void placePiece(int row, int column);
-
-  /**
-   * Passes the turn of the current player. Players are allowed to pass even if they have other
-   * valid moves. While players are required to pass if there are no valid moves, the model does
-   * force them to; pass must be called. This is similar to Klondike where players are not forced to
-   * draw even if that is there only move.
-   *
-   * @throws IllegalStateException If the game is over (all players passed in
-   *                               a row).
-   */
-  void pass();
-
-
+ * Represents an interface for making observations on ReversiModels. Masks all behavior of the model
+ * other than observations making model mutation impossible. */
+public interface ReadOnlyReversiModel {
   /**
    * Returns true if the given move is valid. Necessary so that the view and controller can preview
    * if the queried move is possible without actually moving. Also allows the view and controller to
@@ -92,9 +62,12 @@ public interface ReversiModel extends ReadOnlyReversiModel {
   int getBottomRow();
 
   /**
-   * Gets the current turn player.
-   * @return The player that is the next to act.
+   * Makes a copy of the model. This is for testing moves in the strategies.
+   * @return A copy of the model.
    */
-  Player getCurrentTurn();
+  ReversiModel getModel();
 
+  int getPlayerScore(Player player);
+
+  Player nextToPlay();
 }
