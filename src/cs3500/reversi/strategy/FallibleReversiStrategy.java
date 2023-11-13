@@ -8,5 +8,6 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.player.Player;
 
 public interface FallibleReversiStrategy {
-  Optional<LinearCoord> chooseMove(ReadOnlyReversiModel model, Player forWhom);
+  Optional<ArrayList<LinearCoord>> chooseMove(ReadOnlyReversiModel model, Player forWhom,
+                                              ArrayList<LinearCoord> legalMoves);
 }

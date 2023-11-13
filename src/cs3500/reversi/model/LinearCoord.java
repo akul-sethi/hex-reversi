@@ -8,4 +8,9 @@ public class LinearCoord {
     this.col = col;
   }
 
+  @Override
+  public String toString() {
+    return "(" + this.row + ", " + this.col + ")";
+  }
+
 }

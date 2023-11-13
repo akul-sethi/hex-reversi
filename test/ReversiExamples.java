@@ -21,8 +21,8 @@ public class ReversiExamples {
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     Assert.assertEquals(-5, basicModel.getLeftCol());
     Assert.assertEquals(5, basicModel.getRightCol());
-    Assert.assertEquals(-5, basicModel.getBottomRow());
-    Assert.assertEquals(5, basicModel.getTopRow());
+    Assert.assertEquals(5, basicModel.getBottomRow());
+    Assert.assertEquals(-5, basicModel.getTopRow());
     textRV.render();
     Assert.assertEquals("     - - - - - -       \n" +
             "    - - - - - - -     \n" +

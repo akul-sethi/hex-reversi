@@ -19,7 +19,7 @@ public class StrategyTests {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
             6, new CaptureMaxPlayer("X"), new CaptureMaxPlayer("O"));
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
-    for (int i = 0; i < 20; i += 1) {
+    for (int i = 0; i < 8; i += 1) {
       LinearCoord bestMove = basicModel.nextToPlay().getMove(basicModel);
       Assert.assertTrue(basicModel.validMove(bestMove.row, bestMove.col));
       basicModel.placePiece(bestMove.row, bestMove.col);

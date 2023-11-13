@@ -1,5 +1,6 @@
 package cs3500.reversi.strategy;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import cs3500.reversi.model.LinearCoord;
@@ -14,9 +15,10 @@ public class CompleteReversiStrategyFromFallible implements InfallibleReversiStr
   }
   @Override
   public LinearCoord chooseMove(ReadOnlyReversiModel model, Player forWhom) {
-    Optional<LinearCoord> maybeAns = this.strategyToTry.chooseMove(model, forWhom);
+    Optional<ArrayList<LinearCoord>> maybeAns = this.strategyToTry.chooseMove(model, forWhom,
+            new ArrayList<>());
     if (maybeAns.isPresent()) {
-      return maybeAns.get();
+      return maybeAns.get().get(0);
     }
     throw new IllegalStateException("This strategy can't choose a move!");
   }
