@@ -23,9 +23,9 @@ public class CubeCoordTests {
 
   @Test
   public void testGetColCube() {
-    Assert.assertEquals(new CubeCoord(-1, 0).column(),  1);
-    Assert.assertEquals(new CubeCoord(2, 1).column(), 0);
-    Assert.assertEquals(new CubeCoord(1, -1, 0).column(), 1);
+    Assert.assertEquals(new CubeCoord(-1, 0).column(),  0);
+    Assert.assertEquals(new CubeCoord(2, 1).column(), 1);
+    Assert.assertEquals(new CubeCoord(1, -1, 0).column(), 0);
   }
 
   @Test
