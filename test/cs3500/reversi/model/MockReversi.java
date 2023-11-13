@@ -21,4 +21,9 @@ public class MockReversi extends AReversiModel {
   protected MockReversi(HashMap<CubeCoord, Player> hexs, List<Player> players) {
     super(hexs, players);
   }
+
+  @Override
+  public ReversiModel getModel() {
+    return null;
+  }
 }

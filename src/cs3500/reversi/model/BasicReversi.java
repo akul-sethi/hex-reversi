@@ -26,7 +26,6 @@ final class BasicReversi extends AReversiModel {
             Arrays.asList(one, two));
   }
 
-
   BasicReversi(HashMap<CubeCoord, Player> map, List<Player> players) {
     super(map, players);
   }

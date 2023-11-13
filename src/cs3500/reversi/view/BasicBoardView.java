@@ -106,6 +106,10 @@ public class BasicBoardView extends JPanel implements BoardView {
       repaint();
   }
 
+  public void refresh() {
+    repaint();
+  }
+
   private ArrayList<ArrayList<Hexagon>> getHexs() {
     ArrayList<ArrayList<Hexagon>> output = new ArrayList<>();
 

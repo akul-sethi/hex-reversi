@@ -54,7 +54,7 @@ public class CaptureMaxStrategy implements FallibleReversiStrategy {
   private ArrayList<LinearCoord> allLegalMoves(ReversiModel model) {
     ArrayList<LinearCoord> allLegal = new ArrayList<>();
     for (int row = model.getTopRow(); row <= model.getBottomRow(); row += 1) {
-      for (int col = model.getLeftCol(); col <= model.getRightCol(); row += 1) {
+      for (int col = model.getLeftCol(); col <= model.getRightCol(); col += 1) {
         if (model.validMove(row, col)) {
           allLegal.add(new LinearCoord(row, col));
         }
