@@ -3,7 +3,7 @@ package cs3500.reversi.model;
 import java.util.HashMap;
 import java.util.List;
 
-import cs3500.reversi.Player;
+import cs3500.reversi.player.Player;
 
 /**
  * A mock implementation of reversi. Used to tests for mutability.

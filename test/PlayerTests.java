@@ -1,8 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import cs3500.reversi.HumanPlayer;
-import cs3500.reversi.Player;
+import cs3500.reversi.player.HumanPlayer;
+import cs3500.reversi.player.Player;
 
 /**
  * Represents tests for the player classes.

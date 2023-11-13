@@ -3,7 +3,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import cs3500.reversi.HumanPlayer;
+import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.ReversiCreator;
 import cs3500.reversi.model.ReversiModel;

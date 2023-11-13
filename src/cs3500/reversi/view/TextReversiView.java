@@ -2,7 +2,7 @@ package cs3500.reversi.view;
 
 import java.io.IOException;
 
-import cs3500.reversi.Player;
+import cs3500.reversi.player.Player;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.model.ReversiModel;
 

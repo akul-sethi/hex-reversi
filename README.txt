@@ -76,3 +76,30 @@ test - Contains all tests which test public facing code. ReversiExamples gives a
     cs3500 - Just a container for organization:
         reversi - Just a container for organization:
             model - Contains all test which are private to the model implementation
+
+Changes for part 2:
+    ReadOnlyReversiModel (interface)
+        Added:
+        -All the previous observation methods.
+        ReversiModel getModel()
+        -Gets a copy of the model and returns it to the caller. Useful for strategy implementation.
+        -This has to be added to each implementation of ReversiModel, and not the Abstract class
+         because it must return the appropriate type of model.
+         int getPlayerScore(Player)
+         -Returns the int score (num of tiles) for the given player.
+
+    BasicReversi (class)
+        Added:
+        ReversiModel getModel()
+        -Returns a copy of this model, for strategy implementation.
+        BasicReversi(HashMap<CubeCoord, Player>, List<Player>)
+        -Constructor for reconstructing the game at a specific stage.
+
+    Player (interface)
+        Added:
+        int[] getMove(ReadOnlyReversiModel)
+        -Gets the move from the player. This was needed because we previously
+         had no way for the player to interact with the board.
+        -Returns an int[] of row, col for the move to be made
+
+    AbstractPlayer (class)

@@ -1,6 +1,6 @@
 package cs3500.reversi.model;
 
-import cs3500.reversi.Player;
+import cs3500.reversi.player.Player;
 
 /**
  * Represents an interface for making observations on ReversiModels. Masks all behavior of the model
@@ -38,27 +38,36 @@ public interface ReadOnlyReversiModel {
    *
    * @return the index of the rightmost column of this model
    */
-  public int getRightCol();
+  int getRightCol();
 
   /**
    * Finds the leftmost column. Necessary for drawing the model regardless of shape.
    *
    * @return the index of the leftmost column of this model
    */
-  public int getLeftCol();
+  int getLeftCol();
 
   /**
    * Finds the topmost row. Necessary for drawing the model regardless of shape.
    *
    * @return the index of the topmost row of this model
    */
-  public int getTopRow();
+  int getTopRow();
 
   /**
    * Finds the bottom-most row. Necessary for drawing the model regardless of shape.
    *
    * @return the index of the bottom-most row of this model
    */
-  public int getBottomRow();
+  int getBottomRow();
 
+  /**
+   * Makes a copy of the model. This is for testing moves in the strategies.
+   * @return A copy of the model.
+   */
+  ReversiModel getModel();
+
+  int getPlayerScore(Player player);
+
+  Player nextToPlay();
 }

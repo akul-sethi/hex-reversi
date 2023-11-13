@@ -2,7 +2,7 @@ package cs3500.reversi.model;
 
 import java.util.Objects;
 
-import cs3500.reversi.HumanPlayer;
+import cs3500.reversi.player.HumanPlayer;
 
 /**
  * A Factory class for creating Reversi models without exposing their constructors.

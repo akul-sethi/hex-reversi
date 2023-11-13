@@ -3,16 +3,13 @@ package cs3500.reversi.view;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import javax.sound.midi.Synthesizer;
 import javax.swing.*;
 
-import cs3500.reversi.Player;
+import cs3500.reversi.player.Player;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
 public class BasicBoardView extends JPanel implements BoardView {
