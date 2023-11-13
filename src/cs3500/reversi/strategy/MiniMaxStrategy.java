@@ -45,6 +45,9 @@ public class MiniMaxStrategy implements FallibleReversiStrategy {
         opponentMoves.sort(Comparator.naturalOrder());
         bestOpponentMoves.add(opponentMoves.get(0));
       }
+      if (bestOpponentMoves.isEmpty()) {
+         bestOpponentMoves.add(tempModel.getPlayerScore(forWhom));
+      }
       bestOpponentMoves.sort(Comparator.naturalOrder());
       if (bestOpponentMoves.get(0) > maxDifference) {
         maxDifference = bestOpponentMoves.get(0);
@@ -56,6 +59,10 @@ public class MiniMaxStrategy implements FallibleReversiStrategy {
       }
     }
     bestMoves.sort(new Utils.upperLefterCoordComparer());
+    System.out.println("ALL MOVES POSSIBLE FROM MINIMAX:");
+    for (LinearCoord lc : bestMoves) {
+      System.out.println(lc);
+    }
     if (bestMoves.isEmpty()) {
       return Optional.empty();
     }

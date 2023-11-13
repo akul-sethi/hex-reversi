@@ -27,8 +27,13 @@ public class ReversiController implements Features {
   @Override
   public void move() {
     Player toPlay =  this.model.nextToPlay();
-    LinearCoord coord = toPlay.getMove(this.model);
-    this.model.placePiece(coord.row, coord.col);
+    try {
+      LinearCoord coord = toPlay.getMove(this.model);
+      this.model.placePiece(coord.row, coord.col);
+    }
+    catch (IllegalStateException ise) {
+      this.model.pass();
+    }
     view.refresh();
   }
 
