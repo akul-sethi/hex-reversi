@@ -1,6 +1,8 @@
 package cs3500.reversi.view;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
@@ -9,6 +11,7 @@ import java.util.Optional;
 
 import javax.swing.*;
 
+import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
@@ -21,6 +24,8 @@ public class BasicBoardView extends JPanel implements BoardView {
     this.model = model;
     this.setVisible(true);
     this.selected = Optional.empty();
+    this.setFocusable(true);
+    this.requestFocus();
   }
 
   public void addFeatures(Features features) {
@@ -30,6 +35,24 @@ public class BasicBoardView extends JPanel implements BoardView {
         attempyPreview(e, features);
       }
 
+    });
+
+    this.addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyTyped(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_P) {
+          System.out.println("adsfadsf");
+          features.move();
+        }
+      }
+
+      @Override
+      public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_P) {
+          System.out.println("adsfadsf");
+          features.move();
+        }
+      }
     });
   }
 

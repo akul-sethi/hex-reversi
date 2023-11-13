@@ -30,6 +30,7 @@ final class BasicReversi extends AReversiModel {
     super(map, players);
   }
 
+
   /**
    * Creates the board and throws and error if the sideLength is less than 2.
    */

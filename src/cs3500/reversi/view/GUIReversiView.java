@@ -21,6 +21,7 @@ public class GUIReversiView extends JFrame implements ReversiView{
     this.setLayout(new BorderLayout());
     this.board = new BasicBoardView(model);
     add(this.board, BorderLayout.CENTER);
+//    this.resetFocus();
 
     pack();
     setVisible(true);
@@ -45,4 +46,17 @@ public class GUIReversiView extends JFrame implements ReversiView{
   public void previewMove(int row, int column) {
     this.board.previewMove(row, column);
   }
+
+  @Override
+  public void refresh() {
+    this.board.refresh();
+  }
+
+  @Override
+  public void resetFocus() {
+    this.setFocusable(true);
+    this.requestFocus();
+  }
+
+
 }

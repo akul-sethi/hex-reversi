@@ -13,6 +13,7 @@ public abstract class AbstractPlayer implements Player {
     assert strategy != null;
     assert name != null;
     assert name.length() == 1;
+
     this.strategy = new CompleteReversiStrategyFromFallible(strategy);
     this.name = name;
   }

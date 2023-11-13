@@ -55,6 +55,16 @@ public final class TextReversiView implements ReversiView {
 
   }
 
+  @Override
+  public void refresh() {
+
+  }
+
+  @Override
+  public void resetFocus() {
+
+  }
+
   /**
    * Returns a string representation of the current game state.
    *
