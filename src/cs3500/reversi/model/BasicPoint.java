@@ -1,16 +1,16 @@
-package cs3500.reversi.view;
+package cs3500.reversi.model;
 
 import cs3500.reversi.model.LinearCoord;
 
 /**
  * A basic implementation of a LinearCoord.*/
-final class BasicPoint implements LinearCoord {
+public final class BasicPoint implements LinearCoord {
   private final int row;
   private final int column;
 
   /**
    * Creates a BasicPoint with the given row and column coordinates.*/
-  BasicPoint(int row, int column) {
+  public BasicPoint(int row, int column) {
     this.row = row;
     this.column = column;
   }

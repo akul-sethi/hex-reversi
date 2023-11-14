@@ -27,7 +27,7 @@ public class CaptureMaxStrategy implements FallibleReversiStrategy {
     }
     for (LinearCoord move : legalMoves) {
       ReversiModel tempModel = model.getModel();
-      tempModel.placePiece(move.row, move.col);
+      tempModel.placePiece(move);
       int tempScore = tempModel.getPlayerScore(forWhom);
       int difference = tempScore - startScore;
       if (difference > maxDifference) {

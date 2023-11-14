@@ -2,8 +2,6 @@ package cs3500.reversi.view;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
@@ -14,7 +12,7 @@ import java.util.Optional;
 
 import javax.swing.*;
 
-import cs3500.reversi.model.LinearCoord;
+import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
