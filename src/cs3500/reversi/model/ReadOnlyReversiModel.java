@@ -26,8 +26,7 @@ public interface ReadOnlyReversiModel {
    * Returns the player at the given CubeCord. <code>null</code> if there is no player. This is in
    * the model to make drawing it possible.
    *
-   * @param row    The row which is being queried.
-   * @param column The column which is being queried.
+   * @param coord    The coordinate which is being queried.
    * @throws IllegalArgumentException The coordinates are invalid.
    */
   Player playerAt(LinearCoord coord);

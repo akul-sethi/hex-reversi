@@ -9,7 +9,7 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
 
 /**
  * A concrete implementation of a view which has a GUI and a board which supports previewing.*/
-public class GUIReversiView extends JFrame implements ReversiView{
+public final class GUIReversiView extends JFrame implements ReversiView{
   private final ReadOnlyReversiModel model;
   private final BasicBoardView board;
 

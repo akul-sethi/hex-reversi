@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.swing.*;
 
 import cs3500.reversi.model.BasicPoint;
+
 import cs3500.reversi.player.Player;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.model.ReversiModel;
