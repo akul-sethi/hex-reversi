@@ -1,5 +1,6 @@
 package cs3500.reversi;
 
+import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.ReversiCreator;
 import cs3500.reversi.model.ReversiModel;
@@ -20,6 +21,9 @@ public final class Reversi {
       Player p1 = new SuperStrategyPlayer("X");
       Player p2 = new CaptureMaxPlayer("O");
       ReversiModel model = ReversiCreator.create(GameType.BASIC, 6, p1, p2);
+      model.placePiece(new BasicPoint(2, 0));
+    model.placePiece(new BasicPoint(-2, 0));
+    model.placePiece(new BasicPoint(-1, 1));
       ReversiView view = new GUIReversiView(model);
       view.setVisible(true);
     }
