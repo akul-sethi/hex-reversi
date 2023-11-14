@@ -12,7 +12,7 @@ public interface Player {
   /**
    * Returns this player as a string.
    */
-  public String toString();
+  String toString();
 
   /**
    * Compares two players for equality.
@@ -20,12 +20,13 @@ public interface Player {
    * @param o Other object to compare.
    * @return True if both players are equal.
    */
-  public boolean equals(Object o);
+  boolean equals(Object o);
 
   /**
    * Gets the move from the player given the boardState.
-   * @param readOnlyModel
-   * @return
+   * @param readOnlyModel the readonly model to pass into the get move function, by which the
+   *                      strategy will search to determine what move to make.
+   * @return The best move determined by the player's strategy.
    */
-  public LinearCoord getMove(ReadOnlyReversiModel readOnlyModel);
+  LinearCoord getMove(ReadOnlyReversiModel readOnlyModel);
 }

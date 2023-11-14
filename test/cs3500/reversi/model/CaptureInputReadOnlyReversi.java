@@ -20,8 +20,8 @@ public class CaptureInputReadOnlyReversi implements ReadOnlyReversiModel {
   }
 
   @Override
-  public boolean validMove(int row, int column) {
-    log.append(String.format("validMove: row = %d, col = %d\n", row, column));
+  public boolean validMove(LinearCoord move) {
+    log.append(String.format("validMove: row = %d, col = %d\n", move.row(), move.column()));
     return false;
   }
 
@@ -32,8 +32,8 @@ public class CaptureInputReadOnlyReversi implements ReadOnlyReversiModel {
   }
 
   @Override
-  public Player playerAt(int row, int column) {
-    log.append(String.format("playerAt: row = %d, col = %d\n", row, column));
+  public Player playerAt(LinearCoord move) {
+    log.append(String.format("playerAt: row = %d, col = %d\n", move.row(), move.column()));
     return new CaptureMaxPlayer("Z");
   }
 
