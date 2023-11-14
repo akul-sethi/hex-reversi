@@ -1,7 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Player;
 
 /**

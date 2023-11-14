@@ -2,7 +2,6 @@ package cs3500.reversi.model;
 
 import java.util.Objects;
 
-import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Player;
 
 /**

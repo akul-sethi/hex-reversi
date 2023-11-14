@@ -3,17 +3,21 @@ package cs3500.reversi.strategy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.spi.LocaleNameProvider;
-
-import javax.sound.sampled.Line;
 
 import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReversiModel;
 
-public class Utils {
+/**
+ * To store functions needed in most of the strategies.
+ */
+final class Utils {
+  /**
+   * Finds all the legal moves for the current player in the given reversiModel.
+   * @param model the reversiModel to scan.
+   * @return an ArrayList of all legal moves that the current player can play.
+   */
   static ArrayList<LinearCoord> allLegalMoves(ReversiModel model) {
     ArrayList<LinearCoord> allLegal = new ArrayList<>();
     int botRow = model.getBottomRow();
@@ -31,6 +35,11 @@ public class Utils {
     return allLegal;
   }
 
+  /**
+   * Finds all the coordinates in the given model board.
+   * @param model The model to scan the board of.
+   * @return an ArrayList of all coordinates in the model's board.
+   */
   static ArrayList<LinearCoord> getAll(ReversiModel model) {
     ArrayList<LinearCoord> allInMap = new ArrayList<>();
     for (int row = model.getTopRow(); row <= model.getBottomRow(); row += 1) {
@@ -48,6 +57,12 @@ public class Utils {
     return allInMap;
   }
 
+  /**
+   * Gets the corners of the given model. There are six corners in a hexagon, top left, top right,
+   * bottom left, bottom right, leftmost, and rightmost.
+   * @param model The model to get the corners from.
+   * @return an ArrayList of coordinates with all of the corners.
+   */
   static ArrayList<LinearCoord> getCorners(ReversiModel model) {
     ArrayList<LinearCoord> corners = new ArrayList<>();
     ArrayList<LinearCoord> allInMap = getAll(model);
@@ -63,6 +78,11 @@ public class Utils {
     return corners;
   }
 
+  /**
+   * Gets all the coordinates in the second row of a list of coordinates.
+   * @param all an ArrayList of coordinates to search.
+   * @return an ArrayList containing all the coordinates in the second row of the list given.
+   */
   static ArrayList<LinearCoord> getSecondRow(ArrayList<LinearCoord> all) {
     all.sort(new upperLefterCoordComparer());
     ArrayList<LinearCoord> inSecondRow = new ArrayList<>();
@@ -76,6 +96,12 @@ public class Utils {
     return inSecondRow;
   }
 
+  /**
+   * Gets all the coordinates in the second to last row of a list of coordinates.
+   * @param all an ArrayList of coordinates to search.
+   * @return an ArrayList containing all the coordinates in the
+   * second to last row of the list given.
+   */
   static ArrayList<LinearCoord> getSecondLastRow(ArrayList<LinearCoord> all) {
     all.sort(new lowerLefterCoordComparer());
     ArrayList<LinearCoord> inSecondLastRow = new ArrayList<>();
@@ -88,12 +114,15 @@ public class Utils {
     return inSecondLastRow;
   }
 
-  //have:
-  //middle row
-  //top left, top right, and bottoms equiv.
-  //need:
-  //2nd to top left, 2nd to top right
-  //2nd to top 2nd to left, 2nd to top 2nd to right
+  /**
+   * This method returns an arrayList of coordinates next to the corners. This is used in the
+   * avoidNextToCorners strategy. This method is very lengthy, but up until now, all the
+   * methods work regardless of board layout. This method is only possible if we do assume that the
+   * board is a perfect hexagon. Since this was a suggested strategy, we assumed that this was a
+   * safe assumption. Hence, the long method.
+   * @param model the model to scan for coordinates.
+   * @return an ArrayList of coordinates that are next to the corners.
+   */
   static ArrayList<LinearCoord> getNextToCorners(ReversiModel model) {
     ArrayList<LinearCoord> corners = getCorners(model);
     ArrayList<LinearCoord> surroundsCorners = new ArrayList<>();
@@ -117,6 +146,7 @@ public class Utils {
     surroundsCorners.add(new BasicPoint(topRightCorner.row(), topRightCorner.column() - 1));
     surroundsCorners.add(new BasicPoint(bottomLeftCorner.row(), bottomLeftCorner.column() + 1));
     surroundsCorners.add(new BasicPoint(bottomRightCorner.row(), bottomRightCorner.column() - 1));
+    //top and bottom other adjacent
     ArrayList<LinearCoord> all = getAll(model);
     ArrayList<LinearCoord> secondRow = getSecondRow(all);
     surroundsCorners.add(secondRow.get(0));
@@ -132,6 +162,10 @@ public class Utils {
     return surroundsCorners;
   }
 
+  /**
+   * The following classes are a series of LinearCoord comparators.
+   * The first is a comparator that sorts in order of top-left.
+   */
   static class upperLefterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
@@ -143,6 +177,9 @@ public class Utils {
     }
   }
 
+  /**
+   * The second is a comparator that sorts in order of top-right.
+   */
   static class upperRighterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
@@ -154,6 +191,9 @@ public class Utils {
     }
   }
 
+  /**
+   * The third is a comparator that sorts in order of bottom-left.
+   */
   static class lowerLefterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
@@ -165,6 +205,9 @@ public class Utils {
     }
   }
 
+  /**
+   * The fourth is a comparator that sorts in order of bottom-right.
+   */
   static class lowerRighterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
@@ -176,6 +219,9 @@ public class Utils {
     }
   }
 
+  /**
+   * The third is a comparator that sorts in order of rightmost first.
+   */
   static class righterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
@@ -183,6 +229,9 @@ public class Utils {
     }
   }
 
+  /**
+   * The third is a comparator that sorts in order of leftmost first.
+   */
   static class lefterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {

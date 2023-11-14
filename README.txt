@@ -143,3 +143,35 @@ View Design:
                occupying Player
 Modified Source Organization:
 
+EXTRA CREDIT:
+        If you look in the strategy package, you can see we implemented all four of the suggested
+    strategies.
+        We also designed the strategies to be perfectly modular. We did this by having the actual
+    individual strategies be represented as FallibleReversiStrategies, meaning they don't always
+    return a move, and they return a list of moves, instead of always a singular move.
+    A FallibleReversiStrategy is turned into a strategy that always returns one move, an
+    InfallibleReversiStrategy, by going through the entire strategy, then sorting the returned
+    moves (if there are more than one) by upmost leftmost coordinates, then returning the first
+    move in the list.
+        The mechanism used to combine strategies is the class TryTwo. TryTwo takes in two strategies.
+    It first attempts the first strategy, and if there is no decisive outcome (one move), given by
+    the first strategy, then it passes the list of moves (or empty list of moves) to the second
+    strategy, which will determine which of the moves is better (if it can).
+        Multiple TryTwo's can be combined, to create many layer deep strategies. For example, as you
+    can see in our player package, we have created a SuperStrategyPlayer. This player contains a
+    custom strategy, made with four TryTwo's. The strategy will first run the board through the
+    CaptureCornersStrategy. If it doesn't find a singular corner to capture, it will pass the list
+    of moves it found (either empty or multiple) to the AvoidNextToCorners strategy.
+    In the case that there were multiple corners to capture, the AvoidNextToCorners strategy will
+    find that none of the possible moves it was passed are next to corners, and will pass the list
+    of moves on to the next strategy. In the case that there weren't any corners to capture, the
+    AvoidNextToCorners strategy will now rescan the board for all possible moves, eliminate the
+    moves next to the corners from the list, and return that list. This process continues, with the
+    minimax and then capture max strategies. If in the end, there are still multiple moves returned
+    from the last strategy (capture max in this case), then the FallibleReversiStrategy,
+    in our case, we created CompleteReversiStrategyFromFallible, will return the upper leftmost
+    move from the list.
+        Any of the strategies we created can be combined in any order, and given to a player. The
+    player will then turn the FallibleStrategy given to it into an InfallibleStrategy.
+        The InfallibleStrategy, also, if it can't find a single possible move, will throw an
+    IllegalStateException, which we intend the
