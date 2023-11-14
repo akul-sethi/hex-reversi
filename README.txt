@@ -78,28 +78,63 @@ test - Contains all tests which test public facing code. ReversiExamples gives a
             model - Contains all test which are private to the model implementation
 
 Changes for part 2:
-    ReadOnlyReversiModel (interface)
-        Added:
-        -All the previous observation methods.
-        ReversiModel getModel()
-        -Gets a copy of the model and returns it to the caller. Useful for strategy implementation.
-        -This has to be added to each implementation of ReversiModel, and not the Abstract class
-         because it must return the appropriate type of model.
-         int getPlayerScore(Player)
-         -Returns the int score (num of tiles) for the given player.
 
-    BasicReversi (class)
-        Added:
-        ReversiModel getModel()
+Added this so that the view can not mutate the model. Split all previous methods between this
+and ReversiModel.
+ReadOnlyReversiModel (interface)
+    - getLeftCol()
+    - getRightCol()
+    - getTopRow()
+    - getBotRow()
+    - boolean validMove(LinearCoord coord)
+    - Player getWinner()
+    - Player nextToPlay()
+    - Player playerAt(LinearCoord coord)
+    -int getPlayerScore(Player p)
+        - Added so that there is a way to retrieve the score of a player.
+    - ReversiModel getModel()
+        - Returns a shallow mutable copy of the model. Allows for the strategies to experiment
+          with different moves and see their effects
+        - Must be implemented in concrete implementations and not the Abstract class as it
+          needs to return the correct type.
+This is a complete version of a model
+ReversiModel (interface) extends ReadOnlyReversiModel
+    - pass()
+    - placePiece(LinearCoord coord)
+
+This was created as a way to express a move as an object.
+Model methods were refactored to use this.
+LinearCoord (class)
+     - row()
+     - column()
+
+BasicReversi (class)
+    Added:
+    ReversiModel getModel()
         -Returns a copy of this model, for strategy implementation.
-        BasicReversi(HashMap<CubeCoord, Player>, List<Player>)
+    BasicReversi(HashMap<CubeCoord, Player>, List<Player>)
         -Constructor for reconstructing the game at a specific stage.
 
-    Player (interface)
-        Added:
-        int[] getMove(ReadOnlyReversiModel)
-        -Gets the move from the player. This was needed because we previously
-         had no way for the player to interact with the board.
-        -Returns an int[] of row, col for the move to be made
+Player (interface)
+    Added:
+    int[] getMove(ReadOnlyReversiModel)
+    -Gets the move from the player. This was needed because we previously
+    had no way for the player to interact with the board.
+    -Returns an int[] of row, col for the move to be made
 
     AbstractPlayer (class)
+
+View Design:
+    Key components:
+        ReversiView - Describes the interface to interact with all views
+        BoardView - Describes the interface to interact with the view of a Reversi board
+        Features - Describes the features which all Reversi games must support. Will be added to
+                   when controllers are implemented.
+        GUIReversiView - A concrete implementation of a ReversiView which uses a BasicBoardView
+        BasicBoardView - A concrete implementation of a BoardView which supports move previewing
+        Hexagon - Describes a Hexagon with its location and Shape
+        TextReversiView - Describes a text based view
+        Tile - Describes a tile in a game of Reversi which includes its shape, location, and
+               occupying Player
+Modified Source Organization:
+
