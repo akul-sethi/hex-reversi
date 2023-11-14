@@ -2,6 +2,8 @@ package cs3500.reversi.view;
 
 import java.io.IOException;
 
+import javax.swing.*;
+
 import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.model.ReadOnlyReversiModel;
@@ -54,6 +56,11 @@ public final class TextReversiView implements ReversiView {
 
   @Override
   public void resetFocus() {
+
+  }
+
+  @Override
+  public void setHotKey(KeyStroke keyStroke, String featureName) {
 
   }
 
