@@ -18,7 +18,7 @@ import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
-public class BasicBoardView extends JPanel implements BoardView {
+class BasicBoardView extends JPanel implements BoardView {
   private final int SIDE_LENGTH = 30;
   private final double HEX_HEIGHT = 2 * SIDE_LENGTH;
   private final double VERT_GAP = HEX_HEIGHT * 0.75;
@@ -28,7 +28,7 @@ public class BasicBoardView extends JPanel implements BoardView {
   private Features features;
 
   private final ReadOnlyReversiModel model;
-  public BasicBoardView(ReadOnlyReversiModel model) {
+  BasicBoardView(ReadOnlyReversiModel model) {
     this.model = model;
     this.setVisible(true);
     this.selected = Optional.empty();
@@ -101,6 +101,7 @@ public class BasicBoardView extends JPanel implements BoardView {
            this.at.inverseTransform(e.getPoint(), transformedPoint);
            if (t.hex.contains(transformedPoint)) {
              this.previewMove(row, column);
+             System.out.println("Logical Coordinates: (row: " + row + ", column: " + column + ")");
            }
          } catch (NoninvertibleTransformException exc) {
            // Cannot happen due to our transform

@@ -7,14 +7,14 @@ import java.awt.geom.Path2D;
  * Represents a Hexagon in a game of Reversi. Stores the location and information which describes
  * the space that it fills. This can be used for drawing and determining if a point is within its
  * bounds.*/
-public class Hexagon extends Path2D.Double {
+final class Hexagon extends Path2D.Double {
   private final double sideLength;
   private final double centerY;
   private final double centerX;
 
   /**
    * Creates a Hexagon with given center and side length*/
-  public Hexagon(double centerX, double centerY, double sideLength) {
+  Hexagon(double centerX, double centerY, double sideLength) {
     super();
     this.sideLength = sideLength;
     this.centerX = centerX;
