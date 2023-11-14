@@ -13,4 +13,8 @@ public interface Features {
    * @param coord The coordinate where the user wants to move.*/
   void moveHere(LinearCoord coord);
 
+  /**
+   * A request from the user to pass their turn.*/
+  void pass();
+
 }

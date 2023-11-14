@@ -8,12 +8,16 @@ import cs3500.reversi.player.Player;
 class Tile {
   public final Hexagon hex;
   public final Player player;
+  public final int row;
+  public final int column;
 
   /**
    * Creates a Tile with the given Hexagon and Player.*/
-  Tile(Hexagon hex, Player player) {
+  Tile(Hexagon hex, Player player, int row, int column) {
     this.hex = hex;
     this.player = player;
+    this.row = row;
+    this.column = column;
   }
 
 }

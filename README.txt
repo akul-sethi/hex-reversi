@@ -125,6 +125,11 @@ Player (interface)
     AbstractPlayer (class)
 
 View Design:
+    Usage:
+        Create view using: new GUIReversiView(ReadOnlyReversiModel model)
+        Select cell by clicking on it
+        Send a request to move to selected cell by typing m
+        Send a request to pass by typing p
     Key components:
         ReversiView - Describes the interface to interact with all views
         BoardView - Describes the interface to interact with the view of a Reversi board

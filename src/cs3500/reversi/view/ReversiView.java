@@ -2,6 +2,8 @@ package cs3500.reversi.view;
 
 import java.io.IOException;
 
+import javax.swing.*;
+
 import cs3500.reversi.model.LinearCoord;
 
 /**
@@ -27,4 +29,8 @@ public interface ReversiView {
   /**
    * Resets focus to the view. Necessary for registering key events to the view.*/
   void resetFocus();
+
+  /**
+   * Sets an action to be performed for a given keystroke.*/
+  void setHotKey(KeyStroke keyStroke, String featureName);
 }

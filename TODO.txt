@@ -1,2 +1,6 @@
 Make Row an enum
 Can we assume that the model does not change its size for the view
+Added System print coordinates
+Fix creator
+Change visibility
+Fix javadoc

@@ -1,6 +1,7 @@
 package cs3500.reversi.view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -22,8 +23,9 @@ public class BasicBoardView extends JPanel implements BoardView {
   private final double HEX_HEIGHT = 2 * SIDE_LENGTH;
   private final double VERT_GAP = HEX_HEIGHT * 0.75;
   private final double HEX_WIDTH = Math.sqrt(3) * SIDE_LENGTH;
-  private Optional<Hexagon> selected;
+  private Optional<Tile> selected;
   private  AffineTransform at;
+  private Features features;
 
   private final ReadOnlyReversiModel model;
   public BasicBoardView(ReadOnlyReversiModel model) {
@@ -32,7 +34,29 @@ public class BasicBoardView extends JPanel implements BoardView {
     this.selected = Optional.empty();
     this.resetFocus();
     this.addListeners();
+    this.getActionMap().put("moveHere", new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        attemptMove();
+      }
+    });
+
+    this.getActionMap().put("pass", new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        features.pass();
+      }
+    });
     setTransform();
+  }
+
+
+  /*
+  * Sends the features object a request to move to the coordinates of the selected tile.*/
+  private void attemptMove() {
+     this.selected.ifPresent((tile) -> {
+        this.features.moveHere(new BasicPoint(tile.row, tile.column));
+     });
   }
 
   /*
@@ -46,9 +70,7 @@ public class BasicBoardView extends JPanel implements BoardView {
   }
 
   public void addFeatures(Features features) {
-    /*
-    * When a controller has been implemented, the board will send the controller a moveHere()
-    * call with the correct logical coordinates which the board determines.*/
+    this.features = features;
   }
 
   /*
@@ -134,9 +156,9 @@ public class BasicBoardView extends JPanel implements BoardView {
         }
       }
 
-      selected.ifPresent((hexagon) -> {
+      selected.ifPresent((tile) -> {
           g2.setColor(Color.BLUE);
-          g2.fill(hexagon);
+          g2.fill(tile.hex);
       });
 
       g2.setTransform(oldTransform);
@@ -148,10 +170,10 @@ public class BasicBoardView extends JPanel implements BoardView {
   private void previewMove(int row, int column) {
       Tile t =  getTiles().get(row).get(column);
       if(t != null) {
-        if (this.selected.isPresent() && t.hex.equals(this.selected.get())) {
+        if (this.selected.isPresent() && t.hex.equals(this.selected.get().hex)) {
           this.selected = Optional.empty();
         } else if (t.player == null) {
-          this.selected = Optional.of(t.hex);
+          this.selected = Optional.of(t);
         }
       }
       refresh();
@@ -177,7 +199,7 @@ public class BasicBoardView extends JPanel implements BoardView {
           Player p = this.model.playerAt(new BasicPoint(row, column));
           Hexagon hex = new Hexagon(HEX_WIDTH * shiftedColumn, VERT_GAP *
                   row, SIDE_LENGTH);
-          rowList.add(new Tile(hex, p));
+          rowList.add(new Tile(hex, p, row, column));
         } catch (IllegalArgumentException e) {
           rowList.add(null);
         }
