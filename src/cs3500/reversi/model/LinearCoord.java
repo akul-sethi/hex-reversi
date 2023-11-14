@@ -1,16 +1,20 @@
 package cs3500.reversi.model;
 
-public class LinearCoord {
-  public final int row;
-  public final int col;
-  public LinearCoord(int row, int col) {
-    this.row = row;
-    this.col = col;
-  }
+public interface LinearCoord {
 
-  @Override
-  public String toString() {
-    return "(" + this.row + ", " + this.col + ")";
-  }
+  public int row();
+  public int column();
+
+//  public final int row;
+//  public final int col;
+//  public LinearCoord(int row, int col) {
+//    this.row = row;
+//    this.col = col;
+//  }
+//
+//  @Override
+//  public String toString() {
+//    return "(" + this.row + ", " + this.col + ")";
+//  }
 
 }

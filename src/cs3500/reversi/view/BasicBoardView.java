@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -16,8 +18,12 @@ import cs3500.reversi.player.Player;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
 public class BasicBoardView extends JPanel implements BoardView {
-  private final double SIDE_LENGTH = 30;
+  private final int SIDE_LENGTH = 30;
+  private final double HEX_HEIGHT = 2 * SIDE_LENGTH;
+  private final double VERT_GAP = HEX_HEIGHT * 0.75;
+  private final double HEX_WIDTH = Math.sqrt(3) * SIDE_LENGTH;
   private Optional<Hexagon> selected;
+  private  AffineTransform at;
 
   private final ReadOnlyReversiModel model;
   public BasicBoardView(ReadOnlyReversiModel model) {
@@ -26,6 +32,14 @@ public class BasicBoardView extends JPanel implements BoardView {
     this.selected = Optional.empty();
     this.setFocusable(true);
     this.requestFocus();
+    setTransform();
+  }
+
+  private void setTransform() {
+    this.at = new AffineTransform();
+
+    this.at.translate(-HEX_WIDTH*(this.model.getLeftCol() - 0.5),
+            -VERT_GAP * (this.model.getTopRow()) + 0.5*HEX_HEIGHT);
   }
 
   public void addFeatures(Features features) {
@@ -36,6 +50,8 @@ public class BasicBoardView extends JPanel implements BoardView {
       }
 
     });
+
+
 
     this.addKeyListener(new KeyAdapter() {
       @Override
@@ -57,20 +73,37 @@ public class BasicBoardView extends JPanel implements BoardView {
   }
 
   private void attempyPreview(MouseEvent e, Features features) {
-    ArrayList<ArrayList<Hexagon>> hexs = getHexs();
+    ArrayList<ArrayList<Tile>> hexs = getTiles();
     for (int row = 0; row < hexs.size(); row++) {
       for (int column = 0; column < hexs.get(row).size(); column++) {
-        Hexagon selected = hexs.get(row).get(column);
-        if (selected != null && selected.contains(e.getX(), e.getY())) {
-          features.previewMove(row, column);
-        }
+        Tile t = hexs.get(row).get(column);
+         if(t == null || t.player != null) {
+           continue;
+         }
+         try {
+           Point2D transformedPoint = new Point();
+           this.at.inverseTransform(e.getPoint(), transformedPoint);
+           if (t.hex.contains(transformedPoint)) {
+             features.previewMove(row, column);
+           }
+         } catch (NoninvertibleTransformException exc) {
+           //This will not happen inshallah
+         }
       }
     }
   }
 
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(600, 600);
+    Dimension logicalSize = this.getPreferredLogicalSize();
+    return new Dimension((int)(logicalSize.width * HEX_WIDTH),
+            (int)(logicalSize.height * VERT_GAP + HEX_HEIGHT / 4));
+  }
+
+
+  private Dimension getPreferredLogicalSize() {
+    return new Dimension(this.model.getRightCol() - this.model.getLeftCol() + 1,
+            this.model.getBottomRow() - this.model.getTopRow() + 1);
   }
 
   @Override
@@ -79,21 +112,21 @@ public class BasicBoardView extends JPanel implements BoardView {
       Graphics2D g2 = (Graphics2D)g;
       AffineTransform oldTransform =  g2.getTransform();
 
-      ArrayList<ArrayList<Hexagon>> hexs = getHexs();
+      g2.transform(this.at);
+
+      ArrayList<ArrayList<Tile>> hexs = getTiles();
 
       for(int row = 0; row < hexs.size(); row++) {
         for(int column = 0; column < hexs.get(row).size(); column++) {
-              int gameRow = row + this.model.getTopRow();
-              int gameCol = column + this.model.getLeftCol();
-
-              if(hexs.get(row).get(column) == null) {
+              Tile t = hexs.get(row).get(column);
+          if(t == null) {
                   continue;
               }
 
               g2.setColor(Color.BLACK);
-              g2.draw(hexs.get(row).get(column));
+              g2.draw(t.hex);
 
-              Player p = this.model.playerAt(gameRow, gameCol);
+              Player p = t.player;
 
               if(p == null) {
                 g2.setColor(Color.GRAY);
@@ -102,7 +135,7 @@ public class BasicBoardView extends JPanel implements BoardView {
               } else {
                 g2.setColor(Color.WHITE);
               }
-              g2.fill(hexs.get(row).get(column));
+              g2.fill(t.hex);
         }
       }
 
@@ -111,21 +144,17 @@ public class BasicBoardView extends JPanel implements BoardView {
           g2.fill(hexagon);
       });
 
-
       g2.setTransform(oldTransform);
   }
 
   public void previewMove(int row, int column) {
-      Hexagon clicked =  getHexs().get(row).get(column);
-      if(clicked == null) {
-
-      } else if(this.selected.isPresent() && clicked.equals(this.selected.get())) {
+      Tile t =  getTiles().get(row).get(column);
+      if(t == null) {
+      } else if(this.selected.isPresent() && t.hex.equals(this.selected.get())) {
         this.selected = Optional.empty();
-      } else if(this.model.playerAt(row + model.getTopRow(), column + model.getLeftCol())
-        == null) {
-        this.selected = Optional.of(clicked);
+      } else if(t.player == null) {
+        this.selected = Optional.of(t.hex);
       }
-
       repaint();
   }
 
@@ -133,27 +162,20 @@ public class BasicBoardView extends JPanel implements BoardView {
     repaint();
   }
 
-  private ArrayList<ArrayList<Hexagon>> getHexs() {
-    ArrayList<ArrayList<Hexagon>> output = new ArrayList<>();
-
-    double height = 2 * SIDE_LENGTH;
-    double width = Math.sqrt(3) * SIDE_LENGTH;
-
-    double startX = width / 2;
-    double startY = height/ 2;
+  private ArrayList<ArrayList<Tile>> getTiles() {
+    setTransform();
+    ArrayList<ArrayList<Tile>> output = new ArrayList<>();
 
     for(int row = this.model.getTopRow(); row <= this.model.getBottomRow(); row++) {
       output.add(new ArrayList<>());
       for(int column = this.model.getLeftCol(); column <= this.model.getRightCol(); column++) {
-        ArrayList<Hexagon> rowList = output.get(output.size() - 1);
+        ArrayList<Tile> rowList = output.get(output.size() - 1);
         try {
-          this.model.playerAt(row, column);
-          double logCol = column - this.model.getLeftCol() + (row&1) * 0.5;
-          double logRow = row - this.model.getTopRow();
-
-          Hexagon hex = new Hexagon(width * logCol + startX, height * 0.75 *
-                  logRow + startY, SIDE_LENGTH);
-          rowList.add(hex);
+          double shiftedColumn = column  + (row&1) * 0.5;
+          Player p = this.model.playerAt(row, column);
+          Hexagon hex = new Hexagon(HEX_WIDTH * shiftedColumn, VERT_GAP *
+                  row, SIDE_LENGTH);
+          rowList.add(new Tile(hex, p));
         } catch (IllegalArgumentException e) {
           rowList.add(null);
         }

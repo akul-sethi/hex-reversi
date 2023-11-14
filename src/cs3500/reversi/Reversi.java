@@ -16,7 +16,7 @@ public final class Reversi {
     public static void main(String[] args) {
       Player p1 = new MiniMaxPlayer("X");
       Player p2 = new SuperStrategyPlayer("O");
-      ReversiModel model = ReversiCreator.create(GameType.BASIC, 6, p1, p2);
+      ReversiModel model = ReversiCreator.create(GameType.BASIC, 6, p2, p1);
       ReversiView view = new GUIReversiView(model);
       ReversiController controller = new ReversiController(model);
       controller.setView(view);
