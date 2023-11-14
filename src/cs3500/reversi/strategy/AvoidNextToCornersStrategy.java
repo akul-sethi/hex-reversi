@@ -27,10 +27,6 @@ public class AvoidNextToCornersStrategy implements FallibleReversiStrategy {
       return Optional.empty();
     }
     goodMoves.sort(new Utils.upperLefterCoordComparer());
-    System.out.println("ALL MOVES POSSIBLE FROM AVOID NEXT TO CORNERS:");
-    for (LinearCoord lc : goodMoves) {
-      System.out.println(lc);
-    }
     return Optional.of(goodMoves);
   }
 }

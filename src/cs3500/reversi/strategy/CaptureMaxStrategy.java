@@ -40,10 +40,6 @@ public class CaptureMaxStrategy implements FallibleReversiStrategy {
       }
     }
     bestMoves.sort(new Utils.upperLefterCoordComparer());
-    System.out.println("ALL MOVES POSSIBLE FROM CAPTURE MAX:");
-    for (LinearCoord lc : bestMoves) {
-      System.out.println(lc);
-    }
     return Optional.of(bestMoves);
   }
 }

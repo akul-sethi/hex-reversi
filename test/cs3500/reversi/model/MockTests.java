@@ -8,37 +8,66 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import cs3500.reversi.player.CaptureMaxPlayer;
 import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Player;
+import cs3500.reversi.player.StrategyPlayer;
+import cs3500.reversi.strategy.AvoidNextToCornersStrategy;
+import cs3500.reversi.strategy.CaptureCornersStrategy;
+import cs3500.reversi.view.ReversiView;
+import cs3500.reversi.view.TextReversiView;
 
 /**
  * Tests for mutability etc of the mock reversi class.
  */
 public class MockTests {
   @Test
-  public void immutablePlayerList() {
-    List<Player> players = new ArrayList<>();
-    players.add(new HumanPlayer("O"));
-    players.add(new HumanPlayer("X"));
-    HashMap<CubeCoord, Player> map = new HashMap<>();
-    map.put(new CubeCoord(0, 0), null);
-    ReversiModel mock = new MockReversi(map, players);
-    players.clear();
-    mock.pass();
-    mock.pass();
-    Assert.assertEquals(1, 2 - 1);
+  public void captureInputCorners() {
+    StringBuilder output = new StringBuilder();
+    ReadOnlyReversiModel mockModel = new CaptureInputReversi(output, Arrays.asList(new StrategyPlayer("X", new CaptureCornersStrategy()), new StrategyPlayer("X", new CaptureCornersStrategy())));
+    ReversiModel testModel = mockModel.getModel();
+    try {
+      testModel.nextToPlay().getMove(testModel);
+    }
+    catch (Exception e) {
+      //inshallah do nothing
+    }
+    Assert.assertTrue(output.toString().contains("validMove: row = -5, col = -3"));
+    Assert.assertTrue(output.toString().contains("validMove: row = -5, col = 2"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 0, col = -5"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 0, col = 5"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 5, col = -3"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 5, col = 2"));
   }
 
   @Test
-  public void immutableMap() {
-    List<Player> players = Arrays.asList(
-            new HumanPlayer("O"), new HumanPlayer("X"));
-    HashMap<CubeCoord, Player> map = new HashMap<>();
-    map.put(new CubeCoord(0, 0), null);
-    ReversiModel mock = new MockReversi(map, players);
-    map.clear();
-    mock.pass();
-    mock.pass();
-    Assert.assertEquals(mock.playerAt(0, 0), null);
+  public void captureInputAvoidNextToCorners() {
+    StringBuilder output = new StringBuilder();
+    ReadOnlyReversiModel mockModel = new CaptureInputReversi(output, Arrays.asList(new StrategyPlayer("X", new AvoidNextToCornersStrategy()), new StrategyPlayer("X", new AvoidNextToCornersStrategy())));
+    ReversiModel testModel = mockModel.getModel();
+    try {
+      testModel.nextToPlay().getMove(testModel);
+    }
+    catch (Exception e) {
+      //inshallah do nothing
+    }
+    Assert.assertTrue(output.toString().contains("validMove: row = -5, col = -2"));
+    Assert.assertTrue(output.toString().contains("validMove: row = -4, col = -3"));
+    Assert.assertTrue(output.toString().contains("validMove: row = -4, col = -4"));
+    Assert.assertTrue(output.toString().contains("validMove: row = -5, col = 1"));
+    Assert.assertTrue(output.toString().contains("validMove: row = -4, col = 2"));
+    Assert.assertTrue(output.toString().contains("validMove: row = -4, col = 3"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 0, col = -4"));
+    Assert.assertTrue(output.toString().contains("validMove: row = -1, col = -5"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 1, col = -5"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 0, col = 4"));
+    Assert.assertTrue(output.toString().contains("validMove: row = -1, col = 5"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 1, col = 5"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 5, col = -2"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 4, col = -3"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 4, col = -4"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 5, col = 1"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 4, col = 2"));
+    Assert.assertTrue(output.toString().contains("validMove: row = 4, col = 3"));
   }
 }

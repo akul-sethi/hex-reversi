@@ -214,7 +214,7 @@ abstract class AReversiModel implements ReversiModel {
   public int getPlayerScore(Player player) throws IllegalStateException {
     int numTilesForPlayer = 0;
     for (Player val : this.tiles.values()) {
-      if (player == val) {
+      if (player.equals(val)) {
         numTilesForPlayer += 1;
       }
     }

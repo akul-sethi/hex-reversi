@@ -17,20 +17,19 @@ public class CaptureCornersStrategy implements FallibleReversiStrategy {
     if (legalMoves.isEmpty()) {
       legalMoves = Utils.allLegalMoves(testModel);
     }
+    if (legalMoves.isEmpty()) {
+      return Optional.empty();
+    }
     ArrayList<LinearCoord> corners = Utils.getCorners(testModel);
     for (LinearCoord move : legalMoves) {
       if (corners.contains(move)) {
         bestMoves.add(move);
       }
     }
-    System.out.println("ALL MOVES POSSIBLE FROM CAPTURE CORNERS:");
-    for (LinearCoord lc : bestMoves) {
-      System.out.println(lc);
-    }
     if (!bestMoves.isEmpty()) {
       bestMoves.sort(new Utils.upperLefterCoordComparer());
       return Optional.of(bestMoves);
     }
-    return Optional.empty();
+    return Optional.of(legalMoves);
   }
 }

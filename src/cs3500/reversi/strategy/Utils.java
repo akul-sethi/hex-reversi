@@ -15,8 +15,12 @@ import cs3500.reversi.model.ReversiModel;
 public class Utils {
   static ArrayList<LinearCoord> allLegalMoves(ReversiModel model) {
     ArrayList<LinearCoord> allLegal = new ArrayList<>();
-    for (int row = model.getTopRow(); row <= model.getBottomRow(); row += 1) {
-      for (int col = model.getLeftCol(); col <= model.getRightCol(); col += 1) {
+    int botRow = model.getBottomRow();
+    int rightCol = model.getRightCol();
+    int leftCol = model.getLeftCol();
+    int topRow = model.getTopRow();
+    for (int row = topRow; row <= botRow; row += 1) {
+      for (int col = leftCol; col <= rightCol; col += 1) {
         if (model.validMove(row, col)) {
           allLegal.add(new LinearCoord(row, col));
         }

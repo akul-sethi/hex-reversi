@@ -10,9 +10,7 @@ import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.player.Player;
 
 public class MiniMaxStrategy implements FallibleReversiStrategy {
-  static final FallibleReversiStrategy SuperStrategy =
-          new TryTwo(new CaptureCornersStrategy(), new TryTwo(new AvoidNextToCornersStrategy(),
-                  new CaptureMaxStrategy()));
+
   @Override
   public Optional<ArrayList<LinearCoord>> chooseMove(ReadOnlyReversiModel model, Player forWhom,
                                                      ArrayList<LinearCoord> legalMoves) {
@@ -35,15 +33,12 @@ public class MiniMaxStrategy implements FallibleReversiStrategy {
       ArrayList<LinearCoord> opponentLegalMoves = Utils.allLegalMoves(tempModel);
       ArrayList<Integer> bestOpponentMoves = new ArrayList<>();
       for (LinearCoord olm : opponentLegalMoves) {
-        ArrayList<Integer> opponentMoves = new ArrayList<>();
         ReversiModel tempTempModel = tempModel.getModel();
         tempTempModel.placePiece(olm.row, olm.col);
         int tempOpponentScore = tempTempModel.getPlayerScore(opponent);
         int tempMyScore = tempTempModel.getPlayerScore(forWhom);
         int tempDifference = tempMyScore - tempOpponentScore;
-        opponentMoves.add(tempDifference);
-        opponentMoves.sort(Comparator.naturalOrder());
-        bestOpponentMoves.add(opponentMoves.get(0));
+        bestOpponentMoves.add(tempDifference);
       }
       if (bestOpponentMoves.isEmpty()) {
          bestOpponentMoves.add(tempModel.getPlayerScore(forWhom));
@@ -59,10 +54,6 @@ public class MiniMaxStrategy implements FallibleReversiStrategy {
       }
     }
     bestMoves.sort(new Utils.upperLefterCoordComparer());
-    System.out.println("ALL MOVES POSSIBLE FROM MINIMAX:");
-    for (LinearCoord lc : bestMoves) {
-      System.out.println(lc);
-    }
     if (bestMoves.isEmpty()) {
       return Optional.empty();
     }
