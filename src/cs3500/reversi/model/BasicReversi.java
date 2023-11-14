@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Player;
 
 /**

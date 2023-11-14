@@ -3,9 +3,11 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.ReversiCreator;
 import cs3500.reversi.model.ReversiModel;
+import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.view.ReversiView;
 import cs3500.reversi.view.TextReversiView;
 
@@ -17,7 +19,7 @@ public class InDepthReversiTests {
   public void basicGameTestInvalidMoveVeryWrong() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(4, 4);
+    basicModel.placePiece(new BasicPoint(4, 4));
     textRV.render();
     Assert.assertEquals(-1, 1);
   }
@@ -26,7 +28,7 @@ public class InDepthReversiTests {
   public void basicGameTestInvalidMoveOutOfBounds() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 2);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(2, 0);
+    basicModel.placePiece(new BasicPoint(2, 0));
     textRV.render();
     Assert.assertEquals(-1, 1);
   }
@@ -35,7 +37,7 @@ public class InDepthReversiTests {
   public void basicGameTestInvalidMoveNoneToFlip() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 2);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(0, 0);
+    basicModel.placePiece(new BasicPoint(0, 0));
     textRV.render();
     Assert.assertEquals(-1, 1);
   }
@@ -44,8 +46,8 @@ public class InDepthReversiTests {
   public void basicGameTestTwoMovesGameNotOver() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(-1, 1);
-    basicModel.placePiece(-1, 2);
+    basicModel.placePiece(new BasicPoint(-1, 1));
+    basicModel.placePiece(new BasicPoint(-1, 2));
     textRV.render();
     Assert.assertEquals("     - - - - - -       \n" +
             "    - - - - - - -     \n" +
@@ -65,8 +67,8 @@ public class InDepthReversiTests {
   public void basicGameTestTwoPassesGameOver() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(-1, 1);
-    basicModel.placePiece(-1, 2);
+    basicModel.placePiece(new BasicPoint(-1, 1));
+    basicModel.placePiece(new BasicPoint(-1, 2));
     basicModel.pass();
     basicModel.pass();
     textRV.render();
@@ -131,7 +133,7 @@ public class InDepthReversiTests {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.pass();
-    basicModel.placePiece(-1, 1);
+    basicModel.placePiece(new BasicPoint(-1, 1));
     basicModel.pass();
     basicModel.pass();
     textRV.render();
@@ -154,10 +156,10 @@ public class InDepthReversiTests {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.pass();
-    basicModel.placePiece(-1, 1);
+    basicModel.placePiece(new BasicPoint(-1, 1));
     basicModel.pass();
     basicModel.pass();
-    basicModel.placePiece(-2, 1);
+    basicModel.placePiece(new BasicPoint(-2, 1));
     textRV.render();
     Assert.assertEquals("     - - - - - -       \n" +
             "    - - - - - - -     \n" +
@@ -177,10 +179,10 @@ public class InDepthReversiTests {
   public void placeChangesAllDirections() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(-1, 1);
-    basicModel.placePiece(-1, 2);
+    basicModel.placePiece(new BasicPoint(-1, 1));
+    basicModel.placePiece(new BasicPoint(-1, 2));
     basicModel.pass();
-    basicModel.placePiece(1, 1);
+    basicModel.placePiece(new BasicPoint(1, 1));
     textRV.render();
     Assert.assertEquals("     - - - - - -       \n" +
             "    - - - - - - -     \n" +
@@ -199,12 +201,12 @@ public class InDepthReversiTests {
   public void placeChangesDownRightRightUpRight() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(-1, 1);
-    basicModel.placePiece(-1, 2);
-    basicModel.placePiece(-2, 0);
-    basicModel.placePiece(2, 0);
+    basicModel.placePiece(new BasicPoint(-1, 1));
+    basicModel.placePiece(new BasicPoint(-1, 2));
+    basicModel.placePiece(new BasicPoint(-2, 0));
+    basicModel.placePiece(new BasicPoint(2, 0));
     basicModel.pass();
-    basicModel.placePiece(-1, -2);
+    basicModel.placePiece(new BasicPoint(-1, -2));
     textRV.render();
     Assert.assertEquals("     - - - - - -       \n" +
             "    - - - - - - -     \n" +
@@ -223,13 +225,13 @@ public class InDepthReversiTests {
   public void invalidMoveDiagonals() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(-1, 1);
-    basicModel.placePiece(-1, 2);
-    basicModel.placePiece(-2, 0);
-    basicModel.placePiece(2, 0);
+    basicModel.placePiece(new BasicPoint(-1, 1));
+    basicModel.placePiece(new BasicPoint(-1, 2));
+    basicModel.placePiece(new BasicPoint(-2, 0));
+    basicModel.placePiece(new BasicPoint(2, 0));
     basicModel.pass();
-    basicModel.placePiece(-1, -2);
-    basicModel.placePiece(0, 0);
+    basicModel.placePiece(new BasicPoint(-1, -2));
+    basicModel.placePiece(new BasicPoint(0, 0));
     textRV.render();
     Assert.assertEquals("     - - - - - -       \n" +
             "    - - - - - - -     \n" +
@@ -248,14 +250,14 @@ public class InDepthReversiTests {
   public void noMovesLeft() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(-1, 1);
-    basicModel.placePiece(-1, 2);
-    basicModel.placePiece(-2, 0);
-    basicModel.placePiece(2, 0);
+    basicModel.placePiece(new BasicPoint(-1, 1));
+    basicModel.placePiece(new BasicPoint(-1, 2));
+    basicModel.placePiece(new BasicPoint(-2, 0));
+    basicModel.placePiece(new BasicPoint(2, 0));
     basicModel.pass();
-    basicModel.placePiece(-1, -2);
+    basicModel.placePiece(new BasicPoint(-1, -2));
     basicModel.pass();
-    basicModel.placePiece(-3, -1);
+    basicModel.placePiece(new BasicPoint(-3, -1));
     textRV.render();
     Assert.assertEquals("     - - - - - -       \n" +
             "    - - - - - - -     \n" +
@@ -274,14 +276,14 @@ public class InDepthReversiTests {
   public void playerAtValid() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(-1, 1);
-    basicModel.placePiece(-1, 2);
-    basicModel.placePiece(-2, 0);
-    basicModel.placePiece(2, 0);
+    basicModel.placePiece(new BasicPoint(-1, 1));
+    basicModel.placePiece(new BasicPoint(-1, 2));
+    basicModel.placePiece(new BasicPoint(-2, 0));
+    basicModel.placePiece(new BasicPoint(2, 0));
     basicModel.pass();
-    basicModel.placePiece(-1, -2);
+    basicModel.placePiece(new BasicPoint(-1, -2));
     basicModel.pass();
-    basicModel.placePiece(-3, -1);
+    basicModel.placePiece(new BasicPoint(-3, -1));
     textRV.render();
     Assert.assertEquals("     - - - - - -       \n" +
             "    - - - - - - -     \n" +
@@ -294,23 +296,23 @@ public class InDepthReversiTests {
             "   - - - - - - - -     \n" +
             "    - - - - - - -     \n" +
             "     - - - - - -       \n", textRV.toString());
-    Assert.assertEquals(basicModel.playerAt(1, 0), new HumanPlayer("O"));
-    Assert.assertEquals(basicModel.playerAt(3, 0), null);
-    Assert.assertEquals(basicModel.playerAt(-3, -1), new HumanPlayer("O"));
+    Assert.assertEquals(basicModel.playerAt(new BasicPoint(1, 0)), new HumanPlayer("O"));
+    Assert.assertEquals(basicModel.playerAt(new BasicPoint(3, 0)), null);
+    Assert.assertEquals(basicModel.playerAt(new BasicPoint(-3, -1)), new HumanPlayer("O"));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void playerAtOutOfBounds() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(-1, 1);
-    basicModel.placePiece(-1, 2);
-    basicModel.placePiece(-2, 0);
-    basicModel.placePiece(2, 0);
+    basicModel.placePiece(new BasicPoint(-1, 1));
+    basicModel.placePiece(new BasicPoint(-1, 2));
+    basicModel.placePiece(new BasicPoint(-2, 0));
+    basicModel.placePiece(new BasicPoint(2, 0));
     basicModel.pass();
-    basicModel.placePiece(-1, -2);
+    basicModel.placePiece(new BasicPoint(-1, -2));
     basicModel.pass();
-    basicModel.placePiece(-3, -1);
+    basicModel.placePiece(new BasicPoint(-3, -1));
     textRV.render();
     Assert.assertEquals("     - - - - - -       \n" +
             "    - - - - - - -     \n" +
@@ -323,19 +325,19 @@ public class InDepthReversiTests {
             "   - - - - - - - -     \n" +
             "    - - - - - - -     \n" +
             "     - - - - - -       \n", textRV.toString());
-    Assert.assertEquals(basicModel.playerAt(1, 0), new HumanPlayer("O"));
-    Assert.assertEquals(basicModel.playerAt(9, 0), null);
+    Assert.assertEquals(basicModel.playerAt(new BasicPoint(1, 0)), new HumanPlayer("O"));
+    Assert.assertEquals(basicModel.playerAt(new BasicPoint(9, 0)), null);
   }
 
   @Test
   public void onlyGivesYouTilesOnYourMove() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(1, -2);
-    basicModel.placePiece(-1, 1);
+    basicModel.placePiece(new BasicPoint(1, -2));
+    basicModel.placePiece(new BasicPoint(-1, 1));
     basicModel.pass();
-    basicModel.placePiece(2, 0);
-    basicModel.placePiece(1, 1);
+    basicModel.placePiece(new BasicPoint(2, 0));
+    basicModel.placePiece(new BasicPoint(1, 1));
     textRV.render();
     Assert.assertEquals("     - - - - - -       \n" +
             "    - - - - - - -     \n" +
@@ -354,13 +356,13 @@ public class InDepthReversiTests {
   public void onlyConvertsUpToYourNextTile() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
-    basicModel.placePiece(1, -2);
-    basicModel.placePiece(-1, 1);
+    basicModel.placePiece(new BasicPoint(1, -2));
+    basicModel.placePiece(new BasicPoint(-1, 1));
     basicModel.pass();
-    basicModel.placePiece(2, 0);
-    basicModel.placePiece(1, 1);
+    basicModel.placePiece(new BasicPoint(2, 0));
+    basicModel.placePiece(new BasicPoint(1, 1));
     basicModel.pass();
-    basicModel.placePiece(-2, 2);
+    basicModel.placePiece(new BasicPoint(-2, 2));
 
     textRV.render();
     Assert.assertEquals("     - - - - - -       \n" +
@@ -382,10 +384,10 @@ public class InDepthReversiTests {
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     textRV.render();
     basicModel.pass();
-    basicModel.placePiece(-1, -2);
+    basicModel.placePiece(new BasicPoint(-1, -2));
     basicModel.pass();
-    basicModel.placePiece(-2, 0);
-    basicModel.placePiece(1, -2);
+    basicModel.placePiece(new BasicPoint(-2, 0));
+    basicModel.placePiece(new BasicPoint(1, -2));
     Assert.assertEquals("  - O -   \n" +
             " O O O -   \n" +
             "- O - O - \n" +
@@ -399,7 +401,7 @@ public class InDepthReversiTests {
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     textRV.render();
     basicModel.pass();
-    basicModel.placePiece(0, -2);
+    basicModel.placePiece(new BasicPoint(0, -2));
     Assert.assertEquals("   - - - -     \n" +
             "  - - - - -   \n" +
             " - - O X - -   \n" +
@@ -414,7 +416,7 @@ public class InDepthReversiTests {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 2);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     textRV.render();
-    Assert.assertFalse(basicModel.validMove(0, 0));
+    Assert.assertFalse(basicModel.validMove(new BasicPoint(0, 0)));
   }
 
   @Test
@@ -427,7 +429,7 @@ public class InDepthReversiTests {
             "- X - O - \n" +
             " - O X -   \n" +
             "  - - -   \n", textRV.toString());
-    Assert.assertTrue(basicModel.validMove(1, 1));
+    Assert.assertTrue(basicModel.validMove(new BasicPoint(1, 1)));
   }
 
   @Test
@@ -435,18 +437,18 @@ public class InDepthReversiTests {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.pass();
-    basicModel.placePiece(-2, 0);
+    basicModel.placePiece(new BasicPoint(-2, 0));
     basicModel.pass();
-    basicModel.placePiece(1, -2);
+    basicModel.placePiece(new BasicPoint(1, -2));
     basicModel.pass();
-    basicModel.placePiece(1, 1);
+    basicModel.placePiece(new BasicPoint(1, 1));
     textRV.render();
     Assert.assertEquals("  - O -   \n" +
             " - O O -   \n" +
             "- O - O - \n" +
             " O O O O   \n" +
             "  - - -   \n", textRV.toString());
-    Assert.assertFalse(basicModel.validMove(2, 0));
+    Assert.assertFalse(basicModel.validMove(new BasicPoint(2, 0)));
   }
 
   @Test
@@ -454,18 +456,18 @@ public class InDepthReversiTests {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.pass();
-    basicModel.placePiece(-2, 0);
+    basicModel.placePiece(new BasicPoint(-2, 0));
     basicModel.pass();
-    basicModel.placePiece(1, -2);
+    basicModel.placePiece(new BasicPoint(1, -2));
     basicModel.pass();
-    basicModel.placePiece(1, 1);
+    basicModel.placePiece(new BasicPoint(1, 1));
     textRV.render();
     Assert.assertEquals("  - O -   \n" +
             " - O O -   \n" +
             "- O - O - \n" +
             " O O O O   \n" +
             "  - - -   \n", textRV.toString());
-    Assert.assertFalse(basicModel.validMove(8, 5));
+    Assert.assertFalse(basicModel.validMove(new BasicPoint(8, 5)));
   }
 
   @Test
@@ -473,18 +475,18 @@ public class InDepthReversiTests {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.pass();
-    basicModel.placePiece(-2, 0);
+    basicModel.placePiece(new BasicPoint(-2, 0));
     basicModel.pass();
-    basicModel.placePiece(1, -2);
+    basicModel.placePiece(new BasicPoint(1, -2));
     basicModel.pass();
-    basicModel.placePiece(1, 1);
+    basicModel.placePiece(new BasicPoint(1, 1));
     textRV.render();
     Assert.assertEquals("  - O -   \n" +
             " - O O -   \n" +
             "- O - O - \n" +
             " O O O O   \n" +
             "  - - -   \n", textRV.toString());
-    Assert.assertFalse(basicModel.validMove(2, 0));
+    Assert.assertFalse(basicModel.validMove(new BasicPoint(2, 0)));
   }
 
   @Test
@@ -493,17 +495,17 @@ public class InDepthReversiTests {
     Appendable output = new StringBuilder();
     ReversiView textRV = new TextReversiView(basicModel, output);
     textRV.render();
-    basicModel.placePiece(1, 1);
+    basicModel.placePiece(new BasicPoint(1, 1));
     textRV.render();
-    basicModel.placePiece(1, -2);
+    basicModel.placePiece(new BasicPoint(1, -2));
     textRV.render();
-    basicModel.placePiece(-1, -2);
+    basicModel.placePiece(new BasicPoint(-1, -2));
     textRV.render();
-    basicModel.placePiece(-2, 0);
+    basicModel.placePiece(new BasicPoint(-2, 0));
     textRV.render();
-    basicModel.placePiece(2, 0);
+    basicModel.placePiece(new BasicPoint(2, 0));
     textRV.render();
-    basicModel.placePiece(-1, 1);
+    basicModel.placePiece(new BasicPoint(-1, 1));
     textRV.render();
     basicModel.pass();
     textRV.render();

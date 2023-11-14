@@ -2,6 +2,7 @@ package cs3500.reversi.model;
 
 import java.util.Objects;
 
+import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Player;
 
 /**
@@ -20,7 +21,7 @@ public final class ReversiCreator {
     //WRITTEN AS IF STATEMENT FOR COMPLIANCE WITH STYlE GUIDE!
     //WILL CHANGE TO SWITCH STATEMENT IN FUTURE
     if (Objects.requireNonNull(type) == GameType.BASIC) {
-      if (params.length != 1 && params.length != 3) {
+      if (params.length != 3 && params.length != 1) {
         throw new IllegalArgumentException("Incorrect num params");
       }
       if (params.length == 1) {

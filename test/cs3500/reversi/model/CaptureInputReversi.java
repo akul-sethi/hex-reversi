@@ -16,8 +16,8 @@ public class CaptureInputReversi implements ReversiModel {
   }
 
   @Override
-  public void placePiece(int row, int column) {
-    log.append(String.format("placePiece: row = %d, col = %d\n", row, column));
+  public void placePiece(LinearCoord move) {
+    log.append(String.format("placePiece: row = %d, col = %d\n", move.row(), move.column()));
   }
 
   @Override
@@ -28,8 +28,8 @@ public class CaptureInputReversi implements ReversiModel {
   }
 
   @Override
-  public boolean validMove(int row, int column) {
-    log.append(String.format("validMove: row = %d, col = %d\n", row, column));
+  public boolean validMove(LinearCoord move) {
+    log.append(String.format("validMove: row = %d, col = %d\n", move.row(), move.column()));
     return false;
   }
 
@@ -40,8 +40,8 @@ public class CaptureInputReversi implements ReversiModel {
   }
 
   @Override
-  public Player playerAt(int row, int column) {
-    log.append(String.format("playerAt: row = %d, col = %d\n", row, column));
+  public Player playerAt(LinearCoord move) {
+    log.append(String.format("playerAt: row = %d, col = %d\n", move.row(), move.column()));
     return this.players.peek();
   }
 
@@ -67,12 +67,6 @@ public class CaptureInputReversi implements ReversiModel {
   public int getBottomRow() {
     log.append("getBottomRow\n");
     return 5;
-  }
-
-  @Override
-  public Player getCurrentTurn() {
-    log.append("getCurrentTurn\n");
-    return this.players.peek();
   }
 
   @Override

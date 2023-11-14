@@ -21,8 +21,8 @@ public class StrategyTests {
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
     for (int i = 0; i < 8; i += 1) {
       LinearCoord bestMove = basicModel.nextToPlay().getMove(basicModel);
-      Assert.assertTrue(basicModel.validMove(bestMove.row, bestMove.col));
-      basicModel.placePiece(bestMove.row, bestMove.col);
+      Assert.assertTrue(basicModel.validMove(bestMove));
+      basicModel.placePiece(bestMove);
       textView.render();
     }
     Assert.assertEquals(emptyBuilder.toString(), "");
