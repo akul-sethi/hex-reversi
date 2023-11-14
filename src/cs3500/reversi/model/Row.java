@@ -7,7 +7,6 @@ import java.util.List;
  * Represents a row of Hexes in a Hex grid with length being the number of hexes in between
  * the two end points of the row. Necessary to easily check along a row which deciding which pieces
  * to flip.
- * //TODO: ENUM
  */
 class Row  {
 
@@ -17,7 +16,7 @@ class Row  {
   public CubeCoord start;
 
   /**
-   * Creates a new Direction given the following parameters.
+   * Creates a new Row given the following parameters.
    *
    * @param length The length of the row. It is the number of coordinates not including the
    *               endpoints.

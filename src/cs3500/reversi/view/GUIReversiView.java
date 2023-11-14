@@ -7,9 +7,14 @@ import javax.swing.*;
 
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
+/**
+ * A concrete implementation of a view which has a GUI and a board which supports previewing.*/
 public class GUIReversiView extends JFrame implements ReversiView{
   private final ReadOnlyReversiModel model;
-  private final BasicBoardView board;
+  private final BoardView board;
+
+  /**
+   * Creates a GUIReversiView using the given ReadOnlyReversiModel m.*/
   public GUIReversiView(ReadOnlyReversiModel m) {
     super("Reversi");
     this.model = m;
@@ -19,9 +24,9 @@ public class GUIReversiView extends JFrame implements ReversiView{
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     this.setLayout(new BorderLayout());
-    this.board = new BasicBoardView(model);
-    add(this.board, BorderLayout.CENTER);
-//    this.resetFocus();
+    BasicBoardView basic = new BasicBoardView(model);
+    this.board = basic;
+    add(basic, BorderLayout.CENTER);
 
     pack();
     setVisible(true);
@@ -29,7 +34,7 @@ public class GUIReversiView extends JFrame implements ReversiView{
 
   @Override
   public void render() throws IOException {
-
+      this.board.refresh();
   }
 
   @Override
@@ -42,15 +47,6 @@ public class GUIReversiView extends JFrame implements ReversiView{
     super.setVisible(b);
   }
 
-  @Override
-  public void previewMove(int row, int column) {
-    this.board.previewMove(row, column);
-  }
-
-  @Override
-  public void refresh() {
-    this.board.refresh();
-  }
 
   @Override
   public void resetFocus() {

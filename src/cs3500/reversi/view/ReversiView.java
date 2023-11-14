@@ -20,10 +20,11 @@ public interface ReversiView {
    * Adds a Features object to this view.*/
   void addFeatures(Features features);
 
+  /**
+   * Makes the view visible.*/
   void setVisible(boolean b);
 
-  void previewMove(int row, int column);
-
-  void refresh();
+  /**
+   * Resets focus to the view. Necessary for registering key events to the view.*/
   void resetFocus();
 }

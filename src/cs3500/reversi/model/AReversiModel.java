@@ -85,8 +85,10 @@ abstract class AReversiModel implements ReversiModel {
   }
 
   @Override
-  public void placePiece(int row, int column) throws IllegalArgumentException,
+  public void placePiece(LinearCoord coord) throws IllegalArgumentException,
           IllegalStateException {
+    int row = coord.row();
+    int column = coord.column();
     this.passCount = 0;
     requireGameNotOver();
     List<Row> rows = getRadiatingRows(row, column);
@@ -109,8 +111,8 @@ abstract class AReversiModel implements ReversiModel {
 
 
   @Override
-  public Player playerAt(int row, int column) throws IllegalArgumentException {
-    return playerAt(new CubeCoord(row, column));
+  public Player playerAt(LinearCoord coord) throws IllegalArgumentException {
+    return playerAt(new CubeCoord(coord.row(), coord.column()));
   }
 
   /**
@@ -167,9 +169,9 @@ abstract class AReversiModel implements ReversiModel {
   }
 
   @Override
-  public boolean validMove(int row, int column) {
+  public boolean validMove(LinearCoord coord) {
     try {
-      List<Row> rows = getRadiatingRows(row, column);
+      List<Row> rows = getRadiatingRows(coord.row(), coord.column());
       for (Row r : rows) {
         if (r.length > 0 && validCoord(r.next()) && this.tiles.get(r.next()) != null &&
                 this.tiles.get(r.next()).equals(this.players.peek())) {
@@ -182,10 +184,6 @@ abstract class AReversiModel implements ReversiModel {
     return false;
   }
 
-  @Override
-  public Player getCurrentTurn() {
-    return this.players.peek();
-  }
 
   @Override
   public Player getWinner() throws IllegalStateException {

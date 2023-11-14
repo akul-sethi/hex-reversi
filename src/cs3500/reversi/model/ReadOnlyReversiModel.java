@@ -11,7 +11,7 @@ public interface ReadOnlyReversiModel {
    * if the queried move is possible without actually moving. Also allows the view and controller to
    * indicate when the current player MUST pass as they have no possible moves.
    */
-  boolean validMove(int row, int column);
+  boolean validMove(LinearCoord coord);
 
 
   /**
@@ -30,7 +30,7 @@ public interface ReadOnlyReversiModel {
    * @param column The column which is being queried.
    * @throws IllegalArgumentException The coordinates are invalid.
    */
-  Player playerAt(int row, int column);
+  Player playerAt(LinearCoord coord);
 
 
   /**
@@ -62,12 +62,16 @@ public interface ReadOnlyReversiModel {
   int getBottomRow();
 
   /**
-   * Makes a copy of the model. This is for testing moves in the strategies.
+   * Makes a shallow copy of the model. This is for testing moves in the strategies.
    * @return A copy of the model.
    */
   ReversiModel getModel();
 
+  /**
+   * Returns the score of the given player.*/
   int getPlayerScore(Player player);
 
+  /**
+   * Returns the Player which will play next.*/
   Player nextToPlay();
 }

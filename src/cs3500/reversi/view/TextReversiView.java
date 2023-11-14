@@ -50,15 +50,6 @@ public final class TextReversiView implements ReversiView {
 
   }
 
-  @Override
-  public void previewMove(int row, int column) {
-
-  }
-
-  @Override
-  public void refresh() {
-
-  }
 
   @Override
   public void resetFocus() {
@@ -92,7 +83,7 @@ public final class TextReversiView implements ReversiView {
     String rowString = "";
     for (int col = left; col < right + 1; col += 1) {
       try {
-        Player chipInPos = this.model.playerAt(row, col);
+        Player chipInPos = this.model.playerAt(new BasicPoint(row, col));
         if (chipInPos == null) {
           rowString += "- ";
         } else {
