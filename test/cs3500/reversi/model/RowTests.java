@@ -17,37 +17,37 @@ public class RowTests {
 
   @Test
   public void testRightNext() {
-    Row right = new Right(0, this.center);
+    Row right = new Row(0, Direction.RIGHT, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(1, 0, -1));
   }
 
   @Test
   public void testUpRightNext() {
-    Row right = new UpRight(0, this.center);
+    Row right = new Row(0, Direction.UP_RIGHT, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(1, -1, 0));
   }
 
   @Test
   public void testDownRightNext() {
-    Row right = new DownRight(0, this.center);
+    Row right = new Row(0, Direction.DOWN_RIGHT, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(0, 1, -1));
   }
 
   @Test
   public void testDownLeftNext() {
-    Row right = new DownLeft(0, this.center);
+    Row right = new Row(0, Direction.DOWN_LEFT, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(-1, 1, 0));
   }
 
   @Test
   public void testLeftNext() {
-    Row right = new Left(0, this.center);
+    Row right = new Row(0, Direction.LEFT, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(-1, 0, 1));
   }
 
   @Test
   public void testUpLeftNext() {
-    Row right = new UpLeft(0, this.center);
+    Row right = new Row(0, Direction.UP_LEFT, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(0, -1, 1));
   }
 

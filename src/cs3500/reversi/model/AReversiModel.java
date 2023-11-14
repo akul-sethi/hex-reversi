@@ -149,12 +149,12 @@ abstract class AReversiModel implements ReversiModel {
     }
 
     List<Row> directions = Arrays.asList(
-            new UpRight(0, move),
-            new Right(0, move),
-            new DownRight(0, move),
-            new DownLeft(0, move),
-            new Left(0, move),
-            new UpLeft(0, move));
+            new Row(0, Direction.UP_RIGHT, move),
+            new Row(0, Direction.RIGHT, move),
+            new Row(0, Direction.DOWN_RIGHT, move),
+            new Row(0, Direction.DOWN_LEFT, move),
+            new Row(0, Direction.LEFT, move),
+            new Row(0, Direction.UP_LEFT, move));
     for (Row r : directions) {
       while (validCoord(r.next()) &&
               playerAt(r.next()) != null &&

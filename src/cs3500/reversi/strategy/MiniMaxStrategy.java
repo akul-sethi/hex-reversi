@@ -29,12 +29,13 @@ public class MiniMaxStrategy implements FallibleReversiStrategy {
     }
     for (LinearCoord lm : allMoves) {
       ReversiModel tempModel = testModel.getModel();
-      tempModel.placePiece(lm.row, lm.col);
+      tempModel.placePiece(lm.row(), lm.column());
       ArrayList<LinearCoord> opponentLegalMoves = Utils.allLegalMoves(tempModel);
       ArrayList<Integer> bestOpponentMoves = new ArrayList<>();
       for (LinearCoord olm : opponentLegalMoves) {
         ReversiModel tempTempModel = tempModel.getModel();
-        tempTempModel.placePiece(olm.row, olm.col);
+        tempTempModel.placePiece(olm.row(), olm.column());
+
         int tempOpponentScore = tempTempModel.getPlayerScore(opponent);
         int tempMyScore = tempTempModel.getPlayerScore(forWhom);
         int tempDifference = tempMyScore - tempOpponentScore;
