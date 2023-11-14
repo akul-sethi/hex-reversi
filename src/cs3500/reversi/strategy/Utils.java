@@ -9,6 +9,7 @@ import java.util.spi.LocaleNameProvider;
 
 import javax.sound.sampled.Line;
 
+import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReversiModel;
 
@@ -21,8 +22,9 @@ public class Utils {
     int topRow = model.getTopRow();
     for (int row = topRow; row <= botRow; row += 1) {
       for (int col = leftCol; col <= rightCol; col += 1) {
-        if (model.validMove(row, col)) {
-          allLegal.add(new LinearCoord(row, col));
+        LinearCoord tempPoint = new BasicPoint(row, col);
+        if (model.validMove(tempPoint)) {
+          allLegal.add(tempPoint);
         }
       }
     }
@@ -34,8 +36,9 @@ public class Utils {
     for (int row = model.getTopRow(); row <= model.getBottomRow(); row += 1) {
       for (int col = model.getLeftCol(); col <= model.getRightCol(); col += 1) {
         try {
-          model.playerAt(row, col);
-          allInMap.add(new LinearCoord(row, col));
+          LinearCoord tempPoint = new BasicPoint(row, col);
+          model.playerAt(tempPoint);
+          allInMap.add(tempPoint);
         }
         catch (Exception e) {
           // Do nothing!
@@ -63,10 +66,10 @@ public class Utils {
   static ArrayList<LinearCoord> getSecondRow(ArrayList<LinearCoord> all) {
     all.sort(new upperLefterCoordComparer());
     ArrayList<LinearCoord> inSecondRow = new ArrayList<>();
-    int secondRow = all.get(0).row + 1;
+    int secondRow = all.get(0).row() + 1;
     boolean started = false;
     for (LinearCoord lc : all) {
-      if (lc.row == secondRow) {
+      if (lc.row() == secondRow) {
         inSecondRow.add(lc);
       }
     }
@@ -76,9 +79,9 @@ public class Utils {
   static ArrayList<LinearCoord> getSecondLastRow(ArrayList<LinearCoord> all) {
     all.sort(new lowerLefterCoordComparer());
     ArrayList<LinearCoord> inSecondLastRow = new ArrayList<>();
-    int secondLastRow = all.get(0).row - 1;
+    int secondLastRow = all.get(0).row() - 1;
     for (LinearCoord lc : all) {
-      if (lc.row == secondLastRow) {
+      if (lc.row() == secondLastRow) {
         inSecondLastRow.add(lc);
       }
     }
@@ -98,22 +101,22 @@ public class Utils {
     LinearCoord leftCorner = corners.get(0);
     LinearCoord rightCorner = corners.get(5);
     //all the middle surrounding tiles
-    surroundsCorners.add(new LinearCoord(leftCorner.row, leftCorner.col + 1));
-    surroundsCorners.add(new LinearCoord(rightCorner.row, rightCorner.col - 1));
-    surroundsCorners.add(new LinearCoord(leftCorner.row - 1, leftCorner.col));
-    surroundsCorners.add(new LinearCoord(rightCorner.row - 1, rightCorner.col - 1));
-    surroundsCorners.add(new LinearCoord(leftCorner.row + 1, leftCorner.col));
-    surroundsCorners.add(new LinearCoord(rightCorner.row + 1, rightCorner.col - 1));
+    surroundsCorners.add(new BasicPoint(leftCorner.row(), leftCorner.column() + 1));
+    surroundsCorners.add(new BasicPoint(rightCorner.row(), rightCorner.column() - 1));
+    surroundsCorners.add(new BasicPoint(leftCorner.row() - 1, leftCorner.column()));
+    surroundsCorners.add(new BasicPoint(rightCorner.row() - 1, rightCorner.column() - 1));
+    surroundsCorners.add(new BasicPoint(leftCorner.row() + 1, leftCorner.column()));
+    surroundsCorners.add(new BasicPoint(rightCorner.row() + 1, rightCorner.column() - 1));
     //top and bottom left and right
     corners.sort(new upperLefterCoordComparer());
     LinearCoord topLeftCorner = corners.get(0);
     LinearCoord topRightCorner = corners.get(1);
     LinearCoord bottomLeftCorner = corners.get(4);
     LinearCoord bottomRightCorner = corners.get(5);
-    surroundsCorners.add(new LinearCoord(topLeftCorner.row, topLeftCorner.col + 1));
-    surroundsCorners.add(new LinearCoord(topRightCorner.row, topRightCorner.col - 1));
-    surroundsCorners.add(new LinearCoord(bottomLeftCorner.row, bottomLeftCorner.col + 1));
-    surroundsCorners.add(new LinearCoord(bottomRightCorner.row, bottomRightCorner.col - 1));
+    surroundsCorners.add(new BasicPoint(topLeftCorner.row(), topLeftCorner.column() + 1));
+    surroundsCorners.add(new BasicPoint(topRightCorner.row(), topRightCorner.column() - 1));
+    surroundsCorners.add(new BasicPoint(bottomLeftCorner.row(), bottomLeftCorner.column() + 1));
+    surroundsCorners.add(new BasicPoint(bottomRightCorner.row(), bottomRightCorner.column() - 1));
     ArrayList<LinearCoord> all = getAll(model);
     ArrayList<LinearCoord> secondRow = getSecondRow(all);
     surroundsCorners.add(secondRow.get(0));
@@ -132,9 +135,9 @@ public class Utils {
   static class upperLefterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
-      int rowDiff = a.row - b.row;
+      int rowDiff = a.row() - b.row();
       if (rowDiff != 0) {
-        return a.col - b.col;
+        return a.column() - b.column();
       }
       return rowDiff;
     }
@@ -143,9 +146,9 @@ public class Utils {
   static class upperRighterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
-      int rowDiff = a.row - b.row;
+      int rowDiff = a.row() - b.row();
       if (rowDiff != 0) {
-        return b.col - a.col;
+        return b.column() - a.column();
       }
       return rowDiff;
     }
@@ -154,9 +157,9 @@ public class Utils {
   static class lowerLefterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
-      int rowDiff = b.row - a.row;
+      int rowDiff = b.row() - a.row();
       if (rowDiff != 0) {
-        return a.col - b.col;
+        return a.column() - b.column();
       }
       return rowDiff;
     }
@@ -165,9 +168,9 @@ public class Utils {
   static class lowerRighterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
-      int rowDiff = b.row - a.row;
+      int rowDiff = b.row() - a.row();
       if (rowDiff != 0) {
-        return b.col - a.col;
+        return b.column() - a.column();
       }
       return rowDiff;
     }
@@ -176,14 +179,14 @@ public class Utils {
   static class righterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
-      return b.col - a.col;
+      return b.column() - a.column();
     }
   }
 
   static class lefterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
-      return a.col - b.col;
+      return a.column() - b.column();
     }
   }
 }
