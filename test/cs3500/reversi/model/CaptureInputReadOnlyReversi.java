@@ -19,6 +19,7 @@ public class CaptureInputReadOnlyReversi implements ReadOnlyReversiModel {
   final Queue<Player> players;
 
   final HashMap<CubeCoord, Player> tiles;
+
   protected CaptureInputReadOnlyReversi(StringBuilder log, List<Player> players) {
     this.tiles = new HashMap<>();
     this.tiles.putAll(makeBoard(6));

@@ -24,6 +24,7 @@ public interface Player {
 
   /**
    * Gets the move from the player given the boardState.
+   *
    * @param readOnlyModel the readonly model to pass into the get move function, by which the
    *                      strategy will search to determine what move to make.
    * @return The best move determined by the player's strategy.

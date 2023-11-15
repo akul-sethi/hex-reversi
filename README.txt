@@ -133,8 +133,8 @@ View Design:
     Key components:
         ReversiView - Describes the interface to interact with all views
         BoardView - Describes the interface to interact with the view of a Reversi board
-        Features - Describes the features which all Reversi games must support. Will be added to
-                   when controllers are implemented.
+        Features - Describes the features which all Reversi games must support. Includes a request
+                   to move to a location and a request to pass turn.
         GUIReversiView - A concrete implementation of a ReversiView which uses a BasicBoardView
         BasicBoardView - A concrete implementation of a BoardView which supports move previewing
         Hexagon - Describes a Hexagon with its location and Shape

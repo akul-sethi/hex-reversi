@@ -12,21 +12,19 @@ import cs3500.reversi.view.ReversiView;
 
 
 /**
- * Entry point to a game of Reversi.*/
+ * Entry point to a game of Reversi.
+ */
 public final class Reversi {
 
   /*
-  * Actual entry point method.*/
+   * Actual entry point method.*/
   public static void main(String[] args) {
-      Player p1 = new SuperStrategyPlayer("X");
-      Player p2 = new CaptureMaxPlayer("O");
-      ReversiModel model = ReversiCreator.create(GameType.BASIC, 6, p1, p2);
-      model.placePiece(new BasicPoint(2, 0));
-    model.placePiece(new BasicPoint(-2, 0));
-    model.placePiece(new BasicPoint(-1, 1));
-      ReversiView view = new GUIReversiView(model);
-      view.setVisible(true);
-    }
+    Player p1 = new SuperStrategyPlayer("X");
+    Player p2 = new CaptureMaxPlayer("O");
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6, p1, p2);
+    ReversiView view = new GUIReversiView(model);
+    view.setVisible(true);
+  }
 
 }
 

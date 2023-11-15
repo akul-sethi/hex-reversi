@@ -16,7 +16,7 @@ public interface ReversiModel extends ReadOnlyReversiModel {
   /**
    * Places a piece at the given coordinate. Necessary to allow players to move.
    *
-   * @param coord    The coord where the piece is being placed
+   * @param coord The coord where the piece is being placed
    * @throws IllegalArgumentException The coordinate is not valid.
    * @throws IllegalStateException    The move is invalid or the game is over (all players passed in
    *                                  a row).

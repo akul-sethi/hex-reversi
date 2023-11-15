@@ -8,7 +8,7 @@ import java.util.List;
  * the two end points of the row. Necessary to easily check along a row which deciding which pieces
  * to flip.
  */
-class Row  {
+class Row {
 
   //Length represents the number of tiles between the two end hexes
   public int length;
@@ -18,12 +18,12 @@ class Row  {
   /**
    * Creates a new Row given the following parameters.
    *
-   * @param length The length of the row. It is the number of coordinates not including the
-   *               endpoints.
+   * @param length    The length of the row. It is the number of coordinates not including the
+   *                  endpoints.
    * @param direction The direction of this row.
-   * @param start  The starting coordinate in the row. The first endpoint.
+   * @param start     The starting coordinate in the row. The first endpoint.
    */
-   Row(int length, Direction direction, CubeCoord start) {
+  Row(int length, Direction direction, CubeCoord start) {
     this.length = length;
     this.direction = direction;
     this.start = start;

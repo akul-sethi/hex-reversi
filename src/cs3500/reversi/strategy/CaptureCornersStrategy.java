@@ -16,8 +16,9 @@ public class CaptureCornersStrategy implements FallibleReversiStrategy {
   /**
    * Finds the moves that capture corners. If it can't find any, it returns the legalMoves passed
    * into the strategy, as to avoid destroying previous progress in narrowing down a move choice.
-   * @param model The model to search for a move in.
-   * @param forWhom The player to look for a move for.
+   *
+   * @param model      The model to search for a move in.
+   * @param forWhom    The player to look for a move for.
    * @param legalMoves The list of legal moves to be passed into the strategy. In all of our
    *                   strategies, if this list is empty, the strategy looks again for any legal
    *                   moves. This is because when combining strategies, you have to pass the prev.

@@ -15,14 +15,15 @@ public class HumanStrategy implements FallibleReversiStrategy {
 
   /**
    * The chooseMove method, returns null.
-   * @param model the model to look for a move in
-   * @param forWhom the player to look for a move for
+   *
+   * @param model      the model to look for a move in
+   * @param forWhom    the player to look for a move for
    * @param legalMoves the passed in legal moves to scan.
    * @return empty.
    */
   @Override
   public Optional<ArrayList<LinearCoord>> chooseMove(ReadOnlyReversiModel model, Player forWhom,
-                                ArrayList<LinearCoord> legalMoves) {
+                                                     ArrayList<LinearCoord> legalMoves) {
     return Optional.empty();
   }
 }

@@ -18,7 +18,8 @@ public class TryTwo implements FallibleReversiStrategy {
   /**
    * The constructor. Stores both strategies given to it, in order. The first strategy is queried
    * before the second.
-   * @param first The first strategy to store.
+   *
+   * @param first  The first strategy to store.
    * @param second The second strategy to store.
    */
   public TryTwo(FallibleReversiStrategy first, FallibleReversiStrategy second) {
@@ -33,8 +34,9 @@ public class TryTwo implements FallibleReversiStrategy {
    * equally good (deemed equal by that strategy) moves, then it passes those moves to the second
    * strategy to act as a tiebreaker. The second strategy determines which of the moves is best by
    * its own rules.
-   * @param model The model for look for a move in.
-   * @param forWhom The player to look for a move for.
+   *
+   * @param model      The model for look for a move in.
+   * @param forWhom    The player to look for a move for.
    * @param legalMoves All the current legal moves to look through for the best move. If this is
    *                   empty, the strategy will re-find all the legal moves for the player, and sort
    *                   through those.

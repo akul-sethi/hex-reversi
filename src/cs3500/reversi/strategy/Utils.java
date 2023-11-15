@@ -15,6 +15,7 @@ import cs3500.reversi.model.ReversiModel;
 final class Utils {
   /**
    * Finds all the legal moves for the current player in the given reversiModel.
+   *
    * @param model the reversiModel to scan.
    * @return an ArrayList of all legal moves that the current player can play.
    */
@@ -37,6 +38,7 @@ final class Utils {
 
   /**
    * Finds all the coordinates in the given model board.
+   *
    * @param model The model to scan the board of.
    * @return an ArrayList of all coordinates in the model's board.
    */
@@ -48,8 +50,7 @@ final class Utils {
           LinearCoord tempPoint = new BasicPoint(row, col);
           model.playerAt(tempPoint);
           allInMap.add(tempPoint);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
           // Do nothing!
         }
       }
@@ -60,6 +61,7 @@ final class Utils {
   /**
    * Gets the corners of the given model. There are six corners in a hexagon, top left, top right,
    * bottom left, bottom right, leftmost, and rightmost.
+   *
    * @param model The model to get the corners from.
    * @return an ArrayList of coordinates with all of the corners.
    */
@@ -81,6 +83,7 @@ final class Utils {
 
   /**
    * Gets all the coordinates in the second row of a list of coordinates.
+   *
    * @param all an ArrayList of coordinates to search.
    * @return an ArrayList containing all the coordinates in the second row of the list given.
    */
@@ -99,6 +102,7 @@ final class Utils {
 
   /**
    * Gets all the coordinates in the second to last row of a list of coordinates.
+   *
    * @param all an ArrayList of coordinates to search.
    * @return an ArrayList containing all the coordinates in the
    * second to last row of the list given.
@@ -121,6 +125,7 @@ final class Utils {
    * methods work regardless of board layout. This method is only possible if we do assume that the
    * board is a perfect hexagon. Since this was a suggested strategy, we assumed that this was a
    * safe assumption. Hence, the long method.
+   *
    * @param model the model to scan for coordinates.
    * @return an ArrayList of coordinates that are next to the corners.
    */

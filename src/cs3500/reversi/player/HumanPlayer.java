@@ -7,7 +7,8 @@ public class HumanPlayer extends AbstractPlayer {
 
   /**
    * The constructor, initializes name and strategy to those provided.
-   * @param name     The name to give this player
+   *
+   * @param name The name to give this player
    */
   public HumanPlayer(String name) {
     super(name, new HumanStrategy());

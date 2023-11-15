@@ -9,6 +9,7 @@ public class CaptureMaxPlayer extends AbstractPlayer {
 
   /**
    * The constructor, doesn't need a strategy, since it's predetermined.
+   *
    * @param name the name to give the player
    */
   public CaptureMaxPlayer(String name) {

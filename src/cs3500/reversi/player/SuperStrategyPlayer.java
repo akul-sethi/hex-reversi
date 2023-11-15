@@ -18,11 +18,12 @@ public class SuperStrategyPlayer extends AbstractPlayer {
   private static final FallibleReversiStrategy SuperStrategy =
           new TryTwo(new CaptureCornersStrategy(),
                   new TryTwo(new AvoidNextToCornersStrategy(),
-                  new TryTwo(new MiniMaxStrategy(),
-                  new CaptureMaxStrategy())));
+                          new TryTwo(new MiniMaxStrategy(),
+                                  new CaptureMaxStrategy())));
 
   /**
    * The constructor, only takes a name, since strategy is predetermined.
+   *
    * @param name The name for the player a one length string
    */
   public SuperStrategyPlayer(String name) {

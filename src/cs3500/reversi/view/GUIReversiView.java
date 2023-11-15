@@ -8,13 +8,15 @@ import javax.swing.*;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
 /**
- * A concrete implementation of a view which has a GUI and a board which supports previewing.*/
-public final class GUIReversiView extends JFrame implements ReversiView{
+ * A concrete implementation of a view which has a GUI and a board which supports previewing.
+ */
+public final class GUIReversiView extends JFrame implements ReversiView {
   private final ReadOnlyReversiModel model;
   private final BasicBoardView board;
 
   /**
-   * Creates a GUIReversiView using the given ReadOnlyReversiModel m.*/
+   * Creates a GUIReversiView using the given ReadOnlyReversiModel m.
+   */
   public GUIReversiView(ReadOnlyReversiModel m) {
     super("Reversi");
     this.model = m;
@@ -37,12 +39,12 @@ public final class GUIReversiView extends JFrame implements ReversiView{
 
   @Override
   public void render() throws IOException {
-      this.board.refresh();
+    this.board.refresh();
   }
 
   @Override
   public void addFeatures(Features features) {
-      this.board.addFeatures(features);
+    this.board.addFeatures(features);
   }
 
   @Override
