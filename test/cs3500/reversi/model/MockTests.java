@@ -3,12 +3,15 @@ package cs3500.reversi.model;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.nio.MappedByteBuffer;
 import java.util.Arrays;
 
 import cs3500.reversi.player.StrategyPlayer;
 import cs3500.reversi.strategy.AvoidNextToCornersStrategy;
 import cs3500.reversi.strategy.CaptureCornersStrategy;
 import cs3500.reversi.strategy.CaptureMaxStrategy;
+import cs3500.reversi.view.ReversiView;
+import cs3500.reversi.view.TextReversiView;
 
 /**
  * Tests for mutability etc of the mock reversi class.
@@ -17,7 +20,9 @@ public class MockTests {
   @Test
   public void captureInputCorners() {
     StringBuilder output = new StringBuilder();
-    ReadOnlyReversiModel mockModel = new CaptureInputReversi(output, Arrays.asList(new StrategyPlayer("X", new CaptureCornersStrategy()), new StrategyPlayer("X", new CaptureCornersStrategy())));
+    ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
+            Arrays.asList(new StrategyPlayer("X", new CaptureCornersStrategy()),
+                    new StrategyPlayer("X", new CaptureCornersStrategy())));
     ReversiModel testModel = mockModel.getModel();
     try {
       testModel.nextToPlay().getMove(testModel);
@@ -35,7 +40,9 @@ public class MockTests {
   @Test
   public void captureInputAvoidNextToCorners() {
     StringBuilder output = new StringBuilder();
-    ReadOnlyReversiModel mockModel = new CaptureInputReversi(output, Arrays.asList(new StrategyPlayer("X", new AvoidNextToCornersStrategy()), new StrategyPlayer("X", new AvoidNextToCornersStrategy())));
+    ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
+            Arrays.asList(new StrategyPlayer("X", new AvoidNextToCornersStrategy()),
+                    new StrategyPlayer("X", new AvoidNextToCornersStrategy())));
     ReversiModel testModel = mockModel.getModel();
     try {
       testModel.nextToPlay().getMove(testModel);
@@ -222,5 +229,17 @@ public class MockTests {
             "getModel\n" +
             "placePiece: row = 2, col = 0\n" +
             "getPlayerScore: player\n");
+  }
+
+  @Test
+  public void MockStringViewTest() {
+    StringBuilder output = new StringBuilder();
+    ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
+            Arrays.asList(new StrategyPlayer("X", new CaptureMaxStrategy()),
+                    new StrategyPlayer("X", new CaptureMaxStrategy())));
+    ReversiModel testModel = mockModel.getModel();
+    Appendable log = new StringBuilder();
+    ReversiView textView = new TextReversiView(mockModel.getModel(), log);
+    Assert.assertEquals("", textView.toString());
   }
 }

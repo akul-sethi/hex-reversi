@@ -1,7 +1,5 @@
 package cs3500.reversi.view;
 
-import javax.swing.*;
-
 /**
  * Represents a view of the board and methods it must implement.
  * This can be nested within a full Reversi view.

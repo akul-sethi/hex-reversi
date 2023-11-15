@@ -53,7 +53,7 @@ public class MiniMaxStrategy implements FallibleReversiStrategy {
         bestMoves.add(lm);
       }
     }
-    bestMoves.sort(new Utils.upperLefterCoordComparer());
+    bestMoves.sort(new Utils.UpperLefterCoordComparer());
     if (bestMoves.isEmpty()) {
       return Optional.empty();
     }

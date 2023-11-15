@@ -56,6 +56,13 @@ public class CaptureInputReadOnlyReversi implements ReadOnlyReversiModel {
     tiles.put(new CubeCoord(0, -1, 1), new HumanPlayer("O"));
     tiles.put(new CubeCoord(-1, 1, 0), new HumanPlayer("O"));
     tiles.put(new CubeCoord(-1, 0, 1), new HumanPlayer("X"));
+    tiles.put(new CubeCoord(0, -5), new HumanPlayer("1"));
+    tiles.put(new CubeCoord(-5, -3), new HumanPlayer("2"));
+    tiles.put(new CubeCoord(-5, 2), new HumanPlayer("3"));
+    tiles.put(new CubeCoord(0, 5), new HumanPlayer("4"));
+    tiles.put(new CubeCoord(5, 2), new HumanPlayer("5"));
+    tiles.put(new CubeCoord(5, -3), new HumanPlayer("6"));
+
   }
 
   @Override

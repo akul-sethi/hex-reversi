@@ -1,6 +1,5 @@
 package cs3500.reversi;
 
-import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.ReversiCreator;
 import cs3500.reversi.model.ReversiModel;
@@ -10,14 +9,15 @@ import cs3500.reversi.player.SuperStrategyPlayer;
 import cs3500.reversi.view.GUIReversiView;
 import cs3500.reversi.view.ReversiView;
 
-
 /**
  * Entry point to a game of Reversi.
  */
 public final class Reversi {
 
-  /*
-   * Actual entry point method.*/
+  /**
+   * Actual entry point method.
+   * @param args The system args to create the game from.
+   */
   public static void main(String[] args) {
     Player p1 = new SuperStrategyPlayer("X");
     Player p2 = new CaptureMaxPlayer("O");

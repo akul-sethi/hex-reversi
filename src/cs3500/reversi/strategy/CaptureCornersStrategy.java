@@ -46,7 +46,7 @@ public class CaptureCornersStrategy implements FallibleReversiStrategy {
     }
     //if there are some best moves (ones that capture corners), return them
     if (!bestMoves.isEmpty()) {
-      bestMoves.sort(new Utils.upperLefterCoordComparer());
+      bestMoves.sort(new Utils.UpperLefterCoordComparer());
       return Optional.of(bestMoves);
     }
     //else, return the legal moves passed in

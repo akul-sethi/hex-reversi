@@ -1,6 +1,10 @@
 package cs3500.reversi.view;
 
-import java.awt.*;
+import java.awt.Point;
+import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -10,7 +14,8 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.AbstractAction;
 
 import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.player.Player;

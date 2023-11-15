@@ -2,7 +2,7 @@ package cs3500.reversi.view;
 
 import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.KeyStroke;
 
 import cs3500.reversi.model.BasicPoint;
 
@@ -46,23 +46,23 @@ public final class TextReversiView implements ReversiView {
 
   @Override
   public void addFeatures(Features features) {
-
+    //placeholder
   }
 
   @Override
   public void setVisible(boolean b) {
-
+    //placeholder
   }
 
 
   @Override
   public void resetFocus() {
-
+    //placeholder
   }
 
   @Override
   public void setHotKey(KeyStroke keyStroke, String featureName) {
-
+    //placeholder
   }
 
   /**
