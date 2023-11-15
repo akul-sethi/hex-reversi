@@ -174,4 +174,5 @@ EXTRA CREDIT:
         Any of the strategies we created can be combined in any order, and given to a player. The
     player will then turn the FallibleStrategy given to it into an InfallibleStrategy.
         The InfallibleStrategy, also, if it can't find a single possible move, will throw an
-    IllegalStateException, which we intend the
+    IllegalStateException, which we intend the constructor to interpret, and call pass() on the
+    model.

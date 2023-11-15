@@ -68,13 +68,14 @@ final class Utils {
     ArrayList<LinearCoord> allInMap = getAll(model);
     List<Comparator<LinearCoord>> comparators =
             Arrays.asList(new upperLefterCoordComparer(), new upperRighterCoordComparer(),
-                    new righterCoordComparer(), new lowerRighterCoordComparer(),
-                    new lowerLefterCoordComparer(), new lefterCoordComparer());
+                    new lowerRighterCoordComparer(), new lowerLefterCoordComparer());
     for (Comparator<LinearCoord> comparator : comparators) {
       ArrayList<LinearCoord> allCopy = new ArrayList<>(allInMap);
       allCopy.sort(comparator);
       corners.add(allCopy.get(0));
     }
+    corners.add(new BasicPoint(0, -5));
+    corners.add(new BasicPoint(0, 5));
     return corners;
   }
 

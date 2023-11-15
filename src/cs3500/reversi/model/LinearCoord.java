@@ -12,5 +12,4 @@ public interface LinearCoord {
    * Returns the column value of this coordinate. */
   public int column();
 
-
 }
