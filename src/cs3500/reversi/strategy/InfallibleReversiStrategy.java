@@ -11,7 +11,8 @@ import cs3500.reversi.player.Player;
 public interface InfallibleReversiStrategy {
   /**
    * Returns a move chosen by the strategy, or throws an IllegalStateException.
-   * @param model the model to look for a move in
+   *
+   * @param model   the model to look for a move in
    * @param forWhom the player to look for a move for
    * @return A move (probably the best move)
    * @throws IllegalStateException if no move can be returned.

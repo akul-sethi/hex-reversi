@@ -14,8 +14,9 @@ import cs3500.reversi.player.Player;
 public interface FallibleReversiStrategy {
   /**
    * Returns a move if it can find one.
-   * @param model The model to search for a move in.
-   * @param forWhom The player to look for a move for.
+   *
+   * @param model      The model to search for a move in.
+   * @param forWhom    The player to look for a move for.
    * @param legalMoves The list of legal moves to be passed into the strategy. In all of our
    *                   strategies, if this list is empty, the strategy looks again for any legal
    *                   moves. This is because when combining strategies, you have to pass the prev.

@@ -4,7 +4,8 @@ import cs3500.reversi.player.Player;
 
 /**
  * Represents an interface for making observations on ReversiModels. Masks all behavior of the model
- * other than observations making model mutation impossible. */
+ * other than observations making model mutation impossible.
+ */
 public interface ReadOnlyReversiModel {
   /**
    * Returns true if the given move is valid. Necessary so that the view and controller can preview
@@ -26,7 +27,7 @@ public interface ReadOnlyReversiModel {
    * Returns the player at the given CubeCord. <code>null</code> if there is no player. This is in
    * the model to make drawing it possible.
    *
-   * @param coord    The coordinate which is being queried.
+   * @param coord The coordinate which is being queried.
    * @throws IllegalArgumentException The coordinates are invalid.
    */
   Player playerAt(LinearCoord coord);
@@ -62,15 +63,18 @@ public interface ReadOnlyReversiModel {
 
   /**
    * Makes a shallow copy of the model. This is for testing moves in the strategies.
+   *
    * @return A copy of the model.
    */
   ReversiModel getModel();
 
   /**
-   * Returns the score of the given player.*/
+   * Returns the score of the given player.
+   */
   int getPlayerScore(Player player);
 
   /**
-   * Returns the Player which will play next.*/
+   * Returns the Player which will play next.
+   */
   Player nextToPlay();
 }

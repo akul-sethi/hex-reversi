@@ -6,10 +6,13 @@ package cs3500.reversi.model;
 public interface LinearCoord {
 
   /**
-   * Returns the row value of this coordinate.*/
+   * Returns the row value of this coordinate.
+   */
   public int row();
+
   /**
-   * Returns the column value of this coordinate. */
+   * Returns the column value of this coordinate.
+   */
   public int column();
 
 }

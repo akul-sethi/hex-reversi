@@ -10,6 +10,7 @@ public class MiniMaxPlayer extends AbstractPlayer {
 
   /**
    * The constructor, only takes in name because strategy is predetermined.
+   *
    * @param name the name to give the player
    */
   public MiniMaxPlayer(String name) {

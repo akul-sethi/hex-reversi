@@ -9,6 +9,7 @@ import cs3500.reversi.player.Player;
 
 public class CaptureInputReversi extends CaptureInputReadOnlyReversi implements ReversiModel {
   private final StringBuilder log;
+
   protected CaptureInputReversi(StringBuilder log, List<Player> players) {
     super(log, players);
     this.log = log;

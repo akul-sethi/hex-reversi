@@ -15,8 +15,9 @@ public class AvoidNextToCornersStrategy implements FallibleReversiStrategy {
 
   /**
    * Returns the moves from legalMoves that aren't adjacent to corners.
-   * @param model The model to search for a move in.
-   * @param forWhom The player to look for a move for.
+   *
+   * @param model      The model to search for a move in.
+   * @param forWhom    The player to look for a move for.
    * @param legalMoves The list of legal moves to be passed into the strategy. In all of our
    *                   strategies, if this list is empty, the strategy looks again for any legal
    *                   moves. This is because when combining strategies, you have to pass the prev.

@@ -19,18 +19,22 @@ public interface ReversiView {
   void render() throws IOException;
 
   /**
-   * Adds a Features object to this view.*/
+   * Adds a Features object to this view.
+   */
   void addFeatures(Features features);
 
   /**
-   * Makes the view visible.*/
+   * Makes the view visible.
+   */
   void setVisible(boolean b);
 
   /**
-   * Resets focus to the view. Necessary for registering key events to the view.*/
+   * Resets focus to the view. Necessary for registering key events to the view.
+   */
   void resetFocus();
 
   /**
-   * Sets an action to be performed for a given keystroke.*/
+   * Sets an action to be performed for a given keystroke.
+   */
   void setHotKey(KeyStroke keyStroke, String featureName);
 }

@@ -21,8 +21,7 @@ public class MockTests {
     ReversiModel testModel = mockModel.getModel();
     try {
       testModel.nextToPlay().getMove(testModel);
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       //inshallah do nothing
     }
     Assert.assertTrue(output.toString().contains("validMove: row = -5, col = -3"));
@@ -40,8 +39,7 @@ public class MockTests {
     ReversiModel testModel = mockModel.getModel();
     try {
       testModel.nextToPlay().getMove(testModel);
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       //inshallah do nothing
     }
     Assert.assertTrue(output.toString().contains("validMove: row = -5, col = -2"));

@@ -18,6 +18,7 @@ public class CompleteReversiStrategyFromFallible implements InfallibleReversiStr
 
   /**
    * The constructor, sets the strategy.
+   *
    * @param strategyToTry the strategy which this strategy will try to get a move from.
    */
   public CompleteReversiStrategyFromFallible(FallibleReversiStrategy strategyToTry) {
@@ -26,7 +27,8 @@ public class CompleteReversiStrategyFromFallible implements InfallibleReversiStr
 
   /**
    * Chooses a move, using the strategy.
-   * @param model the model to look for a move in
+   *
+   * @param model   the model to look for a move in
    * @param forWhom the player to look for a move for
    * @return The move it finds using the strategy, or
    */

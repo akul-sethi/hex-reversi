@@ -9,7 +9,8 @@ public class StrategyPlayer extends AbstractPlayer {
 
   /**
    * The constructor.
-   * @param name The name to give the player
+   *
+   * @param name     The name to give the player
    * @param strategy The strategy to give the player
    */
   public StrategyPlayer(String name, FallibleReversiStrategy strategy) {

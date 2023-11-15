@@ -17,8 +17,9 @@ public class MiniMaxStrategy implements FallibleReversiStrategy {
 
   /**
    * The chooseMove function.
-   * @param model The model to search for a move in.
-   * @param forWhom The player to search for a move for.
+   *
+   * @param model      The model to search for a move in.
+   * @param forWhom    The player to search for a move for.
    * @param legalMoves All the current legal moves to look through for the best move. If this is
    *                   empty, the strategy will re-find all the legal moves for the player
    *                   and sort through those.
@@ -61,14 +62,15 @@ public class MiniMaxStrategy implements FallibleReversiStrategy {
 
   /**
    * Gets the best move value for the opponent, given a move for the current player.
-   * @param lm a legal move for the current player
+   *
+   * @param lm        a legal move for the current player
    * @param testModel the model to search for moves in
-   * @param opponent the opponent
-   * @param forWhom the current player
+   * @param opponent  the opponent
+   * @param forWhom   the current player
    * @return The best move value (score of the game) for the opponent, given a move.
    */
   private Integer getOpponentBestMoveValue(LinearCoord lm, ReversiModel testModel,
-                                                      Player opponent, Player forWhom) {
+                                           Player opponent, Player forWhom) {
     ReversiModel tempModel = testModel.getModel();
     tempModel.placePiece(lm);
     ArrayList<LinearCoord> opponentLegalMoves = Utils.allLegalMoves(tempModel);
