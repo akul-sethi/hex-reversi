@@ -1,9 +1,10 @@
 package cs3500.reversi.view;
 
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.KeyStroke;
 
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
@@ -11,7 +12,6 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
  * A concrete implementation of a view which has a GUI and a board which supports previewing.
  */
 public final class GUIReversiView extends JFrame implements ReversiView {
-  private final ReadOnlyReversiModel model;
   private final BasicBoardView board;
 
   /**
@@ -19,14 +19,13 @@ public final class GUIReversiView extends JFrame implements ReversiView {
    */
   public GUIReversiView(ReadOnlyReversiModel m) {
     super("Reversi");
-    this.model = m;
 
     setSize(500, 300);
     setLocation(200, 200);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     this.setLayout(new BorderLayout());
-    BasicBoardView basic = new BasicBoardView(model);
+    BasicBoardView basic = new BasicBoardView(m);
     this.board = basic;
     add(basic, BorderLayout.CENTER);
 

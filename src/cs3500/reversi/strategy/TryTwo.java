@@ -13,7 +13,8 @@ import cs3500.reversi.player.Player;
  */
 public class TryTwo implements FallibleReversiStrategy {
   //the two strategies to store.
-  private final FallibleReversiStrategy first, second;
+  private final FallibleReversiStrategy first;
+  private final FallibleReversiStrategy second;
 
   /**
    * The constructor. Stores both strategies given to it, in order. The first strategy is queried

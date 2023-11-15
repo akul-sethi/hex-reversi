@@ -42,7 +42,7 @@ public class AvoidNextToCornersStrategy implements FallibleReversiStrategy {
     if (goodMoves.isEmpty()) {
       return Optional.empty();
     }
-    goodMoves.sort(new Utils.upperLefterCoordComparer());
+    goodMoves.sort(new Utils.UpperLefterCoordComparer());
     return Optional.of(goodMoves);
   }
 }

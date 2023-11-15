@@ -2,9 +2,7 @@ package cs3500.reversi.view;
 
 import java.io.IOException;
 
-import javax.swing.*;
-
-import cs3500.reversi.model.LinearCoord;
+import javax.swing.KeyStroke;
 
 /**
  * Represents a view for a Reversi game.

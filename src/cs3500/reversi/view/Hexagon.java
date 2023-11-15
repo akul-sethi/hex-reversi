@@ -14,7 +14,7 @@ final class Hexagon extends Path2D.Double {
   private final double centerX;
 
   /**
-   * Creates a Hexagon with given center and side length
+   * Creates a Hexagon with given center and side length.
    */
   Hexagon(double centerX, double centerY, double sideLength) {
     super();
@@ -50,7 +50,13 @@ final class Hexagon extends Path2D.Double {
 
     Hexagon h = (Hexagon) o;
 
-    return h.sideLength == this.sideLength && this.centerY == h.centerY && this.centerX == h.centerX;
+    return h.sideLength == this.sideLength &&
+            this.centerY == h.centerY && this.centerX == h.centerX;
+  }
+
+  @Override
+  public int hashCode() {
+    return (int) (this.sideLength * 11 + this.centerX * 13 + this.centerX * 19);
   }
 
 

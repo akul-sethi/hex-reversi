@@ -10,14 +10,16 @@ import cs3500.reversi.player.SuperStrategyPlayer;
 import cs3500.reversi.view.GUIReversiView;
 import cs3500.reversi.view.ReversiView;
 
-
 /**
  * Entry point to a game of Reversi.
  */
 public final class Reversi {
 
   /**
-   * The actual entry point to the program.*/
+
+   * Actual entry point method.
+   * @param args The system args to create the game from.
+   */
   public static void main(String[] args) {
     Player p1 = new SuperStrategyPlayer("X");
     Player p2 = new CaptureMaxPlayer("O");

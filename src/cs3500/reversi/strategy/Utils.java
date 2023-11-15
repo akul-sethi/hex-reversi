@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.spi.LocaleNameProvider;
 
 import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.model.LinearCoord;
@@ -69,15 +70,14 @@ final class Utils {
     ArrayList<LinearCoord> corners = new ArrayList<>();
     ArrayList<LinearCoord> allInMap = getAll(model);
     List<Comparator<LinearCoord>> comparators =
-            Arrays.asList(new upperLefterCoordComparer(), new upperRighterCoordComparer(),
-                    new lowerRighterCoordComparer(), new lowerLefterCoordComparer());
+            Arrays.asList(new LefterCoordComparer(), new UpperLefterCoordComparer(),
+                    new UpperRighterCoordComparer(), new RighterCoordComparer(),
+                    new LowerRighterCoordComparer(), new LowerLefterCoordComparer());
     for (Comparator<LinearCoord> comparator : comparators) {
       ArrayList<LinearCoord> allCopy = new ArrayList<>(allInMap);
       allCopy.sort(comparator);
       corners.add(allCopy.get(0));
     }
-    corners.add(new BasicPoint(0, -5));
-    corners.add(new BasicPoint(0, 5));
     return corners;
   }
 
@@ -88,7 +88,7 @@ final class Utils {
    * @return an ArrayList containing all the coordinates in the second row of the list given.
    */
   static ArrayList<LinearCoord> getSecondRow(ArrayList<LinearCoord> all) {
-    all.sort(new upperLefterCoordComparer());
+    all.sort(new UpperLefterCoordComparer());
     ArrayList<LinearCoord> inSecondRow = new ArrayList<>();
     int secondRow = all.get(0).row() + 1;
     boolean started = false;
@@ -100,15 +100,43 @@ final class Utils {
     return inSecondRow;
   }
 
+  static ArrayList<LinearCoord> getAdjacent(LinearCoord coord, ReversiModel model) {
+    ArrayList<LinearCoord> adjacent = new ArrayList<>();
+    int row = coord.row();
+    int col = coord.column();
+    adjacent.add(new BasicPoint(row, col + 1));
+    adjacent.add(new BasicPoint(row, col - 1));
+    adjacent.add(new BasicPoint(row + 1, col));
+    adjacent.add(new BasicPoint(row - 1, col));
+    if (row % 2 == 0) {
+      adjacent.add(new BasicPoint(row - 1, col - 1));
+      adjacent.add(new BasicPoint(row + 1, col - 1));
+    }
+    else {
+      adjacent.add(new BasicPoint(row - 1, col + 1));
+      adjacent.add(new BasicPoint(row + 1, col + 1));
+    }
+    ArrayList<LinearCoord> copyAdj = new ArrayList<>(adjacent);
+    for (LinearCoord lc : copyAdj) {
+      try {
+        model.playerAt(lc);
+      }
+      catch (Exception e) {
+        adjacent.remove(lc);
+      }
+    }
+    return adjacent;
+  }
+
   /**
    * Gets all the coordinates in the second to last row of a list of coordinates.
    *
    * @param all an ArrayList of coordinates to search.
    * @return an ArrayList containing all the coordinates in the
-   * second to last row of the list given.
+   *     second to last row of the list given.
    */
   static ArrayList<LinearCoord> getSecondLastRow(ArrayList<LinearCoord> all) {
-    all.sort(new lowerLefterCoordComparer());
+    all.sort(new LowerLefterCoordComparer());
     ArrayList<LinearCoord> inSecondLastRow = new ArrayList<>();
     int secondLastRow = all.get(0).row() - 1;
     for (LinearCoord lc : all) {
@@ -119,52 +147,23 @@ final class Utils {
     return inSecondLastRow;
   }
 
+  // This method is very lengthy, but up until now, all the
+  // methods work regardless of board layout. This method is only possible if we do assume
+  // that the board is a perfect hexagon. Since this was a suggested strategy, we assumed
+  // that this was a safe assumption. Hence, the long method.
+
   /**
-   * This method returns an arrayList of coordinates next to the corners. This is used in the
-   * avoidNextToCorners strategy. This method is very lengthy, but up until now, all the
-   * methods work regardless of board layout. This method is only possible if we do assume that the
-   * board is a perfect hexagon. Since this was a suggested strategy, we assumed that this was a
-   * safe assumption. Hence, the long method.
-   *
+   * Returns an arrayList of coordinates next to the corners.
    * @param model the model to scan for coordinates.
    * @return an ArrayList of coordinates that are next to the corners.
    */
   static ArrayList<LinearCoord> getNextToCorners(ReversiModel model) {
     ArrayList<LinearCoord> corners = getCorners(model);
     ArrayList<LinearCoord> surroundsCorners = new ArrayList<>();
-    corners.sort(new lefterCoordComparer());
-    LinearCoord leftCorner = corners.get(0);
-    LinearCoord rightCorner = corners.get(5);
-    //all the middle surrounding tiles
-    surroundsCorners.add(new BasicPoint(leftCorner.row(), leftCorner.column() + 1));
-    surroundsCorners.add(new BasicPoint(rightCorner.row(), rightCorner.column() - 1));
-    surroundsCorners.add(new BasicPoint(leftCorner.row() - 1, leftCorner.column()));
-    surroundsCorners.add(new BasicPoint(rightCorner.row() - 1, rightCorner.column() - 1));
-    surroundsCorners.add(new BasicPoint(leftCorner.row() + 1, leftCorner.column()));
-    surroundsCorners.add(new BasicPoint(rightCorner.row() + 1, rightCorner.column() - 1));
-    //top and bottom left and right
-    corners.sort(new upperLefterCoordComparer());
-    LinearCoord topLeftCorner = corners.get(0);
-    LinearCoord topRightCorner = corners.get(1);
-    LinearCoord bottomLeftCorner = corners.get(4);
-    LinearCoord bottomRightCorner = corners.get(5);
-    surroundsCorners.add(new BasicPoint(topLeftCorner.row(), topLeftCorner.column() + 1));
-    surroundsCorners.add(new BasicPoint(topRightCorner.row(), topRightCorner.column() - 1));
-    surroundsCorners.add(new BasicPoint(bottomLeftCorner.row(), bottomLeftCorner.column() + 1));
-    surroundsCorners.add(new BasicPoint(bottomRightCorner.row(), bottomRightCorner.column() - 1));
-    //top and bottom other adjacent
-    ArrayList<LinearCoord> all = getAll(model);
-    ArrayList<LinearCoord> secondRow = getSecondRow(all);
-    surroundsCorners.add(secondRow.get(0));
-    surroundsCorners.add(secondRow.get(1));
-    surroundsCorners.add(secondRow.get(secondRow.size() - 2));
-    surroundsCorners.add(secondRow.get(secondRow.size() - 1));
-    all = getAll(model);
-    ArrayList<LinearCoord> secondLastRow = getSecondLastRow(all);
-    surroundsCorners.add(secondLastRow.get(0));
-    surroundsCorners.add(secondLastRow.get(1));
-    surroundsCorners.add(secondLastRow.get(secondLastRow.size() - 2));
-    surroundsCorners.add(secondLastRow.get(secondLastRow.size() - 1));
+    for (LinearCoord corner : corners) {
+
+      surroundsCorners.addAll(getAdjacent(corner, model));
+    }
     return surroundsCorners;
   }
 
@@ -172,13 +171,17 @@ final class Utils {
    * The following classes are a series of LinearCoord comparators.
    * The first is a comparator that sorts in order of top-left.
    */
-  static class upperLefterCoordComparer implements Comparator<LinearCoord> {
+  static class UpperLefterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
+      //System.out.println("UpLeftComp");
+      //System.out.println(a + ", " + b);
       int rowDiff = a.row() - b.row();
-      if (rowDiff != 0) {
+      if (rowDiff == 0) {
+        //System.out.println(a.column() - b.column());
         return a.column() - b.column();
       }
+      //System.out.println(rowDiff);
       return rowDiff;
     }
   }
@@ -186,11 +189,11 @@ final class Utils {
   /**
    * The second is a comparator that sorts in order of top-right.
    */
-  static class upperRighterCoordComparer implements Comparator<LinearCoord> {
+  static class UpperRighterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
       int rowDiff = a.row() - b.row();
-      if (rowDiff != 0) {
+      if (rowDiff == 0) {
         return b.column() - a.column();
       }
       return rowDiff;
@@ -200,11 +203,11 @@ final class Utils {
   /**
    * The third is a comparator that sorts in order of bottom-left.
    */
-  static class lowerLefterCoordComparer implements Comparator<LinearCoord> {
+  static class LowerLefterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
       int rowDiff = b.row() - a.row();
-      if (rowDiff != 0) {
+      if (rowDiff == 0) {
         return a.column() - b.column();
       }
       return rowDiff;
@@ -214,11 +217,11 @@ final class Utils {
   /**
    * The fourth is a comparator that sorts in order of bottom-right.
    */
-  static class lowerRighterCoordComparer implements Comparator<LinearCoord> {
+  static class LowerRighterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
       int rowDiff = b.row() - a.row();
-      if (rowDiff != 0) {
+      if (rowDiff == 0) {
         return b.column() - a.column();
       }
       return rowDiff;
@@ -228,7 +231,7 @@ final class Utils {
   /**
    * The third is a comparator that sorts in order of rightmost first.
    */
-  static class righterCoordComparer implements Comparator<LinearCoord> {
+  static class RighterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
       return b.column() - a.column();
@@ -238,10 +241,14 @@ final class Utils {
   /**
    * The third is a comparator that sorts in order of leftmost first.
    */
-  static class lefterCoordComparer implements Comparator<LinearCoord> {
+  static class LefterCoordComparer implements Comparator<LinearCoord> {
     @Override
     public int compare(LinearCoord a, LinearCoord b) {
-      return a.column() - b.column();
+      int colDiff = a.column() - b.column();
+      if (colDiff == 0) {
+        return Math.abs(a.row()) - Math.abs(b.row());
+      }
+      return colDiff;
     }
   }
 }

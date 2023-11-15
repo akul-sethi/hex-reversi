@@ -4,13 +4,10 @@ import java.util.List;
 
 import cs3500.reversi.player.Player;
 
-/**
- * A mock implementation of Reversi, captures the input, and appends to a log.
- */
-public class CaptureInputReversi extends CaptureInputReadOnlyReversi implements ReversiModel {
+public class FalseLegalityReversi extends FalseLegalityReadOnlyReversi implements ReversiModel {
   private final StringBuilder log;
 
-  protected CaptureInputReversi(StringBuilder log, List<Player> players) {
+  protected FalseLegalityReversi(StringBuilder log, List<Player> players) {
     super(log, players);
     this.log = log;
   }

@@ -1,10 +1,7 @@
 package cs3500.reversi.strategy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Optional;
-import java.util.spi.LocaleNameProvider;
 
 import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReadOnlyReversiModel;
@@ -57,7 +54,7 @@ public class CaptureMaxStrategy implements FallibleReversiStrategy {
         bestMoves.add(move);
       }
     }
-    bestMoves.sort(new Utils.upperLefterCoordComparer());
+    bestMoves.sort(new Utils.UpperLefterCoordComparer());
     return Optional.of(bestMoves);
   }
 }

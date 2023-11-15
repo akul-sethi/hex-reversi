@@ -11,16 +11,13 @@ import cs3500.reversi.player.CaptureMaxPlayer;
 import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Player;
 
-/**
- * A mock implementation of reversi. Used to tests for mutability.
- */
-public class CaptureInputReadOnlyReversi implements ReadOnlyReversiModel {
+public class FalseLegalityReadOnlyReversi implements ReadOnlyReversiModel {
   private final StringBuilder log;
   final Queue<Player> players;
 
   final HashMap<CubeCoord, Player> tiles;
 
-  protected CaptureInputReadOnlyReversi(StringBuilder log, List<Player> players) {
+  protected FalseLegalityReadOnlyReversi(StringBuilder log, List<Player> players) {
     this.tiles = new HashMap<>();
     this.tiles.putAll(makeBoard(6));
     this.log = log;
