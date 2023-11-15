@@ -1,6 +1,5 @@
 package cs3500.reversi.model;
 
-import cs3500.reversi.player.Player;
 
 /**
  * Represents an interface which describes the functionality of Reversi Models.

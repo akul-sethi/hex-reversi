@@ -17,7 +17,8 @@ public final class ReversiCreator {
    * @param params The parameters necessary for this type of game. This can be found in the GameType
    *               enum.
    */
-  public static ReversiModel create(GameType type, Object... params) throws IllegalArgumentException {
+  public static ReversiModel create(GameType type, Object... params) throws IllegalArgumentException
+  {
     //WRITTEN AS IF STATEMENT FOR COMPLIANCE WITH STYlE GUIDE!
     //WILL CHANGE TO SWITCH STATEMENT IN FUTURE
     if (Objects.requireNonNull(type) == GameType.BASIC) {
@@ -25,7 +26,8 @@ public final class ReversiCreator {
         throw new IllegalArgumentException("Incorrect num params");
       }
       if (params.length == 1) {
-        return new BasicReversi((Integer) params[0], new HumanPlayer("X"), new HumanPlayer("O"));
+        return new BasicReversi((Integer) params[0], new HumanPlayer("X"),
+                new HumanPlayer("O"));
       }
       if (params.length == 3) {
         return new BasicReversi((Integer) params[0], (Player) params[1], (Player) params[2]);

@@ -1,6 +1,5 @@
 package cs3500.reversi.player;
 
-import cs3500.reversi.strategy.FallibleReversiStrategy;
 import cs3500.reversi.strategy.MiniMaxStrategy;
 
 /**
