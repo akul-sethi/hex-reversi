@@ -1,5 +1,6 @@
 package cs3500.reversi;
 
+
 import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.ReversiCreator;
 import cs3500.reversi.model.ReversiModel;
@@ -15,6 +16,7 @@ import cs3500.reversi.view.ReversiView;
 public final class Reversi {
 
   /**
+
    * Actual entry point method.
    * @param args The system args to create the game from.
    */

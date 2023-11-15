@@ -1,5 +1,6 @@
 package cs3500.reversi.model;
 
+
 /**
  * Represents an interface which describes the functionality of Reversi Models.
  * Row and columns work "odd-r" style as described in the README.txt overview section.

@@ -17,6 +17,7 @@ public final class ReversiCreator {
    * @param params The parameters necessary for this type of game. This can be found in the GameType
    *               enum.
    */
+
   public static ReversiModel create(GameType type, Object... params)
           throws IllegalArgumentException {
     //WRITTEN AS IF STATEMENT FOR COMPLIANCE WITH STYlE GUIDE!

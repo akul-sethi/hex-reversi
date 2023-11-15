@@ -3,6 +3,7 @@ package cs3500.reversi.player;
 import cs3500.reversi.strategy.HumanStrategy;
 
 /**
+
  * To represent a human player, without a real strategy.
  */
 public class HumanPlayer extends AbstractPlayer {
