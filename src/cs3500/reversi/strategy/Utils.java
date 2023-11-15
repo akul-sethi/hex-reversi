@@ -191,7 +191,7 @@ final class Utils {
   }
 
   /**
-   * The third is a comparator that sorts in order of rightmost first.
+   * The fifth is a comparator that sorts in order of rightmost first.
    */
   static class RighterCoordComparer implements Comparator<LinearCoord> {
     @Override
@@ -201,7 +201,7 @@ final class Utils {
   }
 
   /**
-   * The third is a comparator that sorts in order of leftmost first.
+   * The sixth is a comparator that sorts in order of leftmost middlemost first.
    */
   static class LefterCoordComparer implements Comparator<LinearCoord> {
     @Override
