@@ -53,30 +53,12 @@ public class FalseLegalityReadOnlyReversi implements ReadOnlyReversiModel {
     tiles.put(new CubeCoord(0, -1, 1), new HumanPlayer("O"));
     tiles.put(new CubeCoord(-1, 1, 0), new HumanPlayer("O"));
     tiles.put(new CubeCoord(-1, 0, 1), new HumanPlayer("X"));
-    tiles.put(new CubeCoord(0, -5), new HumanPlayer("1"));
-    tiles.put(new CubeCoord(-5, -3), new HumanPlayer("2"));
-    tiles.put(new CubeCoord(-5, 2), new HumanPlayer("3"));
-    tiles.put(new CubeCoord(0, 5), new HumanPlayer("4"));
-    tiles.put(new CubeCoord(5, 2), new HumanPlayer("5"));
-    tiles.put(new CubeCoord(5, -3), new HumanPlayer("6"));
-
   }
 
   @Override
   public boolean validMove(LinearCoord move) {
     log.append(String.format("validMove: row = %d, col = %d\n", move.row(), move.column()));
-    try {
-      List<Row> rows = getRadiatingRows(move.row(), move.column());
-      for (Row r : rows) {
-        if (r.length > 0 && validCoord(r.next()) && this.tiles.get(r.next()) != null &&
-                this.tiles.get(r.next()).equals(this.players.peek())) {
-          return true;
-        }
-      }
-    } catch (Exception e) {
-      return false;
-    }
-    return false;
+    return move.row() == 2 && move.column() == 2;
   }
 
   boolean validCoord(CubeCoord coordinate) {
@@ -158,7 +140,7 @@ public class FalseLegalityReadOnlyReversi implements ReadOnlyReversiModel {
   @Override
   public ReversiModel getModel() {
     log.append("getModel\n");
-    return new CaptureInputReversi(this.log, new ArrayList<>(this.players));
+    return new FalseLegalityReversi(this.log, new ArrayList<>(this.players));
   }
 
   @Override

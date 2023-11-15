@@ -82,24 +82,11 @@ final class Utils {
   }
 
   /**
-   * Gets all the coordinates in the second row of a list of coordinates.
-   *
-   * @param all an ArrayList of coordinates to search.
-   * @return an ArrayList containing all the coordinates in the second row of the list given.
+   * Gets the adjacent, valid coordinates of the given LinearCoord.
+   * @param coord the coordinate to get the adjacent coords of.
+   * @param model the model to check for coord legality in.
+   * @return A list of adjacent coordinates to the one given.
    */
-  static ArrayList<LinearCoord> getSecondRow(ArrayList<LinearCoord> all) {
-    all.sort(new UpperLefterCoordComparer());
-    ArrayList<LinearCoord> inSecondRow = new ArrayList<>();
-    int secondRow = all.get(0).row() + 1;
-    boolean started = false;
-    for (LinearCoord lc : all) {
-      if (lc.row() == secondRow) {
-        inSecondRow.add(lc);
-      }
-    }
-    return inSecondRow;
-  }
-
   static ArrayList<LinearCoord> getAdjacent(LinearCoord coord, ReversiModel model) {
     ArrayList<LinearCoord> adjacent = new ArrayList<>();
     int row = coord.row();
@@ -129,30 +116,6 @@ final class Utils {
   }
 
   /**
-   * Gets all the coordinates in the second to last row of a list of coordinates.
-   *
-   * @param all an ArrayList of coordinates to search.
-   * @return an ArrayList containing all the coordinates in the
-   *     second to last row of the list given.
-   */
-  static ArrayList<LinearCoord> getSecondLastRow(ArrayList<LinearCoord> all) {
-    all.sort(new LowerLefterCoordComparer());
-    ArrayList<LinearCoord> inSecondLastRow = new ArrayList<>();
-    int secondLastRow = all.get(0).row() - 1;
-    for (LinearCoord lc : all) {
-      if (lc.row() == secondLastRow) {
-        inSecondLastRow.add(lc);
-      }
-    }
-    return inSecondLastRow;
-  }
-
-  // This method is very lengthy, but up until now, all the
-  // methods work regardless of board layout. This method is only possible if we do assume
-  // that the board is a perfect hexagon. Since this was a suggested strategy, we assumed
-  // that this was a safe assumption. Hence, the long method.
-
-  /**
    * Returns an arrayList of coordinates next to the corners.
    * @param model the model to scan for coordinates.
    * @return an ArrayList of coordinates that are next to the corners.
@@ -161,7 +124,6 @@ final class Utils {
     ArrayList<LinearCoord> corners = getCorners(model);
     ArrayList<LinearCoord> surroundsCorners = new ArrayList<>();
     for (LinearCoord corner : corners) {
-
       surroundsCorners.addAll(getAdjacent(corner, model));
     }
     return surroundsCorners;
