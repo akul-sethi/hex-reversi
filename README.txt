@@ -117,12 +117,42 @@ BasicReversi (class)
 
 Player (interface)
     Added:
-    int[] getMove(ReadOnlyReversiModel)
+    LinearCoord getMove(ReadOnlyReversiModel)
     -Gets the move from the player. This was needed because we previously
     had no way for the player to interact with the board.
-    -Returns an int[] of row, col for the move to be made
+    -Returns a LinearCoord of row, col for the move to be made, or throws IllegalStateException
+    if no move to be made
 
-    AbstractPlayer (class)
+Strategy Design:
+    Usage:
+        Create a strategy implementing fallibleReversiStrategy or InfallibleReversiStrategy
+        Combine strategies using TryTwo, passing it strategy 1 and 2.
+        Get a move from a player by calling chooseMove, which uses the strategy that the player has
+    Key Components:
+        FallibleReversiStrategy - Describes the interface to create an incomplete strategy
+        InfallibleReversiStrategy - Describes the interface to create a complete strategy
+        TryTwo - Describes a combinator for two strategies, tries the first strategy then the second
+        Utils - Contains helper methods for the strategy methods.
+        CompleteReversiStrategyFromFallible - Converts a fallibleReversiStrategy to a complete,
+            infallible reversi strategy, throwing an error if can't find a move from the strategy.
+        CaptureCornersStrategy, CaptureMaxStrategy, AvoidNextToCornersStrategy, MiniMaxStrategy -
+            individual strategies that do as their titles describe.
+
+Player Design:
+    Usage:
+        Create a player implementing the Player interface, pass it a strategy, and a name
+        get a move from a player by calling getMove, which calls the strategies chooseMove method.
+    Key components:
+        Player - Describes the interface that represents a player. Has methods to getMove from strat
+        AbstractPlayer - Describes the abstract class that represents a player with a strategy and
+            a name. Hashes out all the necessary methods. Creates a CompleteStrategy from the
+            FallibleStrategy that is passed in.
+        CaptureMaxPlayer, HumanPlayer, MiniMaxPlayer, StrategyPlayer, SuperStrategyPlayer -
+            The player classes with corresponding strategies. These players will always have the
+            strategies that they are named. The strategyPlayer can take in a strategy, and the
+            SuperStrategyPlayer has a custom, combined strategy that we created. The humanPlayer
+            also has a custom strategy that always returns empty, which we intend to have the
+            controller interpret.
 
 View Design:
     Usage:
