@@ -13,7 +13,6 @@ import cs3500.reversi.player.StrategyPlayer;
 import cs3500.reversi.player.SuperStrategyPlayer;
 import cs3500.reversi.strategy.AvoidNextToCornersStrategy;
 import cs3500.reversi.strategy.CaptureCornersStrategy;
-import cs3500.reversi.strategy.CaptureMaxStrategy;
 import cs3500.reversi.strategy.MiniMaxStrategy;
 import cs3500.reversi.view.ReversiView;
 import cs3500.reversi.view.TextReversiView;

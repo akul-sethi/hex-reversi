@@ -4,6 +4,11 @@ import java.util.List;
 
 import cs3500.reversi.player.Player;
 
+/**
+ * This is a mock implementation of ReadOnlyReversi, not only does it log the inputs,
+ * it also modifies what it tells the reader is a legal move. It says only the coordinate (2, 2)
+ * is legal.
+ */
 public class FalseLegalityReversi extends FalseLegalityReadOnlyReversi implements ReversiModel {
   private final StringBuilder log;
 

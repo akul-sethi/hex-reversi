@@ -11,6 +11,11 @@ import cs3500.reversi.player.CaptureMaxPlayer;
 import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Player;
 
+/**
+ * This is a mock implementation of ReadOnlyReversi, not only does it log the inputs,
+ * it also modifies what it tells the reader is a legal move. It says only the coordinate (2, 2)
+ * is legal.
+ */
 public class FalseLegalityReadOnlyReversi implements ReadOnlyReversiModel {
   private final StringBuilder log;
   final Queue<Player> players;

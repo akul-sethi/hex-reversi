@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.spi.LocaleNameProvider;
 
 import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.model.LinearCoord;
@@ -64,7 +63,7 @@ final class Utils {
    * bottom left, bottom right, leftmost, and rightmost.
    *
    * @param model The model to get the corners from.
-   * @return an ArrayList of coordinates with all of the corners.
+   * @return an ArrayList of coordinates with all the corners.
    */
   static ArrayList<LinearCoord> getCorners(ReversiModel model) {
     ArrayList<LinearCoord> corners = new ArrayList<>();
