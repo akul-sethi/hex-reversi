@@ -28,7 +28,7 @@ class BasicBoardView extends JPanel implements BoardView {
   private final double HEX_WIDTH = Math.sqrt(3) * SIDE_LENGTH;
   private Optional<Tile> selected;
   private AffineTransform at;
-  private Features features;
+  private InputObserver features;
 
   private final ReadOnlyReversiModel model;
 
@@ -73,7 +73,7 @@ class BasicBoardView extends JPanel implements BoardView {
             -VERT_GAP * (this.model.getTopRow()) + 0.5 * HEX_HEIGHT);
   }
 
-  public void addFeatures(Features features) {
+  public void addObserver(InputObserver features) {
     this.features = features;
   }
 

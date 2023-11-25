@@ -45,7 +45,7 @@ public final class TextReversiView implements ReversiView {
   }
 
   @Override
-  public void addFeatures(Features features) {
+  public void addObserver(InputObserver features) {
     //placeholder
   }
 

@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import cs3500.reversi.controller.ModelObserver;
 import cs3500.reversi.player.Player;
 
 /**
@@ -38,6 +39,9 @@ abstract class AReversiModel implements ReversiModel {
   protected final Queue<Player> players;
   private int passCount = 0;
   private boolean gameOver;
+  private boolean gameStarted;
+  protected final List<ModelObserver> observers;
+
 
   /**
    * Constructs abstract reversi model. In concrete implementations new board shapes with starting
@@ -59,6 +63,7 @@ abstract class AReversiModel implements ReversiModel {
     this.tiles.putAll(hexs);
     this.players = new LinkedList<>();
     this.players.addAll(players);
+    this.observers = new ArrayList<>();
   }
 
   @Override
@@ -66,6 +71,23 @@ abstract class AReversiModel implements ReversiModel {
     requireGameNotOver();
     this.passCount += 1;
     changeTurn();
+  }
+
+  @Override
+  public void startGame() {
+    this.gameStarted = true;
+    this.notifyObservers();
+  }
+
+  @Override
+  public void addObserver(ModelObserver observer) {
+    this.observers.add(observer);
+  }
+
+  private void notifyObservers() {
+    for(ModelObserver obs: this.observers) {
+      obs.giveControlTo(this.players.peek());
+    }
   }
 
   //Throws an error if the game is over
@@ -82,6 +104,7 @@ abstract class AReversiModel implements ReversiModel {
     if (passCount == this.players.size()) {
       this.gameOver = true;
     }
+    this.notifyObservers();
   }
 
   @Override

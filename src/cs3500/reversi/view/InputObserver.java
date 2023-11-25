@@ -7,7 +7,7 @@ import cs3500.reversi.model.LinearCoord;
  * to this object when it determines the player is requesting them, and then the object can behave
  * accordingly based on its rules and the state of the game.
  */
-public interface Features {
+public interface InputObserver {
 
   /**
    * A request from the user to place a piece at the given coordinate.

@@ -1,6 +1,8 @@
 package cs3500.reversi.model;
 
 
+import cs3500.reversi.controller.ModelObserver;
+
 /**
  * Represents an interface which describes the functionality of Reversi Models.
  * Row and columns work "odd-r" style as described in the README.txt overview section.
@@ -10,6 +12,16 @@ package cs3500.reversi.model;
  * as if traversing a grid.
  */
 public interface ReversiModel extends ReadOnlyReversiModel {
+
+  /**
+   * Add an observer to the model.
+   */
+  void addObserver(ModelObserver obs);
+
+  /**
+   * Starts the game and notifies observers whose move it is.
+   */
+  void startGame();
 
 
   /**

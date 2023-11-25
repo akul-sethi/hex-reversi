@@ -2,6 +2,7 @@ package cs3500.reversi.player;
 
 import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReadOnlyReversiModel;
+import cs3500.reversi.view.InputObserver;
 
 /**
  * Represents a player in a game of Reversi. Necessary to describe the behavior of all types of
@@ -28,6 +29,12 @@ public interface Player {
    * @param readOnlyModel the readonly model to pass into the get move function, by which the
    *                      strategy will search to determine what move to make.
    * @return The best move determined by the player's strategy.
+   * @throws IllegalStateException If this player does not use a strategy or it cannot find a move
    */
-  LinearCoord getMove(ReadOnlyReversiModel readOnlyModel);
+  LinearCoord getMove(ReadOnlyReversiModel readOnlyModel) throws IllegalStateException;
+
+
+  void addObserver(InputObserver observer);
+
+  boolean usesStrategy();
 }

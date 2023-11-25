@@ -10,7 +10,7 @@ public interface BoardView {
    * Adds a Features object to the board so that game level events can be
    * sent to it when a user interacts with the board.
    */
-  void addFeatures(Features features);
+  void addObserver(InputObserver features);
 
   /**
    * Refreshes what the board looks like.

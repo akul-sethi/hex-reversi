@@ -42,8 +42,8 @@ public final class GUIReversiView extends JFrame implements ReversiView {
   }
 
   @Override
-  public void addFeatures(Features features) {
-    this.board.addFeatures(features);
+  public void addObserver(InputObserver features) {
+    this.board.addObserver(features);
   }
 
   @Override

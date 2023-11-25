@@ -19,7 +19,7 @@ public interface ReversiView {
   /**
    * Adds a Features object to this view.
    */
-  void addFeatures(Features features);
+  void addObserver(InputObserver features);
 
   /**
    * Makes the view visible.
