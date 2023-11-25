@@ -1,6 +1,7 @@
 package cs3500.reversi.player;
 
 import cs3500.reversi.strategy.FallibleReversiStrategy;
+import cs3500.reversi.view.InputObserver;
 
 /**
  * To represent a player that can take in any FallibleStrategy.
@@ -15,5 +16,15 @@ public class StrategyPlayer extends AbstractPlayer {
    */
   public StrategyPlayer(String name, FallibleReversiStrategy strategy) {
     super(name, strategy);
+  }
+
+  @Override
+  public void addObserver(InputObserver observer) {
+
+  }
+
+  @Override
+  public boolean usesStrategy() {
+    return false;
   }
 }

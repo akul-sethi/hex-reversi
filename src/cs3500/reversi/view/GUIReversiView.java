@@ -29,8 +29,11 @@ public final class GUIReversiView extends JFrame implements ReversiView {
     this.board = basic;
     add(basic, BorderLayout.CENTER);
 
-    this.setHotKey(KeyStroke.getKeyStroke("pressed p"), "pass");
-    this.setHotKey(KeyStroke.getKeyStroke("pressed m"), "moveHere");
+    System.out.println((KeyStroke.getKeyStroke("typed p")));
+    System.out.println((KeyStroke.getKeyStroke("typed m")));
+
+    this.setHotKey(KeyStroke.getKeyStroke("typed p"), "pass");
+    this.setHotKey(KeyStroke.getKeyStroke("typed m"), "moveHere");
 
     pack();
     setVisible(true);

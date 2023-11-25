@@ -6,6 +6,7 @@ import cs3500.reversi.strategy.CaptureMaxStrategy;
 import cs3500.reversi.strategy.FallibleReversiStrategy;
 import cs3500.reversi.strategy.MiniMaxStrategy;
 import cs3500.reversi.strategy.TryTwo;
+import cs3500.reversi.view.InputObserver;
 
 /**
  * An example player that always use a "Super" strategy, which we made, that is a combination
@@ -28,5 +29,15 @@ public class SuperStrategyPlayer extends AbstractPlayer {
    */
   public SuperStrategyPlayer(String name) {
     super(name, SuperStrategy);
+  }
+
+  @Override
+  public void addObserver(InputObserver observer) {
+
+  }
+
+  @Override
+  public boolean usesStrategy() {
+    return false;
   }
 }

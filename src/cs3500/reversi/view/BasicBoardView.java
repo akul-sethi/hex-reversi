@@ -36,7 +36,7 @@ class BasicBoardView extends JPanel implements BoardView {
     this.model = model;
     this.setVisible(true);
     this.selected = Optional.empty();
-    this.resetFocus();
+
     this.addListeners();
     this.getActionMap().put("moveHere", new AbstractAction() {
       @Override
@@ -52,6 +52,7 @@ class BasicBoardView extends JPanel implements BoardView {
       }
     });
     setTransform();
+    this.resetFocus();
   }
 
 
@@ -60,6 +61,7 @@ class BasicBoardView extends JPanel implements BoardView {
   private void attemptMove() {
     this.selected.ifPresent((tile) -> {
       this.features.moveHere(new BasicPoint(tile.row, tile.column));
+      System.out.println(model.playerAt(new BasicPoint(tile.row, tile.column)));
     });
   }
 
@@ -85,6 +87,7 @@ class BasicBoardView extends JPanel implements BoardView {
     this.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
+        resetFocus();
         attemptPreview(e);
       }
     });

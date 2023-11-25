@@ -10,7 +10,7 @@ public class MachinePlayer extends AkulAbstractPlayer {
 
   private final InfallibleReversiStrategy strategy;
 
-  MachinePlayer(String name, FallibleReversiStrategy strategy) {
+  public MachinePlayer(String name, FallibleReversiStrategy strategy) {
     super(name);
 
     this.strategy = new CompleteReversiStrategyFromFallible(strategy);
