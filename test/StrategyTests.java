@@ -14,6 +14,7 @@ import cs3500.reversi.player.SuperStrategyPlayer;
 import cs3500.reversi.strategy.AvoidNextToCornersStrategy;
 import cs3500.reversi.strategy.CaptureCornersStrategy;
 import cs3500.reversi.strategy.MiniMaxStrategy;
+import cs3500.reversi.strategy.PositionalValueStrategy;
 import cs3500.reversi.view.ReversiView;
 import cs3500.reversi.view.TextReversiView;
 
@@ -1153,5 +1154,21 @@ public class StrategyTests {
             "   X O X X X X X X     \n" +
             "    X - X - O - X     \n" +
             "     X X X X X X       \n");
+  }
+
+  @Test
+  public void gameJustStartedPositionValTest() throws IOException {
+    Appendable emptyBuilder = new StringBuilder();
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
+            6, new StrategyPlayer("X", new PositionalValueStrategy()),
+            new StrategyPlayer("O", new PositionalValueStrategy()));
+    ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
+    for (int i = 0; i < 1; i += 1) {
+      LinearCoord bestMove = basicModel.nextToPlay().getMove(basicModel);
+      Assert.assertTrue(basicModel.validMove(bestMove));
+      basicModel.placePiece(bestMove);
+      textView.render();
+    }
+    Assert.assertEquals(emptyBuilder.toString(), "");
   }
 }
