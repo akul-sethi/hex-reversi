@@ -26,6 +26,11 @@ public class HumanPlayer extends AkulAbstractPlayer {
   }
 
   @Override
+  public void startTurn(ReadOnlyReversiModel model) {
+    //DO NOTHING
+  }
+
+  @Override
   public boolean usesStrategy() {
     return false;
   }

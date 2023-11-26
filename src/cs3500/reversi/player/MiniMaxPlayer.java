@@ -1,5 +1,6 @@
 package cs3500.reversi.player;
 
+import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.strategy.MiniMaxStrategy;
 import cs3500.reversi.view.InputObserver;
 
@@ -15,6 +16,11 @@ public class MiniMaxPlayer extends AbstractPlayer {
    */
   public MiniMaxPlayer(String name) {
     super(name, new MiniMaxStrategy());
+  }
+
+  @Override
+  public void startTurn(ReadOnlyReversiModel model) {
+
   }
 
   @Override

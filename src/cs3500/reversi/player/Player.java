@@ -33,6 +33,7 @@ public interface Player {
    */
   LinearCoord getMove(ReadOnlyReversiModel readOnlyModel) throws IllegalStateException;
 
+  void startTurn(ReadOnlyReversiModel model);
 
   void addObserver(InputObserver observer);
 

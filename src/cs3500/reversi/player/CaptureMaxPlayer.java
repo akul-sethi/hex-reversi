@@ -1,5 +1,6 @@
 package cs3500.reversi.player;
 
+import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.strategy.CaptureMaxStrategy;
 import cs3500.reversi.view.InputObserver;
 
@@ -15,6 +16,11 @@ public class CaptureMaxPlayer extends AbstractPlayer {
    */
   public CaptureMaxPlayer(String name) {
     super(name, new CaptureMaxStrategy());
+  }
+
+  @Override
+  public void startTurn(ReadOnlyReversiModel model) {
+
   }
 
   @Override

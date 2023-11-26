@@ -1,5 +1,6 @@
 package cs3500.reversi.player;
 
+import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.strategy.AvoidNextToCornersStrategy;
 import cs3500.reversi.strategy.CaptureCornersStrategy;
 import cs3500.reversi.strategy.CaptureMaxStrategy;
@@ -29,6 +30,11 @@ public class SuperStrategyPlayer extends AbstractPlayer {
    */
   public SuperStrategyPlayer(String name) {
     super(name, SuperStrategy);
+  }
+
+  @Override
+  public void startTurn(ReadOnlyReversiModel model) {
+
   }
 
   @Override

@@ -30,45 +30,30 @@ public class ReversiController implements InputObserver, ModelObserver {
 
   @Override
   public void giveControlTo(Player player) {
-    System.out.println(player + " wants control");
       if(this.player.equals(player)) {
          this.hasControl = true;
-         if(this.player.usesStrategy()) {
-           playComputerMove();
-         }
+         this.player.startTurn(this.model);
       } else {
         this.hasControl = false;
       }
 
-      try {
-        this.view.render();
-      } catch(IOException e) {
-        System.out.println("IO failed");
-      }
-  }
-
-  private void playComputerMove() {
     try {
-      LinearCoord move = this.player.getMove(this.model);
-      try {
-        this.model.placePiece(move);
-      } catch(IllegalStateException | IllegalArgumentException e) {
-        //DO NOTHING
-      }
-    } catch(IllegalStateException e) {
-      this.model.pass();
+      this.view.render();
+    } catch(IOException e) {
+      System.out.println("IO failed");
     }
   }
 
+
   @Override
   public void moveHere(LinearCoord coord) {
-     if(this.hasControl) {
-       try {
-         this.model.placePiece(coord);
-       } catch(IllegalStateException | IllegalArgumentException e) {
+     if(!this.hasControl) { return;}
+     try {
+       this.model.placePiece(coord);
+     } catch(IllegalStateException | IllegalArgumentException e) {
          //DO NOTHING
-       }
      }
+
   }
 
   @Override

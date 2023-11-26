@@ -1,5 +1,6 @@
 package cs3500.reversi.player;
 
+import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.strategy.FallibleReversiStrategy;
 import cs3500.reversi.view.InputObserver;
 
@@ -16,6 +17,11 @@ public class StrategyPlayer extends AbstractPlayer {
    */
   public StrategyPlayer(String name, FallibleReversiStrategy strategy) {
     super(name, strategy);
+  }
+
+  @Override
+  public void startTurn(ReadOnlyReversiModel model) {
+
   }
 
   @Override
