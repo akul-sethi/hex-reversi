@@ -8,6 +8,7 @@ import java.util.List;
 import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReversiModel;
+import cs3500.reversi.player.Player;
 
 /**
  * To store functions needed in most of the strategies.
@@ -131,6 +132,15 @@ final class Utils {
       surroundsCorners.addAll(getAdjacent(corner, model));
     }
     return surroundsCorners;
+  }
+
+  static int getPlayerScore(ReversiModel model, Player forWhom, PointValue pointValue) {
+    ArrayList<LinearCoord> allInMap = getAll(model);
+    int score = 0;
+    for (LinearCoord lc : allInMap) {
+      score += pointValue.getPointValue(lc, model, forWhom);
+    }
+    return score;
   }
 
   /**

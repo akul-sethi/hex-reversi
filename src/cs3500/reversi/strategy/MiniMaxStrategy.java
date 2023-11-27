@@ -1,5 +1,6 @@
 package cs3500.reversi.strategy;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
@@ -9,12 +10,21 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.player.Player;
 
+import static cs3500.reversi.strategy.Utils.getPlayerScore;
+
 /**
  * Represents a MiniMax strategy. The strategy minimizes the max value of the opponents next move.
  * Value in this game we chose to be tiles captured.
  */
 public class MiniMaxStrategy implements FallibleReversiStrategy {
+  PointValue pointValue;
+  public MiniMaxStrategy(PointValue pointValue) {
+    this.pointValue = pointValue;
+  }
 
+  public MiniMaxStrategy() {
+    this(new CapturedPointValue());
+  }
   /**
    * The chooseMove function.
    *
@@ -82,13 +92,13 @@ public class MiniMaxStrategy implements FallibleReversiStrategy {
       tempTempModel.startGame();
       tempTempModel.placePiece(olm);
 
-      int tempOpponentScore = tempTempModel.getPlayerScore(opponent);
-      int tempMyScore = tempTempModel.getPlayerScore(forWhom);
+      int tempOpponentScore = getPlayerScore(tempTempModel, opponent, this.pointValue);
+      int tempMyScore = getPlayerScore(tempTempModel, forWhom, this.pointValue);
       int tempDifference = tempMyScore - tempOpponentScore;
       bestOpponentMoves.add(tempDifference);
     }
     if (bestOpponentMoves.isEmpty()) {
-      bestOpponentMoves.add(tempModel.getPlayerScore(forWhom));
+      bestOpponentMoves.add(getPlayerScore(tempModel, forWhom, this.pointValue));
     }
     bestOpponentMoves.sort(Comparator.naturalOrder());
     return bestOpponentMoves.get(0);
