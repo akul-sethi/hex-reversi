@@ -20,12 +20,21 @@ public class FalseLegalityReversi extends FalseLegalityReadOnlyReversi implement
 
   @Override
   public void addObserver(ModelObserver obs) {
-
+    log.append("addObserver\n");
+    this.observers.add(obs);
   }
 
   @Override
   public void startGame() {
+    log.append("startGame\n");
+    this.gameStarted = true;
+    this.notifyObservers();
+  }
 
+  private void notifyObservers() {
+    for(ModelObserver obs: this.observers) {
+      obs.giveControlTo(this.players.peek());
+    }
   }
 
   @Override
@@ -44,9 +53,6 @@ public class FalseLegalityReversi extends FalseLegalityReadOnlyReversi implement
         this.tiles.put(new CubeCoord(row, column), this.players.peek());
         noGoodRows = false;
       }
-    }
-    if (noGoodRows) {
-      throw new IllegalStateException("Move is not valid");
     }
   }
 

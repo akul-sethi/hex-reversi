@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import cs3500.reversi.controller.ModelObserver;
 import cs3500.reversi.player.CaptureMaxPlayer;
 import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Name;
@@ -22,12 +23,15 @@ public class FalseLegalityReadOnlyReversi implements ReadOnlyReversiModel {
   final Queue<Player> players;
 
   final HashMap<CubeCoord, Player> tiles;
+  List<ModelObserver> observers;
+  boolean gameStarted = true;
 
   protected FalseLegalityReadOnlyReversi(StringBuilder log, List<Player> players) {
     this.tiles = new HashMap<>();
     this.tiles.putAll(makeBoard(6));
     this.log = log;
     this.players = new LinkedList<>(players);
+    this.observers = new ArrayList<>();
   }
 
   private static HashMap<CubeCoord, Player> makeBoard(int sideLength)
@@ -103,7 +107,7 @@ public class FalseLegalityReadOnlyReversi implements ReadOnlyReversiModel {
   @Override
   public Player getWinner() {
     log.append("getWinner\n");
-    return new CaptureMaxPlayer("Z");
+    return new HumanPlayer(Name.X);
   }
 
   @Override

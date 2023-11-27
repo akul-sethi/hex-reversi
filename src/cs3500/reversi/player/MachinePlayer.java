@@ -25,7 +25,7 @@ public class MachinePlayer extends AkulAbstractPlayer {
   public void startTurn(ReadOnlyReversiModel model) {
      this.observer.ifPresent((obs -> {
        try{
-           obs.moveHere(this.strategy.chooseMove(model, this));
+           obs.moveHere(this.strategy.chooseMove(model.getModel(), this));
        } catch (IllegalStateException e) {
            obs.pass();
        }

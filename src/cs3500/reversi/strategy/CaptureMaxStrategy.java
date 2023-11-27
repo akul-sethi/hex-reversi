@@ -33,6 +33,7 @@ public class CaptureMaxStrategy implements FallibleReversiStrategy {
     ArrayList<LinearCoord> bestMoves = new ArrayList<>();
     ReversiModel testModel = model.getModel();
     testModel.startGame();
+    testModel.startGame();
     int startScore = testModel.getPlayerScore(forWhom);
     //if legal moves is empty, gets all the legal moves again.
     if (legalMoves.isEmpty()) {
