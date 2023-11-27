@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReadOnlyReversiModel;
+import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.player.Player;
 
 /**
@@ -34,7 +35,9 @@ public class CompleteReversiStrategyFromFallible implements InfallibleReversiStr
   @Override
   public LinearCoord chooseMove(ReadOnlyReversiModel model, Player forWhom)
           throws IllegalStateException {
-    Optional<ArrayList<LinearCoord>> maybeAns = this.strategyToTry.chooseMove(model, forWhom,
+    ReversiModel testModel = model.getModel();
+    testModel.startGame();
+    Optional<ArrayList<LinearCoord>> maybeAns = this.strategyToTry.chooseMove(testModel, forWhom,
             new ArrayList<>());
     if (maybeAns.isPresent()) {
       return maybeAns.get().get(0);

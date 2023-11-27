@@ -9,7 +9,7 @@ import cs3500.reversi.player.Player;
  * Represents tests for the player classes.
  */
 public class PlayerTests {
-  @Test(expected = AssertionError.class)
+  @Test (expected = AssertionError.class)
   public void testPlayerConstructorNullName() {
     Player myPlayer = new HumanPlayer(null);
     Assert.assertEquals(0, 1 - 1);

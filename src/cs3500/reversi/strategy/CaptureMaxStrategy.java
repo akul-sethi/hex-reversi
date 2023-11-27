@@ -32,6 +32,7 @@ public class CaptureMaxStrategy implements FallibleReversiStrategy {
     int maxDifference = 0;
     ArrayList<LinearCoord> bestMoves = new ArrayList<>();
     ReversiModel testModel = model.getModel();
+    testModel.startGame();
     int startScore = testModel.getPlayerScore(forWhom);
     //if legal moves is empty, gets all the legal moves again.
     if (legalMoves.isEmpty()) {
@@ -43,6 +44,7 @@ public class CaptureMaxStrategy implements FallibleReversiStrategy {
     }
     for (LinearCoord move : legalMoves) {
       ReversiModel tempModel = model.getModel();
+      tempModel.startGame();
       tempModel.placePiece(move);
       int tempScore = tempModel.getPlayerScore(forWhom);
       int difference = tempScore - startScore;

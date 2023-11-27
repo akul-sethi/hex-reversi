@@ -11,6 +11,7 @@ abstract  class AkulAbstractPlayer implements Player {
   protected final Name name;
 
   AkulAbstractPlayer(Name name) {
+    assert name != null;
     this.observer = Optional.empty();
     this.name = name;
   }
@@ -39,12 +40,15 @@ abstract  class AkulAbstractPlayer implements Player {
    */
   @Override
   public boolean equals(Object o) {
-
     if (!(o instanceof AkulAbstractPlayer)) {
       return false;
     }
     AkulAbstractPlayer a = (AkulAbstractPlayer) o;
-    return a.name.equals(this.name);
+    return this.toString().equals(o.toString());
   }
 
+  @Override
+  public int hashCode() {
+    return this.name.name().hashCode();
+  }
 }

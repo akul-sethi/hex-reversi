@@ -29,6 +29,7 @@ public class AvoidNextToCornersStrategy implements FallibleReversiStrategy {
   public Optional<ArrayList<LinearCoord>> chooseMove(ReadOnlyReversiModel model, Player forWhom,
                                                      ArrayList<LinearCoord> legalMoves) {
     ReversiModel testModel = model.getModel();
+    testModel.startGame();
     if (legalMoves.isEmpty()) {
       legalMoves = Utils.allLegalMoves(testModel);
     }

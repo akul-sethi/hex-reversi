@@ -20,6 +20,7 @@ final class Utils {
    * @return an ArrayList of all legal moves that the current player can play.
    */
   static ArrayList<LinearCoord> allLegalMoves(ReversiModel model) {
+    model.startGame();
     ArrayList<LinearCoord> allLegal = new ArrayList<>();
     int botRow = model.getBottomRow();
     int rightCol = model.getRightCol();
@@ -43,6 +44,7 @@ final class Utils {
    * @return an ArrayList of all coordinates in the model's board.
    */
   static ArrayList<LinearCoord> getAll(ReversiModel model) {
+    model.startGame();
     ArrayList<LinearCoord> allInMap = new ArrayList<>();
     for (int row = model.getTopRow(); row <= model.getBottomRow(); row += 1) {
       for (int col = model.getLeftCol(); col <= model.getRightCol(); col += 1) {
@@ -66,6 +68,7 @@ final class Utils {
    * @return an ArrayList of coordinates with all the corners.
    */
   static ArrayList<LinearCoord> getCorners(ReversiModel model) {
+    model.startGame();
     ArrayList<LinearCoord> corners = new ArrayList<>();
     ArrayList<LinearCoord> allInMap = getAll(model);
     List<Comparator<LinearCoord>> comparators =
@@ -87,6 +90,7 @@ final class Utils {
    * @return A list of adjacent coordinates to the one given.
    */
   static ArrayList<LinearCoord> getAdjacent(LinearCoord coord, ReversiModel model) {
+    model.startGame();
     ArrayList<LinearCoord> adjacent = new ArrayList<>();
     int row = coord.row();
     int col = coord.column();
@@ -120,6 +124,7 @@ final class Utils {
    * @return an ArrayList of coordinates that are next to the corners.
    */
   static ArrayList<LinearCoord> getNextToCorners(ReversiModel model) {
+    model.startGame();
     ArrayList<LinearCoord> corners = getCorners(model);
     ArrayList<LinearCoord> surroundsCorners = new ArrayList<>();
     for (LinearCoord corner : corners) {

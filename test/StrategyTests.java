@@ -137,6 +137,7 @@ public class StrategyTests {
             6, new MachinePlayer(Name.X, new CaptureCornersStrategy()),
             new MachinePlayer(Name.O, new CaptureCornersStrategy()));
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
+    basicModel.startGame();
     for (int i = 0; i < 40; i += 1) {
       //LinearCoord bestMove = basicModel.nextToPlay().startTurn(basicModel);
       //Assert.assertTrue(basicModel.validMove(bestMove));
@@ -592,6 +593,7 @@ public class StrategyTests {
             6, new MachinePlayer(Name.X, new AvoidNextToCornersStrategy()),
             new MachinePlayer(Name.O, new AvoidNextToCornersStrategy()));
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
+    basicModel.startGame();
     for (int i = 0; i < 23; i += 1) {
       //LinearCoord bestMove = basicModel.nextToPlay().startTurn(basicModel);
       //Assert.assertTrue(basicModel.validMove(bestMove));
@@ -860,6 +862,7 @@ public class StrategyTests {
             6, new MachinePlayer(Name.X, new MiniMaxStrategy()),
             new MachinePlayer(Name.O, new MiniMaxStrategy()));
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
+    basicModel.startGame();
     for (int i = 0; i < 23; i += 1) {
       //LinearCoord bestMove = basicModel.nextToPlay().startTurn(basicModel);
       //Assert.assertTrue(basicModel.validMove(bestMove));
@@ -1132,6 +1135,7 @@ public class StrategyTests {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
             6, superPlayer, captureMaxPlayer);
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
+    basicModel.startGame();
     for (int i = 0; i < 100; i += 1) {
       try {
         //LinearCoord bestMove = basicModel.nextToPlay().startTurn(basicModel);

@@ -30,6 +30,7 @@ public class CaptureCornersStrategy implements FallibleReversiStrategy {
   public Optional<ArrayList<LinearCoord>> chooseMove(ReadOnlyReversiModel model, Player forWhom,
                                                      ArrayList<LinearCoord> legalMoves) {
     ReversiModel testModel = model.getModel();
+    testModel.startGame();
     ArrayList<LinearCoord> bestMoves = new ArrayList<>();
     if (legalMoves.isEmpty()) {
       legalMoves = Utils.allLegalMoves(testModel);
