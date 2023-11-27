@@ -42,7 +42,6 @@ public class SuperStrategyPlayer extends AbstractPlayer {
 
   }
 
-  @Override
   public boolean usesStrategy() {
     return false;
   }

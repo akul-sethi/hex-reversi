@@ -5,7 +5,8 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import cs3500.reversi.player.StrategyPlayer;
+import cs3500.reversi.player.MachinePlayer;
+import cs3500.reversi.player.Name;
 import cs3500.reversi.strategy.AvoidNextToCornersStrategy;
 import cs3500.reversi.strategy.CaptureCornersStrategy;
 import cs3500.reversi.strategy.CaptureMaxStrategy;
@@ -20,11 +21,11 @@ public class MockTests {
   public void captureInputCorners() {
     StringBuilder output = new StringBuilder();
     ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
-            Arrays.asList(new StrategyPlayer("X", new CaptureCornersStrategy()),
-                    new StrategyPlayer("X", new CaptureCornersStrategy())));
+            Arrays.asList(new MachinePlayer(Name.X, new CaptureCornersStrategy()),
+                    new MachinePlayer(Name.X, new CaptureCornersStrategy())));
     ReversiModel testModel = mockModel.getModel();
     try {
-      testModel.nextToPlay().getMove(testModel);
+      testModel.nextToPlay().startTurn(testModel);
     } catch (Exception e) {
       //inshallah do nothing
     }
@@ -40,11 +41,11 @@ public class MockTests {
   public void captureInputAvoidNextToCorners() {
     StringBuilder output = new StringBuilder();
     ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
-            Arrays.asList(new StrategyPlayer("X", new AvoidNextToCornersStrategy()),
-                    new StrategyPlayer("X", new AvoidNextToCornersStrategy())));
+            Arrays.asList(new MachinePlayer(Name.X, new AvoidNextToCornersStrategy()),
+                    new MachinePlayer(Name.X, new AvoidNextToCornersStrategy())));
     ReversiModel testModel = mockModel.getModel();
     try {
-      testModel.nextToPlay().getMove(testModel);
+      testModel.nextToPlay().startTurn(testModel);
     } catch (Exception e) {
       //inshallah do nothing
     }
@@ -72,11 +73,11 @@ public class MockTests {
   public void maxCaptureTranscript() {
     StringBuilder output = new StringBuilder();
     ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
-            Arrays.asList(new StrategyPlayer("X", new CaptureMaxStrategy()),
-                    new StrategyPlayer("X", new CaptureMaxStrategy())));
+            Arrays.asList(new MachinePlayer(Name.X, new CaptureMaxStrategy()),
+                    new MachinePlayer(Name.X, new CaptureMaxStrategy())));
     ReversiModel testModel = mockModel.getModel();
     try {
-      testModel.nextToPlay().getMove(testModel);
+      testModel.nextToPlay().startTurn(testModel);
     }
     catch (Exception e) {
       //inshallah do nothing
@@ -234,8 +235,8 @@ public class MockTests {
   public void MockStringViewTest() {
     StringBuilder output = new StringBuilder();
     ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
-            Arrays.asList(new StrategyPlayer("X", new CaptureMaxStrategy()),
-                    new StrategyPlayer("X", new CaptureMaxStrategy())));
+            Arrays.asList(new MachinePlayer(Name.X, new CaptureMaxStrategy()),
+                    new MachinePlayer(Name.X, new CaptureMaxStrategy())));
     ReversiModel testModel = mockModel.getModel();
     Appendable log = new StringBuilder();
     ReversiView textView = new TextReversiView(mockModel.getModel(), log);
@@ -250,7 +251,7 @@ public class MockTests {
             "   - - - - - - - -     \n" +
             "    - - - - - - -     \n" +
             "     - - - - - -       \n", textView.toString());
-    mockModel.nextToPlay().getMove(mockModel);
+    mockModel.nextToPlay().startTurn(mockModel);
     Assert.assertEquals("getModel\n" +
             "getModel\n" +
             "getTopRow\n" +
@@ -550,11 +551,11 @@ public class MockTests {
   public void maxCaptureFalseLegalityTranscript() {
     StringBuilder output = new StringBuilder();
     ReadOnlyReversiModel mockModel = new FalseLegalityReversi(output,
-            Arrays.asList(new StrategyPlayer("X", new CaptureMaxStrategy()),
-                    new StrategyPlayer("X", new CaptureMaxStrategy())));
+            Arrays.asList(new MachinePlayer(Name.X, new CaptureMaxStrategy()),
+                    new MachinePlayer(Name.X, new CaptureMaxStrategy())));
     ReversiModel testModel = mockModel.getModel();
     try {
-      testModel.nextToPlay().getMove(testModel);
+      testModel.nextToPlay().startTurn(testModel);
     }
     catch (Exception e) {
       //inshallah do nothing

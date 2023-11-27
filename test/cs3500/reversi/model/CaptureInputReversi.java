@@ -2,6 +2,7 @@ package cs3500.reversi.model;
 
 import java.util.List;
 
+import cs3500.reversi.controller.ModelObserver;
 import cs3500.reversi.player.Player;
 
 /**
@@ -13,6 +14,16 @@ public class CaptureInputReversi extends CaptureInputReadOnlyReversi implements 
   protected CaptureInputReversi(StringBuilder log, List<Player> players) {
     super(log, players);
     this.log = log;
+  }
+
+  @Override
+  public void addObserver(ModelObserver obs) {
+
+  }
+
+  @Override
+  public void startGame() {
+
   }
 
   @Override

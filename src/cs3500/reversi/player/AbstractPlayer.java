@@ -66,7 +66,6 @@ public abstract class AbstractPlayer implements Player {
    *                      strategy will search to determine what move to make.
    * @return The best move determined by this player's strategy.
    */
-  @Override
   public LinearCoord getMove(ReadOnlyReversiModel readOnlyModel) {
     return this.strategy.chooseMove(readOnlyModel, this);
   }

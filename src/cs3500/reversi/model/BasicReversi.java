@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import cs3500.reversi.player.HumanPlayer;
+import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
 
 /**
@@ -62,12 +63,12 @@ final class BasicReversi extends AReversiModel {
    * @param tiles The board on which to place the tiles.
    */
   private static void placeStarting(HashMap<CubeCoord, Player> tiles) {
-    tiles.put(new CubeCoord(0, 1, -1), new HumanPlayer("X"));
-    tiles.put(new CubeCoord(1, -1, 0), new HumanPlayer("X"));
-    tiles.put(new CubeCoord(1, 0, -1), new HumanPlayer("O"));
-    tiles.put(new CubeCoord(0, -1, 1), new HumanPlayer("O"));
-    tiles.put(new CubeCoord(-1, 1, 0), new HumanPlayer("O"));
-    tiles.put(new CubeCoord(-1, 0, 1), new HumanPlayer("X"));
+    tiles.put(new CubeCoord(0, 1, -1), new HumanPlayer(Name.X));
+    tiles.put(new CubeCoord(1, -1, 0), new HumanPlayer(Name.X));
+    tiles.put(new CubeCoord(1, 0, -1), new HumanPlayer(Name.O));
+    tiles.put(new CubeCoord(0, -1, 1), new HumanPlayer(Name.O));
+    tiles.put(new CubeCoord(-1, 1, 0), new HumanPlayer(Name.O));
+    tiles.put(new CubeCoord(-1, 0, 1), new HumanPlayer(Name.X));
   }
 
   @Override

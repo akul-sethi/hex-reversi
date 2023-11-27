@@ -8,6 +8,7 @@ import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.ReversiCreator;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.player.HumanPlayer;
+import cs3500.reversi.player.Name;
 import cs3500.reversi.view.ReversiView;
 import cs3500.reversi.view.TextReversiView;
 
@@ -83,7 +84,7 @@ public class InDepthReversiTests {
             "   - - - - - - - -     \n" +
             "    - - - - - - -     \n" +
             "     - - - - - -       \n", textRV.toString());
-    Assert.assertEquals(new HumanPlayer("O"), basicModel.getWinner());
+    Assert.assertEquals(new HumanPlayer(Name.O), basicModel.getWinner());
   }
 
   @Test
@@ -148,7 +149,7 @@ public class InDepthReversiTests {
             "   - - - - - - - -     \n" +
             "    - - - - - - -     \n" +
             "     - - - - - -       \n", textRV.toString());
-    Assert.assertEquals(new HumanPlayer("O"), basicModel.getWinner());
+    Assert.assertEquals(new HumanPlayer(Name.O), basicModel.getWinner());
   }
 
   @Test(expected = IllegalStateException.class)
@@ -172,7 +173,7 @@ public class InDepthReversiTests {
             "   - - - - - - - -     \n" +
             "    - - - - - - -     \n" +
             "     - - - - - -       \n", textRV.toString());
-    Assert.assertEquals(new HumanPlayer("O"), basicModel.getWinner());
+    Assert.assertEquals(new HumanPlayer(Name.O), basicModel.getWinner());
   }
 
   @Test
@@ -296,9 +297,9 @@ public class InDepthReversiTests {
             "   - - - - - - - -     \n" +
             "    - - - - - - -     \n" +
             "     - - - - - -       \n", textRV.toString());
-    Assert.assertEquals(basicModel.playerAt(new BasicPoint(1, 0)), new HumanPlayer("O"));
+    Assert.assertEquals(basicModel.playerAt(new BasicPoint(1, 0)), new HumanPlayer(Name.O));
     Assert.assertEquals(basicModel.playerAt(new BasicPoint(3, 0)), null);
-    Assert.assertEquals(basicModel.playerAt(new BasicPoint(-3, -1)), new HumanPlayer("O"));
+    Assert.assertEquals(basicModel.playerAt(new BasicPoint(-3, -1)), new HumanPlayer(Name.O));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -325,7 +326,7 @@ public class InDepthReversiTests {
             "   - - - - - - - -     \n" +
             "    - - - - - - -     \n" +
             "     - - - - - -       \n", textRV.toString());
-    Assert.assertEquals(basicModel.playerAt(new BasicPoint(1, 0)), new HumanPlayer("O"));
+    Assert.assertEquals(basicModel.playerAt(new BasicPoint(1, 0)), new HumanPlayer(Name.O));
     Assert.assertEquals(basicModel.playerAt(new BasicPoint(9, 0)), null);
   }
 
@@ -556,7 +557,7 @@ public class InDepthReversiTests {
             "- X - X - \n" +
             " O X X X   \n" +
             "  - X -   \n", output.toString());
-    Assert.assertEquals(basicModel.getWinner(), new HumanPlayer("X"));
+    Assert.assertEquals(basicModel.getWinner(), new HumanPlayer(Name.X));
   }
 
   @Test(expected = IllegalArgumentException.class)

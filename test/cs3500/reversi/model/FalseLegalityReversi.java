@@ -2,6 +2,7 @@ package cs3500.reversi.model;
 
 import java.util.List;
 
+import cs3500.reversi.controller.ModelObserver;
 import cs3500.reversi.player.Player;
 
 /**
@@ -15,6 +16,16 @@ public class FalseLegalityReversi extends FalseLegalityReadOnlyReversi implement
   protected FalseLegalityReversi(StringBuilder log, List<Player> players) {
     super(log, players);
     this.log = log;
+  }
+
+  @Override
+  public void addObserver(ModelObserver obs) {
+
+  }
+
+  @Override
+  public void startGame() {
+
   }
 
   @Override

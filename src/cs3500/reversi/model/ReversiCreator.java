@@ -3,6 +3,7 @@ package cs3500.reversi.model;
 import java.util.Objects;
 
 import cs3500.reversi.player.HumanPlayer;
+import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
 
 /**
@@ -27,8 +28,8 @@ public final class ReversiCreator {
         throw new IllegalArgumentException("Incorrect num params");
       }
       if (params.length == 1) {
-        return new BasicReversi((Integer) params[0], new HumanPlayer("X"),
-                new HumanPlayer("O"));
+        return new BasicReversi((Integer) params[0], new HumanPlayer(Name.X),
+                new HumanPlayer(Name.O));
       }
       if (params.length == 3) {
         return new BasicReversi((Integer) params[0], (Player) params[1], (Player) params[2]);

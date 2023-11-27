@@ -28,7 +28,6 @@ public class MiniMaxPlayer extends AbstractPlayer {
 
   }
 
-  @Override
   public boolean usesStrategy() {
     return false;
   }
