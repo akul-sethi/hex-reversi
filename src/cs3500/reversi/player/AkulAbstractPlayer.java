@@ -2,21 +2,22 @@ package cs3500.reversi.player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import cs3500.reversi.view.InputObserver;
 
 abstract  class AkulAbstractPlayer implements Player {
-  protected final List<InputObserver> observers;
+  protected Optional<InputObserver> observer;
   protected final String name;
 
   AkulAbstractPlayer(String name) {
-    this.observers = new ArrayList<>();
+    this.observer = Optional.empty();
     this.name = name;
   }
 
   @Override
    public void addObserver(InputObserver observer) {
-    this.observers.add(observer);
+    this.observer = Optional.of(observer);
   }
 
   /**

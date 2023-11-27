@@ -25,6 +25,7 @@ public final class Reversi {
    * @param args The system args to create the game from.
    */
   public static void main(String[] args) {
+
     Player p1 = new MachinePlayer("X", new CaptureMaxStrategy());
     Player p2 = new HumanPlayer("O");
     ReversiModel model = ReversiCreator.create(GameType.BASIC, 6, p1, p2);

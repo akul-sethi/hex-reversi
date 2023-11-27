@@ -7,7 +7,7 @@ import cs3500.reversi.view.InputObserver;
 
 /**
 
- * To represent a human player, without a real strategy.
+ * To represent a human player which uses a view for input rather than a strategy.
  */
 public class HumanPlayer extends AkulAbstractPlayer {
 
@@ -21,17 +21,8 @@ public class HumanPlayer extends AkulAbstractPlayer {
   }
 
   @Override
-  public LinearCoord getMove(ReadOnlyReversiModel readOnlyModel) {
-    throw new IllegalStateException("This is a human player");
-  }
-
-  @Override
   public void startTurn(ReadOnlyReversiModel model) {
     //DO NOTHING
   }
 
-  @Override
-  public boolean usesStrategy() {
-    return false;
-  }
 }

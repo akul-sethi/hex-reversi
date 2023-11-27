@@ -7,35 +7,29 @@ import cs3500.reversi.strategy.FallibleReversiStrategy;
 import cs3500.reversi.strategy.InfallibleReversiStrategy;
 import cs3500.reversi.view.InputObserver;
 
+/**
+ * A concrete implementation of a Player which uses a strategy rather than human input.*/
 public class MachinePlayer extends AkulAbstractPlayer {
 
   private final InfallibleReversiStrategy strategy;
 
+  /**
+   * Creates a MachinePlayer with the given name which uses the given strategy to select its moves.*/
   public MachinePlayer(String name, FallibleReversiStrategy strategy) {
     super(name);
 
     this.strategy = new CompleteReversiStrategyFromFallible(strategy);
   }
-  @Override
-  public LinearCoord getMove(ReadOnlyReversiModel readOnlyModel) {
-     return this.strategy.chooseMove(readOnlyModel, this);
-  }
 
   @Override
   public void startTurn(ReadOnlyReversiModel model) {
-    try{
-      for(InputObserver obs : this.observers) {
-        obs.moveHere(this.getMove(model));
-      }
-    } catch (IllegalStateException e) {
-      for(InputObserver obs : this.observers) {
-        obs.pass();
-      }
-    }
+     this.observer.ifPresent((obs -> {
+       try{
+           obs.moveHere(this.strategy.chooseMove(model, this));
+       } catch (IllegalStateException e) {
+           obs.pass();
+       }
+     }));
   }
 
-  @Override
-  public boolean usesStrategy() {
-    return true;
-  }
 }

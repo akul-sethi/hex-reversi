@@ -29,13 +29,11 @@ public interface Player {
    * @param readOnlyModel the readonly model to pass into the get move function, by which the
    *                      strategy will search to determine what move to make.
    * @return The best move determined by the player's strategy.
-   * @throws IllegalStateException If this player does not use a strategy or it cannot find a move
+   * @throws IllegalStateException If it cannot find a move
    */
-  LinearCoord getMove(ReadOnlyReversiModel readOnlyModel) throws IllegalStateException;
 
   void startTurn(ReadOnlyReversiModel model);
 
   void addObserver(InputObserver observer);
 
-  boolean usesStrategy();
 }
