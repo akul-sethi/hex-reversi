@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Queue;
 
 import cs3500.reversi.controller.ModelObserver;
@@ -59,6 +60,8 @@ abstract class AReversiModel implements ReversiModel {
     if (hexs.isEmpty()) {
       throw new IllegalArgumentException("Size of hexes must be greater than 0");
     }
+    this.gameStarted = false;
+    this.gameOver = false;
     this.tiles = new HashMap<>();
     this.tiles.putAll(hexs);
     this.players = new LinkedList<>();
@@ -81,19 +84,23 @@ abstract class AReversiModel implements ReversiModel {
 
   @Override
   public void addObserver(ModelObserver observer) {
+    Objects.requireNonNull(observer);
     this.observers.add(observer);
   }
 
   private void notifyObservers() {
     for(ModelObserver obs: this.observers) {
       obs.giveControlTo(this.players.peek());
+      if(this.gameOver) {
+        obs.gameOver();
+      }
     }
   }
 
   //Throws an error if the game is over
   private void requireGameNotOver() {
-    if (gameOver) {
-      throw new IllegalStateException("Game over");
+    if (gameOver || !gameStarted) {
+      throw new IllegalStateException("Game over or not started");
     }
   }
 
@@ -296,5 +303,10 @@ abstract class AReversiModel implements ReversiModel {
   @Override
   public Player nextToPlay() {
     return this.players.peek();
+  }
+
+  @Override
+  public boolean gameOver() {
+    return this.gameOver;
   }
 }

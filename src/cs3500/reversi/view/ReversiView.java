@@ -18,6 +18,7 @@ public interface ReversiView {
 
   /**
    * Adds a Features object to this view.
+   * @throws NullPointerException If features is <code>null</code>
    */
   void addObserver(InputObserver features);
 
@@ -35,4 +36,6 @@ public interface ReversiView {
    * Sets an action to be performed for a given keystroke.
    */
   void setHotKey(KeyStroke keyStroke, String featureName);
+
+  void alertMessage(String message);
 }

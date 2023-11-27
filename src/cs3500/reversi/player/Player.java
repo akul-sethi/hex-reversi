@@ -24,16 +24,17 @@ public interface Player {
   boolean equals(Object o);
 
   /**
-   * Gets the move from the player given the boardState.
+   * Starts this player's turn. If it is a machine this may mean that it uses some strategy to
+   * select a move and then requests it from its observer. For a Human this may do nothing.
    *
-   * @param readOnlyModel the readonly model to pass into the get move function, by which the
-   *                      strategy will search to determine what move to make.
-   * @return The best move determined by the player's strategy.
-   * @throws IllegalStateException If it cannot find a move
+   * @param model the readonly model the Player can use to decide its move.
    */
 
   void startTurn(ReadOnlyReversiModel model);
 
+  /**
+   * Adds an InputObserver to this player so that it can request moves it wants to make.
+   * @throws NullPointerException If observer is <code>null</code>*/
   void addObserver(InputObserver observer);
 
 }

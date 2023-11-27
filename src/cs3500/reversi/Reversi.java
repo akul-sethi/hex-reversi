@@ -31,12 +31,10 @@ public final class Reversi {
    */
   public static void main(String[] args) {
 
-    Player p1 = new MachinePlayer(Name.X, new CaptureMaxStrategy());
-    Player p2 = new MachinePlayer(Name.O, new TryTwo(new CaptureCornersStrategy(),
-            new TryTwo(new AvoidNextToCornersStrategy(),
-                    new TryTwo(new MiniMaxStrategy(),
-                            new CaptureMaxStrategy()))));
-    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6, p1, p2);
+    Player p1 = new HumanPlayer(Name.O);
+    Player p2 = new MachinePlayer(Name.X, new CaptureMaxStrategy());
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+
     ReversiView view1 = new GUIReversiView(model);
     ReversiView view2 = new GUIReversiView(model);
     ReversiController controller1 = new ReversiController(p1, view1, model);

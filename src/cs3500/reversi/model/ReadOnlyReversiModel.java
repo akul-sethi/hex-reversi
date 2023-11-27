@@ -24,6 +24,11 @@ public interface ReadOnlyReversiModel {
   Player getWinner();
 
   /**
+   * Returns true if the game is over.
+   */
+  boolean gameOver();
+
+  /**
    * Returns the player at the given CubeCord. <code>null</code> if there is no player. This is in
    * the model to make drawing it possible.
    *

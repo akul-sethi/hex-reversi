@@ -15,6 +15,7 @@ public interface ReversiModel extends ReadOnlyReversiModel {
 
   /**
    * Add an observer to the model.
+   * @throws NullPointerException If observer is <code>null</code>
    */
   void addObserver(ModelObserver obs);
 
@@ -29,7 +30,7 @@ public interface ReversiModel extends ReadOnlyReversiModel {
    *
    * @param coord The coord where the piece is being placed
    * @throws IllegalArgumentException The coordinate is not valid.
-   * @throws IllegalStateException    The move is invalid or the game is over (all players passed in
+   * @throws IllegalStateException    The move is invalid, game not started, or the game is over (all players passed in
    *                                  a row).
    */
   void placePiece(LinearCoord coord);
@@ -41,7 +42,7 @@ public interface ReversiModel extends ReadOnlyReversiModel {
    * draw even if that is there only move.
    *
    * @throws IllegalStateException If the game is over (all players passed in
-   *                               a row).
+   *                               a row) or the game has not started.
    */
   void pass();
 

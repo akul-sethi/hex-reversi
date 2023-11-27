@@ -65,6 +65,11 @@ public final class TextReversiView implements ReversiView {
     //placeholder
   }
 
+  @Override
+  public void alertMessage(String message) {
+
+  }
+
   /**
    * Returns a string representation of the current game state.
    *

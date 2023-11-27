@@ -2,6 +2,7 @@ package cs3500.reversi.player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import cs3500.reversi.view.InputObserver;
@@ -10,14 +11,19 @@ abstract  class AkulAbstractPlayer implements Player {
   protected Optional<InputObserver> observer;
   protected final Name name;
 
+  /**
+   * Creates an abstract Player object with given name.
+   * @throws NullPointerException If the given name is <code>null</code>*/
   AkulAbstractPlayer(Name name) {
     assert name != null;
     this.observer = Optional.empty();
+    Objects.requireNonNull(name);
     this.name = name;
   }
 
   @Override
    public void addObserver(InputObserver observer) {
+    Objects.requireNonNull(observer);
     this.observer = Optional.of(observer);
   }
 
@@ -44,7 +50,7 @@ abstract  class AkulAbstractPlayer implements Player {
       return false;
     }
     AkulAbstractPlayer a = (AkulAbstractPlayer) o;
-    return this.toString().equals(o.toString());
+    return a.name.toString().equals(this.name.toString());
   }
 
   @Override

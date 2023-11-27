@@ -12,4 +12,5 @@ public enum Name {
   public String toString() {
     return this.name;
   }
+
 }

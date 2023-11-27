@@ -12,4 +12,8 @@ public interface ModelObserver {
    * Allows a model to notify this observer as to which Player should be receiving control next.*/
   void giveControlTo(Player player);
 
+  /**
+   * Allows a model to notify its observer that the game is over.*/
+  void gameOver();
+
 }

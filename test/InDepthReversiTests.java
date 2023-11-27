@@ -3,6 +3,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import cs3500.reversi.controller.ControllerWithLog;
+import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.ReversiCreator;
@@ -570,5 +572,27 @@ public class InDepthReversiTests {
   public void creatorTestTooManyArgs() {
     ReversiCreator.create(GameType.BASIC, 5, 5);
     Assert.assertEquals(1, 2 - 1);
+  }
+
+  @Test
+  public void giveControlToObserverTest(){
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    ControllerWithLog controller = new ControllerWithLog();
+    model.addObserver(controller);
+    Assert.assertEquals(controller.log, "");
+    model.startGame();
+    Assert.assertEquals(controller.log, "giveControlTo(X)\n");
+    model.pass();
+    Assert.assertEquals(controller.log, "giveControlTo(X)\ngiveControlTo(O)\n");
+    model.placePiece(new BasicPoint(-1, 1));
+    Assert.assertEquals(controller.log, "giveControlTo(X)\ngiveControlTo(O)\ngiveControlTo(X)\n");
+  }
+
+  @Test
+  public void nullObserver() {
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    Assert.assertThrows(NullPointerException.class, () -> {
+      model.addObserver(null);
+    });
   }
 }

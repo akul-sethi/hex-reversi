@@ -2,9 +2,9 @@ package cs3500.reversi.view;
 
 import java.awt.BorderLayout;
 import java.io.IOException;
+import java.util.Objects;
 
-import javax.swing.JFrame;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
@@ -16,9 +16,11 @@ public final class GUIReversiView extends JFrame implements ReversiView {
 
   /**
    * Creates a GUIReversiView using the given ReadOnlyReversiModel m.
+   * @throws NullPointerException If the given model is null
    */
   public GUIReversiView(ReadOnlyReversiModel m) {
     super("Reversi");
+    Objects.requireNonNull(m);
 
     setSize(500, 300);
     setLocation(200, 200);
@@ -46,6 +48,7 @@ public final class GUIReversiView extends JFrame implements ReversiView {
 
   @Override
   public void addObserver(InputObserver features) {
+    Objects.requireNonNull(features);
     this.board.addObserver(features);
   }
 
@@ -64,6 +67,12 @@ public final class GUIReversiView extends JFrame implements ReversiView {
   @Override
   public void setHotKey(KeyStroke keyStroke, String featureName) {
     this.board.getInputMap().put(keyStroke, featureName);
+  }
+
+  @Override
+  public void alertMessage(String message) {
+    JOptionPane.showMessageDialog(this, message, "Alert",
+            JOptionPane.ERROR_MESSAGE);
   }
 
 

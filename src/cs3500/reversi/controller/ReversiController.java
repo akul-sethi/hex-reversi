@@ -1,9 +1,12 @@
 package cs3500.reversi.controller;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReversiModel;
+import cs3500.reversi.player.HumanPlayer;
+import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.view.InputObserver;
 import cs3500.reversi.view.ReversiView;
@@ -22,8 +25,13 @@ public class ReversiController implements InputObserver, ModelObserver {
 
   /**
    * Creates a controller which is responsible for given player and view and uses the given model
-   * for gameplay.*/
+   * for gameplay.
+   * @throws NullPointerException If any arguments are null.*/
   public ReversiController(Player p, ReversiView view, ReversiModel model) {
+    Objects.requireNonNull(p);
+    Objects.requireNonNull(view);
+    Objects.requireNonNull(model);
+
     this.player = p;
     this.view = view;
     this.model = model;
@@ -52,6 +60,13 @@ public class ReversiController implements InputObserver, ModelObserver {
     }
   }
 
+  @Override
+  public void gameOver() {
+    this.view.alertMessage("Player " + this.model.getWinner() + " won! Score is X: "
+    + this.model.getPlayerScore(new HumanPlayer(Name.X)) + " O: "
+            + this.model.getPlayerScore(new HumanPlayer(Name.O)));
+  }
+
 
   @Override
   public void moveHere(LinearCoord coord) {
@@ -59,7 +74,7 @@ public class ReversiController implements InputObserver, ModelObserver {
      try {
        this.model.placePiece(coord);
      } catch(IllegalStateException | IllegalArgumentException e) {
-         //DO NOTHING
+         this.view.alertMessage(e.getLocalizedMessage());
      }
 
   }
@@ -67,7 +82,12 @@ public class ReversiController implements InputObserver, ModelObserver {
   @Override
   public void pass() {
     if(this.hasControl) {
-      this.model.pass();
+      try {
+        this.model.pass();
+      } catch(IllegalStateException | IllegalArgumentException e) {
+        this.view.alertMessage(e.getLocalizedMessage());
+      }
+
     }
   }
 }

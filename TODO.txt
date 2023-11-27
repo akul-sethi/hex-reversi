@@ -4,3 +4,7 @@ Added System print coordinates
 Fix creator
 Change visibility
 Fix javadoc
+
+
+11/27
+Add view observer tests
