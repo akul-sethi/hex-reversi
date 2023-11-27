@@ -8,9 +8,9 @@ import cs3500.reversi.view.InputObserver;
 
 abstract  class AkulAbstractPlayer implements Player {
   protected Optional<InputObserver> observer;
-  protected final String name;
+  protected final Name name;
 
-  AkulAbstractPlayer(String name) {
+  AkulAbstractPlayer(Name name) {
     this.observer = Optional.empty();
     this.name = name;
   }
@@ -27,7 +27,7 @@ abstract  class AkulAbstractPlayer implements Player {
    */
   @Override
   public String toString() {
-    return this.name;
+    return this.name.toString();
   }
 
   /**

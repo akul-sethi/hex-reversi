@@ -15,7 +15,7 @@ public class MachinePlayer extends AkulAbstractPlayer {
 
   /**
    * Creates a MachinePlayer with the given name which uses the given strategy to select its moves.*/
-  public MachinePlayer(String name, FallibleReversiStrategy strategy) {
+  public MachinePlayer(Name name, FallibleReversiStrategy strategy) {
     super(name);
 
     this.strategy = new CompleteReversiStrategyFromFallible(strategy);

@@ -8,6 +8,7 @@ import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.player.CaptureMaxPlayer;
 import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.MachinePlayer;
+import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.player.SuperStrategyPlayer;
 import cs3500.reversi.strategy.CaptureMaxStrategy;
@@ -26,8 +27,8 @@ public final class Reversi {
    */
   public static void main(String[] args) {
 
-    Player p1 = new MachinePlayer("X", new CaptureMaxStrategy());
-    Player p2 = new HumanPlayer("O");
+    Player p1 = new MachinePlayer(Name.X, new CaptureMaxStrategy());
+    Player p2 = new HumanPlayer(Name.O);
     ReversiModel model = ReversiCreator.create(GameType.BASIC, 6, p1, p2);
     ReversiView view1 = new GUIReversiView(model);
     ReversiView view2 = new GUIReversiView(model);

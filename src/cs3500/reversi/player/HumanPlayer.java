@@ -16,7 +16,7 @@ public class HumanPlayer extends AkulAbstractPlayer {
    *
    * @param name The name to give this player
    */
-  public HumanPlayer(String name) {
+  public HumanPlayer(Name name) {
       super(name);
   }
 
