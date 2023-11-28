@@ -2,7 +2,7 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-import cs3500.reversi.view.InputObserver;
+import cs3500.reversi.controller.InputObserver;
 import cs3500.reversi.view.ReversiView;
 
 /**

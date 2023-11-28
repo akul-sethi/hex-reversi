@@ -1,13 +1,15 @@
 package cs3500.reversi.view;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.swing.*;
 
+import cs3500.reversi.controller.InputObserver;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
 /**
@@ -15,6 +17,7 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
  */
 public final class GUIReversiView extends JFrame implements ReversiView {
   private BasicBoardView board;
+  private Optional<String> name;
 
   /**
    * Creates a GUIReversiView using the given ReadOnlyReversiModel m.
@@ -33,8 +36,6 @@ public final class GUIReversiView extends JFrame implements ReversiView {
     this.board = basic;
     add(basic, BorderLayout.CENTER);
 
-    System.out.println((KeyStroke.getKeyStroke("typed p")));
-    System.out.println((KeyStroke.getKeyStroke("typed m")));
 
     this.setHotKey(KeyStroke.getKeyStroke("typed p"), "pass");
     this.setHotKey(KeyStroke.getKeyStroke("typed m"), "moveHere");
@@ -42,17 +43,16 @@ public final class GUIReversiView extends JFrame implements ReversiView {
     pack();
   }
 
+
   /**
-   * Special constructor for setting up the board with a specific view.
-   * @param model The model that this view represents
-   * @param view  The baord to use.
-   * @throws NullPointerException If the view is <code>null</code>*/
-  GUIReversiView(ReadOnlyReversiModel model, BasicBoardView view) {
+   * Creates a view with a given name indicating who the view represents. */
+  public GUIReversiView(ReadOnlyReversiModel model, String name) {
     this(model);
-    Objects.requireNonNull(view);
-    this.remove(this.board);
-    this.board = view;
-    this.add(this.board, BorderLayout.CENTER);
+    Font font = new Font("SansSerif", Font.BOLD, 20);
+    JLabel label = new JLabel(name, SwingConstants.CENTER);
+    label.setFont(font);
+    this.add(label, BorderLayout.NORTH);
+    pack();
   }
 
   @Override

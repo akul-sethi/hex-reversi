@@ -1,7 +1,5 @@
 package cs3500.reversi.controller;
 
-import cs3500.reversi.view.InputObserver;
-
 /**
  * Represents an object which can control a Reversi view, model, and player. It behaves like an
  * InputObserver and ModelObserver so that it can receive  input requests from Players and Views,

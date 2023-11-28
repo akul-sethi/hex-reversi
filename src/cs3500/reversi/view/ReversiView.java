@@ -4,8 +4,11 @@ import java.io.IOException;
 
 import javax.swing.KeyStroke;
 
+import cs3500.reversi.controller.InputObserver;
+
 /**
- * Represents a view for a Reversi game.
+ * Represents a view for a Reversi game. It is observed by an InputObserver and sends the observer
+ * requests based on user interactions.
  */
 public interface ReversiView {
 

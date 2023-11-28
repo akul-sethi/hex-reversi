@@ -1,8 +1,7 @@
 package cs3500.reversi.player;
 
-import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReadOnlyReversiModel;
-import cs3500.reversi.view.InputObserver;
+import cs3500.reversi.controller.InputObserver;
 
 /**
  * Represents a player in a game of Reversi. Necessary to describe the behavior of all types of
@@ -34,7 +33,8 @@ public interface Player {
 
   /**
    * Adds an InputObserver to this player so that it can request moves it wants to make.
-   * @throws NullPointerException If observer is <code>null</code>*/
+   *
+   * @throws NullPointerException If observer is <code>null</code>
+   */
   void addObserver(InputObserver observer);
-
 }

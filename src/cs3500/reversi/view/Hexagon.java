@@ -59,5 +59,4 @@ final class Hexagon extends Path2D.Double {
     return (int) (this.sideLength * 11 + this.centerX * 13 + this.centerX * 19);
   }
 
-
 }

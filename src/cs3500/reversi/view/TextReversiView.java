@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.swing.KeyStroke;
 
+import cs3500.reversi.controller.InputObserver;
 import cs3500.reversi.model.BasicPoint;
 
 import cs3500.reversi.player.Player;

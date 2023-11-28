@@ -5,7 +5,7 @@ import cs3500.reversi.player.Player;
 /**
  * Represents an object which observes a ReversiModel for events that are necessary to components
  * external to the model. This is necessary to allow the model to be able to notify controllers
- * whose turn it is to play next. */
+ * whose turn it is to play next and when someone wins the game. */
 public interface ModelObserver {
 
   /**

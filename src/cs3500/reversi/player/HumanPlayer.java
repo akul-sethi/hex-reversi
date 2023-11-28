@@ -19,7 +19,10 @@ public class HumanPlayer extends AbstractPlayer {
 
   @Override
   public void startTurn(ReadOnlyReversiModel model) {
-    //DO NOTHING
+    /*
+    DO NOTHING. HUMAN PLAYERS SEND INPUT TO THE CONTROLLER VIA A VIEW RATHER THAN THE PLAYER
+    INTERFACE
+    */
   }
 
 }

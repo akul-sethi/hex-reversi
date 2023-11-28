@@ -8,7 +8,6 @@ import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
-import cs3500.reversi.view.InputObserver;
 import cs3500.reversi.view.ReversiView;
 
 /**

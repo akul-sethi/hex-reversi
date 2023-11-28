@@ -36,7 +36,6 @@ public class CaptureMaxStrategy implements FallibleReversiStrategy {
     int startScore = testModel.getPlayerScore(forWhom);
     //if legal moves is empty, gets all the legal moves again.
     if (legalMoves.isEmpty()) {
-      System.out.println(Utils.allLegalMoves(testModel));
       legalMoves = Utils.allLegalMoves(testModel);
     }
     //if still empty, no possible moves exist, so return empty.

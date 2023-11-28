@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Graphics;
-import java.awt.desktop.SystemEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,17 +12,18 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.TimeoutException;
 
 import javax.swing.JPanel;
 import javax.swing.AbstractAction;
 
+import cs3500.reversi.controller.InputObserver;
 import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
+/**
+ * A concrete implementation of BoardView which shows the board as it is shown in the assignment.*/
 class BasicBoardView extends JPanel implements BoardView {
   private final int SIDE_LENGTH = 30;
   private final double HEX_HEIGHT = 2 * SIDE_LENGTH;
@@ -35,6 +35,8 @@ class BasicBoardView extends JPanel implements BoardView {
 
   private final ReadOnlyReversiModel model;
 
+  /**
+   * Creates a BasicBoardView backed by the given model.*/
   BasicBoardView(ReadOnlyReversiModel model) {
     this.model = model;
     this.setVisible(true);
@@ -58,17 +60,6 @@ class BasicBoardView extends JPanel implements BoardView {
     this.resetFocus();
   }
 
-  /**
-   * Creates a board with a preset selected tile for testing purposes.
-   * @param model The model which this board is viewing.
-   * @param selected The preselect tile
-   * @throws NullPointerException If selected is <code>null</code>*/
-  BasicBoardView(ReadOnlyReversiModel model, Optional<Tile> selected) {
-    this(model);
-    Objects.requireNonNull(selected);
-    this.selected = selected;
-    refresh();
-  }
 
 
   /*
@@ -76,7 +67,6 @@ class BasicBoardView extends JPanel implements BoardView {
   private void attemptMove() {
     this.selected.ifPresent((tile) -> {
       this.features.moveHere(new BasicPoint(tile.row, tile.column));
-      System.out.println(model.playerAt(new BasicPoint(tile.row, tile.column)));
     });
   }
 
@@ -90,6 +80,7 @@ class BasicBoardView extends JPanel implements BoardView {
             -VERT_GAP * (this.model.getTopRow()) + 0.5 * HEX_HEIGHT);
   }
 
+  @Override
   public void addObserver(InputObserver features) {
     this.features = features;
   }
@@ -112,8 +103,6 @@ class BasicBoardView extends JPanel implements BoardView {
   /*
    * Attempts to preview a move using a MouseEvent. (Screen Coordinates). */
   private void attemptPreview(MouseEvent e) {
-    System.out.println(e.getX());
-    System.out.println(e.getY());
     ArrayList<ArrayList<Tile>> hexs = getTiles();
     for (int row = 0; row < hexs.size(); row++) {
       for (int column = 0; column < hexs.get(row).size(); column++) {

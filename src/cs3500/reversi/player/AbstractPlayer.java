@@ -3,7 +3,7 @@ package cs3500.reversi.player;
 import java.util.Objects;
 import java.util.Optional;
 
-import cs3500.reversi.view.InputObserver;
+import cs3500.reversi.controller.InputObserver;
 
 public abstract  class AbstractPlayer implements Player {
   protected Optional<InputObserver> observer;

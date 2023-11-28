@@ -171,7 +171,6 @@ View Design:
         TextReversiView - Describes a text based view
         Tile - Describes a tile in a game of Reversi which includes its shape, location, and
                occupying Player
-Modified Source Organization:
 
 EXTRA CREDIT:
         If you look in the strategy package, you can see we implemented all four of the suggested
@@ -206,3 +205,73 @@ EXTRA CREDIT:
         The InfallibleStrategy, also, if it can't find a single possible move, will throw an
     IllegalStateException, which we intend the constructor to interpret, and call pass() on the
     model.
+
+Changes for part 3
+New interfaces:
+    ModelObserver - Represents an object which observers ReversiModels and allows the model to
+                    notify it when a players turn changes or the game is over.
+    InputObserver - Represents an object which observes an input source such as a Player or
+                    ReversiView and allows the source to notify it about move requests it would like
+                    to make.
+    ReversiController - Represents an object which can orchestrate how ReversiModels, ReversiViews,
+                        and Players interact. It is simply both an InputObserver and ModelObserver.
+New classes:
+    BasicReversiController -  A concrete implementation of a ReversiController where each controller
+                              is in charge of its own ReversiView and Player. It is designed so that
+                              they all share one model.
+    Name(enum) - Describes the name of a player and restricts the values to "X" and "O" so that
+                 players can not be created with alternate names.
+
+Model changes:
+    addObserver(ModelObserver obs) - This method allows models to attach observers to themselves
+                                     and make publications when they deem fit. Publications are
+                                     made when the turn changes and when the game is over.
+    startGame() - This creates a distinction between setting up the game and starting it. When
+                  this method is called, the model becomes open to input, and also notifies its
+                  observers whose turn it is. Side-effect methods were modified to throw errors
+                  if the game has not started.
+    gameOver() - Added to check when the game is over rather than relying on an error being
+                 thrown.
+View changes:
+    addObserver(InputObserver obs) - This method allows views to attach observers to themselves
+                                     and make publications when a user interacts with them.
+    alertMessage(String s) - This method allows a controller to request a view to display an error
+                             message if an input to the model throws an error. This allows users to
+                             see errors graphically, while not crashing the program.
+Player change:
+    addObserver(InputObserver obs) - This method allows players to attach observers to themselves
+                                     and make move requests to these observers.
+    startTurn(ReadOnlyModel model) - This method provides a player with a snapshot of the model, and
+                                     signals to it that its turn has begun. If it is a human player,
+                                     this will do nothing, as humans utilize the view to send
+                                     requests. If it is a machine, it will likely use some strategy,
+                                     which utilizes the model, and then send a move request to its
+                                     observer.
+    Removed all players other than HumanPlayer and MachinePlayer which takes in a strategy to
+    request its moves.
+
+Program Usage:
+     A Reversi game is played by provided two command line arguments describing
+     the types of players in the game. The order of play is determined by the order in which the
+     arguments are provided. If an incorrect number of arguments or invalid ones are provided, the
+     program prints a relevant message to the console. It allows the following arguments:
+
+     human -> A human player
+     capture-max -> A machine player which follows the strategy of capturing the max number of pieces
+                     on its turn
+     corners -> A machine player which follows the strategy of capturing corners if it can on its
+                 turn.
+     avoid-corners -> A machine player which tries to avoid the spots next to a corner on its turn
+     minimax -> A machine player which tries to minimize the max capture the opponent can do on its
+                 turn.
+
+     The program creates two views, one for each player and labels them by number according to the
+     order in which they move. Black always goes first.
+
+     Controls:
+        - Click on a cell to preview a move. Click on it again to deselect it.
+        - Type m to move in the selected cell
+        - Type p to pass turn
+
+        Input to a view when it is not your turn will be ignored other than previewing.
+
