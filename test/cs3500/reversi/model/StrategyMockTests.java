@@ -15,9 +15,9 @@ import cs3500.reversi.view.ReversiView;
 import cs3500.reversi.view.TextReversiView;
 
 /**
- * Tests for mutability etc of the mock reversi class.
+ * Tests if the Strategies make correct requests to the model.
  */
-public class MockTests {
+public class StrategyMockTests {
   @Test
   public void captureInputCorners() {
     StringBuilder output = new StringBuilder();

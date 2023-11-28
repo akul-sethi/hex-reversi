@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Queue;
 
 import cs3500.reversi.controller.ModelObserver;
-import cs3500.reversi.player.CaptureMaxPlayer;
 import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
@@ -116,6 +115,12 @@ public class CaptureInputReadOnlyReversi implements ReadOnlyReversiModel {
   public Player getWinner() {
     log.append("getWinner\n");
     return new HumanPlayer(Name.X);
+  }
+
+  @Override
+  public boolean gameOver() {
+    log.append("gameOver\n");
+    return false;
   }
 
   @Override

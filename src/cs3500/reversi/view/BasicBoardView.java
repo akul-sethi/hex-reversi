@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Graphics;
+import java.awt.desktop.SystemEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,7 +13,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.TimeoutException;
 
 import javax.swing.JPanel;
 import javax.swing.AbstractAction;
@@ -55,6 +58,18 @@ class BasicBoardView extends JPanel implements BoardView {
     this.resetFocus();
   }
 
+  /**
+   * Creates a board with a preset selected tile for testing purposes.
+   * @param model The model which this board is viewing.
+   * @param selected The preselect tile
+   * @throws NullPointerException If selected is <code>null</code>*/
+  BasicBoardView(ReadOnlyReversiModel model, Optional<Tile> selected) {
+    this(model);
+    Objects.requireNonNull(selected);
+    this.selected = selected;
+    refresh();
+  }
+
 
   /*
    * Sends the features object a request to move to the coordinates of the selected tile.*/
@@ -93,9 +108,12 @@ class BasicBoardView extends JPanel implements BoardView {
     });
   }
 
+
   /*
    * Attempts to preview a move using a MouseEvent. (Screen Coordinates). */
   private void attemptPreview(MouseEvent e) {
+    System.out.println(e.getX());
+    System.out.println(e.getY());
     ArrayList<ArrayList<Tile>> hexs = getTiles();
     for (int row = 0; row < hexs.size(); row++) {
       for (int column = 0; column < hexs.get(row).size(); column++) {

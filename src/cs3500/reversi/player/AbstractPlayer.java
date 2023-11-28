@@ -1,35 +1,27 @@
 package cs3500.reversi.player;
 
-import cs3500.reversi.model.LinearCoord;
-import cs3500.reversi.model.ReadOnlyReversiModel;
-import cs3500.reversi.strategy.CompleteReversiStrategyFromFallible;
-import cs3500.reversi.strategy.FallibleReversiStrategy;
-import cs3500.reversi.strategy.InfallibleReversiStrategy;
+import java.util.Objects;
+import java.util.Optional;
 
-/**
- * To represent an abstract player, with a certain strategy and name.
- */
-public abstract class AbstractPlayer implements Player {
+import cs3500.reversi.view.InputObserver;
 
-  //the name of this player, string of len 1
-  private final String name;
-
-  //the strategy that this player will use
-  private final InfallibleReversiStrategy strategy;
+abstract  class AbstractPlayer implements Player {
+  protected Optional<InputObserver> observer;
+  protected final Name name;
 
   /**
-   * The constructor, initializes name and strategy to those provided.
-   *
-   * @param name     The name to give this player
-   * @param strategy The strategy to give this player
-   */
-  protected AbstractPlayer(String name, FallibleReversiStrategy strategy) {
-    assert strategy != null;
-    assert name != null;
-    assert name.length() == 1;
-
-    this.strategy = new CompleteReversiStrategyFromFallible(strategy);
+   * Creates an abstract Player object with given name.
+   * @throws NullPointerException If the given name is <code>null</code>*/
+  AbstractPlayer(Name name) {
+    this.observer = Optional.empty();
+    Objects.requireNonNull(name);
     this.name = name;
+  }
+
+  @Override
+   public void addObserver(InputObserver observer) {
+    Objects.requireNonNull(observer);
+    this.observer = Optional.of(observer);
   }
 
   /**
@@ -39,7 +31,7 @@ public abstract class AbstractPlayer implements Player {
    */
   @Override
   public String toString() {
-    return this.name;
+    return this.name.toString();
   }
 
   /**
@@ -55,28 +47,11 @@ public abstract class AbstractPlayer implements Player {
       return false;
     }
     AbstractPlayer a = (AbstractPlayer) o;
-    return a.name.equals(this.name);
+    return a.name.toString().equals(this.name.toString());
   }
 
-  /**
-   * The getMove function, gets the move from this player passed in current board state. Uses this
-   * players strategy.
-   *
-   * @param readOnlyModel the readonly model to pass into the get move function, by which the
-   *                      strategy will search to determine what move to make.
-   * @return The best move determined by this player's strategy.
-   */
-  public LinearCoord getMove(ReadOnlyReversiModel readOnlyModel) {
-    return this.strategy.chooseMove(readOnlyModel, this);
-  }
-
-  /**
-   * Overrides the hashCode for players.
-   *
-   * @return the hashCode of the player's string, since that is what defines the player.
-   */
   @Override
   public int hashCode() {
-    return this.name.hashCode();
+    return this.name.name().hashCode();
   }
 }

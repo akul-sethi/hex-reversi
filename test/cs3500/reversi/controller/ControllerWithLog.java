@@ -6,7 +6,7 @@ import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.view.InputObserver;
 
-public class ControllerWithLog implements ModelObserver, InputObserver {
+public class ControllerWithLog implements ReversiController {
 
   public String log;
   public ControllerWithLog() {
@@ -17,6 +17,11 @@ public class ControllerWithLog implements ModelObserver, InputObserver {
   @Override
   public void giveControlTo(Player player) {
     this.log += "giveControlTo(" + player + ")\n";
+  }
+
+  @Override
+  public void gameOver() {
+    this.log += "gameOver()\n";
   }
 
   @Override

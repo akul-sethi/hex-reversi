@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import cs3500.reversi.controller.ControllerWithLog;
+import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.ReversiCreator;
 import cs3500.reversi.model.ReversiModel;
@@ -25,4 +27,6 @@ public class GUIViewTests {
       view.addObserver(null);
     });
   }
+
+
 }

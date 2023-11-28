@@ -4,7 +4,6 @@ import org.junit.Test;
 import java.io.IOException;
 
 import cs3500.reversi.controller.ControllerWithLog;
-import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.ReversiCreator;
@@ -69,6 +68,7 @@ public class InDepthReversiTests {
   @Test
   public void basicGameTestTwoPassesGameOver() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.placePiece(new BasicPoint(-1, 1));
     basicModel.placePiece(new BasicPoint(-1, 2));
@@ -92,6 +92,7 @@ public class InDepthReversiTests {
   @Test
   public void basicGameTestFromStartTwoPassesGameOverIsNull() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.pass();
     basicModel.pass();
@@ -134,6 +135,7 @@ public class InDepthReversiTests {
   @Test
   public void passCountGetsSetBackToZeroOnMove() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.pass();
     basicModel.placePiece(new BasicPoint(-1, 1));
@@ -181,6 +183,7 @@ public class InDepthReversiTests {
   @Test
   public void placeChangesAllDirections() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.placePiece(new BasicPoint(-1, 1));
     basicModel.placePiece(new BasicPoint(-1, 2));
@@ -203,6 +206,7 @@ public class InDepthReversiTests {
   @Test
   public void placeChangesDownRightRightUpRight() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.placePiece(new BasicPoint(-1, 1));
     basicModel.placePiece(new BasicPoint(-1, 2));
@@ -252,6 +256,7 @@ public class InDepthReversiTests {
   @Test
   public void noMovesLeft() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.placePiece(new BasicPoint(-1, 1));
     basicModel.placePiece(new BasicPoint(-1, 2));
@@ -278,6 +283,7 @@ public class InDepthReversiTests {
   @Test
   public void playerAtValid() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.placePiece(new BasicPoint(-1, 1));
     basicModel.placePiece(new BasicPoint(-1, 2));
@@ -307,6 +313,7 @@ public class InDepthReversiTests {
   @Test(expected = IllegalArgumentException.class)
   public void playerAtOutOfBounds() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.placePiece(new BasicPoint(-1, 1));
     basicModel.placePiece(new BasicPoint(-1, 2));
@@ -335,6 +342,7 @@ public class InDepthReversiTests {
   @Test
   public void onlyGivesYouTilesOnYourMove() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.placePiece(new BasicPoint(1, -2));
     basicModel.placePiece(new BasicPoint(-1, 1));
@@ -358,6 +366,7 @@ public class InDepthReversiTests {
   @Test
   public void onlyConvertsUpToYourNextTile() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.placePiece(new BasicPoint(1, -2));
     basicModel.placePiece(new BasicPoint(-1, 1));
@@ -384,6 +393,7 @@ public class InDepthReversiTests {
   @Test
   public void doesntChangeWithWallOnOtherSide() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     textRV.render();
     basicModel.pass();
@@ -438,6 +448,7 @@ public class InDepthReversiTests {
   @Test
   public void validMoveNoneButEmptySpaces() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.pass();
     basicModel.placePiece(new BasicPoint(-2, 0));
@@ -457,6 +468,7 @@ public class InDepthReversiTests {
   @Test
   public void invalidMoveOutOfBoundaries() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.pass();
     basicModel.placePiece(new BasicPoint(-2, 0));
@@ -476,6 +488,7 @@ public class InDepthReversiTests {
   @Test
   public void invalidMoveDoesntMakeSense() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
     basicModel.pass();
     basicModel.placePiece(new BasicPoint(-2, 0));
@@ -495,6 +508,7 @@ public class InDepthReversiTests {
   @Test
   public void fullGameTest() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    basicModel.startGame();
     Appendable output = new StringBuilder();
     ReversiView textRV = new TextReversiView(basicModel, output);
     textRV.render();
@@ -586,6 +600,19 @@ public class InDepthReversiTests {
     Assert.assertEquals(controller.log, "giveControlTo(X)\ngiveControlTo(O)\n");
     model.placePiece(new BasicPoint(-1, 1));
     Assert.assertEquals(controller.log, "giveControlTo(X)\ngiveControlTo(O)\ngiveControlTo(X)\n");
+  }
+
+  @Test
+  public void gameOverNotifiedTest() {
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    ControllerWithLog controller = new ControllerWithLog();
+    model.addObserver(controller);
+    Assert.assertEquals(controller.log, "");
+    model.startGame();
+    Assert.assertEquals(controller.log, "giveControlTo(X)\n");
+    model.pass();
+    model.pass();
+    Assert.assertEquals(controller.log, "giveControlTo(X)\ngiveControlTo(O)\ngiveControlTo(X)\ngameOver()\n");
   }
 
   @Test

@@ -43,7 +43,7 @@ public class CaptureInputReversi extends CaptureInputReadOnlyReversi implements 
     List<Row> rows = getRadiatingRows(row, column);
     boolean noGoodRows = true;
     for (Row r : rows) {
-      if (r.length > 0 && validCoord(r.next()) && this.tiles.get(r.next()) != null
+      if (r.length > 0 && validCoord(r.next())
               && this.tiles.get(r.next()).equals(this.players.peek())) {
         for (CubeCoord c : r.getCoordsInRow()) {
           this.tiles.put(c, this.players.peek());

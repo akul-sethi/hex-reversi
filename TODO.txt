@@ -8,3 +8,4 @@ Fix javadoc
 
 11/27
 Add view observer tests
+Capture Input Model should not have any functionality

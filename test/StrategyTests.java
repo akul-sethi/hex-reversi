@@ -3,13 +3,10 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import javax.crypto.Mac;
-
 import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReversiCreator;
 import cs3500.reversi.model.ReversiModel;
-import cs3500.reversi.player.CaptureMaxPlayer;
 import cs3500.reversi.player.MachinePlayer;
 import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;

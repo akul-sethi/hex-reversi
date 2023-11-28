@@ -1,13 +1,10 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
 import cs3500.reversi.controller.ControllerWithLog;
 import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.ReversiCreator;
 import cs3500.reversi.model.ReversiModel;
-import cs3500.reversi.player.CaptureMaxPlayer;
 import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.MachinePlayer;
 import cs3500.reversi.player.Name;
@@ -18,7 +15,7 @@ import cs3500.reversi.strategy.CaptureMaxStrategy;
  * Represents tests for the player classes.
  */
 public class PlayerTests {
-  @Test (expected = AssertionError.class)
+  @Test (expected = NullPointerException.class)
   public void testPlayerConstructorNullName() {
     Player myPlayer = new HumanPlayer(null);
     Assert.assertEquals(0, 1 - 1);
@@ -59,7 +56,7 @@ public class PlayerTests {
     ControllerWithLog controller = new ControllerWithLog();
     machine.addObserver(controller);
     machine.startTurn(model);
-    Assert.assertEquals("", controller.log);
+    Assert.assertEquals("moveHere(-2, 0)\n", controller.log);
   }
 
   @Test
