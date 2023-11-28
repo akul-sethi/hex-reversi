@@ -5,14 +5,14 @@ import java.util.Optional;
 
 import cs3500.reversi.view.InputObserver;
 
-abstract  class AbstractPlayer implements Player {
+public abstract  class AbstractPlayer implements Player {
   protected Optional<InputObserver> observer;
   protected final Name name;
 
   /**
    * Creates an abstract Player object with given name.
    * @throws NullPointerException If the given name is <code>null</code>*/
-  AbstractPlayer(Name name) {
+  public AbstractPlayer(Name name) {
     this.observer = Optional.empty();
     Objects.requireNonNull(name);
     this.name = name;
@@ -47,7 +47,7 @@ abstract  class AbstractPlayer implements Player {
       return false;
     }
     AbstractPlayer a = (AbstractPlayer) o;
-    return a.name.toString().equals(this.name.toString());
+    return a.name.equals(this.name);
   }
 
   @Override
