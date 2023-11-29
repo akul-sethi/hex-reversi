@@ -16,6 +16,7 @@ import cs3500.reversi.strategy.AvoidNextToCornersStrategy;
 import cs3500.reversi.strategy.CaptureCornersStrategy;
 import cs3500.reversi.strategy.CaptureMaxStrategy;
 import cs3500.reversi.strategy.MiniMaxStrategy;
+import cs3500.reversi.strategy.TryTwo;
 import cs3500.reversi.view.GUIReversiView;
 import cs3500.reversi.view.ReversiView;
 
@@ -51,6 +52,9 @@ public final class Reversi {
     playerTypes.put("avoid-corners", (name) -> new MachinePlayer(name,
             new AvoidNextToCornersStrategy()));
     playerTypes.put("minimax", (name) -> new MachinePlayer(name, new MiniMaxStrategy()));
+    playerTypes.put("super", (name) -> new MachinePlayer(name, new TryTwo(new TryTwo(new TryTwo(
+            new AvoidNextToCornersStrategy(), new CaptureMaxStrategy()), new MiniMaxStrategy()),
+            new CaptureCornersStrategy())));
   }
 
   /**
