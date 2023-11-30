@@ -4,11 +4,13 @@ import java.util.Objects;
 import java.util.Optional;
 
 import cs3500.reversi.controller.InputObserver;
+
 /**
  * Represents an abstract Player implementation which contains shared functionality between all
  * Player objects. Provides the ability to add a singular observer to a Player as generally players
  * should only be controlled by a singular controller. */
 public abstract  class AbstractPlayer implements Player {
+
   protected Optional<InputObserver> observer;
   protected final Name name;
 

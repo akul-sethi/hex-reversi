@@ -233,6 +233,7 @@ Model changes:
     gameOver() - Added to check when the game is over rather than relying on an error being
                  thrown.
 View changes:
+    The view can now not be resized, as per feedback we received.
     addObserver(InputObserver obs) - This method allows views to attach observers to themselves
                                      and make publications when a user interacts with them.
     alertMessage(String s) - This method allows a controller to request a view to display an error

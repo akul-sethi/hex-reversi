@@ -3,14 +3,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cs3500.reversi.controller.BasicReversiController;
-import cs3500.reversi.controller.ControllerWithLog;
 import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Name;
-import cs3500.reversi.player.Player;
-import cs3500.reversi.view.ReversiView;
 
 /**
  * Tests the controller to make sure that it makes the correct requests to the model and view.

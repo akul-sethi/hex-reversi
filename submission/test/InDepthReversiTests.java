@@ -612,7 +612,8 @@ public class InDepthReversiTests {
     Assert.assertEquals(controller.log, "giveControlTo(X)\n");
     model.pass();
     model.pass();
-    Assert.assertEquals(controller.log, "giveControlTo(X)\ngiveControlTo(O)\ngiveControlTo(X)\ngameOver()\n");
+    Assert.assertEquals(controller.log, "giveControlTo(X)\ngiveControlTo(O)\ngiveControlTo" +
+            "(X)\ngameOver()\n");
   }
 
   @Test

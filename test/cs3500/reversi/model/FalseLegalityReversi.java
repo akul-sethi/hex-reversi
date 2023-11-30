@@ -32,7 +32,7 @@ public class FalseLegalityReversi extends FalseLegalityReadOnlyReversi implement
   }
 
   private void notifyObservers() {
-    for(ModelObserver obs: this.observers) {
+    for (ModelObserver obs: this.observers) {
       obs.giveControlTo(this.players.peek());
     }
   }

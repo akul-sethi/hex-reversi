@@ -74,12 +74,12 @@ public class FakeDataThrowingMockModel implements ReversiModel {
 
   @Override
   public void addObserver(ModelObserver obs) {
-
+      //IT IS NOT NECESSARY FOR THIS METHOD TO DO ANYTHING IN THIS MOCK
   }
 
   @Override
   public void startGame() {
-
+      //IT IS NOT NECESSARY FOR THIS METHOD TO DO ANYTHING IN THIS MOCK
   }
 
   @Override
@@ -89,6 +89,6 @@ public class FakeDataThrowingMockModel implements ReversiModel {
 
   @Override
   public void pass() {
-
+    //IT IS NOT NECESSARY FOR THIS METHOD TO DO ANYTHING IN THIS MOCK
   }
 }

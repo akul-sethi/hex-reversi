@@ -1,13 +1,20 @@
 package cs3500.reversi.view;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.KeyStroke;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+
+import java.awt.Font;
 
 import cs3500.reversi.controller.InputObserver;
 import cs3500.reversi.model.ReadOnlyReversiModel;
@@ -21,6 +28,7 @@ public final class GUIReversiView extends JFrame implements ReversiView {
 
   /**
    * Creates a GUIReversiView using the given ReadOnlyReversiModel m.
+   *
    * @throws NullPointerException If the given model is null
    */
   public GUIReversiView(ReadOnlyReversiModel m) {
@@ -46,7 +54,8 @@ public final class GUIReversiView extends JFrame implements ReversiView {
 
 
   /**
-   * Creates a view with a given name indicating who the view represents. */
+   * Creates a view with a given name indicating who the view represents.
+   */
   public GUIReversiView(ReadOnlyReversiModel model, String name) {
     this(model);
     Font font = new Font("SansSerif", Font.BOLD, 20);
@@ -61,7 +70,7 @@ public final class GUIReversiView extends JFrame implements ReversiView {
     this.board.refresh();
   }
 
-  public  MouseListener[] getBoardMouseListeners() {
+  public MouseListener[] getBoardMouseListeners() {
     return this.board.getMouseListeners();
   }
 
