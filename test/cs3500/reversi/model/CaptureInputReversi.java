@@ -30,7 +30,7 @@ public class CaptureInputReversi extends CaptureInputReadOnlyReversi implements 
   }
 
   private void notifyObservers() {
-    for(ModelObserver obs: this.observers) {
+    for (ModelObserver obs: this.observers) {
       obs.giveControlTo(this.players.peek());
     }
   }

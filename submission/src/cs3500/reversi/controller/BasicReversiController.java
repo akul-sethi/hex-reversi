@@ -45,16 +45,16 @@ public class BasicReversiController implements ReversiController {
 
   @Override
   public void giveControlTo(Player player) {
-      if(this.player.equals(player)) {
-         this.hasControl = true;
-         this.player.startTurn(this.model);
-      } else {
-        this.hasControl = false;
-      }
+    if (this.player.equals(player)) {
+      this.hasControl = true;
+      this.player.startTurn(this.model);
+    } else {
+      this.hasControl = false;
+    }
 
     try {
       this.view.render();
-    } catch(IOException e) {
+    } catch (IOException e) {
       System.out.println("IO failed");
     }
   }
@@ -62,28 +62,30 @@ public class BasicReversiController implements ReversiController {
   @Override
   public void gameOver() {
     this.view.alertMessage("Player " + this.model.getWinner() + " won! Score is X: "
-    + this.model.getPlayerScore(new HumanPlayer(Name.X)) + " O: "
+        + this.model.getPlayerScore(new HumanPlayer(Name.X)) + " O: "
             + this.model.getPlayerScore(new HumanPlayer(Name.O)));
   }
 
 
   @Override
   public void moveHere(LinearCoord coord) {
-     if(!this.hasControl) { return;}
-     try {
-       this.model.placePiece(coord);
-     } catch(IllegalStateException | IllegalArgumentException e) {
-         this.view.alertMessage(e.getLocalizedMessage());
-     }
+    if (!this.hasControl) {
+      return;
+    }
+    try {
+      this.model.placePiece(coord);
+    } catch (IllegalStateException | IllegalArgumentException e) {
+      this.view.alertMessage(e.getLocalizedMessage());
+    }
 
   }
 
   @Override
   public void pass() {
-    if(this.hasControl) {
+    if (this.hasControl) {
       try {
         this.model.pass();
-      } catch(IllegalStateException | IllegalArgumentException e) {
+      } catch (IllegalStateException | IllegalArgumentException e) {
         this.view.alertMessage(e.getLocalizedMessage());
       }
 

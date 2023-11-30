@@ -68,7 +68,7 @@ public final class TextReversiView implements ReversiView {
 
   @Override
   public void alertMessage(String message) {
-
+    //placeholder
   }
 
   /**

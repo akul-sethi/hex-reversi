@@ -28,7 +28,8 @@ public class StrategyTests {
   public void gameJustStartedCaptureMaxTest() throws IOException {
     Appendable emptyBuilder = new StringBuilder();
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
-            6, new MachinePlayer(Name.X, new CaptureMaxStrategy()), new MachinePlayer(Name.O, new CaptureMaxStrategy()));
+            6, new MachinePlayer(Name.X, new CaptureMaxStrategy()), new MachinePlayer(
+                    Name.O, new CaptureMaxStrategy()));
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
     basicModel.startGame();
     CompleteReversiStrategyFromFallible captureMax =

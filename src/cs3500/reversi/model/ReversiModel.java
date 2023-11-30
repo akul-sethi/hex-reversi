@@ -31,8 +31,8 @@ public interface ReversiModel extends ReadOnlyReversiModel {
    *
    * @param coord The coord where the piece is being placed
    * @throws IllegalArgumentException The coordinate is not valid.
-   * @throws IllegalStateException    The move is invalid, game not started, or the game is over (all players passed in
-   *                                  a row).
+   * @throws IllegalStateException    The move is invalid, game not started, or the game is over
+   *                                  (all players passed in a row).
    */
   void placePiece(LinearCoord coord);
 

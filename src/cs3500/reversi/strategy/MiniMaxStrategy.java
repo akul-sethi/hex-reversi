@@ -1,6 +1,5 @@
 package cs3500.reversi.strategy;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
