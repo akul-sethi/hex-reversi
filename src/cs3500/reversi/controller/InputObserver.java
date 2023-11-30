@@ -1,13 +1,13 @@
-package cs3500.reversi.view;
+package cs3500.reversi.controller;
 
 import cs3500.reversi.model.LinearCoord;
 
 /**
- * Represents Features that a game of Reversi must have. The view can send game-level events
- * to this object when it determines the player is requesting them, and then the object can behave
- * accordingly based on its rules and the state of the game.
+ * Represents an Observer which observes input-sending components. This allows a View or Player to
+ * send move requests whenever they want and then the observer can behave accordingly based on its
+ * rules and the state of the game.
  */
-public interface Features {
+public interface InputObserver {
 
   /**
    * A request from the user to place a piece at the given coordinate.

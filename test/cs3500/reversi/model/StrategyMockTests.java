@@ -5,29 +5,439 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import cs3500.reversi.player.StrategyPlayer;
+import cs3500.reversi.player.MachinePlayer;
+import cs3500.reversi.player.Name;
 import cs3500.reversi.strategy.AvoidNextToCornersStrategy;
 import cs3500.reversi.strategy.CaptureCornersStrategy;
 import cs3500.reversi.strategy.CaptureMaxStrategy;
+import cs3500.reversi.strategy.CompleteReversiStrategyFromFallible;
 import cs3500.reversi.view.ReversiView;
 import cs3500.reversi.view.TextReversiView;
 
 /**
- * Tests for mutability etc of the mock reversi class.
+ * Tests if the Strategies make correct requests to the model.
  */
-public class MockTests {
+public class StrategyMockTests {
   @Test
   public void captureInputCorners() {
     StringBuilder output = new StringBuilder();
-    ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
-            Arrays.asList(new StrategyPlayer("X", new CaptureCornersStrategy()),
-                    new StrategyPlayer("X", new CaptureCornersStrategy())));
-    ReversiModel testModel = mockModel.getModel();
-    try {
-      testModel.nextToPlay().getMove(testModel);
-    } catch (Exception e) {
-      //inshallah do nothing
-    }
+    ReadOnlyReversiModel mockModel = new CaptureInputReadOnlyReversi(output,
+            Arrays.asList(new MachinePlayer(Name.X, new CaptureCornersStrategy()),
+                    new MachinePlayer(Name.O, new CaptureCornersStrategy())));
+    CompleteReversiStrategyFromFallible captureCorners =
+            new CompleteReversiStrategyFromFallible(new CaptureCornersStrategy());
+    LinearCoord bestMove = captureCorners.chooseMove(mockModel,
+            new MachinePlayer(Name.X, new CaptureCornersStrategy()));
+    Assert.assertEquals(new BasicPoint(-2, 0), bestMove);
+    Assert.assertEquals("getModel\n" +
+            "startGame\n" +
+            "getModel\n" +
+            "startGame\n" +
+            "startGame\n" +
+            "getBottomRow\n" +
+            "getRightCol\n" +
+            "getLeftCol\n" +
+            "getTopRow\n" +
+            "validMove: row = -5, col = -5\n" +
+            "validMove: row = -5, col = -4\n" +
+            "validMove: row = -5, col = -3\n" +
+            "validMove: row = -5, col = -2\n" +
+            "validMove: row = -5, col = -1\n" +
+            "validMove: row = -5, col = 0\n" +
+            "validMove: row = -5, col = 1\n" +
+            "validMove: row = -5, col = 2\n" +
+            "validMove: row = -5, col = 3\n" +
+            "validMove: row = -5, col = 4\n" +
+            "validMove: row = -5, col = 5\n" +
+            "validMove: row = -4, col = -5\n" +
+            "validMove: row = -4, col = -4\n" +
+            "validMove: row = -4, col = -3\n" +
+            "validMove: row = -4, col = -2\n" +
+            "validMove: row = -4, col = -1\n" +
+            "validMove: row = -4, col = 0\n" +
+            "validMove: row = -4, col = 1\n" +
+            "validMove: row = -4, col = 2\n" +
+            "validMove: row = -4, col = 3\n" +
+            "validMove: row = -4, col = 4\n" +
+            "validMove: row = -4, col = 5\n" +
+            "validMove: row = -3, col = -5\n" +
+            "validMove: row = -3, col = -4\n" +
+            "validMove: row = -3, col = -3\n" +
+            "validMove: row = -3, col = -2\n" +
+            "validMove: row = -3, col = -1\n" +
+            "validMove: row = -3, col = 0\n" +
+            "validMove: row = -3, col = 1\n" +
+            "validMove: row = -3, col = 2\n" +
+            "validMove: row = -3, col = 3\n" +
+            "validMove: row = -3, col = 4\n" +
+            "validMove: row = -3, col = 5\n" +
+            "validMove: row = -2, col = -5\n" +
+            "validMove: row = -2, col = -4\n" +
+            "validMove: row = -2, col = -3\n" +
+            "validMove: row = -2, col = -2\n" +
+            "validMove: row = -2, col = -1\n" +
+            "validMove: row = -2, col = 0\n" +
+            "validMove: row = -2, col = 1\n" +
+            "validMove: row = -2, col = 2\n" +
+            "validMove: row = -2, col = 3\n" +
+            "validMove: row = -2, col = 4\n" +
+            "validMove: row = -2, col = 5\n" +
+            "validMove: row = -1, col = -5\n" +
+            "validMove: row = -1, col = -4\n" +
+            "validMove: row = -1, col = -3\n" +
+            "validMove: row = -1, col = -2\n" +
+            "validMove: row = -1, col = -1\n" +
+            "validMove: row = -1, col = 0\n" +
+            "validMove: row = -1, col = 1\n" +
+            "validMove: row = -1, col = 2\n" +
+            "validMove: row = -1, col = 3\n" +
+            "validMove: row = -1, col = 4\n" +
+            "validMove: row = -1, col = 5\n" +
+            "validMove: row = 0, col = -5\n" +
+            "validMove: row = 0, col = -4\n" +
+            "validMove: row = 0, col = -3\n" +
+            "validMove: row = 0, col = -2\n" +
+            "validMove: row = 0, col = -1\n" +
+            "validMove: row = 0, col = 0\n" +
+            "validMove: row = 0, col = 1\n" +
+            "validMove: row = 0, col = 2\n" +
+            "validMove: row = 0, col = 3\n" +
+            "validMove: row = 0, col = 4\n" +
+            "validMove: row = 0, col = 5\n" +
+            "validMove: row = 1, col = -5\n" +
+            "validMove: row = 1, col = -4\n" +
+            "validMove: row = 1, col = -3\n" +
+            "validMove: row = 1, col = -2\n" +
+            "validMove: row = 1, col = -1\n" +
+            "validMove: row = 1, col = 0\n" +
+            "validMove: row = 1, col = 1\n" +
+            "validMove: row = 1, col = 2\n" +
+            "validMove: row = 1, col = 3\n" +
+            "validMove: row = 1, col = 4\n" +
+            "validMove: row = 1, col = 5\n" +
+            "validMove: row = 2, col = -5\n" +
+            "validMove: row = 2, col = -4\n" +
+            "validMove: row = 2, col = -3\n" +
+            "validMove: row = 2, col = -2\n" +
+            "validMove: row = 2, col = -1\n" +
+            "validMove: row = 2, col = 0\n" +
+            "validMove: row = 2, col = 1\n" +
+            "validMove: row = 2, col = 2\n" +
+            "validMove: row = 2, col = 3\n" +
+            "validMove: row = 2, col = 4\n" +
+            "validMove: row = 2, col = 5\n" +
+            "validMove: row = 3, col = -5\n" +
+            "validMove: row = 3, col = -4\n" +
+            "validMove: row = 3, col = -3\n" +
+            "validMove: row = 3, col = -2\n" +
+            "validMove: row = 3, col = -1\n" +
+            "validMove: row = 3, col = 0\n" +
+            "validMove: row = 3, col = 1\n" +
+            "validMove: row = 3, col = 2\n" +
+            "validMove: row = 3, col = 3\n" +
+            "validMove: row = 3, col = 4\n" +
+            "validMove: row = 3, col = 5\n" +
+            "validMove: row = 4, col = -5\n" +
+            "validMove: row = 4, col = -4\n" +
+            "validMove: row = 4, col = -3\n" +
+            "validMove: row = 4, col = -2\n" +
+            "validMove: row = 4, col = -1\n" +
+            "validMove: row = 4, col = 0\n" +
+            "validMove: row = 4, col = 1\n" +
+            "validMove: row = 4, col = 2\n" +
+            "validMove: row = 4, col = 3\n" +
+            "validMove: row = 4, col = 4\n" +
+            "validMove: row = 4, col = 5\n" +
+            "validMove: row = 5, col = -5\n" +
+            "validMove: row = 5, col = -4\n" +
+            "validMove: row = 5, col = -3\n" +
+            "validMove: row = 5, col = -2\n" +
+            "validMove: row = 5, col = -1\n" +
+            "validMove: row = 5, col = 0\n" +
+            "validMove: row = 5, col = 1\n" +
+            "validMove: row = 5, col = 2\n" +
+            "validMove: row = 5, col = 3\n" +
+            "validMove: row = 5, col = 4\n" +
+            "validMove: row = 5, col = 5\n" +
+            "startGame\n" +
+            "startGame\n" +
+            "getTopRow\n" +
+            "getBottomRow\n" +
+            "getLeftCol\n" +
+            "getRightCol\n" +
+            "playerAt: row = -5, col = -5\n" +
+            "getRightCol\n" +
+            "playerAt: row = -5, col = -4\n" +
+            "getRightCol\n" +
+            "playerAt: row = -5, col = -3\n" +
+            "getRightCol\n" +
+            "playerAt: row = -5, col = -2\n" +
+            "getRightCol\n" +
+            "playerAt: row = -5, col = -1\n" +
+            "getRightCol\n" +
+            "playerAt: row = -5, col = 0\n" +
+            "getRightCol\n" +
+            "playerAt: row = -5, col = 1\n" +
+            "getRightCol\n" +
+            "playerAt: row = -5, col = 2\n" +
+            "getRightCol\n" +
+            "playerAt: row = -5, col = 3\n" +
+            "getRightCol\n" +
+            "playerAt: row = -5, col = 4\n" +
+            "getRightCol\n" +
+            "playerAt: row = -5, col = 5\n" +
+            "getRightCol\n" +
+            "getBottomRow\n" +
+            "getLeftCol\n" +
+            "getRightCol\n" +
+            "playerAt: row = -4, col = -5\n" +
+            "getRightCol\n" +
+            "playerAt: row = -4, col = -4\n" +
+            "getRightCol\n" +
+            "playerAt: row = -4, col = -3\n" +
+            "getRightCol\n" +
+            "playerAt: row = -4, col = -2\n" +
+            "getRightCol\n" +
+            "playerAt: row = -4, col = -1\n" +
+            "getRightCol\n" +
+            "playerAt: row = -4, col = 0\n" +
+            "getRightCol\n" +
+            "playerAt: row = -4, col = 1\n" +
+            "getRightCol\n" +
+            "playerAt: row = -4, col = 2\n" +
+            "getRightCol\n" +
+            "playerAt: row = -4, col = 3\n" +
+            "getRightCol\n" +
+            "playerAt: row = -4, col = 4\n" +
+            "getRightCol\n" +
+            "playerAt: row = -4, col = 5\n" +
+            "getRightCol\n" +
+            "getBottomRow\n" +
+            "getLeftCol\n" +
+            "getRightCol\n" +
+            "playerAt: row = -3, col = -5\n" +
+            "getRightCol\n" +
+            "playerAt: row = -3, col = -4\n" +
+            "getRightCol\n" +
+            "playerAt: row = -3, col = -3\n" +
+            "getRightCol\n" +
+            "playerAt: row = -3, col = -2\n" +
+            "getRightCol\n" +
+            "playerAt: row = -3, col = -1\n" +
+            "getRightCol\n" +
+            "playerAt: row = -3, col = 0\n" +
+            "getRightCol\n" +
+            "playerAt: row = -3, col = 1\n" +
+            "getRightCol\n" +
+            "playerAt: row = -3, col = 2\n" +
+            "getRightCol\n" +
+            "playerAt: row = -3, col = 3\n" +
+            "getRightCol\n" +
+            "playerAt: row = -3, col = 4\n" +
+            "getRightCol\n" +
+            "playerAt: row = -3, col = 5\n" +
+            "getRightCol\n" +
+            "getBottomRow\n" +
+            "getLeftCol\n" +
+            "getRightCol\n" +
+            "playerAt: row = -2, col = -5\n" +
+            "getRightCol\n" +
+            "playerAt: row = -2, col = -4\n" +
+            "getRightCol\n" +
+            "playerAt: row = -2, col = -3\n" +
+            "getRightCol\n" +
+            "playerAt: row = -2, col = -2\n" +
+            "getRightCol\n" +
+            "playerAt: row = -2, col = -1\n" +
+            "getRightCol\n" +
+            "playerAt: row = -2, col = 0\n" +
+            "getRightCol\n" +
+            "playerAt: row = -2, col = 1\n" +
+            "getRightCol\n" +
+            "playerAt: row = -2, col = 2\n" +
+            "getRightCol\n" +
+            "playerAt: row = -2, col = 3\n" +
+            "getRightCol\n" +
+            "playerAt: row = -2, col = 4\n" +
+            "getRightCol\n" +
+            "playerAt: row = -2, col = 5\n" +
+            "getRightCol\n" +
+            "getBottomRow\n" +
+            "getLeftCol\n" +
+            "getRightCol\n" +
+            "playerAt: row = -1, col = -5\n" +
+            "getRightCol\n" +
+            "playerAt: row = -1, col = -4\n" +
+            "getRightCol\n" +
+            "playerAt: row = -1, col = -3\n" +
+            "getRightCol\n" +
+            "playerAt: row = -1, col = -2\n" +
+            "getRightCol\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "getRightCol\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "getRightCol\n" +
+            "playerAt: row = -1, col = 1\n" +
+            "getRightCol\n" +
+            "playerAt: row = -1, col = 2\n" +
+            "getRightCol\n" +
+            "playerAt: row = -1, col = 3\n" +
+            "getRightCol\n" +
+            "playerAt: row = -1, col = 4\n" +
+            "getRightCol\n" +
+            "playerAt: row = -1, col = 5\n" +
+            "getRightCol\n" +
+            "getBottomRow\n" +
+            "getLeftCol\n" +
+            "getRightCol\n" +
+            "playerAt: row = 0, col = -5\n" +
+            "getRightCol\n" +
+            "playerAt: row = 0, col = -4\n" +
+            "getRightCol\n" +
+            "playerAt: row = 0, col = -3\n" +
+            "getRightCol\n" +
+            "playerAt: row = 0, col = -2\n" +
+            "getRightCol\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "getRightCol\n" +
+            "playerAt: row = 0, col = 0\n" +
+            "getRightCol\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "getRightCol\n" +
+            "playerAt: row = 0, col = 2\n" +
+            "getRightCol\n" +
+            "playerAt: row = 0, col = 3\n" +
+            "getRightCol\n" +
+            "playerAt: row = 0, col = 4\n" +
+            "getRightCol\n" +
+            "playerAt: row = 0, col = 5\n" +
+            "getRightCol\n" +
+            "getBottomRow\n" +
+            "getLeftCol\n" +
+            "getRightCol\n" +
+            "playerAt: row = 1, col = -5\n" +
+            "getRightCol\n" +
+            "playerAt: row = 1, col = -4\n" +
+            "getRightCol\n" +
+            "playerAt: row = 1, col = -3\n" +
+            "getRightCol\n" +
+            "playerAt: row = 1, col = -2\n" +
+            "getRightCol\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "getRightCol\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "getRightCol\n" +
+            "playerAt: row = 1, col = 1\n" +
+            "getRightCol\n" +
+            "playerAt: row = 1, col = 2\n" +
+            "getRightCol\n" +
+            "playerAt: row = 1, col = 3\n" +
+            "getRightCol\n" +
+            "playerAt: row = 1, col = 4\n" +
+            "getRightCol\n" +
+            "playerAt: row = 1, col = 5\n" +
+            "getRightCol\n" +
+            "getBottomRow\n" +
+            "getLeftCol\n" +
+            "getRightCol\n" +
+            "playerAt: row = 2, col = -5\n" +
+            "getRightCol\n" +
+            "playerAt: row = 2, col = -4\n" +
+            "getRightCol\n" +
+            "playerAt: row = 2, col = -3\n" +
+            "getRightCol\n" +
+            "playerAt: row = 2, col = -2\n" +
+            "getRightCol\n" +
+            "playerAt: row = 2, col = -1\n" +
+            "getRightCol\n" +
+            "playerAt: row = 2, col = 0\n" +
+            "getRightCol\n" +
+            "playerAt: row = 2, col = 1\n" +
+            "getRightCol\n" +
+            "playerAt: row = 2, col = 2\n" +
+            "getRightCol\n" +
+            "playerAt: row = 2, col = 3\n" +
+            "getRightCol\n" +
+            "playerAt: row = 2, col = 4\n" +
+            "getRightCol\n" +
+            "playerAt: row = 2, col = 5\n" +
+            "getRightCol\n" +
+            "getBottomRow\n" +
+            "getLeftCol\n" +
+            "getRightCol\n" +
+            "playerAt: row = 3, col = -5\n" +
+            "getRightCol\n" +
+            "playerAt: row = 3, col = -4\n" +
+            "getRightCol\n" +
+            "playerAt: row = 3, col = -3\n" +
+            "getRightCol\n" +
+            "playerAt: row = 3, col = -2\n" +
+            "getRightCol\n" +
+            "playerAt: row = 3, col = -1\n" +
+            "getRightCol\n" +
+            "playerAt: row = 3, col = 0\n" +
+            "getRightCol\n" +
+            "playerAt: row = 3, col = 1\n" +
+            "getRightCol\n" +
+            "playerAt: row = 3, col = 2\n" +
+            "getRightCol\n" +
+            "playerAt: row = 3, col = 3\n" +
+            "getRightCol\n" +
+            "playerAt: row = 3, col = 4\n" +
+            "getRightCol\n" +
+            "playerAt: row = 3, col = 5\n" +
+            "getRightCol\n" +
+            "getBottomRow\n" +
+            "getLeftCol\n" +
+            "getRightCol\n" +
+            "playerAt: row = 4, col = -5\n" +
+            "getRightCol\n" +
+            "playerAt: row = 4, col = -4\n" +
+            "getRightCol\n" +
+            "playerAt: row = 4, col = -3\n" +
+            "getRightCol\n" +
+            "playerAt: row = 4, col = -2\n" +
+            "getRightCol\n" +
+            "playerAt: row = 4, col = -1\n" +
+            "getRightCol\n" +
+            "playerAt: row = 4, col = 0\n" +
+            "getRightCol\n" +
+            "playerAt: row = 4, col = 1\n" +
+            "getRightCol\n" +
+            "playerAt: row = 4, col = 2\n" +
+            "getRightCol\n" +
+            "playerAt: row = 4, col = 3\n" +
+            "getRightCol\n" +
+            "playerAt: row = 4, col = 4\n" +
+            "getRightCol\n" +
+            "playerAt: row = 4, col = 5\n" +
+            "getRightCol\n" +
+            "getBottomRow\n" +
+            "getLeftCol\n" +
+            "getRightCol\n" +
+            "playerAt: row = 5, col = -5\n" +
+            "getRightCol\n" +
+            "playerAt: row = 5, col = -4\n" +
+            "getRightCol\n" +
+            "playerAt: row = 5, col = -3\n" +
+            "getRightCol\n" +
+            "playerAt: row = 5, col = -2\n" +
+            "getRightCol\n" +
+            "playerAt: row = 5, col = -1\n" +
+            "getRightCol\n" +
+            "playerAt: row = 5, col = 0\n" +
+            "getRightCol\n" +
+            "playerAt: row = 5, col = 1\n" +
+            "getRightCol\n" +
+            "playerAt: row = 5, col = 2\n" +
+            "getRightCol\n" +
+            "playerAt: row = 5, col = 3\n" +
+            "getRightCol\n" +
+            "playerAt: row = 5, col = 4\n" +
+            "getRightCol\n" +
+            "playerAt: row = 5, col = 5\n" +
+            "getRightCol\n" +
+            "getBottomRow\n", output.toString());
     Assert.assertTrue(output.toString().contains("validMove: row = -5, col = -3"));
     Assert.assertTrue(output.toString().contains("validMove: row = -5, col = 2"));
     Assert.assertTrue(output.toString().contains("validMove: row = 0, col = -5"));
@@ -40,14 +450,13 @@ public class MockTests {
   public void captureInputAvoidNextToCorners() {
     StringBuilder output = new StringBuilder();
     ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
-            Arrays.asList(new StrategyPlayer("X", new AvoidNextToCornersStrategy()),
-                    new StrategyPlayer("X", new AvoidNextToCornersStrategy())));
-    ReversiModel testModel = mockModel.getModel();
-    try {
-      testModel.nextToPlay().getMove(testModel);
-    } catch (Exception e) {
-      //inshallah do nothing
-    }
+            Arrays.asList(new MachinePlayer(Name.X, new AvoidNextToCornersStrategy()),
+                    new MachinePlayer(Name.O, new AvoidNextToCornersStrategy())));
+    CompleteReversiStrategyFromFallible avoidNextToCorners =
+            new CompleteReversiStrategyFromFallible(new AvoidNextToCornersStrategy());
+    LinearCoord bestMove = avoidNextToCorners.chooseMove(mockModel,
+            new MachinePlayer(Name.X, new AvoidNextToCornersStrategy()));
+    Assert.assertEquals(new BasicPoint(-2, 0), bestMove);
     Assert.assertTrue(output.toString().contains("validMove: row = -5, col = -2"));
     Assert.assertTrue(output.toString().contains("validMove: row = -4, col = -3"));
     Assert.assertTrue(output.toString().contains("validMove: row = -4, col = -4"));
@@ -72,19 +481,19 @@ public class MockTests {
   public void maxCaptureTranscript() {
     StringBuilder output = new StringBuilder();
     ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
-            Arrays.asList(new StrategyPlayer("X", new CaptureMaxStrategy()),
-                    new StrategyPlayer("X", new CaptureMaxStrategy())));
-    ReversiModel testModel = mockModel.getModel();
-    try {
-      testModel.nextToPlay().getMove(testModel);
-    }
-    catch (Exception e) {
-      //inshallah do nothing
-    }
-    Assert.assertEquals(output.toString(), "getModel\n" +
-            "nextToPlay\n" +
+            Arrays.asList(new MachinePlayer(Name.X, new CaptureMaxStrategy()),
+                    new MachinePlayer(Name.O, new CaptureMaxStrategy())));
+    CompleteReversiStrategyFromFallible captureMax =
+            new CompleteReversiStrategyFromFallible(new CaptureMaxStrategy());
+    LinearCoord bestMove = captureMax.chooseMove(mockModel,
+            new MachinePlayer(Name.X, new CaptureMaxStrategy()));
+    Assert.assertEquals(new BasicPoint(-2, 0), bestMove);
+    Assert.assertEquals("getModel\n" +
+            "startGame\n" +
             "getModel\n" +
+            "startGame\n" +
             "getPlayerScore: player\n" +
+            "startGame\n" +
             "getBottomRow\n" +
             "getRightCol\n" +
             "getLeftCol\n" +
@@ -211,32 +620,37 @@ public class MockTests {
             "validMove: row = 5, col = 4\n" +
             "validMove: row = 5, col = 5\n" +
             "getModel\n" +
+            "startGame\n" +
             "placePiece: row = -2, col = 0\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
+            "startGame\n" +
             "placePiece: row = -1, col = -2\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
+            "startGame\n" +
             "placePiece: row = -1, col = 1\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
+            "startGame\n" +
             "placePiece: row = 1, col = -2\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
+            "startGame\n" +
             "placePiece: row = 1, col = 1\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
+            "startGame\n" +
             "placePiece: row = 2, col = 0\n" +
-            "getPlayerScore: player\n");
+            "getPlayerScore: player\n", output.toString());
   }
 
   @Test
   public void MockStringViewTest() {
     StringBuilder output = new StringBuilder();
     ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
-            Arrays.asList(new StrategyPlayer("X", new CaptureMaxStrategy()),
-                    new StrategyPlayer("X", new CaptureMaxStrategy())));
-    ReversiModel testModel = mockModel.getModel();
+            Arrays.asList(new MachinePlayer(Name.X, new CaptureMaxStrategy()),
+                    new MachinePlayer(Name.O, new CaptureMaxStrategy())));
     Appendable log = new StringBuilder();
     ReversiView textView = new TextReversiView(mockModel.getModel(), log);
     Assert.assertEquals("     - - - - - -       \n" +
@@ -250,9 +664,12 @@ public class MockTests {
             "   - - - - - - - -     \n" +
             "    - - - - - - -     \n" +
             "     - - - - - -       \n", textView.toString());
-    mockModel.nextToPlay().getMove(mockModel);
+    CompleteReversiStrategyFromFallible captureMax =
+            new CompleteReversiStrategyFromFallible(new CaptureMaxStrategy());
+    LinearCoord bestMove = captureMax.chooseMove(mockModel,
+            new MachinePlayer(Name.X, new CaptureMaxStrategy()));
+    Assert.assertEquals(new BasicPoint(-2, 0), bestMove);
     Assert.assertEquals("getModel\n" +
-            "getModel\n" +
             "getTopRow\n" +
             "getBottomRow\n" +
             "getRightCol\n" +
@@ -398,9 +815,12 @@ public class MockTests {
             "playerAt: row = 5, col = 3\n" +
             "playerAt: row = 5, col = 4\n" +
             "playerAt: row = 5, col = 5\n" +
-            "nextToPlay\n" +
             "getModel\n" +
+            "startGame\n" +
+            "getModel\n" +
+            "startGame\n" +
             "getPlayerScore: player\n" +
+            "startGame\n" +
             "getBottomRow\n" +
             "getRightCol\n" +
             "getLeftCol\n" +
@@ -527,21 +947,27 @@ public class MockTests {
             "validMove: row = 5, col = 4\n" +
             "validMove: row = 5, col = 5\n" +
             "getModel\n" +
+            "startGame\n" +
             "placePiece: row = -2, col = 0\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
+            "startGame\n" +
             "placePiece: row = -1, col = -2\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
+            "startGame\n" +
             "placePiece: row = -1, col = 1\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
+            "startGame\n" +
             "placePiece: row = 1, col = -2\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
+            "startGame\n" +
             "placePiece: row = 1, col = 1\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
+            "startGame\n" +
             "placePiece: row = 2, col = 0\n" +
             "getPlayerScore: player\n", output.toString());
   }
@@ -550,19 +976,19 @@ public class MockTests {
   public void maxCaptureFalseLegalityTranscript() {
     StringBuilder output = new StringBuilder();
     ReadOnlyReversiModel mockModel = new FalseLegalityReversi(output,
-            Arrays.asList(new StrategyPlayer("X", new CaptureMaxStrategy()),
-                    new StrategyPlayer("X", new CaptureMaxStrategy())));
-    ReversiModel testModel = mockModel.getModel();
-    try {
-      testModel.nextToPlay().getMove(testModel);
-    }
-    catch (Exception e) {
-      //inshallah do nothing
-    }
-    Assert.assertEquals(output.toString(),"getModel\n" +
-            "nextToPlay\n" +
+            Arrays.asList(new MachinePlayer(Name.X, new CaptureMaxStrategy()),
+                    new MachinePlayer(Name.O, new CaptureMaxStrategy())));
+    CompleteReversiStrategyFromFallible captureMax =
+            new CompleteReversiStrategyFromFallible(new CaptureMaxStrategy());
+    LinearCoord bestMove = captureMax.chooseMove(mockModel,
+            new MachinePlayer(Name.X, new CaptureMaxStrategy()));
+    Assert.assertEquals(new BasicPoint(2, 2), bestMove);
+    Assert.assertEquals("getModel\n" +
+            "startGame\n" +
             "getModel\n" +
+            "startGame\n" +
             "getPlayerScore: player\n" +
+            "startGame\n" +
             "getBottomRow\n" +
             "getRightCol\n" +
             "getLeftCol\n" +
@@ -689,6 +1115,8 @@ public class MockTests {
             "validMove: row = 5, col = 4\n" +
             "validMove: row = 5, col = 5\n" +
             "getModel\n" +
-            "placePiece: row = 2, col = 2\n");
+            "startGame\n" +
+            "placePiece: row = 2, col = 2\n" +
+            "getPlayerScore: player\n", output.toString());
   }
 }
