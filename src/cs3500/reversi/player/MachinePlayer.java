@@ -1,9 +1,6 @@
 package cs3500.reversi.player;
 
 import cs3500.reversi.model.ReadOnlyReversiModel;
-import cs3500.reversi.strategy.CompleteReversiStrategyFromFallible;
-import cs3500.reversi.strategy.FallibleReversiStrategy;
-import cs3500.reversi.strategy.InfallibleReversiStrategy;
 
 /**
  * A concrete implementation of a Player which uses a strategy rather than human input.

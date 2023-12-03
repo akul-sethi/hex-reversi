@@ -6,8 +6,6 @@ import java.io.IOException;
 import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.ReversiCreator;
 import cs3500.reversi.model.ReversiModel;
-import cs3500.reversi.view.ReversiView;
-import cs3500.reversi.view.TextReversiView;
 
 /**
  * Represent tests for the textual view of reversi boards.

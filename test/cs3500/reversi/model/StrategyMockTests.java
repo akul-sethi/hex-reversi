@@ -7,12 +7,6 @@ import java.util.Arrays;
 
 import cs3500.reversi.player.MachinePlayer;
 import cs3500.reversi.player.Name;
-import cs3500.reversi.strategy.AvoidNextToCornersStrategy;
-import cs3500.reversi.strategy.CaptureCornersStrategy;
-import cs3500.reversi.strategy.CaptureMaxStrategy;
-import cs3500.reversi.strategy.CompleteReversiStrategyFromFallible;
-import cs3500.reversi.view.ReversiView;
-import cs3500.reversi.view.TextReversiView;
 
 /**
  * Tests if the Strategies make correct requests to the model.

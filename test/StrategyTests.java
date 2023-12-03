@@ -10,15 +10,6 @@ import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.player.MachinePlayer;
 import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
-import cs3500.reversi.strategy.AvoidNextToCornersStrategy;
-import cs3500.reversi.strategy.CaptureCornersStrategy;
-import cs3500.reversi.strategy.CaptureMaxStrategy;
-import cs3500.reversi.strategy.CompleteReversiStrategyFromFallible;
-import cs3500.reversi.strategy.MiniMaxStrategy;
-import cs3500.reversi.strategy.PositionalValueStrategy;
-import cs3500.reversi.strategy.TryTwo;
-import cs3500.reversi.view.ReversiView;
-import cs3500.reversi.view.TextReversiView;
 
 /**
  * Class to represent tests for the strategies.
