@@ -1,0 +1,208 @@
+REVERSI HOMEWORK PART 2
+
+Changes from Part 1:
+
+IReversiModel
+    - copy constructor was created to prevent mutation on a model only being observed
+    - isValidMove(Hexagon h, HexagonState s): new method to allow quick checking of
+      whether a move is valid or not (used throughout strategies)
+        - calls existing method in ReversiBoard
+    - validMoveExistsForCurrentPlayer(): new method to allow quick checking of whether
+      the current player can even move
+        - calls existing method in ReversiBoard
+
+ReversiBoard
+    - copy constructor was created to prevent mutation on a board only being observed
+    - getBoardHashMap(): new method to allow model access to the HashMap of the hexagons itself
+    - getStateScore(HexagonState s): new method to allow model to see the number of hexagons with
+      the given HexagonState
+    - getNumPiecesGained(Hexagon h, HexState s): same purpose as model's getNumPiecesGainedForMove
+
+-----------------------------------------------------------------------------
+
+Changes for Part 2:
+
+IReadonlyReversiModel - readonly interface
+    - contains all observation methods of the original IReversiModel, plus:
+    - getPlayerScore(IPlayer p): calls new method in ReversiBoard class getStateScore(HexState s)
+    - getCopyBoardObject(): calls new copy constructor of ReversiBoard class to prevent mutation
+    - getCopyBoardHashMap(): calls new getBoardHashMap() method in ReversiBoard, allowing access
+      to a copy of the actual HashMap of the ReversiBoard class (used in strategies)
+    - getPlayer(HexagonState s): allows observation of which player is associated to which state
+    for strategies:
+    - getNumPiecesGainedForMove(Hexagon h, HexagonState s): determines how many pieces would be
+      gained by flipping the given hexagon to the given state
+    - isHexagonNextToCorner(Hexagon h): determines if the given hexagon is next to a corner
+    - isHexagonInCorner(Hexagon h): determines if the given hexagon IS a corner
+
+MockReversiModel - mock class implementing IReversiModel
+    - isValidMove: all other methods are stubs, this method depends on the enum field passed into
+      the constructor of the mock. Allows easier testing of strategies by creating rigged games.
+
+controller - package
+    - IReversiFeatures: new interface with methods to movePlay or movePass
+    - ReversiController: implementation of IReversiFeatures that just prints "move play" and
+      "move pass" Strings for now
+    - [[LATER these methods can be used to interact with an actual model]]
+
+strategy - package
+    - [SEE STRATEGIES SECTION BELOW]
+
+view - new JFrame/JPanel view
+    - [SEE VIEW SECTION BELOW]
+
+-----------------------------------------------------------------------------
+
+Strategies:
+
+    IReversiStrategy: represents all strategies for the reversi game
+        - chooseMove(IReversiModel mode, IPlayer forWhom): returns a list of hexagons representing
+              the best move for the player using the strategy. If the strategy has no valid moves,
+              the method defaults to using the AsManyPiecesAsPossible strategy. If there are no
+              valid moves for the player, the method returns an empty list of hexagons. If there is
+              a valid move for the player, the method returns a list of hexagons containing one
+              hexagon (the hexagon chosen to move to).
+        - chooseMoveWithPossibles(IReversiModel model, IPlayer forWhom, List<Hexagon> possibles):
+              Helper method for the chooseMove method that returns a list of hexagons representing
+              the possible moves to be made by the player given the strategies. If there are no
+              valid moves given the strategy, the method returns an empty list of hexagons. If
+              there are valid moves, then there may be more than one hexagon in the list if the
+              strategy used results in a tie.
+
+    AbstractReversiModel: implements IReversiStrategy, abstract class for all strategy classes
+        - chooseMove(IReversiModel, IPlayer forWhom): calls the possibleMoves,
+            chooseMoveWithPossibles, and breakTies methods in the AbstractReversiModel class.
+                *Breaks ties or defaults to AsManyPiecesAsPossible strategy*
+        - chooseMoveWithPossibles(IReversiModel model, IPlayer forWhom, List<Hexagon> possibles)
+        - possibleMoves(IReversiModel model, IPlayer forWhom): returns a list of hexagons
+            containing all of the hexagons that the player can move to with a valid move.
+        - breakTie(List<Hexagon> hexagons): returns a list of hexagons which represents the
+            top-left most hexagon in the hexagon list given. If the hexagon list given is empty,
+            return an empty list of hexagons. Otherwise, returns a list with only one hexagon in it.
+
+
+    AsManyPiecesAsPossible: extends AbstractReversiModel, overrides chooseMoveWithPossibles method
+    -> capture as many pieces on a player's turn as possible
+        - chooseMoveWithPossibles(IReversiModel model, IPlayer forWhom, List<Hexagon> possibles):
+          returns a list of hexagons that contains all hexagons in possibles that if moved to,
+          result in the maximum possible number of pieces a player can gain on their next turn.
+          Can result in a tie. If no possible moves, return empty list of hexagons.
+        - Uses the getNumPiecesGainedForMove method in the ReversiModel class.
+
+    AvoidNextToCorners: extends AbstractReversiModel, overrides chooseMoveWithPossibles method
+    -> avoid moves that are next to corners
+        - chooseMoveWithPossibles(IReversiModel model, IPlayer forWhom, List<Hexagon> possibles):
+          returns a list of hexagons that contains all hexagons in possibles that are not next to
+          a corner. Can result in tie. If no such hexagons exist, return empty list of hexagons.
+        - Calls the isHexagonNextToCorner method in ReversiModel.
+
+    GoForCorners: extends AbstractReversiModel, overrides chooseMoveWithPossibles method
+    -> choose moves that are in corners
+        - chooseMoveWithPossibles(IReversiModel model, IPlayer forWhom, List<Hexagon> possibles):
+          returns a list of hexagons that contains all hexagons in possibles that are in the
+          corner. Can result in tie. If no such hexagons exist, return empty list of hexagons.
+        - Calls the isHexagonInCorner method in ReversiModel.
+
+    TryTwoStrategies: extends AbstractReversiModel, overrides chooseMoveWithPossibles method
+    -> use two reversi strategies (allows reversi strategies to be chained together)
+        - fields:
+            - IReversiStrategy strategy1: represents the first reversi strategy to be applied
+            - IReversiStrategy strategy2: represents the second reversi strategy to be applied
+        - non-empty constructor:
+            - takes in two parameters (IReversiStrategy strategy1, and IReversiStrategy strategy2)
+            - throws new IllegalArgumentException if either strategy is null
+            - sets the strategy fields
+        - chooseMoveWithPossibles(IReversiModel model, IPlayer forWhom, List<Hexagon> possibles):
+          returns a list of hexagons that reflects both strategies. strategy1 is applied first to
+          the possibles. If this results in an empty list strategy2 is applied to the possibles.
+          If strategy1 results in a non-empty list, strategy2 is applied to the result. The result
+          of strategy2 is then returned. If there are no possible moves for either strategy, an
+          empty list of hexagons is returned. Can result in a tie.
+
+-----------------------------------------------------------------------------
+
+View:
+
+    The textualView interface and implementation are now in a package called textualView.
+    For our GUI view, we have an interface called IReversiView, a class called ReversiView
+    which extends JFrame and implements our interface, and a class called ReversiPanel which
+    extends JPanel. Screenshots of our view have been attached in the VIEW_SCREENSHOTS package
+    of docs.
+
+    HexagonPath: We created an inner class called HexagonPath that extends Path2D.Double,
+    in order to draw each hexagon of our board. These paths can then be outlined and filled
+    to create the correct board.
+
+    Dimensions: We were able to use getPreferredSize, getPreferredLogicalSize,
+    transformLogicalToPhysical, and transformPhysicalToLogical to create a view that properly
+    scales when the window itself is manipulated. (i.e. the hexagons flatten or widen
+    appropriately)
+
+    User Input:
+        Mouse clicks: The only mouse click functionality of our panel is the ability to highlight
+            a specific hexagon, so all mouse clicking is handled within an inner class of our
+            ReversiPanel.
+        Keyboard press: Because our keyboard clicks need to affect the actual model, keyboard
+            handling is passed up to our controller through setting hot keys and utilizing input
+            and action hash maps.
+
+
+-----------------------------------------------------------------------------
+
+Source Organization:
+
+     ___________________
+
+     docs
+        VIEW_SCREENSHOTS:
+            - start_view
+            - cell_selected
+            - 10_moves_played
+        - IPlayerDescription
+        - PT1_README
+        - PT2_README
+
+     ___________________
+
+     src
+        reversi:
+            controller:
+                - IReversiFeatures
+                - ReversiController
+            model:
+                - IReadonlyReversiModel
+                - IReversiModel
+                - ReversiModel
+                - MockReversiModel
+                - ReversiBoard
+                - Hexagon
+                - HexagonState
+            strategy:
+                - IReversiStrategy
+                - AbstractReversiStrategy
+                - AsManyPiecesAsPossible
+                - AvoidNextToCorners
+                - GoForCorners
+                - TryTwoStrategies
+            view:
+                textual:
+                    - TextualView
+                    - ReversiTextualView
+                - IReversiView
+                - ReversiPanel
+                - ReversiView
+            - IPlayer
+            - AIPlayer
+            - HumanPlayer
+            - MainReversi
+
+     _________________
+
+      test
+        reversi:
+             model:
+                - ImplementationTests
+            - ExampleTests
+            - IModelTests
+            - TextualViewTests
+            - StrategyTests

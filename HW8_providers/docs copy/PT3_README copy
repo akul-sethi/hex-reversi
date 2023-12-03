@@ -1,0 +1,156 @@
+REVERSI HOMEWORK PART 3
+
+JAR FILE:
+    Our .jar file is called "ReversiGame.jar" and when run, two Strings corresponding to the
+    desired player types should follow. Strings can be one of:
+       "human"     : Human Player
+       "strategy1" : AsManyPiecesAsPossible
+       "strategy2" : AvoidNextToCorners
+       "strategy3" : GoForCorners
+       "strategy4" : TryTwoStrategies
+
+-----------------------------------------------------------------------------
+
+Changes from Part 2:
+
+ReversiController
+    - The IReversiView view, IReversiModel model, and IPlayer player fields are now private.
+
+IReversiStrategy
+    - The strategies have been updated to take in an IReadOnlyReversiModel instead of a mutable
+    IReversiModel.
+
+ReversiPanel
+    - A System.out line in the JPanel was created to print out cubical coordinates corresponding
+    to the axial x,y coordinates of a clicked hexagon (line 262).
+
+-----------------------------------------------------------------------------
+
+Changes for Part 3:
+
+ReversiModel
+    - We added a featuresListener field (List<IReversiFeatures>) in the ReversiModel to be able
+    to signal to controllers that the player's turn has changed. Also, we added the
+    addFeatureListener(IReversiFeatures features) method to be able to add the controllers as such
+    feature listeners to the model.
+    - We removed the maximum coordinate field from the startGame in the ReversiModel and instead
+    put it as a parameter in the constructor of ReversiModel. This allows the view to access the
+    maxCoordinate without officially starting the game, which is necessary for the panel to be
+    instantiated before a game has started.
+    - Also, the getMaxCoordinate() method does not throw an exception if the game has not been
+    started because the field is now instantiated in the constructor, not in the startGame.
+    - The getCopyBoardHashMap() now returns a new empty HashMap if the game has not been started
+    instead of an exception. This allows the view to call this method before the game has started,
+    again necessary for the panel to be instantiated.
+
+IReversiFeatures:
+    - We added the goMove() method both to notify when the game is over, and to call the IPlayer's
+    play() method. When the ReversiModel notifies listeners (controllers) that the player's turn
+    has changed, it also calls this goMove() method to initiate a move.
+
+ReversiController:
+    - The new goMove() method is implemented.
+    - The methods movePlay() and movePass() are updated to actually affect the model, instead of
+    their stub implementation that just print "move play" or "move pass".
+
+IPlayer:
+    - The constructors for both HumanPlayer and AIPlayer now take in an IReadonlyReversiModel
+    and set it as the private final field model. This also delegates real mutation to the
+    controller because there is no access to a mutable model.
+    - The play() method for both HumanPlayer and AIPlayer no longer have a parameter for an
+    IReversiModel, and instead call the field set by the constructor.
+
+MainReversi:
+    - We copied the assignment's code, with minimal changes to match our implementations.
+    - Using the configuration tool, you can now pass in String arguments to set specific player
+    types for the game. The Strings are:
+       "human" : Human Player
+       "strategy1" : AsManyPiecesAsPossible
+       "strategy2" : AvoidNextToCorners
+       "strategy3" : GoForCorners
+       "strategy4" : TryTwoStrategies
+
+-----------------------------------------------------------------------------
+
+Controller:
+
+Our controller implementation works by subscribing itself (in the constructor) as a features
+listener in both its view and its model. For the view, the purpose is to respond to keyboard
+clicking, and for the model, the purpose is to allow notifications for players' turns.
+
+    View:
+        - The view uses input and action maps to pass input up to the controller: when hot keys are
+        pressed, the view will either call the controller's movePass method (key: 'p') or its
+        movePlay method (key: 'm'). These methods in the controller can then mutate the model.
+
+    Model:
+        - Calling the model's startGame method will call two methods in each of its features
+        listeners (controllers): start() and goMove(). The start() method essentially just displays
+        the controllers, and the goMove() method notifies the controllers that a move should be
+        made. Importantly, a controller will only DO a move when it is its associated player's turn.
+        - The goMove() method is also called by the model in its nextTurn method, which again
+        notifies the controllers that a move should be made. Overall, this interaction is most
+        important for controllers associated with AI players, to make sure that the hexagon chosen
+        by the AI player's strategy is actually involved in a move.
+
+-----------------------------------------------------------------------------
+
+Source Organization:
+
+     ___________________
+
+     docs
+        VIEW_SCREENSHOTS:
+            - start_view
+            - cell_selected
+            - 10_moves_played
+        - IPlayerDescription
+        - PT1_README
+        - PT2_README
+        - PT3_README
+
+     ___________________
+
+     src
+        reversi:
+            controller:
+                - IReversiFeatures
+                - ReversiController
+            model:
+                - IReadonlyReversiModel
+                - IReversiModel
+                - ReversiModel
+                - MockReversiModel
+                - ReversiBoard
+                - Hexagon
+                - HexagonState
+            strategy:
+                - IReversiStrategy
+                - AbstractReversiStrategy
+                - AsManyPiecesAsPossible
+                - AvoidNextToCorners
+                - GoForCorners
+                - TryTwoStrategies
+            view:
+                textual:
+                    - TextualView
+                    - ReversiTextualView
+                - IReversiView
+                - ReversiPanel
+                - ReversiView
+            - IPlayer
+            - AIPlayer
+            - HumanPlayer
+            - MainReversi
+
+     _________________
+
+      test
+        reversi:
+             model:
+                - ImplementationTests
+            - ExampleTests
+            - IModelTests
+            - TextualViewTests
+            - StrategyTests
+            - ControllerTests

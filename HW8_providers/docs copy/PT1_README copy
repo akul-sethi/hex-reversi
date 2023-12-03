@@ -1,0 +1,134 @@
+REVERSI HOMEWORK PART 1
+
+Overview:
+
+    Our Reversi game implements a hexagonal board with a three coordinate system in order
+    to play the game of Reversi. A game can be interacted with through the Reversi model.
+
+-----------------------------------------------------------------------------
+
+Quick Start:
+
+    In order to quickly understand the rendering of our game and its board, please
+    un-comment and run the "printExampleBoard" test in the ExampleTests file,
+    located in the test directory. This example shows how to start a game of Reversi.
+    Start a game of reversi by creating a reversi model and then using the startGame method
+    which takes in the max coordinate of the reversi board (1 minus the hexagon board side length),
+    and two IPlayers playing the game.
+
+    To play the reversi game, use the public methods movePlay and movePass. The method movePlay has
+    the parameters IPlayer and three ints (s, q, r). S, q, and r are the coordinates for the hexagon
+    being played by the IPlayer. Note, movePlay will throw an exception if it is not the players
+    turn or the hexagon is not a valid move. movePass allows a player to pass on their turn.
+    It takes in one parameter, an IPlayer. Note, movePass will throw an exception if it is not the
+    player's turn. (See other examples in the ExampleTests file).
+
+    Other public methods in the reversi model include isGameOver (returns true if the game is over),
+    getWinner() (returns the winner if the game is over), getHexagonStateAt (returns the
+    hexagonState for the hexagon at the given coordinates s, q, r which are taken in as parameters),
+    getMaxCoordinate (returns the max coordinate for the board, the make s, q, and r), and getTurn
+    which returns the IPlayer whose turn it is in the game.
+
+------------------------------------------------------------------------------
+
+Invariants:
+
+    In our ReversiModel implementation, the board dimensions are a major invariant as,
+    once instantiated by startGame (which provides a maxCoordinate dimension), the same
+    board is used for every manipulation. This means that although hexagon states are
+    changing throughout the game, the NUMBER of hexagons within the board remains the same.
+
+    Also, once instantiated by startGame, the two players playing the ReversiModel are
+    invariants. The player whose turn it currently is may change, but the players
+    themselves may NOT change.
+
+------------------------------------------------------------------------------
+
+Key Components:
+
+    1. A Hexagon keeps track of its three coordinates in order to identify it within the
+       HashMap field "board" of the ReversiBoard class. A Hexagon does NOT keep track of
+       its HexagonState, as this is contained within the ReversiBoard class's
+       HashMap, Hexagon --> HexagonState.
+
+    2. IReversiModel interacts with its board through the ReversiBoard class, so every
+       method within ReversiBoard is protected or private. The board classes' protected
+       methods are directly called by the model, whereas its private methods are helpers
+       for actions within the board class.
+
+    3. A major component of the ReversiBoard class is being able to check the surrounding
+       hexagons (getImmHexes) and the subsequent paths (getLineHexesInDirection) from any
+       origin point. These functionalities allow the board to determine the validity of
+       moves and carry out valid moves.
+
+    4. A game being over is determined by (1) have two passes happened in a row, (2) is the
+       board full, or (3) have both players run out of valid moves. This last point is
+       handled in the ReversiBoard (validMoveExistsForState).
+
+-----------------------------------------------------------------------------
+
+Key Subcomponents:
+
+Our coordinate system - s, q, and r:
+    +s --> -s is the top right corner to the bottom left corner
+    +q --> -q is the top left corner to the bottom right corner
+    +r --> -r is the bottom to the top
+
+EX board coordinates:
+
+        0,1,-1  |  1,0,-1
+
+   -1,1,0  |  0,0,0  |  1,-1,0
+
+        -1,0,1  |  0,-1,1
+
+
+3. ReversiBoard Immediate Hexagons / Paths:
+    - ReversiBoard is able to find the immediate hexagons from an origin position
+      by trying each combination of -1/+1 to the s, q, and r coordinates, and only looking
+      at hexagons actually on the board (getImmHexes).
+
+    - This method also takes in a "withEmpty" boolean so that when starting the game, we can
+      get the empty hexagons around the origin and alternatively fill those with states
+      (setStartState).
+
+    - Otherwise, withEmpty is false: when finding paths to check for validity and looking for
+      move effects, we only want to look at paths through non-empty immediate hexagons.
+
+    - To actually find the paths to check, ReversiBoard looks in each direction provided by
+      getImmHexes and produces a list of hexagons until it reaches an empty one or a wall
+      (getLineHexesInDirection). This line is then checked in reverse order so that we can
+      find "sandwiches" of black/white states (changingHexes).
+
+-----------------------------------------------------------------------------
+
+Source Organization:
+     ___________________
+
+     docs
+        - README file
+     ___________________
+
+     src
+       model:
+        - IReversiModel - an interface for the Reversi model
+        - ReversiModel - a standard implementation
+        - ReversiBoard - a Reversi board class
+        - Hexagon - a hexagon class to represent a cell in the hexagonal board
+        - HexagonState - an enum hexagon state class to represent the three possible
+                         states of a cell in the board
+       view:
+        - TextualView - an interface for textual views
+        - ReversiTextualView - a Reversi game implementation of TextualView
+
+     - IPlayer - an interface for a player of a game
+     - HumanPlayer - a human player stub implementation currently used to test the model
+
+     _________________
+
+      test
+        - ExampleTests
+        - IModelTests
+        - TextualViewTests
+       model:
+        - ImplementationTests
