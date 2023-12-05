@@ -12,6 +12,13 @@ import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.MachinePlayer;
 import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
+import cs3500.reversi.strategy.AvoidNextToCornersStrategy;
+import cs3500.reversi.strategy.CaptureCornersStrategy;
+import cs3500.reversi.strategy.CaptureMaxStrategy;
+import cs3500.reversi.strategy.MiniMaxStrategy;
+import cs3500.reversi.strategy.TryTwo;
+import cs3500.reversi.view.GUIReversiView;
+import cs3500.reversi.view.ReversiView;
 
 /**
  * Entry point to a game of Reversi game is played by provided two command line arguments describing
