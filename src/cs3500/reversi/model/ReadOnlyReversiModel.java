@@ -1,6 +1,7 @@
 package cs3500.reversi.model;
 
 import cs3500.reversi.player.Player;
+import cs3500.reversi.player.PlayerAdapter;
 
 /**
  * Represents an interface for making observations on ReversiModels. Masks all behavior of the model
@@ -21,7 +22,7 @@ public interface ReadOnlyReversiModel {
    *
    * @throws IllegalStateException If the game is not over yet.
    */
-  Player getWinner();
+  PlayerAdapter getWinner();
 
   /**
    * Returns true if the game is over.

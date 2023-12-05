@@ -13,7 +13,7 @@ import cs3500.reversi.player.Player;
  * A concrete implementation of a ReversiModel as described in the Overview section of the
  * README.txt.
  */
-final class BasicReversi extends AReversiModel {
+class BasicReversi extends AReversiModel {
 
   /**
    * Creates a BasicReversi with the given arguments.
