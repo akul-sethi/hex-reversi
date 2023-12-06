@@ -289,6 +289,8 @@ Program Usage:
         - Added so that their view could make requests to our controller
      AdapterUtils
         - Added for adapting between simple enums and value-classes
+     PlayerAdapter
+        - Added so that the model adapter between our model and the providers could be implemented.
 
      List of features we got working:
         - Displaying board
@@ -299,5 +301,21 @@ Program Usage:
         - Displaying game over with score
      List of features we could not implement:
         - None
-
+     Gameplay:
+     Game still takes two command line arguments, the first corresponding to Player 1 and the second
+     to Player 2. Player 1 will use our view and Player 2 will use the provider view, but all
+     strategies can be used for either player. List of legal arguments:
+     human -> A human player
+     capture-max -> A machine player which follows the strategy of capturing the max number of pieces
+                    on its turn
+     corners -> A machine player which follows the strategy of capturing corners if it can on its
+                turn.
+     avoid-near-corners -> A machine player which tries to avoid the spots next to a corner on its turn
+     minimax -> A machine player which tries to minimize the max capture the opponent can do on its
+                turn.
+     provider-capture-max -> A machine player which follows the strategy of capturing the max number
+                             of pieces on its turn.
+     provider-corners -> A machine player which follows the strategy of capturing the corners.
+     provider-avoid-corners -> A machine player which follows the strategy of avoiding the spots
+                               next to corners.
 

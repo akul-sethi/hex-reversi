@@ -43,6 +43,11 @@ import cs3500.reversi.view.TwoWayViewAdapter;
  * avoid-corners -> A machine player which tries to avoid the spots next to a corner on its turn
  * minimax -> A machine player which tries to minimize the max capture the opponent can do on its
  * turn.
+ * provider-capture-max -> A machine player which follows the strategy of capturing the max number
+ * of pieces on its turn.
+ * provider-corners -> A machine player which follows the strategy of capturing the corners.
+ * provider-avoid-corners -> A machine player which follows the strategy of avoiding the spots
+ * next to corners.
  */
 public final class Reversi {
   /**
@@ -67,7 +72,7 @@ public final class Reversi {
             new FallibleStrategyAdapter(new AsManyPiecesAsPossible())));
     playerTypes.put("provider-corners", (name) -> new MachinePlayer(name,
             new FallibleStrategyAdapter(new GoForCorners())));
-    playerTypes.put("provider-near-corners", (name) -> new MachinePlayer(name,
+    playerTypes.put("provider-avoid-corners", (name) -> new MachinePlayer(name,
             new FallibleStrategyAdapter(new AvoidNextToCorners())));
   }
 
