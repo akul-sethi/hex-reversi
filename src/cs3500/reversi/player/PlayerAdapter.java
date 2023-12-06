@@ -22,9 +22,8 @@ public class PlayerAdapter implements IPlayer, Player {
   /**
    * Creates a PlayerAdapter given a Player.
    */
-  public PlayerAdapter(Player player) {
-    Objects.requireNonNull(player);
-    this.delegate = player;
+  public PlayerAdapter(Player p) {
+    this.delegate = p;
   }
 
   /**
@@ -55,14 +54,9 @@ public class PlayerAdapter implements IPlayer, Player {
     throw new IllegalStateException();
   }
 
-  /**
-   * Their view or strategies should never be calling these methods, otherwise
-   * the code would not properly be encapsulated, thus we do not need to implement them
-   * nor is there any way to as our Player does not have analogous methods.
-   */
   @Override
   public HexagonState getHexagonState() {
-    throw new IllegalStateException();
+    return AdapterUtils.playerToHexagonState(this);
   }
 
   /**
@@ -74,5 +68,11 @@ public class PlayerAdapter implements IPlayer, Player {
   public void setHexagonState(HexagonState state) {
     throw new IllegalStateException();
   }
+
+  @Override
+  public boolean equals(Object o){
+    return this.delegate.equals(o);
+  }
+
 }
 

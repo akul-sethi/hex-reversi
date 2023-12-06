@@ -7,7 +7,6 @@ import java.util.Optional;
 import cs3500.provider.model.Hexagon;
 import cs3500.provider.strategy.IReversiStrategy;
 import cs3500.reversi.model.AdapterUtils;
-import cs3500.reversi.model.CubeCoord;
 import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReadOnlyModelAdapter;
 import cs3500.reversi.model.ReadOnlyReversiModel;
@@ -38,29 +37,6 @@ public class FallibleStrategyAdapter implements FallibleReversiStrategy {
       output.add(AdapterUtils.hexagonToLinearCoord(h));
 
     }
-    if (legalMoves.isEmpty()) {
-      return Optional.empty();
-    }
-    List<Hexagon> possibles = new ArrayList<>();
-    for(LinearCoord c : legalMoves) {
-      possibles.add(AdapterUtils.cubeCoordToHexagon(new CubeCoord(c.row(), c.column())));
-    }
-    List<Hexagon> deemedMoves = delegate.chooseMoveWithPossibles(new ReadOnlyModelAdapter(model),
-            new PlayerAdapter(forWhom), possibles);
-    ArrayList<LinearCoord> bestMoves = new ArrayList<>();
-    for (Hexagon hex : deemedMoves) {
-      bestMoves.add(AdapterUtils.hexagonToLinearCoord(hex));
-    }
-    if (bestMoves.isEmpty()) {
-      return Optional.empty();
-    }
-    return Optional.of(bestMoves);
+    return Optional.of(output);
   }
 }
-
-/**
- * =======
- *     System.out.println(output);
- *     return Optional.of(output);
- * >>>>>>> 050dc1ee59acd07a3ba4993bf9882a62e33037f3
- */

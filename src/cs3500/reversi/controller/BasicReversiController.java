@@ -21,6 +21,7 @@ public class BasicReversiController implements ReversiController {
   private final ReversiView view;
   private final ReversiModel model;
   private boolean hasControl;
+  private boolean gameOver;
 
   /**
    * Creates a controller which is responsible for given player and view and uses the given model
@@ -35,6 +36,7 @@ public class BasicReversiController implements ReversiController {
     this.view = view;
     this.model = model;
     this.hasControl = false;
+    this.gameOver = false;
 
     p.addObserver(this);
     view.addObserver(this);
@@ -45,9 +47,13 @@ public class BasicReversiController implements ReversiController {
 
   @Override
   public void giveControlTo(Player player) {
+
     if (this.player.equals(player)) {
       this.hasControl = true;
-      this.player.startTurn(this.model);
+      if(!gameOver) {
+        this.player.startTurn(this.model);
+      }
+
     } else {
       this.hasControl = false;
     }
@@ -61,6 +67,10 @@ public class BasicReversiController implements ReversiController {
 
   @Override
   public void gameOver() {
+    if(gameOver) {
+      return;
+    }
+    this.gameOver = true;
     this.view.alertMessage("Player " + this.model.getWinner() + " won! Score is X: "
         + this.model.getPlayerScore(new HumanPlayer(Name.X)) + " O: "
             + this.model.getPlayerScore(new HumanPlayer(Name.O)));
@@ -69,6 +79,9 @@ public class BasicReversiController implements ReversiController {
 
   @Override
   public void moveHere(LinearCoord coord) {
+    if(gameOver) {
+      return;
+    }
     if (!this.hasControl) {
       this.view.alertMessage("It is not your turn");
       return;
@@ -83,6 +96,9 @@ public class BasicReversiController implements ReversiController {
 
   @Override
   public void pass() {
+    if(gameOver) {
+      return;
+    }
     if (this.hasControl) {
       try {
         this.model.pass();

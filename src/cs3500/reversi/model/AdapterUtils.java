@@ -5,6 +5,7 @@ import cs3500.provider.model.HexagonState;
 import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
+import cs3500.reversi.player.PlayerAdapter;
 
 /**
  * A utility class for adapting enums and value-classes*/
@@ -25,7 +26,7 @@ public class AdapterUtils {
   /**
    * Converts a HexagonState to a Player as they both serve the same role in their respective
    * codebases.*/
-   public static Player hexagonStateToPlayer(HexagonState state) {
+   public static HumanPlayer hexagonStateToPlayer(HexagonState state) {
      if (state == HexagonState.EMPTY) {
         return null;
      } else if(state == HexagonState.BLACK) {

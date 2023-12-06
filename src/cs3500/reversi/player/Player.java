@@ -38,4 +38,6 @@ public interface Player {
    * @throws NullPointerException If observer is <code>null</code>
    */
   void addObserver(InputObserver observer);
+
+
 }
