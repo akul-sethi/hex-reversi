@@ -40,7 +40,7 @@ public interface IReadonlyReversiModel {
    * @throws IllegalArgumentException if given coordinates are not within the board
    * @throws IllegalStateException if game has not been started
    */
-  cs3500.provider.model.HexagonState getHexagonStateAt(int s, int q, int r);
+  HexagonState getHexagonStateAt(int s, int q, int r);
 
   /**
    * Returns the maxCoordinate for the board in the Reversi game.

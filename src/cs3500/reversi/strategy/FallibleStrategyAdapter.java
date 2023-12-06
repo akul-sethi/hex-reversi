@@ -28,7 +28,7 @@ public class FallibleStrategyAdapter implements FallibleReversiStrategy{
     for(LinearCoord c : legalMoves) {
       possibles.add(AdapterUtils.cubeCoordToHexagon(new CubeCoord(c.row(), c.column())));
     }
-    return Optional.of(delegate.chooseMoveWithPossibles(new ReadOnlyModelAdapter(model),
+    return Optional.of(delegate.chooseMoveWithPossibles(new ReadOnlyModelAdapter(model.getModel()),
             new PlayerAdapter(forWhom), possibles));
   }
 }
