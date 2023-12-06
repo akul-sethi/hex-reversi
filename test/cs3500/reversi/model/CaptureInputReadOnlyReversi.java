@@ -113,9 +113,9 @@ public class CaptureInputReadOnlyReversi implements ReadOnlyReversiModel {
   }
 
   @Override
-  public PlayerAdapter getWinner() {
+  public Player getWinner() {
     log.append("getWinner\n");
-    return new PlayerAdapter(new HumanPlayer(Name.X));
+    return new HumanPlayer(Name.X);
   }
 
   @Override

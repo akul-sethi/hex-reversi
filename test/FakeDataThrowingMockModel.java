@@ -20,8 +20,8 @@ public class FakeDataThrowingMockModel implements ReversiModel {
   }
 
   @Override
-  public PlayerAdapter getWinner() {
-    return new PlayerAdapter(new HumanPlayer(Name.X));
+  public Player getWinner() {
+    return new HumanPlayer(Name.X);
   }
 
   @Override

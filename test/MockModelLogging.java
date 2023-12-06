@@ -22,7 +22,7 @@ public class MockModelLogging implements ReversiModel {
   }
 
   @Override
-  public PlayerAdapter getWinner() {
+  public Player getWinner() {
     this.log += "getWinner()\n";
     return null;
   }

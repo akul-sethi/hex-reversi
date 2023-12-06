@@ -14,17 +14,29 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.player.PlayerAdapter;
 
-public class FallibleStrategyAdapter implements FallibleReversiStrategy{
+/**
+ * Adapts a provider strategy into one of ours, a FallibleReversiStrategy, so that our
+ * implementation of players can use them.
+ */
+public class FallibleStrategyAdapter implements FallibleReversiStrategy {
 
   private final IReversiStrategy delegate;
+
+  /**
+   * Creates a FallibleStrategyAdapter given an IReversiStrategy.
+   */
   public FallibleStrategyAdapter(IReversiStrategy adaptee) {
     this.delegate = adaptee;
   }
 
   @Override
   public Optional<ArrayList<LinearCoord>> chooseMove(ReadOnlyReversiModel model, Player forWhom, ArrayList<LinearCoord> legalMoves) {
-    if (legalMoves.isEmpty()) {
-      legalMoves = Utils.allLegalMoves(model.getModel());
+    ArrayList<LinearCoord> output = new ArrayList<>();
+    List<Hexagon> delegateOutput = delegate.chooseMove(new ReadOnlyModelAdapter(model),
+            new PlayerAdapter(forWhom));
+    for(Hexagon h : delegateOutput) {
+      output.add(AdapterUtils.hexagonToLinearCoord(h));
+
     }
     if (legalMoves.isEmpty()) {
       return Optional.empty();
@@ -45,3 +57,10 @@ public class FallibleStrategyAdapter implements FallibleReversiStrategy{
     return Optional.of(bestMoves);
   }
 }
+
+/**
+ * =======
+ *     System.out.println(output);
+ *     return Optional.of(output);
+ * >>>>>>> 050dc1ee59acd07a3ba4993bf9882a62e33037f3
+ */

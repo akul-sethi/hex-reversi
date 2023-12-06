@@ -22,7 +22,7 @@ public interface ReadOnlyReversiModel {
    *
    * @throws IllegalStateException If the game is not over yet.
    */
-  PlayerAdapter getWinner();
+  Player getWinner();
 
   /**
    * Returns true if the game is over.

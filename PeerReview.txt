@@ -1,0 +1,81 @@
+Dear Anne and Anya, We enjoyed working with your code. Here is our review:
+
+Design Critique:
+The largest issue we find in your design lies in the controller interface,
+which you call "IReversiFeatures." Its purpose is to behave as an Observer interface which can then
+subscribe itself to receive events from both views and models. However, by including both view and
+model related events in one Observer interface you allow the view and model to both be able to
+broadcast events which they should not have access to. For example a view could broadcast the player
+turn changed or a model could broadcast a move request. Analogous to the read-only model and mutable
+model encapsulation, we believe this could be improved by splitting the IReversiFeatures interface
+into "input observer" and "model observer" interfaces. Then, the model and view addFeatures method's
+signature can be slightly modified to only allow adding the correct observer type while the
+controller can now simply implement both observer interfaces without any other modifications. In
+this same vein, we believe that your current player interface design is brittle and could more
+naturally fit into the Observer pattern which the view and model adhere to. The current design has
+the controller determine if the player whose turn it is is using a strategy (through which means we are
+unsure; The player interface does not expose any methods revealing if it is using a strategy so we
+suspect it must be through type checking or when constructing the controller) and if it is using a
+strategy, it requests the player to provide a list of moves it would like to play. This creates a
+hard distinction between strategy using players and human players which is inflexible (there could
+be a scenario where you want a view to be able to provide input but also use a strategy). We suggest
+abstracting both players and views as they can both be considered "input sending components" so that
+they both can add "input observers" and send them move requests. Then, during implementation AI
+players will send requests using a strategy, while human players will send no requests, but rather
+allow requests to come from the view. To a controller, there will be absolutely no difference
+between a request from a view or player. Finally, the public Interface we were provided exposed a
+rather large concrete class (ReversiBoard) which we were not given access to. We requested that it
+be it instead expose an interface (which ReversiBoard could implement) so that we could see its
+functionality.
+
+Implementation Critique:
+The largest limitation with your view implementation was that it was not testable. There is no way
+to access the mouse or key listeners and thus no way to simulate if the view is responding correctly
+to user input. We suggest either having the view itself implement the MouseListener or Action
+interfaces directly or having package protected methods return the correct listeners. Thus, tests
+can be carried out by making calls to the various listener methods such as mouseClicked or actionPerformed
+with curated MouseEvents or ActionEvents and verifying that the correct requests are sent to some
+mock controller. We also believe the strategy implementations could have been better encapsulated.
+Each strategy generally delegated most of its intended functionality back to the model. For
+instance, the "capture max" strategy would just make a call to the model asking how many points
+would be gained by this specific move. This means that every time a new strategy is to be
+implemented, the model interface and all classes need to be modified to support the strategy. We
+suggest having the strategies themselves determine how many points would be gained by a strategy
+would just make a call to the model asking how many points would be gained by this specific move.
+This means that every time a new strategy is to be implemented, the model interface and all classes
+need to be modified to support the strategy strategy would just make a call to the model asking how
+many points would be gained by this specific move. The "avoid corners", would ask if a Hexagon is in
+a corner. This means that every time a new strategy is to be implemented, the model interface and all
+classes need to be modified to support the strategy. We suggest having the strategies themselves
+determine how many points would be gained by a move or if a Hexagon is in a corner. This can be done
+by retrieving a clone of the model which you already have a method for
+(IReversiModel.getCopyBoardObject). 
+
+Documentation Critique:
+We appreciated how the coordinate system was clearly documented by using an example coordinate grid
+in PT1_README. The one place there appeared to be a lack of documentation was when explaining how a
+controller determines if a player uses a strategy. In PT3_README, it says "Overall, this interaction is most
+important for controllers associated with AI players, to make sure that the hexagon chosen
+by the AI player's strategy is actually involved in a move." However, there is no documentation as
+to how controllers can be associated with AI players or if players themselves are categorized as AI
+or not. This made it slightly difficult to see how the entire code base worked together.
+
+Design limitations and suggestions:
+To summarize these are the limitations/issues we found in your code and our suggestions to fix them.
+More in depth explanations of each suggestion can be found in the above sections.
+
+  (1) The IReversiFeatures interface allows both views and models to publish events which they
+      should have no control over. We suggest splitting the interface into an input specific one and
+      a model specific one.
+  (2) The way players operate in this design is rigid, requiring a complete distinction between AI
+      AI using players and human ones. We suggest adding players to the Observer pattern which
+      models and views operate within and allowing them to publish move requests to a controller the
+      absolute same way a view would. 
+  (3) The ReversiBoard concrete class is exposed by the  model interface. We suggest using an
+      interface instead.
+  (4) The view implementation is not testable. We suggest having a method which returns its
+      listeners or having the view act as its own listener.
+  (5) The strategies design is too heavily coupled to the model, requiring adding additional methods
+      to the model for every new strategy. We suggest having these methods contained within the
+      strategies themselevs.
+

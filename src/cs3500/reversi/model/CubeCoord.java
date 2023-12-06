@@ -67,4 +67,8 @@ public final class CubeCoord implements LinearCoord {
   public int column() {
     return this.q + (this.r - (this.r & 1)) / 2;
   }
+
+  public String toString(){
+    return "(" + this.q + ", " + this.s + ", " + this.r + ")";
+  }
 }

@@ -6,7 +6,12 @@ import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
 
+/**
+ * A utility class for adapting enums and value-classes*/
 public class AdapterUtils {
+  /**
+   * Converts a Player to a HexagonState as they both serve the same role in their respective
+   * codebases.*/
    public static HexagonState playerToHexagonState(Player player) {
      if(player == null) {
        return HexagonState.EMPTY;
@@ -16,6 +21,10 @@ public class AdapterUtils {
        return HexagonState.WHITE;
      }
    }
+
+  /**
+   * Converts a HexagonState to a Player as they both serve the same role in their respective
+   * codebases.*/
    public static Player hexagonStateToPlayer(HexagonState state) {
      if (state == HexagonState.EMPTY) {
         return null;
@@ -26,17 +35,23 @@ public class AdapterUtils {
      }
    }
 
+   /**
+    * Converts a CubeCoord to a Hexagon as they both serve the same purpose.*/
    public static Hexagon cubeCoordToHexagon(CubeCoord coord){
-     return new Hexagon(coord.s, coord.q, coord.r);
+     return new Hexagon(coord.q, coord.s, coord.r);
    }
 
+   /**
+    * Converts a Hexagon to a CubeCoord as they both serve the same purpose.*/
    public static CubeCoord hexagonToCubeCoord(Hexagon hex) {
-     return new CubeCoord(hex.getQ(), hex.getR(), hex.getS());
+     return new CubeCoord(hex.getS(), hex.getR(), hex.getQ());
    }
 
+   /**
+    * A helper method for converting a hexagon to its equivalent linear coordinate as the providers
+    * implementation uses cube coordinates and ours uses linear.*/
    public static LinearCoord hexagonToLinearCoord(Hexagon hex) {
-     int row = hex.getR();
-     int col = hex.getQ() + (row - (row & 1)) / 2;
-     return new BasicPoint(row, col);
+     CubeCoord cube = hexagonToCubeCoord(hex);
+     return new BasicPoint(cube.row(), cube.column());
    }
 }

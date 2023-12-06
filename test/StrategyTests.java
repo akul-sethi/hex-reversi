@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import cs3500.provider.strategy.AsManyPiecesAsPossible;
 import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReversiCreator;
@@ -14,6 +15,7 @@ import cs3500.reversi.strategy.AvoidNextToCornersStrategy;
 import cs3500.reversi.strategy.CaptureCornersStrategy;
 import cs3500.reversi.strategy.CaptureMaxStrategy;
 import cs3500.reversi.strategy.CompleteReversiStrategyFromFallible;
+import cs3500.reversi.strategy.FallibleStrategyAdapter;
 import cs3500.reversi.strategy.MiniMaxStrategy;
 import cs3500.reversi.strategy.PositionalValueStrategy;
 import cs3500.reversi.strategy.TryTwo;
@@ -1902,13 +1904,13 @@ public class StrategyTests {
   }
 
   @Test
-  public void superStrategyVsCaptureMaxGame() throws IOException {
+  public void superStrategyVsProviderAdapterCaptureMaxGame() throws IOException {
     Appendable emptyBuilder = new StringBuilder();
     Player superPlayer = new MachinePlayer(Name.X, new TryTwo(new CaptureCornersStrategy(),
             new TryTwo(new AvoidNextToCornersStrategy(),
                     new TryTwo(new MiniMaxStrategy(),
                             new CaptureMaxStrategy()))));
-    Player captureMaxPlayer = new MachinePlayer(Name.O, new CaptureMaxStrategy());
+    Player captureMaxPlayer = new MachinePlayer(Name.O, new FallibleStrategyAdapter(new AsManyPiecesAsPossible()));
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
             6, superPlayer, captureMaxPlayer);
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
@@ -1941,6 +1943,731 @@ public class StrategyTests {
       }
     }
     //textView.render();
-    Assert.assertEquals("     - - - - - -       \n", textView.toString());
+    Assert.assertEquals("     - - - - - -       \n" +
+            "    - - - - - - -     \n" +
+            "   - - - - - - - -     \n" +
+            "  - - - - X - - - -   \n" +
+            " - - - - X X - - - -   \n" +
+            "- - - - X - O - - - - \n" +
+            " - - - - O X - - - -   \n" +
+            "  - - - - - - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - - - - - -       \n" +
+            "    - - - - - - -     \n" +
+            "   - - - O - - - -     \n" +
+            "  - - - - O - - - -   \n" +
+            " - - - - X O - - - -   \n" +
+            "- - - - X - O - - - - \n" +
+            " - - - - O X - - - -   \n" +
+            "  - - - - - - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - - - - - -       \n" +
+            "    - - - - - - -     \n" +
+            "   - - - O - - - -     \n" +
+            "  - - - - O - - - -   \n" +
+            " - - - - X X X - - -   \n" +
+            "- - - - X - X - - - - \n" +
+            " - - - - O X - - - -   \n" +
+            "  - - - - - - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - - - - - -       \n" +
+            "    - - - - - - -     \n" +
+            "   - - - O - - - -     \n" +
+            "  - - - - O - - - -   \n" +
+            " - - - - X O X - - -   \n" +
+            "- - - - X - O - - - - \n" +
+            " - - - - O O O - - -   \n" +
+            "  - - - - - - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - - - - - -       \n" +
+            "    - - - - - - -     \n" +
+            "   - - - O - - - -     \n" +
+            "  - - - - O - - - -   \n" +
+            " - - - - X O X - - -   \n" +
+            "- - - - X - X - - - - \n" +
+            " - - - - X X O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - - - - - -       \n" +
+            "    - - - - - - -     \n" +
+            "   - - - O - - - -     \n" +
+            "  - - - - O - - - -   \n" +
+            " - - - - O O X - - -   \n" +
+            "- - - - O - X - - - - \n" +
+            " - - - O O O O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - - - - - -       \n" +
+            "    - - - - - - -     \n" +
+            "   - - - O - - - -     \n" +
+            "  - - - - O - - - -   \n" +
+            " - - - X X X X - - -   \n" +
+            "- - - - X - X - - - - \n" +
+            " - - - O X O O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - - - - - -       \n" +
+            "    - - - - - - -     \n" +
+            "   - - - O - - - -     \n" +
+            "  - - - - O - O - -   \n" +
+            " - - - X X X O - - -   \n" +
+            "- - - - X - O - - - - \n" +
+            " - - - O X O O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - - - - - -       \n" +
+            "    - - - - - - -     \n" +
+            "   - - - O - - X -     \n" +
+            "  - - - - O - X - -   \n" +
+            " - - - X X X X - - -   \n" +
+            "- - - - X - X - - - - \n" +
+            " - - - O X X O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - - - - - -       \n" +
+            "    - - X - - - -     \n" +
+            "   - - - X - - X -     \n" +
+            "  - - - - X - X - -   \n" +
+            " - - - X X X X - - -   \n" +
+            "- - - - X - X - - - - \n" +
+            " - - - O X X O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - - - -     \n" +
+            "   - - - O - - X -     \n" +
+            "  - - - - O - X - -   \n" +
+            " - - - X X O X - - -   \n" +
+            "- - - - X - O - - - - \n" +
+            " - - - O X X O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - - - -     \n" +
+            "   - - - O X - X -     \n" +
+            "  - - - - X - X - -   \n" +
+            " - - - X X O X - - -   \n" +
+            "- - - - X - O - - - - \n" +
+            " - - - O X X O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - -     \n" +
+            "   - - - O O - X -     \n" +
+            "  - - - - O - X - -   \n" +
+            " - - - X O O X - - -   \n" +
+            "- - - - O - O - - - - \n" +
+            " - - - O X X O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - -     \n" +
+            "   - - - O O - X -     \n" +
+            "  - - - - O - X - -   \n" +
+            " - - - X O O X - - -   \n" +
+            "- - - - O - O - - - - \n" +
+            " - - X X X X O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - -     \n" +
+            "   - - - O O - X -     \n" +
+            "  - - - - O - X - -   \n" +
+            " - - - X O O X - - -   \n" +
+            "- - - - O - O - - - - \n" +
+            " - O O O O O O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - - - O O - O -     \n" +
+            "  - - - - O - O - -   \n" +
+            " - - - X O O O - - -   \n" +
+            "- - - - O - O - - - - \n" +
+            " - O O O O O O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - - - O O - O -     \n" +
+            "  - - - - O - O - -   \n" +
+            " - - - X X X X X - -   \n" +
+            "- - - - O - O - - - - \n" +
+            " - O O O O O O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - - - O O - O -     \n" +
+            "  - - O - O - O - -   \n" +
+            " - - - O X X X X - -   \n" +
+            "- - - - O - O - - - - \n" +
+            " - O O O O O O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - X - O O - O -     \n" +
+            "  - - X - O - O - -   \n" +
+            " - - - X X X X X - -   \n" +
+            "- - - - X - O - - - - \n" +
+            " - O O O X O O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - X - O O - O -     \n" +
+            "  - - X - O - O - -   \n" +
+            " - - - X X X X O - -   \n" +
+            "- - - - X - O - O - - \n" +
+            " - O O O X O O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - X - O O - O -     \n" +
+            "  - - X - O - O - -   \n" +
+            " - - - X X X X X X -   \n" +
+            "- - - - X - O - O - - \n" +
+            " - O O O X O O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - X - O O - O -     \n" +
+            "  - - X - O - O - O   \n" +
+            " - - - X X X X X O -   \n" +
+            "- - - - X - O - O - - \n" +
+            " - O O O X O O - - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - X - O O - O -     \n" +
+            "  - - X - O - O - O   \n" +
+            " - - - X X X X X O -   \n" +
+            "- - - - X - O - O - - \n" +
+            " - O O O X X X X - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - X - O O - O -     \n" +
+            "  - - X - O - O - O   \n" +
+            " - - O O O O O O O -   \n" +
+            "- - - - X - O - O - - \n" +
+            " - O O O X X X X - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - X - O O - O -     \n" +
+            "  - - X - O - O - O   \n" +
+            " - - X O O O O O O -   \n" +
+            "- - X - X - O - O - - \n" +
+            " - O O O X X X X - -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - X - O O - O -     \n" +
+            "  - - X - O - O - O   \n" +
+            " - - X O O O O O O -   \n" +
+            "- - X - X - O - O - - \n" +
+            " - O O O O O O O O -   \n" +
+            "  - - - - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - X - O O - O -     \n" +
+            "  - - X - O - O - O   \n" +
+            " - - X O O O O O O -   \n" +
+            "- - X - X - O - O - - \n" +
+            " - O X X O O O O O -   \n" +
+            "  - - X - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - X O O O - O -     \n" +
+            "  - - O - O - O - O   \n" +
+            " - - O O O O O O O -   \n" +
+            "- - O - X - O - O - - \n" +
+            " - O X X O O O O O -   \n" +
+            "  - - X - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   - X X X X X O -     \n" +
+            "  - - O - O - O - O   \n" +
+            " - - O O O O O O O -   \n" +
+            "- - O - X - O - O - - \n" +
+            " - O X X O O O O O -   \n" +
+            "  - - X - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   O O O O O O O -     \n" +
+            "  - - O - O - O - O   \n" +
+            " - - O O O O O O O -   \n" +
+            "- - O - X - O - O - - \n" +
+            " - O X X O O O O O -   \n" +
+            "  - - X - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   O O O O O O O -     \n" +
+            "  - - O - O - O - O   \n" +
+            " - X O O O O O O O -   \n" +
+            "- - X - X - O - O - - \n" +
+            " - O X X O O O O O -   \n" +
+            "  - - X - X - - - -   \n" +
+            "   - - - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O - - - -       \n" +
+            "    - - O - O - O     \n" +
+            "   O O O O O O O -     \n" +
+            "  - - O - O - O - O   \n" +
+            " - X O O O O O O O -   \n" +
+            "- - X - O - O - O - - \n" +
+            " - O X O O O O O O -   \n" +
+            "  - - O - X - - - -   \n" +
+            "   - O - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O X - - -       \n" +
+            "    - - X - O - O     \n" +
+            "   O O X O O O O -     \n" +
+            "  - - X - O - O - O   \n" +
+            " - X X O O O O O O -   \n" +
+            "- - X - O - O - O - - \n" +
+            " - O X O O O O O O -   \n" +
+            "  - - O - X - - - -   \n" +
+            "   - O - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     - O X - - -       \n" +
+            "    - - X - O - O     \n" +
+            "   O O X O O O O -     \n" +
+            "  O - X - O - O - O   \n" +
+            " - O X O O O O O O -   \n" +
+            "- - O - O - O - O - - \n" +
+            " - O O O O O O O O -   \n" +
+            "  - - O - X - - - -   \n" +
+            "   - O - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     X X X - - -       \n" +
+            "    - - X - O - O     \n" +
+            "   O O X O O O O -     \n" +
+            "  O - X - O - O - O   \n" +
+            " - O X O O O O O O -   \n" +
+            "- - O - O - O - O - - \n" +
+            " - O O O O O O O O -   \n" +
+            "  - - O - X - - - -   \n" +
+            "   - O - - - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     X X X - - -       \n" +
+            "    - - X - O - O     \n" +
+            "   O O X O O O O -     \n" +
+            "  O - X - O - O - O   \n" +
+            " - O X O O O O O O -   \n" +
+            "- - O - O - O - O - - \n" +
+            " - O O O O O O O O -   \n" +
+            "  - - O - O - - - -   \n" +
+            "   - O - O - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     X X X - - -       \n" +
+            "    - - X - O - O     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - O - O   \n" +
+            " - O X O O O O O O -   \n" +
+            "- - O - O - O - O - - \n" +
+            " - O O O O O O O O -   \n" +
+            "  - - O - O - - - -   \n" +
+            "   - O - O - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - O - O   \n" +
+            " - O X O O O O O O -   \n" +
+            "- - O - O - O - O - - \n" +
+            " - O O O O O O O O -   \n" +
+            "  - - O - O - - - -   \n" +
+            "   - O - O - - - -     \n" +
+            "    - - - - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X O O -   \n" +
+            "- - O - O - X - O - - \n" +
+            " - O O O O X O O O -   \n" +
+            "  - - O - X - - - -   \n" +
+            "   - O - X - - - -     \n" +
+            "    - - X - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X O O -   \n" +
+            "- - O - O - X - O - - \n" +
+            " - O O O O X O O O -   \n" +
+            "  - - O - O - - - -   \n" +
+            "   - O - X O - - -     \n" +
+            "    - - X - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "- - O - O - X - X - - \n" +
+            " - O O O O X O O X -   \n" +
+            "  - - O - O - - - X   \n" +
+            "   - O - X O - - -     \n" +
+            "    - - X - - - -     \n" +
+            "     - - - - - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "- - O - O - X - X - - \n" +
+            " - O O O O X O O X -   \n" +
+            "  - - O - O - - - X   \n" +
+            "   - O - O O - - -     \n" +
+            "    - - O - - - -     \n" +
+            "     - O - - - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "- - X - O - X - X - - \n" +
+            " - X O O O X O O X -   \n" +
+            "  X - O - O - - - X   \n" +
+            "   - O - O O - - -     \n" +
+            "    - - O - - - -     \n" +
+            "     - O - - - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "- - X - O - X - X - - \n" +
+            " O O O O O X O O X -   \n" +
+            "  X - O - O - - - X   \n" +
+            "   - O - O O - - -     \n" +
+            "    - - O - - - -     \n" +
+            "     - O - - - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - X - - \n" +
+            " X O O O O X O O X -   \n" +
+            "  X - O - O - - - X   \n" +
+            "   - O - O O - - -     \n" +
+            "    - - O - - - -     \n" +
+            "     - O - - - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - X - - \n" +
+            " X O O O O X O O O O   \n" +
+            "  X - O - O - - - X   \n" +
+            "   - O - O O - - -     \n" +
+            "    - - O - - - -     \n" +
+            "     - O - - - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - X - X \n" +
+            " X O O O O X O O O X   \n" +
+            "  X - O - O - - - X   \n" +
+            "   - O - O O - - -     \n" +
+            "    - - O - - - -     \n" +
+            "     - O - - - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - X - X \n" +
+            " X O X O O X O O O X   \n" +
+            "  X - X - O - - - X   \n" +
+            "   - O X O O - - -     \n" +
+            "    - - O - - - -     \n" +
+            "     - O - - - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - X - X \n" +
+            " X O X O O X O O O X   \n" +
+            "  X - X - O - - - X   \n" +
+            "   - O X O O - - -     \n" +
+            "    - - X - - - -     \n" +
+            "     - O X - - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - X - X \n" +
+            " X O X O O X O O O X   \n" +
+            "  X - X - O - - - X   \n" +
+            "   - O X O O - - -     \n" +
+            "    - - X - - - -     \n" +
+            "     - O O O - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - X - X \n" +
+            " X O X O O X X X O X   \n" +
+            "  X - X - O - X - X   \n" +
+            "   - O X O O - - -     \n" +
+            "    - - X - - - -     \n" +
+            "     - O O O - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - O - X \n" +
+            " X O X O O X X O O X   \n" +
+            "  X - X - O - O - X   \n" +
+            "   - O X O O O - -     \n" +
+            "    - - X - - - -     \n" +
+            "     - O O O - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - O - X \n" +
+            " X O X O O X X O O X   \n" +
+            "  X - X - O - X - X   \n" +
+            "   - O X X X X X -     \n" +
+            "    - - X - - - -     \n" +
+            "     - O O O - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - O - X \n" +
+            " X O X O O X X O O X   \n" +
+            "  X - X - O - X - X   \n" +
+            "   - O O O O O O O     \n" +
+            "    - - X - - - -     \n" +
+            "     - O O O - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X X O O X X O -   \n" +
+            "X - X - X - X - O - X \n" +
+            " X O X O X X X O O X   \n" +
+            "  X - X - X - X - X   \n" +
+            "   - O O O X X O O     \n" +
+            "    - - X - X - -     \n" +
+            "     - O O O - -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - O - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - O - X \n" +
+            " X O X O O X X O O X   \n" +
+            "  X - X - O - X - X   \n" +
+            "   - O O O O X O O     \n" +
+            "    - - X - O - -     \n" +
+            "     - O O O O -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - O - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - O - X \n" +
+            " X O X O O X X O O X   \n" +
+            "  X - X - O - X - X   \n" +
+            "   X X X X X X O O     \n" +
+            "    - - X - O - -     \n" +
+            "     - O O O O -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - O - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - O - X \n" +
+            " X O X O O X X O O X   \n" +
+            "  X - O - O - X - X   \n" +
+            "   X O X X X X O O     \n" +
+            "    O - X - O - -     \n" +
+            "     - O O O O -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - O - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - O - X \n" +
+            " X O X O O X X O O X   \n" +
+            "  X - O - O - X - X   \n" +
+            "   X O X X X X O O     \n" +
+            "    X - X - O - -     \n" +
+            "     X O O O O -       \n" +
+            "     X X X - - X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - O - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - O - X \n" +
+            " X O X O O X X O O X   \n" +
+            "  X - O - O - X - X   \n" +
+            "   X O X X X X O O     \n" +
+            "    X - X - O - -     \n" +
+            "     X X X X X X       \n" +
+            "     X X X X - X       \n" +
+            "    - - X - X - X     \n" +
+            "   O O X X X X X X     \n" +
+            "  O - O - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - O - X \n" +
+            " X O X O O X X O O X   \n" +
+            "  X - O - O - X - X   \n" +
+            "   X O X X X X O O     \n" +
+            "    X - X - O - -     \n" +
+            "     X X X X X X       \n" +
+            "     X X X X O X       \n" +
+            "    - - X - O - X     \n" +
+            "   O O X X O X X X     \n" +
+            "  O - O - O - X - O   \n" +
+            " - O X O O O X X O -   \n" +
+            "X - X - O - X - O - X \n" +
+            " X O X O O X X O O X   \n" +
+            "  X - O - O - X - X   \n" +
+            "   X O X X X X O O     \n" +
+            "    X - X - O - -     \n" +
+            "     X X X X X X       \n" +
+            "     X X X X O X       \n" +
+            "    X - X - O - X     \n" +
+            "   O X X X O X X X     \n" +
+            "  O - X - O - X - O   \n" +
+            " - O X X O O X X O -   \n" +
+            "X - X - X - X - O - X \n" +
+            " X O X O X X X O O X   \n" +
+            "  X - O - X - X - X   \n" +
+            "   X O X X X X O O     \n" +
+            "    X - X - O - -     \n" +
+            "     X X X X X X       \n" +
+            "     X X X X O X       \n" +
+            "    X - X - O - X     \n" +
+            "   X X X X O X X X     \n" +
+            "  X - X - O - X - O   \n" +
+            " X X X X O O X X O -   \n" +
+            "X - X - X - X - O - X \n" +
+            " X O X O X X X O O X   \n" +
+            "  X - O - X - X - X   \n" +
+            "   X O X X X X O O     \n" +
+            "    X - X - O - -     \n" +
+            "     X X X X X X       \n" +
+            "     X X X X O X       \n" +
+            "    X - X - O - X     \n" +
+            "   X X X X O X X X     \n" +
+            "  X - X - O - X - X   \n" +
+            " X X X X O O X X X X   \n" +
+            "X - X - X - X - O - X \n" +
+            " X O X O X X X O O X   \n" +
+            "  X - O - X - X - X   \n" +
+            "   X O X X X X O O     \n" +
+            "    X - X - O - -     \n" +
+            "     X X X X X X       \n" +
+            "     X X X X O X       \n" +
+            "    X - X - O - X     \n" +
+            "   X X X X O X X X     \n" +
+            "  X - X - O - X - X   \n" +
+            " X X X X O O X X X X   \n" +
+            "X - X - X - X - O - X \n" +
+            " X O X O X X X O O X   \n" +
+            "  X - O - X - X - X   \n" +
+            "   X O X X X X X X     \n" +
+            "    X - X - O - X     \n" +
+            "     X X X X X X       \n", emptyBuilder.toString());
   }
 }

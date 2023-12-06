@@ -1,0 +1,38 @@
+Self Critique:
+For the most part, we were happy with our previous design/implementations. To make
+our code base work with theirs, we did not have to change a single class, interface, or enum from
+our prior design. Rather, we created various adapters to adapt the providers code into the types we
+required. However, after doing so, we made slight changes to our implementations from feeback on the
+prior assignment. First, if a controller receives a move request when it is not their players turn,
+it now sends a request to the view to display a message saying it is not their turn. Second, we fixed a
+infinite loop of game over messages in AI vs AI games. There were several design choices our
+provider made which we believe could improve our design if we were to start over. Most importantly,
+they provide the model with a coordinate and a player when making a move. We instead only supply the
+model with a coordinate, and as it already stores the players and their order, it determines which
+"piece" to place. This way a player cannot move when it is not their turn. While the providers
+approach means this is a possibility, it gives a user more fined-grained control over the model.
+Additionally, we have no notion of "pieces". Instead, we store a mapping of coordinates to players.
+Our provider created a distinction between players and their "pieces" by associating each player
+with a piece. We think this is a good idea as it stops the cyclic dependence between models and
+players. Additionally, it creates flexibilty as it allows for modelling games with not only more
+than two players, but even situations where two players could use the same token (a team based game
+or even a 1 vs 2). 
+
+One of our providers design decisions lead us to design a unique adapter. Their view does not send a
+coordinate when requesting a move from the controller(IReversiFeatures). Instead, when the
+controller receives the request, it makes another request to the view inquiring what the coordinates
+of the currently selected tile is, and sends this to the model. However, our "InputObserver" expects
+a coordinate with its move request, so our "InputObserver to IReversiFeatures" adapter could not
+simply forward the request directly to the delegate InputObserver. Instead, it had to play the role
+of their controller, making a request back to the view to obtain the coordinates of the move, and
+then forward the move request, now with coordinates, to the delegate. This was a very interesting
+and fun problem which taught us about the flexibilty and power of adapters. We did not receive any
+requests from customers.
+
+ Experience with providers:
+ Our experience with providers was relatively good. They generally responded in time. We made two
+ requests to them. First, their model interview exposed a large concrete class which we did not have
+ access to, so we requested that their provide us with an interface describing the object so that we
+ could create an adapter or object for it. They provided us with this very quicky. However, we then
+ asked that they change their code so that it used this interface rather than the old object. They
+ have not yet responded. 

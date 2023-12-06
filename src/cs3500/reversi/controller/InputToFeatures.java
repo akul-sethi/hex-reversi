@@ -7,10 +7,16 @@ import cs3500.reversi.model.AdapterUtils;
 import cs3500.reversi.model.BasicPoint;
 import cs3500.reversi.model.CubeCoord;
 
+/**
+ * An adapter which adapts an InputObserver into an IReversiFeatures.
+ * Necessary so that our controller can subscribe itself as a listener to the provider view as
+ * it was designed to take an IReversiFeatures.
+ */
 public class InputToFeatures implements IReversiFeatures {
 
   private final InputObserver delegate;
   private final IReversiView view;
+
   public InputToFeatures(InputObserver adaptee, IReversiView view) {
     this.delegate = adaptee;
     this.view = view;

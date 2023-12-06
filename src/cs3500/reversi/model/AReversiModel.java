@@ -217,7 +217,7 @@ abstract class AReversiModel implements ReversiModel {
 
 
   @Override
-  public PlayerAdapter getWinner() throws IllegalStateException {
+  public Player getWinner() throws IllegalStateException {
     if (!gameOver) {
       throw new IllegalStateException("There is no winner");
     }
@@ -236,7 +236,7 @@ abstract class AReversiModel implements ReversiModel {
     if (winners.size() > 1) {
       return null;
     }
-    return new PlayerAdapter(winners.get(0));
+    return winners.get(0);
   }
 
   @Override

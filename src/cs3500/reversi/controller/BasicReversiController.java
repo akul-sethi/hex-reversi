@@ -70,6 +70,7 @@ public class BasicReversiController implements ReversiController {
   @Override
   public void moveHere(LinearCoord coord) {
     if (!this.hasControl) {
+      this.view.alertMessage("It is not your turn");
       return;
     }
     try {
@@ -89,6 +90,8 @@ public class BasicReversiController implements ReversiController {
         this.view.alertMessage(e.getLocalizedMessage());
       }
 
+    } else {
+      this.view.alertMessage("It is not your turn");
     }
   }
 }
