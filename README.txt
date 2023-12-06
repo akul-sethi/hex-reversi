@@ -278,4 +278,26 @@ Program Usage:
      we would now like to specify that clicking on a tile which contains a player is prohibited.
      Finally, the game notifies both players when the game is over and provides them with the score.
 
+     Changes for part 4:
+
+     None of our prior code had to change.
+     ReadOnlyModelAdapter
+        - Added to adapt our model to theirs
+     TwoWayViewAdapter
+        - Added to adapt their view to ours
+     InputToFeatures
+        - Added so that their view could make requests to our controller
+     AdapterUtils
+        - Added for adapting between simple enums and value-classes
+
+     List of features we got working:
+        - Displaying board
+        - Displaying move preview
+        - Sending pass request to controller
+        - Sending move request to controller
+        - Using all provider strategies
+        - Displaying game over with score
+     List of features we could not implement:
+        - None
+
 

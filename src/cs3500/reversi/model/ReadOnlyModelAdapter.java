@@ -13,10 +13,17 @@ import cs3500.reversi.controller.ModelObserver;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.player.PlayerAdapter;
 
+/**
+ * A concrete implementation which can act like a IReadOnlyReversiModel (provider model) and
+ * ReadOnlyReversiModel(Ours). Consumes a ReadOnlyReversiModel and uses it to implement all
+ * methods. Necessary so that the Provider view has a model to display.*/
 public class ReadOnlyModelAdapter implements IReadonlyReversiModel, ReadOnlyReversiModel {
 
 
   private final ReadOnlyReversiModel delegate;
+
+  /**
+   * Creates a ReadOnlyModelAdapter from a ReadOnlyReversiModel.*/
   public ReadOnlyModelAdapter(ReadOnlyReversiModel adaptee) {
     this.delegate = adaptee;
   }
@@ -124,7 +131,7 @@ public class ReadOnlyModelAdapter implements IReadonlyReversiModel, ReadOnlyReve
             numNeighborsInDirection(cube, Direction.DOWN_RIGHT);
     return horizontalNeighbors < 2 && negativeDiagNeighbors < 2 && positiveDiagNeighbors < 2;
   }
-
+  //Returns if the given coordinate exists in the model
   private boolean coordExists(CubeCoord cube) {
     try {
       delegate.playerAt(cube);
@@ -133,7 +140,7 @@ public class ReadOnlyModelAdapter implements IReadonlyReversiModel, ReadOnlyReve
     }
     return false;
   }
-
+  //Returns the number of neighbors in the given direction
   private int numNeighborsInDirection(CubeCoord cube, Direction direction) {
     try {
       Row row = new Row(0, direction, cube);

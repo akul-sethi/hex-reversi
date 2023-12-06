@@ -65,10 +65,8 @@ public final class Reversi {
     playerTypes.put("minimax", (name) -> new MachinePlayer(name, new MiniMaxStrategy()));
     playerTypes.put("provider-capture-max", (name) -> new MachinePlayer(name,
             new FallibleStrategyAdapter(new AsManyPiecesAsPossible())));
-
     playerTypes.put("provider-corners", (name) -> new MachinePlayer(name,
             new FallibleStrategyAdapter(new GoForCorners())));
-
     playerTypes.put("provider-near-corners", (name) -> new MachinePlayer(name,
             new FallibleStrategyAdapter(new AvoidNextToCorners())));
   }
