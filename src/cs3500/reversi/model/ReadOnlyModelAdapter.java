@@ -65,7 +65,7 @@ public class ReadOnlyModelAdapter implements IReadonlyReversiModel {
    * views.
    */
   @Override
-  public IReversiBoard getCopyBoardObject() {
+  public ReversiBoard getCopyBoardObject() {
     throw new IllegalStateException("NOT IMPLEMENTED");
   }
 

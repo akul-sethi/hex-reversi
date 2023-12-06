@@ -8,6 +8,7 @@ import cs3500.provider.model.HexagonState;
 import cs3500.provider.model.Hexagon;
 import cs3500.provider.model.HexagonState;
 import cs3500.provider.IPlayer;
+import cs3500.reversi.model.ReversiBoard;
 
 /**
  * A Readonly interface for a ReversiModel that only allows non-mutable observations.
@@ -70,7 +71,7 @@ public interface IReadonlyReversiModel {
    * @return a copy of the ReversiBoard object.
    * @throws IllegalStateException if game has not been started
    */
-  IReversiBoard getCopyBoardObject();
+  ReversiBoard getCopyBoardObject();
 
   /**
    * Copies the board hashmap from the ReversiBoard class.
