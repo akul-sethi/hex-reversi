@@ -8,4 +8,5 @@ public class ViewAdapter implements IReversiModel, ReversiView {
     this.adaptee = adaptee;
   }
 
+
 }

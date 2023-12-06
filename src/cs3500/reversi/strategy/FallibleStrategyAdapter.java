@@ -24,11 +24,25 @@ public class FallibleStrategyAdapter implements FallibleReversiStrategy{
 
   @Override
   public Optional<ArrayList<LinearCoord>> chooseMove(ReadOnlyReversiModel model, Player forWhom, ArrayList<LinearCoord> legalMoves) {
+    if (legalMoves.isEmpty()) {
+      legalMoves = Utils.allLegalMoves(model.getModel());
+    }
+    if (legalMoves.isEmpty()) {
+      return Optional.empty();
+    }
     List<Hexagon> possibles = new ArrayList<>();
     for(LinearCoord c : legalMoves) {
       possibles.add(AdapterUtils.cubeCoordToHexagon(new CubeCoord(c.row(), c.column())));
     }
-    return Optional.of(delegate.chooseMoveWithPossibles(new ReadOnlyModelAdapter(model.getModel()),
-            new PlayerAdapter(forWhom), possibles));
+    List<Hexagon> deemedMoves = delegate.chooseMoveWithPossibles(new ReadOnlyModelAdapter(model.getModel()),
+            new PlayerAdapter(forWhom), possibles);
+    ArrayList<LinearCoord> bestMoves = new ArrayList<>();
+    for (Hexagon hex : deemedMoves) {
+      bestMoves.add(AdapterUtils.hexagonToLinearCoord(hex));
+    }
+    if (bestMoves.isEmpty()) {
+      return Optional.empty();
+    }
+    return Optional.of(bestMoves);
   }
 }

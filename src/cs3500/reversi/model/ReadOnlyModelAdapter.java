@@ -17,7 +17,7 @@ public class ReadOnlyModelAdapter implements IReadonlyReversiModel, ReadOnlyReve
 
 
   private final ReadOnlyReversiModel delegate;
-  ReadOnlyModelAdapter(ReadOnlyReversiModel adaptee) {
+  public ReadOnlyModelAdapter(ReadOnlyReversiModel adaptee) {
     this.delegate = adaptee;
   }
 

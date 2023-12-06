@@ -33,4 +33,10 @@ public class AdapterUtils {
    public static CubeCoord hexagonToCubeCoord(Hexagon hex) {
      return new CubeCoord(hex.getQ(), hex.getR(), hex.getS());
    }
+
+   public static LinearCoord hexagonToLinearCoord(Hexagon hex) {
+     int row = hex.getR();
+     int col = hex.getQ() + (row - (row & 1)) / 2;
+     return new BasicPoint(row, col);
+   }
 }
