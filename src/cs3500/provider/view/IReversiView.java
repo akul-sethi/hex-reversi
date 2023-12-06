@@ -2,9 +2,9 @@ package cs3500.provider.view;
 
 import javax.swing.KeyStroke;
 
-import reversi.controller.IReversiFeatures;
-import reversi.model.Hexagon;
-import reversi.model.HexagonState;
+import cs3500.provider.IReversiFeatures;
+import cs3500.provider.model.Hexagon;
+import cs3500.provider.model.HexagonState;
 
 /**
  * Interface to represent a view of a Reversi game.

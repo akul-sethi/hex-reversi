@@ -70,7 +70,7 @@ public interface IReadonlyReversiModel {
    * @return a copy of the ReversiBoard object.
    * @throws IllegalStateException if game has not been started
    */
-  ReversiBoard getCopyBoardObject();
+  IReversiBoard getCopyBoardObject();
 
   /**
    * Copies the board hashmap from the ReversiBoard class.

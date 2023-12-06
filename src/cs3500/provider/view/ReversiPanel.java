@@ -23,10 +23,10 @@ import javax.swing.JPanel;
 import javax.swing.AbstractAction;
 import javax.swing.event.MouseInputAdapter;
 
-import reversi.controller.IReversiFeatures;
-import reversi.model.Hexagon;
-import reversi.model.HexagonState;
-import reversi.model.IReadonlyReversiModel;
+import cs3500.provider.IReversiFeatures;
+import cs3500.provider.model.Hexagon;
+import cs3500.provider.model.HexagonState;
+import cs3500.provider.model.IReadonlyReversiModel;
 
 /**
  * Represents a panel of a ReversiGame, extending JPanel.

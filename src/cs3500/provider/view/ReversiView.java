@@ -8,12 +8,12 @@ import javax.swing.KeyStroke;
 
 import cs3500.provider.view.IReversiView;
 import cs3500.provider.view.ReversiPanel;
-import provider.view.IReversiView;
-import provider.view.ReversiPanel;
-import reversi.controller.IReversiFeatures;
-import reversi.model.Hexagon;
-import reversi.model.HexagonState;
-import reversi.model.IReadonlyReversiModel;
+import cs3500.provider.view.IReversiView;
+import cs3500.provider.view.ReversiPanel;
+import cs3500.provider.IReversiFeatures;
+import cs3500.provider.model.Hexagon;
+import cs3500.provider.model.HexagonState;
+import cs3500.provider.model.IReadonlyReversiModel;
 
 /**
  * Represents the view of a ReversiGame, extending JFrame and implementing IReversiView.

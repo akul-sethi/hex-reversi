@@ -2,9 +2,9 @@ package cs3500.provider.strategy;
 
 import java.util.List;
 
-import reversi.IPlayer;
-import reversi.model.Hexagon;
-import reversi.model.IReadonlyReversiModel;
+import cs3500.provider.IPlayer;
+import cs3500.provider.model.Hexagon;
+import cs3500.provider.model.IReadonlyReversiModel;
 
 /**
  * Interface to represent strategies in the Reversi game.
