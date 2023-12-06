@@ -11,10 +11,10 @@ import cs3500.reversi.controller.ModelObserver;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.player.PlayerAdapter;
 
-public class ModelAdapter implements IReversiModel, ReversiModel {
+public class ReadOnlyModelAdapter implements IReversiModel, ReversiModel {
 
   private final ReversiModel delegate;
-  ModelAdapter(ReversiModel adaptee) {
+  ReadOnlyModelAdapter(ReversiModel adaptee) {
     this.delegate = adaptee;
   }
 
