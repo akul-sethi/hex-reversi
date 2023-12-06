@@ -33,7 +33,7 @@ public class FallibleStrategyAdapter implements FallibleReversiStrategy{
     for(LinearCoord c : legalMoves) {
       possibles.add(AdapterUtils.cubeCoordToHexagon(new CubeCoord(c.row(), c.column())));
     }
-    List<Hexagon> deemedMoves = delegate.chooseMoveWithPossibles(new ReadOnlyModelAdapter(model.getModel()),
+    List<Hexagon> deemedMoves = delegate.chooseMoveWithPossibles(new ReadOnlyModelAdapter(model),
             new PlayerAdapter(forWhom), possibles);
     ArrayList<LinearCoord> bestMoves = new ArrayList<>();
     for (Hexagon hex : deemedMoves) {

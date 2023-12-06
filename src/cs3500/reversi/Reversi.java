@@ -61,6 +61,7 @@ public final class Reversi {
     playerTypes.put("avoid-near-corners", (name) -> new MachinePlayer(name,
             new AvoidNextToCornersStrategy()));
     playerTypes.put("minimax", (name) -> new MachinePlayer(name, new MiniMaxStrategy()));
+    playerTypes.put("provider-capture-max", (name) -> new MachinePlayer(name, new FallibleStrategyAdapter(new AsManyPiecesAsPossible())));
   }
 
   /**
@@ -75,7 +76,7 @@ public final class Reversi {
     }
 
     Player p1 = new MachinePlayer(Name.X, new MiniMaxStrategy());
-    Player p2 = new HumanPlayer(Name.O);
+    Player p2 = new MachinePlayer(Name.O, new FallibleStrategyAdapter(new AsManyPiecesAsPossible()));
 
     ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView view1 = new GUIReversiView(model, "Player 1");

@@ -1900,4 +1900,47 @@ public class StrategyTests {
             "    X - X - O - X     \n" +
             "     X X X X X X       \n", emptyBuilder.toString());
   }
+
+  @Test
+  public void superStrategyVsCaptureMaxGame() throws IOException {
+    Appendable emptyBuilder = new StringBuilder();
+    Player superPlayer = new MachinePlayer(Name.X, new TryTwo(new CaptureCornersStrategy(),
+            new TryTwo(new AvoidNextToCornersStrategy(),
+                    new TryTwo(new MiniMaxStrategy(),
+                            new CaptureMaxStrategy()))));
+    Player captureMaxPlayer = new MachinePlayer(Name.O, new CaptureMaxStrategy());
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
+            6, superPlayer, captureMaxPlayer);
+    ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
+    basicModel.startGame();
+    CompleteReversiStrategyFromFallible captureMax =
+            new CompleteReversiStrategyFromFallible(new CaptureMaxStrategy());
+    CompleteReversiStrategyFromFallible superStrat =
+            new CompleteReversiStrategyFromFallible(new TryTwo(new CaptureCornersStrategy(),
+                    new TryTwo(new AvoidNextToCornersStrategy(),
+                            new TryTwo(new MiniMaxStrategy(),
+                                    new CaptureMaxStrategy()))));
+    for (int i = 0; i < 100; i += 1) {
+      try {
+        LinearCoord bestMove;
+        if (basicModel.nextToPlay().equals(superPlayer)) {
+          bestMove = superStrat.chooseMove(basicModel,
+                  basicModel.nextToPlay());
+        } else {
+          bestMove = captureMax.chooseMove(basicModel,
+                  basicModel.nextToPlay());
+        }
+        basicModel.placePiece(bestMove);
+        textView.render();
+      } catch (Exception pass) {
+        try {
+          basicModel.pass();
+        } catch (Exception gameover) {
+          break;
+        }
+      }
+    }
+    //textView.render();
+    Assert.assertEquals("     - - - - - -       \n", textView.toString());
+  }
 }
