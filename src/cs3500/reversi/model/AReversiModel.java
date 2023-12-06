@@ -42,7 +42,7 @@ abstract class AReversiModel implements ReversiModel {
   private boolean gameOver;
   private boolean gameStarted;
   protected final List<ModelObserver> observers;
-  private final boolean square;
+  private final boolean notCube;
 
   /**
    * Constructs abstract reversi model. In concrete implementations new board shapes with starting
@@ -53,7 +53,7 @@ abstract class AReversiModel implements ReversiModel {
    *                starting position.
    * @param players The list of players that will be in the game.
    */
-  protected AReversiModel(HashMap<LinearCoord, Player> tiles, List<Player> players, boolean square) {
+  protected AReversiModel(HashMap<LinearCoord, Player> tiles, List<Player> players, boolean notCube) {
     if (players.size() <= 1) {
       throw new IllegalArgumentException("Length of players must be greater than 1");
     }
@@ -67,7 +67,7 @@ abstract class AReversiModel implements ReversiModel {
     this.players = new LinkedList<>();
     this.players.addAll(players);
     this.observers = new ArrayList<>();
-    this.square = square;
+    this.notCube = notCube;
   }
 
   @Override
@@ -130,7 +130,7 @@ abstract class AReversiModel implements ReversiModel {
         for (LinearCoord c : r.getCoordsInRow()) {
           this.tiles.put(c, this.players.peek());
         }
-        if (square) {
+        if (notCube) {
           this.tiles.put(new BasicPoint(row, column), this.players.peek());
         }
         else {
@@ -148,7 +148,7 @@ abstract class AReversiModel implements ReversiModel {
 
   @Override
   public Player playerAt(LinearCoord coord) throws IllegalArgumentException {
-    if (this.square) {
+    if (this.notCube) {
       return playerAtHelp(new BasicPoint(coord.row(), coord.column()));
     }
     else {
@@ -180,10 +180,10 @@ abstract class AReversiModel implements ReversiModel {
    * @throws IllegalStateException    If somebody already put a tile at given coordinate.
    * @throws IllegalArgumentException If coordinate is invalid.
    */
-  private List<Row> getRadiatingRows(int row, int column) throws IllegalStateException,
+  List<Row> getRadiatingRows(int row, int column) throws IllegalStateException,
           IllegalArgumentException {
     LinearCoord move;
-    if (square) {
+    if (notCube) {
       move = new BasicPoint(row, column);
     }
     else {
@@ -196,7 +196,7 @@ abstract class AReversiModel implements ReversiModel {
       throw new IllegalStateException("Someone is already here");
     }
     List<Row> directions;
-    if (this.square) {
+    if (this.notCube) {
       directions = Arrays.asList(
               new Row(0, SquareDirection.UP_RIGHT, move, true),
               new Row(0, SquareDirection.RIGHT, move, true),
@@ -280,7 +280,7 @@ abstract class AReversiModel implements ReversiModel {
 
   //returns true if given coordinate exists in tiles.
   private boolean validCoord(LinearCoord coordinate) {
-    if (square) {
+    if (notCube) {
       return this.tiles.containsKey(new BasicPoint(coordinate.row(), coordinate.column()));
     }
     else {

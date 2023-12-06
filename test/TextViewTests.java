@@ -70,7 +70,8 @@ public class TextViewTests {
             "- - X O - - \n" +
             "- - O X - - \n" +
             "- - - - - - \n" +
-            "- - - - - - \n", emptyBuilder.toString());
+            "- - - - - - \n" +
+            "\n", emptyBuilder.toString());
   }
 
   @Test

@@ -70,4 +70,6 @@ public class BasicSquareReversi extends AReversiModel {
     HashMap<LinearCoord, Player> map = new HashMap<>(this.tiles);
     return new BasicHexReversi(map, players);
   }
+
+
 }
