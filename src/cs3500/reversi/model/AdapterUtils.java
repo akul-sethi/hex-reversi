@@ -6,7 +6,7 @@ import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
 
-class AdapterUtils {
+public class AdapterUtils {
    public static HexagonState playerToHexagonState(Player player) {
      if(player == null) {
        return HexagonState.EMPTY;
@@ -24,5 +24,13 @@ class AdapterUtils {
      } else {
        return new HumanPlayer(Name.O);
      }
+   }
+
+   public static Hexagon cubeCoordToHexagon(CubeCoord coord){
+     return new Hexagon(coord.s, coord.q, coord.r);
+   }
+
+   public static CubeCoord hexagonToCubeCoord(Hexagon hex) {
+     return new CubeCoord(hex.getQ(), hex.getR(), hex.getS());
    }
 }

@@ -6,16 +6,15 @@ import cs3500.provider.IPlayer;
 import cs3500.provider.IReversiFeatures;
 import cs3500.provider.model.Hexagon;
 import cs3500.provider.model.HexagonState;
-import cs3500.provider.model.IReversiBoard;
 import cs3500.provider.model.IReversiModel;
 import cs3500.reversi.controller.ModelObserver;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.player.PlayerAdapter;
 
-public class ModelAdapter implements IReversiModel, ReversiModel {
+public class ReadOnlyModelAdapter implements IReversiModel, ReversiModel {
 
   private final ReversiModel delegate;
-  ModelAdapter(ReversiModel adaptee) {
+  ReadOnlyModelAdapter(ReversiModel adaptee) {
     this.delegate = adaptee;
   }
 
@@ -45,7 +44,7 @@ public class ModelAdapter implements IReversiModel, ReversiModel {
   }
 
   @Override
-  public IReversiBoard getCopyBoardObject() {
+  public ReversiBoard getCopyBoardObject() {
     return new ReversiBoardAdapter();
   }
 
