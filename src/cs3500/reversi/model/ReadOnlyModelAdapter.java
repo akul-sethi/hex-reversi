@@ -7,15 +7,17 @@ import cs3500.provider.IReversiFeatures;
 import cs3500.provider.model.Hexagon;
 import cs3500.provider.model.HexagonState;
 import cs3500.provider.model.IReversiBoard;
+import cs3500.provider.model.IReadonlyReversiModel;
 import cs3500.provider.model.IReversiModel;
 import cs3500.reversi.controller.ModelObserver;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.player.PlayerAdapter;
 
-public class ReadOnlyModelAdapter implements IReversiModel, ReversiModel {
+public class ReadOnlyModelAdapter implements IReadonlyReversiModel, ReadOnlyReversiModel {
 
-  private final ReversiModel delegate;
-  public ReadOnlyModelAdapter(ReversiModel adaptee) {
+
+  private final ReadOnlyReversiModel delegate;
+  ReadOnlyModelAdapter(ReadOnlyReversiModel adaptee) {
     this.delegate = adaptee;
   }
 
@@ -94,7 +96,7 @@ public class ReadOnlyModelAdapter implements IReversiModel, ReversiModel {
     if(!coordExists(cube)) {
       return false;
     }
-    return new Row(cube, Direction)
+
   }
 
   
@@ -137,31 +139,6 @@ public class ReadOnlyModelAdapter implements IReversiModel, ReversiModel {
       return false;
     }
     return delegate.validMove(AdapterUtils.hexagonToCubeCoord(h));
-  }
-
-  @Override
-  public void startGame(IPlayer player1, IPlayer player2) {
-    delegate.startGame();
-  }
-
-  @Override
-  public void movePlay(IPlayer p, int s, int q, int r) {
-
-  }
-
-  @Override
-  public void movePass(IPlayer p) {
-
-  }
-
-  @Override
-  public boolean validMoveExistsForCurrentPlayer() {
-    return false;
-  }
-
-  @Override
-  public void addFeatureListener(IReversiFeatures features) {
-
   }
 
   @Override
@@ -217,25 +194,5 @@ public class ReadOnlyModelAdapter implements IReversiModel, ReversiModel {
   @Override
   public Player nextToPlay() {
     return null;
-  }
-
-  @Override
-  public void addObserver(ModelObserver obs) {
-
-  }
-
-  @Override
-  public void startGame() {
-
-  }
-
-  @Override
-  public void placePiece(LinearCoord coord) {
-
-  }
-
-  @Override
-  public void pass() {
-
   }
 }
