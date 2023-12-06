@@ -33,7 +33,7 @@ public class ReadOnlyModelAdapter implements IReadonlyReversiModel, ReadOnlyReve
 
   @Override
   public int getMaxCoordinate() {
-    return (delegate.getRightCol() -delegate.getLeftCol() - 1) / 2;
+    return (delegate.getRightCol() -delegate.getLeftCol() - 1) / 2 + 1;
   }
 
   @Override
@@ -60,7 +60,7 @@ public class ReadOnlyModelAdapter implements IReadonlyReversiModel, ReadOnlyReve
         CubeCoord cube = new CubeCoord(row, column);
         try {
           Player p = delegate.playerAt(cube);
-          Hexagon hex = new Hexagon(cube.s, cube.q, cube.r);
+          Hexagon hex = AdapterUtils.cubeCoordToHexagon(cube);
           output.put(hex, AdapterUtils.playerToHexagonState(p));
         } catch(IllegalArgumentException e) {
           //DO NOT ADD ANYTHING TO HASHMAP, THE COORD DOES NOT EXIST

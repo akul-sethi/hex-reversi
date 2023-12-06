@@ -9,6 +9,8 @@ import javax.swing.*;
 import cs3500.provider.model.Hexagon;
 import cs3500.provider.model.HexagonState;
 import cs3500.provider.strategy.AsManyPiecesAsPossible;
+import cs3500.provider.strategy.AvoidNextToCorners;
+import cs3500.provider.strategy.GoForCorners;
 import cs3500.provider.view.IReversiView;
 import cs3500.reversi.controller.BasicReversiController;
 import cs3500.reversi.model.GameType;
@@ -61,6 +63,14 @@ public final class Reversi {
     playerTypes.put("avoid-near-corners", (name) -> new MachinePlayer(name,
             new AvoidNextToCornersStrategy()));
     playerTypes.put("minimax", (name) -> new MachinePlayer(name, new MiniMaxStrategy()));
+    playerTypes.put("provider-capture-max", (name) -> new MachinePlayer(name,
+            new FallibleStrategyAdapter(new AsManyPiecesAsPossible())));
+
+    playerTypes.put("provider-corners", (name) -> new MachinePlayer(name,
+            new FallibleStrategyAdapter(new GoForCorners())));
+
+    playerTypes.put("provider-near-corners", (name) -> new MachinePlayer(name,
+            new FallibleStrategyAdapter(new AvoidNextToCorners())));
   }
 
   /**
@@ -74,15 +84,18 @@ public final class Reversi {
       return;
     }
 
-    Player p1 = new MachinePlayer(Name.X, new MiniMaxStrategy());
-    Player p2 = new HumanPlayer(Name.O);
+    Player p1 = playerTypes.get(args[0]).apply(Name.X);
+    Player p2 = playerTypes.get(args[1]).apply(Name.O);
 
     ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView view1 = new GUIReversiView(model, "Player 1");
+
+    //PROVIDER VIEW SETUP
     IReversiView view2 = new cs3500.provider.view.ReversiView(new ReadOnlyModelAdapter(model));
     view2.setHotKey(KeyStroke.getKeyStroke("typed m"), "movePlay");
     view2.setHotKey(KeyStroke.getKeyStroke("typed p"), "movePass");
     view2.setTitle(HexagonState.WHITE);
+
     BasicReversiController controller1 = new BasicReversiController(p1, view1, model);
     BasicReversiController controller2 = new BasicReversiController(p2, new TwoWayViewAdapter(view2), model);
     model.startGame();

@@ -27,16 +27,15 @@ public class AdapterUtils {
    }
 
    public static Hexagon cubeCoordToHexagon(CubeCoord coord){
-     return new Hexagon(coord.s, coord.q, coord.r);
+     return new Hexagon(coord.q, coord.s, coord.r);
    }
 
    public static CubeCoord hexagonToCubeCoord(Hexagon hex) {
-     return new CubeCoord(hex.getQ(), hex.getR(), hex.getS());
+     return new CubeCoord(hex.getS(), hex.getR(), hex.getQ());
    }
 
    public static LinearCoord hexagonToLinearCoord(Hexagon hex) {
-     int row = hex.getR();
-     int col = hex.getQ() + (row - (row & 1)) / 2;
-     return new BasicPoint(row, col);
+     CubeCoord cube = hexagonToCubeCoord(hex);
+     return new BasicPoint(cube.row(), cube.column());
    }
 }
