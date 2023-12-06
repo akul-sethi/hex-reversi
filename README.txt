@@ -262,7 +262,7 @@ Program Usage:
                      on its turn
      corners -> A machine player which follows the strategy of capturing corners if it can on its
                  turn.
-     avoid-corners -> A machine player which tries to avoid the spots next to a corner on its turn
+     avoid-near-corners -> A machine player which tries to avoid the spots next to a corner on its turn
      minimax -> A machine player which tries to minimize the max capture the opponent can do on its
                  turn.
 
