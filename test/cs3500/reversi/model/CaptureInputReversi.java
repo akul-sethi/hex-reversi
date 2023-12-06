@@ -11,8 +11,8 @@ import cs3500.reversi.player.Player;
 public class CaptureInputReversi extends CaptureInputReadOnlyReversi implements ReversiModel {
   private final StringBuilder log;
 
-  protected CaptureInputReversi(StringBuilder log, List<Player> players) {
-    super(log, players);
+  protected CaptureInputReversi(StringBuilder log, List<Player> players, boolean square) {
+    super(log, players, square);
     this.log = log;
   }
 
@@ -45,7 +45,7 @@ public class CaptureInputReversi extends CaptureInputReadOnlyReversi implements 
     for (Row r : rows) {
       if (r.length > 0 && validCoord(r.next()) && this.tiles.get(r.next()) != null
               && this.tiles.get(r.next()).equals(this.players.peek())) {
-        for (CubeCoord c : r.getCoordsInRow()) {
+        for (LinearCoord c : r.getCoordsInRow()) {
           this.tiles.put(c, this.players.peek());
         }
         this.tiles.put(new CubeCoord(row, column), this.players.peek());

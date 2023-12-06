@@ -2,6 +2,8 @@ package cs3500.reversi.model;
 
 import java.util.List;
 
+import javax.sound.sampled.Line;
+
 import cs3500.reversi.controller.ModelObserver;
 import cs3500.reversi.player.Player;
 
@@ -13,8 +15,8 @@ import cs3500.reversi.player.Player;
 public class FalseLegalityReversi extends FalseLegalityReadOnlyReversi implements ReversiModel {
   private final StringBuilder log;
 
-  protected FalseLegalityReversi(StringBuilder log, List<Player> players) {
-    super(log, players);
+  protected FalseLegalityReversi(StringBuilder log, List<Player> players, boolean square) {
+    super(log, players, square);
     this.log = log;
   }
 
@@ -47,7 +49,7 @@ public class FalseLegalityReversi extends FalseLegalityReadOnlyReversi implement
     for (Row r : rows) {
       if (r.length > 0 && validCoord(r.next()) && this.tiles.get(r.next()) != null
               && this.tiles.get(r.next()).equals(this.players.peek())) {
-        for (CubeCoord c : r.getCoordsInRow()) {
+        for (LinearCoord c : r.getCoordsInRow()) {
           this.tiles.put(c, this.players.peek());
         }
         this.tiles.put(new CubeCoord(row, column), this.players.peek());

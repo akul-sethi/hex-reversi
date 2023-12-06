@@ -23,7 +23,7 @@ public class StrategyMockTests {
     StringBuilder output = new StringBuilder();
     ReadOnlyReversiModel mockModel = new CaptureInputReadOnlyReversi(output,
             Arrays.asList(new MachinePlayer(Name.X, new CaptureCornersStrategy()),
-                    new MachinePlayer(Name.O, new CaptureCornersStrategy())));
+                    new MachinePlayer(Name.O, new CaptureCornersStrategy())), false);
     CompleteReversiStrategyFromFallible captureCorners =
             new CompleteReversiStrategyFromFallible(new CaptureCornersStrategy());
     LinearCoord bestMove = captureCorners.chooseMove(mockModel,
@@ -41,121 +41,607 @@ public class StrategyMockTests {
             "validMove: row = -5, col = -5\n" +
             "validMove: row = -5, col = -4\n" +
             "validMove: row = -5, col = -3\n" +
+            "playerAt: row = -5, col = -2\n" +
+            "playerAt: row = -4, col = -2\n" +
+            "playerAt: row = -4, col = -3\n" +
             "validMove: row = -5, col = -2\n" +
+            "playerAt: row = -5, col = -1\n" +
+            "playerAt: row = -4, col = -1\n" +
+            "playerAt: row = -4, col = -2\n" +
+            "playerAt: row = -5, col = -3\n" +
             "validMove: row = -5, col = -1\n" +
+            "playerAt: row = -5, col = 0\n" +
+            "playerAt: row = -4, col = 0\n" +
+            "playerAt: row = -4, col = -1\n" +
+            "playerAt: row = -5, col = -2\n" +
             "validMove: row = -5, col = 0\n" +
+            "playerAt: row = -5, col = 1\n" +
+            "playerAt: row = -4, col = 1\n" +
+            "playerAt: row = -4, col = 0\n" +
+            "playerAt: row = -5, col = -1\n" +
             "validMove: row = -5, col = 1\n" +
+            "playerAt: row = -5, col = 2\n" +
+            "playerAt: row = -4, col = 2\n" +
+            "playerAt: row = -4, col = 1\n" +
+            "playerAt: row = -5, col = 0\n" +
             "validMove: row = -5, col = 2\n" +
+            "playerAt: row = -4, col = 3\n" +
+            "playerAt: row = -4, col = 2\n" +
+            "playerAt: row = -5, col = 1\n" +
             "validMove: row = -5, col = 3\n" +
             "validMove: row = -5, col = 4\n" +
             "validMove: row = -5, col = 5\n" +
             "validMove: row = -4, col = -5\n" +
             "validMove: row = -4, col = -4\n" +
             "validMove: row = -4, col = -3\n" +
+            "playerAt: row = -5, col = -3\n" +
+            "playerAt: row = -4, col = -2\n" +
+            "playerAt: row = -3, col = -3\n" +
+            "playerAt: row = -3, col = -4\n" +
             "validMove: row = -4, col = -2\n" +
+            "playerAt: row = -5, col = -2\n" +
+            "playerAt: row = -4, col = -1\n" +
+            "playerAt: row = -3, col = -2\n" +
+            "playerAt: row = -3, col = -3\n" +
+            "playerAt: row = -4, col = -3\n" +
+            "playerAt: row = -5, col = -3\n" +
             "validMove: row = -4, col = -1\n" +
+            "playerAt: row = -5, col = -1\n" +
+            "playerAt: row = -4, col = 0\n" +
+            "playerAt: row = -3, col = -1\n" +
+            "playerAt: row = -3, col = -2\n" +
+            "playerAt: row = -4, col = -2\n" +
+            "playerAt: row = -5, col = -2\n" +
             "validMove: row = -4, col = 0\n" +
+            "playerAt: row = -5, col = 0\n" +
+            "playerAt: row = -4, col = 1\n" +
+            "playerAt: row = -3, col = 0\n" +
+            "playerAt: row = -3, col = -1\n" +
+            "playerAt: row = -4, col = -1\n" +
+            "playerAt: row = -5, col = -1\n" +
             "validMove: row = -4, col = 1\n" +
+            "playerAt: row = -5, col = 1\n" +
+            "playerAt: row = -4, col = 2\n" +
+            "playerAt: row = -3, col = 1\n" +
+            "playerAt: row = -3, col = 0\n" +
+            "playerAt: row = -4, col = 0\n" +
+            "playerAt: row = -5, col = 0\n" +
             "validMove: row = -4, col = 2\n" +
+            "playerAt: row = -5, col = 2\n" +
+            "playerAt: row = -4, col = 3\n" +
+            "playerAt: row = -3, col = 2\n" +
+            "playerAt: row = -3, col = 1\n" +
+            "playerAt: row = -4, col = 1\n" +
+            "playerAt: row = -5, col = 1\n" +
             "validMove: row = -4, col = 3\n" +
+            "playerAt: row = -3, col = 3\n" +
+            "playerAt: row = -3, col = 2\n" +
+            "playerAt: row = -4, col = 2\n" +
+            "playerAt: row = -5, col = 2\n" +
             "validMove: row = -4, col = 4\n" +
             "validMove: row = -4, col = 5\n" +
             "validMove: row = -3, col = -5\n" +
             "validMove: row = -3, col = -4\n" +
+            "playerAt: row = -4, col = -3\n" +
+            "playerAt: row = -3, col = -3\n" +
+            "playerAt: row = -2, col = -3\n" +
+            "playerAt: row = -2, col = -4\n" +
             "validMove: row = -3, col = -3\n" +
+            "playerAt: row = -4, col = -2\n" +
+            "playerAt: row = -3, col = -2\n" +
+            "playerAt: row = -2, col = -2\n" +
+            "playerAt: row = -2, col = -3\n" +
+            "playerAt: row = -3, col = -4\n" +
+            "playerAt: row = -4, col = -3\n" +
             "validMove: row = -3, col = -2\n" +
+            "playerAt: row = -4, col = -1\n" +
+            "playerAt: row = -3, col = -1\n" +
+            "playerAt: row = -2, col = -1\n" +
+            "playerAt: row = -2, col = -2\n" +
+            "playerAt: row = -3, col = -3\n" +
+            "playerAt: row = -4, col = -2\n" +
             "validMove: row = -3, col = -1\n" +
+            "playerAt: row = -4, col = 0\n" +
+            "playerAt: row = -3, col = 0\n" +
+            "playerAt: row = -2, col = 0\n" +
+            "playerAt: row = -2, col = -1\n" +
+            "playerAt: row = -3, col = -2\n" +
+            "playerAt: row = -4, col = -1\n" +
             "validMove: row = -3, col = 0\n" +
+            "playerAt: row = -4, col = 1\n" +
+            "playerAt: row = -3, col = 1\n" +
+            "playerAt: row = -2, col = 1\n" +
+            "playerAt: row = -2, col = 0\n" +
+            "playerAt: row = -3, col = -1\n" +
+            "playerAt: row = -4, col = 0\n" +
             "validMove: row = -3, col = 1\n" +
+            "playerAt: row = -4, col = 2\n" +
+            "playerAt: row = -3, col = 2\n" +
+            "playerAt: row = -2, col = 2\n" +
+            "playerAt: row = -2, col = 1\n" +
+            "playerAt: row = -3, col = 0\n" +
+            "playerAt: row = -4, col = 1\n" +
             "validMove: row = -3, col = 2\n" +
+            "playerAt: row = -4, col = 3\n" +
+            "playerAt: row = -3, col = 3\n" +
+            "playerAt: row = -2, col = 3\n" +
+            "playerAt: row = -2, col = 2\n" +
+            "playerAt: row = -3, col = 1\n" +
+            "playerAt: row = -4, col = 2\n" +
             "validMove: row = -3, col = 3\n" +
+            "playerAt: row = -2, col = 4\n" +
+            "playerAt: row = -2, col = 3\n" +
+            "playerAt: row = -3, col = 2\n" +
+            "playerAt: row = -4, col = 3\n" +
             "validMove: row = -3, col = 4\n" +
             "validMove: row = -3, col = 5\n" +
             "validMove: row = -2, col = -5\n" +
             "validMove: row = -2, col = -4\n" +
+            "playerAt: row = -3, col = -4\n" +
+            "playerAt: row = -2, col = -3\n" +
+            "playerAt: row = -1, col = -4\n" +
+            "playerAt: row = -1, col = -5\n" +
             "validMove: row = -2, col = -3\n" +
+            "playerAt: row = -3, col = -3\n" +
+            "playerAt: row = -2, col = -2\n" +
+            "playerAt: row = -1, col = -3\n" +
+            "playerAt: row = -1, col = -4\n" +
+            "playerAt: row = -2, col = -4\n" +
+            "playerAt: row = -3, col = -4\n" +
             "validMove: row = -2, col = -2\n" +
+            "playerAt: row = -3, col = -2\n" +
+            "playerAt: row = -2, col = -1\n" +
+            "playerAt: row = -1, col = -2\n" +
+            "playerAt: row = -1, col = -3\n" +
+            "playerAt: row = -2, col = -3\n" +
+            "playerAt: row = -3, col = -3\n" +
             "validMove: row = -2, col = -1\n" +
+            "playerAt: row = -3, col = -1\n" +
+            "playerAt: row = -2, col = 0\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = 0, col = 0\n" +
+            "playerAt: row = -1, col = -2\n" +
+            "playerAt: row = -2, col = -2\n" +
+            "playerAt: row = -3, col = -2\n" +
             "validMove: row = -2, col = 0\n" +
+            "playerAt: row = -3, col = 0\n" +
+            "playerAt: row = -2, col = 1\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = -2, col = -1\n" +
+            "playerAt: row = -3, col = -1\n" +
             "validMove: row = -2, col = 1\n" +
+            "playerAt: row = -3, col = 1\n" +
+            "playerAt: row = -2, col = 2\n" +
+            "playerAt: row = -1, col = 1\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -2, col = 0\n" +
+            "playerAt: row = -3, col = 0\n" +
             "validMove: row = -2, col = 2\n" +
+            "playerAt: row = -3, col = 2\n" +
+            "playerAt: row = -2, col = 3\n" +
+            "playerAt: row = -1, col = 2\n" +
+            "playerAt: row = -1, col = 1\n" +
+            "playerAt: row = -2, col = 1\n" +
+            "playerAt: row = -3, col = 1\n" +
             "validMove: row = -2, col = 3\n" +
+            "playerAt: row = -3, col = 3\n" +
+            "playerAt: row = -2, col = 4\n" +
+            "playerAt: row = -1, col = 3\n" +
+            "playerAt: row = -1, col = 2\n" +
+            "playerAt: row = -2, col = 2\n" +
+            "playerAt: row = -3, col = 2\n" +
             "validMove: row = -2, col = 4\n" +
+            "playerAt: row = -1, col = 4\n" +
+            "playerAt: row = -1, col = 3\n" +
+            "playerAt: row = -2, col = 3\n" +
+            "playerAt: row = -3, col = 3\n" +
             "validMove: row = -2, col = 5\n" +
             "validMove: row = -1, col = -5\n" +
+            "playerAt: row = -2, col = -4\n" +
+            "playerAt: row = -1, col = -4\n" +
+            "playerAt: row = 0, col = -4\n" +
+            "playerAt: row = 0, col = -5\n" +
             "validMove: row = -1, col = -4\n" +
+            "playerAt: row = -2, col = -3\n" +
+            "playerAt: row = -1, col = -3\n" +
+            "playerAt: row = 0, col = -3\n" +
+            "playerAt: row = 0, col = -4\n" +
+            "playerAt: row = -1, col = -5\n" +
+            "playerAt: row = -2, col = -4\n" +
             "validMove: row = -1, col = -3\n" +
+            "playerAt: row = -2, col = -2\n" +
+            "playerAt: row = -1, col = -2\n" +
+            "playerAt: row = 0, col = -2\n" +
+            "playerAt: row = 0, col = -3\n" +
+            "playerAt: row = -1, col = -4\n" +
+            "playerAt: row = -2, col = -3\n" +
             "validMove: row = -1, col = -2\n" +
+            "playerAt: row = -2, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -2\n" +
+            "playerAt: row = -1, col = -3\n" +
+            "playerAt: row = -2, col = -2\n" +
             "validMove: row = -1, col = -1\n" +
             "validMove: row = -1, col = 0\n" +
             "validMove: row = -1, col = 1\n" +
+            "playerAt: row = -2, col = 2\n" +
+            "playerAt: row = -1, col = 2\n" +
+            "playerAt: row = 0, col = 2\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -2, col = 1\n" +
             "validMove: row = -1, col = 2\n" +
+            "playerAt: row = -2, col = 3\n" +
+            "playerAt: row = -1, col = 3\n" +
+            "playerAt: row = 0, col = 3\n" +
+            "playerAt: row = 0, col = 2\n" +
+            "playerAt: row = -1, col = 1\n" +
+            "playerAt: row = -2, col = 2\n" +
             "validMove: row = -1, col = 3\n" +
+            "playerAt: row = -2, col = 4\n" +
+            "playerAt: row = -1, col = 4\n" +
+            "playerAt: row = 0, col = 4\n" +
+            "playerAt: row = 0, col = 3\n" +
+            "playerAt: row = -1, col = 2\n" +
+            "playerAt: row = -2, col = 3\n" +
             "validMove: row = -1, col = 4\n" +
+            "playerAt: row = 0, col = 5\n" +
+            "playerAt: row = 0, col = 4\n" +
+            "playerAt: row = -1, col = 3\n" +
+            "playerAt: row = -2, col = 4\n" +
             "validMove: row = -1, col = 5\n" +
             "validMove: row = 0, col = -5\n" +
+            "playerAt: row = -1, col = -5\n" +
+            "playerAt: row = 0, col = -4\n" +
+            "playerAt: row = 1, col = -5\n" +
             "validMove: row = 0, col = -4\n" +
+            "playerAt: row = -1, col = -4\n" +
+            "playerAt: row = 0, col = -3\n" +
+            "playerAt: row = 1, col = -4\n" +
+            "playerAt: row = 1, col = -5\n" +
+            "playerAt: row = 0, col = -5\n" +
+            "playerAt: row = -1, col = -5\n" +
             "validMove: row = 0, col = -3\n" +
+            "playerAt: row = -1, col = -3\n" +
+            "playerAt: row = 0, col = -2\n" +
+            "playerAt: row = 1, col = -3\n" +
+            "playerAt: row = 1, col = -4\n" +
+            "playerAt: row = 0, col = -4\n" +
+            "playerAt: row = -1, col = -4\n" +
             "validMove: row = 0, col = -2\n" +
+            "playerAt: row = -1, col = -2\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 1, col = -2\n" +
+            "playerAt: row = 1, col = -3\n" +
+            "playerAt: row = 0, col = -3\n" +
+            "playerAt: row = -1, col = -3\n" +
             "validMove: row = 0, col = -1\n" +
             "validMove: row = 0, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 2\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 2, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = -2, col = -1\n" +
             "validMove: row = 0, col = 1\n" +
             "validMove: row = 0, col = 2\n" +
+            "playerAt: row = -1, col = 2\n" +
+            "playerAt: row = 0, col = 3\n" +
+            "playerAt: row = 1, col = 2\n" +
+            "playerAt: row = 1, col = 1\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 0\n" +
+            "playerAt: row = -1, col = 1\n" +
             "validMove: row = 0, col = 3\n" +
+            "playerAt: row = -1, col = 3\n" +
+            "playerAt: row = 0, col = 4\n" +
+            "playerAt: row = 1, col = 3\n" +
+            "playerAt: row = 1, col = 2\n" +
+            "playerAt: row = 0, col = 2\n" +
+            "playerAt: row = -1, col = 2\n" +
             "validMove: row = 0, col = 4\n" +
+            "playerAt: row = -1, col = 4\n" +
+            "playerAt: row = 0, col = 5\n" +
+            "playerAt: row = 1, col = 4\n" +
+            "playerAt: row = 1, col = 3\n" +
+            "playerAt: row = 0, col = 3\n" +
+            "playerAt: row = -1, col = 3\n" +
             "validMove: row = 0, col = 5\n" +
+            "playerAt: row = 1, col = 4\n" +
+            "playerAt: row = 0, col = 4\n" +
+            "playerAt: row = -1, col = 4\n" +
             "validMove: row = 1, col = -5\n" +
+            "playerAt: row = 0, col = -4\n" +
+            "playerAt: row = 1, col = -4\n" +
+            "playerAt: row = 2, col = -4\n" +
+            "playerAt: row = 0, col = -5\n" +
             "validMove: row = 1, col = -4\n" +
+            "playerAt: row = 0, col = -3\n" +
+            "playerAt: row = 1, col = -3\n" +
+            "playerAt: row = 2, col = -3\n" +
+            "playerAt: row = 2, col = -4\n" +
+            "playerAt: row = 1, col = -5\n" +
+            "playerAt: row = 0, col = -4\n" +
             "validMove: row = 1, col = -3\n" +
+            "playerAt: row = 0, col = -2\n" +
+            "playerAt: row = 1, col = -2\n" +
+            "playerAt: row = 2, col = -2\n" +
+            "playerAt: row = 2, col = -3\n" +
+            "playerAt: row = 1, col = -4\n" +
+            "playerAt: row = 0, col = -3\n" +
             "validMove: row = 1, col = -2\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 2, col = -1\n" +
+            "playerAt: row = 2, col = -2\n" +
+            "playerAt: row = 1, col = -3\n" +
+            "playerAt: row = 0, col = -2\n" +
             "validMove: row = 1, col = -1\n" +
             "validMove: row = 1, col = 0\n" +
             "validMove: row = 1, col = 1\n" +
+            "playerAt: row = 0, col = 2\n" +
+            "playerAt: row = 1, col = 2\n" +
+            "playerAt: row = 2, col = 2\n" +
+            "playerAt: row = 2, col = 1\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
             "validMove: row = 1, col = 2\n" +
+            "playerAt: row = 0, col = 3\n" +
+            "playerAt: row = 1, col = 3\n" +
+            "playerAt: row = 2, col = 3\n" +
+            "playerAt: row = 2, col = 2\n" +
+            "playerAt: row = 1, col = 1\n" +
+            "playerAt: row = 0, col = 2\n" +
             "validMove: row = 1, col = 3\n" +
+            "playerAt: row = 0, col = 4\n" +
+            "playerAt: row = 1, col = 4\n" +
+            "playerAt: row = 2, col = 4\n" +
+            "playerAt: row = 2, col = 3\n" +
+            "playerAt: row = 1, col = 2\n" +
+            "playerAt: row = 0, col = 3\n" +
             "validMove: row = 1, col = 4\n" +
+            "playerAt: row = 0, col = 5\n" +
+            "playerAt: row = 2, col = 4\n" +
+            "playerAt: row = 1, col = 3\n" +
+            "playerAt: row = 0, col = 4\n" +
             "validMove: row = 1, col = 5\n" +
             "validMove: row = 2, col = -5\n" +
             "validMove: row = 2, col = -4\n" +
+            "playerAt: row = 1, col = -4\n" +
+            "playerAt: row = 2, col = -3\n" +
+            "playerAt: row = 3, col = -4\n" +
+            "playerAt: row = 1, col = -5\n" +
             "validMove: row = 2, col = -3\n" +
+            "playerAt: row = 1, col = -3\n" +
+            "playerAt: row = 2, col = -2\n" +
+            "playerAt: row = 3, col = -3\n" +
+            "playerAt: row = 3, col = -4\n" +
+            "playerAt: row = 2, col = -4\n" +
+            "playerAt: row = 1, col = -4\n" +
             "validMove: row = 2, col = -2\n" +
+            "playerAt: row = 1, col = -2\n" +
+            "playerAt: row = 2, col = -1\n" +
+            "playerAt: row = 3, col = -2\n" +
+            "playerAt: row = 3, col = -3\n" +
+            "playerAt: row = 2, col = -3\n" +
+            "playerAt: row = 1, col = -3\n" +
             "validMove: row = 2, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 0, col = 0\n" +
+            "playerAt: row = 2, col = 0\n" +
+            "playerAt: row = 3, col = -1\n" +
+            "playerAt: row = 3, col = -2\n" +
+            "playerAt: row = 2, col = -2\n" +
+            "playerAt: row = 1, col = -2\n" +
             "validMove: row = 2, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 2, col = 1\n" +
+            "playerAt: row = 3, col = 0\n" +
+            "playerAt: row = 3, col = -1\n" +
+            "playerAt: row = 2, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
             "validMove: row = 2, col = 1\n" +
+            "playerAt: row = 1, col = 1\n" +
+            "playerAt: row = 2, col = 2\n" +
+            "playerAt: row = 3, col = 1\n" +
+            "playerAt: row = 3, col = 0\n" +
+            "playerAt: row = 2, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
             "validMove: row = 2, col = 2\n" +
+            "playerAt: row = 1, col = 2\n" +
+            "playerAt: row = 2, col = 3\n" +
+            "playerAt: row = 3, col = 2\n" +
+            "playerAt: row = 3, col = 1\n" +
+            "playerAt: row = 2, col = 1\n" +
+            "playerAt: row = 1, col = 1\n" +
             "validMove: row = 2, col = 3\n" +
+            "playerAt: row = 1, col = 3\n" +
+            "playerAt: row = 2, col = 4\n" +
+            "playerAt: row = 3, col = 3\n" +
+            "playerAt: row = 3, col = 2\n" +
+            "playerAt: row = 2, col = 2\n" +
+            "playerAt: row = 1, col = 2\n" +
             "validMove: row = 2, col = 4\n" +
+            "playerAt: row = 1, col = 4\n" +
+            "playerAt: row = 3, col = 3\n" +
+            "playerAt: row = 2, col = 3\n" +
+            "playerAt: row = 1, col = 3\n" +
             "validMove: row = 2, col = 5\n" +
             "validMove: row = 3, col = -5\n" +
             "validMove: row = 3, col = -4\n" +
+            "playerAt: row = 2, col = -3\n" +
+            "playerAt: row = 3, col = -3\n" +
+            "playerAt: row = 4, col = -3\n" +
+            "playerAt: row = 2, col = -4\n" +
             "validMove: row = 3, col = -3\n" +
+            "playerAt: row = 2, col = -2\n" +
+            "playerAt: row = 3, col = -2\n" +
+            "playerAt: row = 4, col = -2\n" +
+            "playerAt: row = 4, col = -3\n" +
+            "playerAt: row = 3, col = -4\n" +
+            "playerAt: row = 2, col = -3\n" +
             "validMove: row = 3, col = -2\n" +
+            "playerAt: row = 2, col = -1\n" +
+            "playerAt: row = 3, col = -1\n" +
+            "playerAt: row = 4, col = -1\n" +
+            "playerAt: row = 4, col = -2\n" +
+            "playerAt: row = 3, col = -3\n" +
+            "playerAt: row = 2, col = -2\n" +
             "validMove: row = 3, col = -1\n" +
+            "playerAt: row = 2, col = 0\n" +
+            "playerAt: row = 3, col = 0\n" +
+            "playerAt: row = 4, col = 0\n" +
+            "playerAt: row = 4, col = -1\n" +
+            "playerAt: row = 3, col = -2\n" +
+            "playerAt: row = 2, col = -1\n" +
             "validMove: row = 3, col = 0\n" +
+            "playerAt: row = 2, col = 1\n" +
+            "playerAt: row = 3, col = 1\n" +
+            "playerAt: row = 4, col = 1\n" +
+            "playerAt: row = 4, col = 0\n" +
+            "playerAt: row = 3, col = -1\n" +
+            "playerAt: row = 2, col = 0\n" +
             "validMove: row = 3, col = 1\n" +
+            "playerAt: row = 2, col = 2\n" +
+            "playerAt: row = 3, col = 2\n" +
+            "playerAt: row = 4, col = 2\n" +
+            "playerAt: row = 4, col = 1\n" +
+            "playerAt: row = 3, col = 0\n" +
+            "playerAt: row = 2, col = 1\n" +
             "validMove: row = 3, col = 2\n" +
+            "playerAt: row = 2, col = 3\n" +
+            "playerAt: row = 3, col = 3\n" +
+            "playerAt: row = 4, col = 3\n" +
+            "playerAt: row = 4, col = 2\n" +
+            "playerAt: row = 3, col = 1\n" +
+            "playerAt: row = 2, col = 2\n" +
             "validMove: row = 3, col = 3\n" +
+            "playerAt: row = 2, col = 4\n" +
+            "playerAt: row = 4, col = 3\n" +
+            "playerAt: row = 3, col = 2\n" +
+            "playerAt: row = 2, col = 3\n" +
             "validMove: row = 3, col = 4\n" +
             "validMove: row = 3, col = 5\n" +
             "validMove: row = 4, col = -5\n" +
             "validMove: row = 4, col = -4\n" +
             "validMove: row = 4, col = -3\n" +
+            "playerAt: row = 3, col = -3\n" +
+            "playerAt: row = 4, col = -2\n" +
+            "playerAt: row = 5, col = -3\n" +
+            "playerAt: row = 3, col = -4\n" +
             "validMove: row = 4, col = -2\n" +
+            "playerAt: row = 3, col = -2\n" +
+            "playerAt: row = 4, col = -1\n" +
+            "playerAt: row = 5, col = -2\n" +
+            "playerAt: row = 5, col = -3\n" +
+            "playerAt: row = 4, col = -3\n" +
+            "playerAt: row = 3, col = -3\n" +
             "validMove: row = 4, col = -1\n" +
+            "playerAt: row = 3, col = -1\n" +
+            "playerAt: row = 4, col = 0\n" +
+            "playerAt: row = 5, col = -1\n" +
+            "playerAt: row = 5, col = -2\n" +
+            "playerAt: row = 4, col = -2\n" +
+            "playerAt: row = 3, col = -2\n" +
             "validMove: row = 4, col = 0\n" +
+            "playerAt: row = 3, col = 0\n" +
+            "playerAt: row = 4, col = 1\n" +
+            "playerAt: row = 5, col = 0\n" +
+            "playerAt: row = 5, col = -1\n" +
+            "playerAt: row = 4, col = -1\n" +
+            "playerAt: row = 3, col = -1\n" +
             "validMove: row = 4, col = 1\n" +
+            "playerAt: row = 3, col = 1\n" +
+            "playerAt: row = 4, col = 2\n" +
+            "playerAt: row = 5, col = 1\n" +
+            "playerAt: row = 5, col = 0\n" +
+            "playerAt: row = 4, col = 0\n" +
+            "playerAt: row = 3, col = 0\n" +
             "validMove: row = 4, col = 2\n" +
+            "playerAt: row = 3, col = 2\n" +
+            "playerAt: row = 4, col = 3\n" +
+            "playerAt: row = 5, col = 2\n" +
+            "playerAt: row = 5, col = 1\n" +
+            "playerAt: row = 4, col = 1\n" +
+            "playerAt: row = 3, col = 1\n" +
             "validMove: row = 4, col = 3\n" +
+            "playerAt: row = 3, col = 3\n" +
+            "playerAt: row = 5, col = 2\n" +
+            "playerAt: row = 4, col = 2\n" +
+            "playerAt: row = 3, col = 2\n" +
             "validMove: row = 4, col = 4\n" +
             "validMove: row = 4, col = 5\n" +
             "validMove: row = 5, col = -5\n" +
             "validMove: row = 5, col = -4\n" +
             "validMove: row = 5, col = -3\n" +
+            "playerAt: row = 4, col = -2\n" +
+            "playerAt: row = 5, col = -2\n" +
+            "playerAt: row = 4, col = -3\n" +
             "validMove: row = 5, col = -2\n" +
+            "playerAt: row = 4, col = -1\n" +
+            "playerAt: row = 5, col = -1\n" +
+            "playerAt: row = 5, col = -3\n" +
+            "playerAt: row = 4, col = -2\n" +
             "validMove: row = 5, col = -1\n" +
+            "playerAt: row = 4, col = 0\n" +
+            "playerAt: row = 5, col = 0\n" +
+            "playerAt: row = 5, col = -2\n" +
+            "playerAt: row = 4, col = -1\n" +
             "validMove: row = 5, col = 0\n" +
+            "playerAt: row = 4, col = 1\n" +
+            "playerAt: row = 5, col = 1\n" +
+            "playerAt: row = 5, col = -1\n" +
+            "playerAt: row = 4, col = 0\n" +
             "validMove: row = 5, col = 1\n" +
+            "playerAt: row = 4, col = 2\n" +
+            "playerAt: row = 5, col = 2\n" +
+            "playerAt: row = 5, col = 0\n" +
+            "playerAt: row = 4, col = 1\n" +
             "validMove: row = 5, col = 2\n" +
+            "playerAt: row = 4, col = 3\n" +
+            "playerAt: row = 5, col = 1\n" +
+            "playerAt: row = 4, col = 2\n" +
             "validMove: row = 5, col = 3\n" +
             "validMove: row = 5, col = 4\n" +
             "validMove: row = 5, col = 5\n" +
@@ -451,7 +937,7 @@ public class StrategyMockTests {
     StringBuilder output = new StringBuilder();
     ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
             Arrays.asList(new MachinePlayer(Name.X, new AvoidNextToCornersStrategy()),
-                    new MachinePlayer(Name.O, new AvoidNextToCornersStrategy())));
+                    new MachinePlayer(Name.O, new AvoidNextToCornersStrategy())), false);
     CompleteReversiStrategyFromFallible avoidNextToCorners =
             new CompleteReversiStrategyFromFallible(new AvoidNextToCornersStrategy());
     LinearCoord bestMove = avoidNextToCorners.chooseMove(mockModel,
@@ -482,7 +968,7 @@ public class StrategyMockTests {
     StringBuilder output = new StringBuilder();
     ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
             Arrays.asList(new MachinePlayer(Name.X, new CaptureMaxStrategy()),
-                    new MachinePlayer(Name.O, new CaptureMaxStrategy())));
+                    new MachinePlayer(Name.O, new CaptureMaxStrategy())), false);
     CompleteReversiStrategyFromFallible captureMax =
             new CompleteReversiStrategyFromFallible(new CaptureMaxStrategy());
     LinearCoord bestMove = captureMax.chooseMove(mockModel,
@@ -501,474 +987,693 @@ public class StrategyMockTests {
             "validMove: row = -5, col = -5\n" +
             "validMove: row = -5, col = -4\n" +
             "validMove: row = -5, col = -3\n" +
+            "playerAt: row = -5, col = -2\n" +
+            "playerAt: row = -4, col = -2\n" +
+            "playerAt: row = -4, col = -3\n" +
             "validMove: row = -5, col = -2\n" +
+            "playerAt: row = -5, col = -1\n" +
+            "playerAt: row = -4, col = -1\n" +
+            "playerAt: row = -4, col = -2\n" +
+            "playerAt: row = -5, col = -3\n" +
             "validMove: row = -5, col = -1\n" +
+            "playerAt: row = -5, col = 0\n" +
+            "playerAt: row = -4, col = 0\n" +
+            "playerAt: row = -4, col = -1\n" +
+            "playerAt: row = -5, col = -2\n" +
             "validMove: row = -5, col = 0\n" +
+            "playerAt: row = -5, col = 1\n" +
+            "playerAt: row = -4, col = 1\n" +
+            "playerAt: row = -4, col = 0\n" +
+            "playerAt: row = -5, col = -1\n" +
             "validMove: row = -5, col = 1\n" +
+            "playerAt: row = -5, col = 2\n" +
+            "playerAt: row = -4, col = 2\n" +
+            "playerAt: row = -4, col = 1\n" +
+            "playerAt: row = -5, col = 0\n" +
             "validMove: row = -5, col = 2\n" +
+            "playerAt: row = -4, col = 3\n" +
+            "playerAt: row = -4, col = 2\n" +
+            "playerAt: row = -5, col = 1\n" +
             "validMove: row = -5, col = 3\n" +
             "validMove: row = -5, col = 4\n" +
             "validMove: row = -5, col = 5\n" +
             "validMove: row = -4, col = -5\n" +
             "validMove: row = -4, col = -4\n" +
             "validMove: row = -4, col = -3\n" +
+            "playerAt: row = -5, col = -3\n" +
+            "playerAt: row = -4, col = -2\n" +
+            "playerAt: row = -3, col = -3\n" +
+            "playerAt: row = -3, col = -4\n" +
             "validMove: row = -4, col = -2\n" +
+            "playerAt: row = -5, col = -2\n" +
+            "playerAt: row = -4, col = -1\n" +
+            "playerAt: row = -3, col = -2\n" +
+            "playerAt: row = -3, col = -3\n" +
+            "playerAt: row = -4, col = -3\n" +
+            "playerAt: row = -5, col = -3\n" +
             "validMove: row = -4, col = -1\n" +
+            "playerAt: row = -5, col = -1\n" +
+            "playerAt: row = -4, col = 0\n" +
+            "playerAt: row = -3, col = -1\n" +
+            "playerAt: row = -3, col = -2\n" +
+            "playerAt: row = -4, col = -2\n" +
+            "playerAt: row = -5, col = -2\n" +
             "validMove: row = -4, col = 0\n" +
+            "playerAt: row = -5, col = 0\n" +
+            "playerAt: row = -4, col = 1\n" +
+            "playerAt: row = -3, col = 0\n" +
+            "playerAt: row = -3, col = -1\n" +
+            "playerAt: row = -4, col = -1\n" +
+            "playerAt: row = -5, col = -1\n" +
             "validMove: row = -4, col = 1\n" +
+            "playerAt: row = -5, col = 1\n" +
+            "playerAt: row = -4, col = 2\n" +
+            "playerAt: row = -3, col = 1\n" +
+            "playerAt: row = -3, col = 0\n" +
+            "playerAt: row = -4, col = 0\n" +
+            "playerAt: row = -5, col = 0\n" +
             "validMove: row = -4, col = 2\n" +
+            "playerAt: row = -5, col = 2\n" +
+            "playerAt: row = -4, col = 3\n" +
+            "playerAt: row = -3, col = 2\n" +
+            "playerAt: row = -3, col = 1\n" +
+            "playerAt: row = -4, col = 1\n" +
+            "playerAt: row = -5, col = 1\n" +
             "validMove: row = -4, col = 3\n" +
+            "playerAt: row = -3, col = 3\n" +
+            "playerAt: row = -3, col = 2\n" +
+            "playerAt: row = -4, col = 2\n" +
+            "playerAt: row = -5, col = 2\n" +
             "validMove: row = -4, col = 4\n" +
             "validMove: row = -4, col = 5\n" +
             "validMove: row = -3, col = -5\n" +
             "validMove: row = -3, col = -4\n" +
+            "playerAt: row = -4, col = -3\n" +
+            "playerAt: row = -3, col = -3\n" +
+            "playerAt: row = -2, col = -3\n" +
+            "playerAt: row = -2, col = -4\n" +
             "validMove: row = -3, col = -3\n" +
+            "playerAt: row = -4, col = -2\n" +
+            "playerAt: row = -3, col = -2\n" +
+            "playerAt: row = -2, col = -2\n" +
+            "playerAt: row = -2, col = -3\n" +
+            "playerAt: row = -3, col = -4\n" +
+            "playerAt: row = -4, col = -3\n" +
             "validMove: row = -3, col = -2\n" +
+            "playerAt: row = -4, col = -1\n" +
+            "playerAt: row = -3, col = -1\n" +
+            "playerAt: row = -2, col = -1\n" +
+            "playerAt: row = -2, col = -2\n" +
+            "playerAt: row = -3, col = -3\n" +
+            "playerAt: row = -4, col = -2\n" +
             "validMove: row = -3, col = -1\n" +
+            "playerAt: row = -4, col = 0\n" +
+            "playerAt: row = -3, col = 0\n" +
+            "playerAt: row = -2, col = 0\n" +
+            "playerAt: row = -2, col = -1\n" +
+            "playerAt: row = -3, col = -2\n" +
+            "playerAt: row = -4, col = -1\n" +
             "validMove: row = -3, col = 0\n" +
+            "playerAt: row = -4, col = 1\n" +
+            "playerAt: row = -3, col = 1\n" +
+            "playerAt: row = -2, col = 1\n" +
+            "playerAt: row = -2, col = 0\n" +
+            "playerAt: row = -3, col = -1\n" +
+            "playerAt: row = -4, col = 0\n" +
             "validMove: row = -3, col = 1\n" +
+            "playerAt: row = -4, col = 2\n" +
+            "playerAt: row = -3, col = 2\n" +
+            "playerAt: row = -2, col = 2\n" +
+            "playerAt: row = -2, col = 1\n" +
+            "playerAt: row = -3, col = 0\n" +
+            "playerAt: row = -4, col = 1\n" +
             "validMove: row = -3, col = 2\n" +
+            "playerAt: row = -4, col = 3\n" +
+            "playerAt: row = -3, col = 3\n" +
+            "playerAt: row = -2, col = 3\n" +
+            "playerAt: row = -2, col = 2\n" +
+            "playerAt: row = -3, col = 1\n" +
+            "playerAt: row = -4, col = 2\n" +
             "validMove: row = -3, col = 3\n" +
+            "playerAt: row = -2, col = 4\n" +
+            "playerAt: row = -2, col = 3\n" +
+            "playerAt: row = -3, col = 2\n" +
+            "playerAt: row = -4, col = 3\n" +
             "validMove: row = -3, col = 4\n" +
             "validMove: row = -3, col = 5\n" +
             "validMove: row = -2, col = -5\n" +
             "validMove: row = -2, col = -4\n" +
+            "playerAt: row = -3, col = -4\n" +
+            "playerAt: row = -2, col = -3\n" +
+            "playerAt: row = -1, col = -4\n" +
+            "playerAt: row = -1, col = -5\n" +
             "validMove: row = -2, col = -3\n" +
+            "playerAt: row = -3, col = -3\n" +
+            "playerAt: row = -2, col = -2\n" +
+            "playerAt: row = -1, col = -3\n" +
+            "playerAt: row = -1, col = -4\n" +
+            "playerAt: row = -2, col = -4\n" +
+            "playerAt: row = -3, col = -4\n" +
             "validMove: row = -2, col = -2\n" +
+            "playerAt: row = -3, col = -2\n" +
+            "playerAt: row = -2, col = -1\n" +
+            "playerAt: row = -1, col = -2\n" +
+            "playerAt: row = -1, col = -3\n" +
+            "playerAt: row = -2, col = -3\n" +
+            "playerAt: row = -3, col = -3\n" +
             "validMove: row = -2, col = -1\n" +
+            "playerAt: row = -3, col = -1\n" +
+            "playerAt: row = -2, col = 0\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = 0, col = 0\n" +
+            "playerAt: row = -1, col = -2\n" +
+            "playerAt: row = -2, col = -2\n" +
+            "playerAt: row = -3, col = -2\n" +
             "validMove: row = -2, col = 0\n" +
+            "playerAt: row = -3, col = 0\n" +
+            "playerAt: row = -2, col = 1\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = -2, col = -1\n" +
+            "playerAt: row = -3, col = -1\n" +
             "validMove: row = -2, col = 1\n" +
+            "playerAt: row = -3, col = 1\n" +
+            "playerAt: row = -2, col = 2\n" +
+            "playerAt: row = -1, col = 1\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -2, col = 0\n" +
+            "playerAt: row = -3, col = 0\n" +
             "validMove: row = -2, col = 2\n" +
+            "playerAt: row = -3, col = 2\n" +
+            "playerAt: row = -2, col = 3\n" +
+            "playerAt: row = -1, col = 2\n" +
+            "playerAt: row = -1, col = 1\n" +
+            "playerAt: row = -2, col = 1\n" +
+            "playerAt: row = -3, col = 1\n" +
             "validMove: row = -2, col = 3\n" +
+            "playerAt: row = -3, col = 3\n" +
+            "playerAt: row = -2, col = 4\n" +
+            "playerAt: row = -1, col = 3\n" +
+            "playerAt: row = -1, col = 2\n" +
+            "playerAt: row = -2, col = 2\n" +
+            "playerAt: row = -3, col = 2\n" +
             "validMove: row = -2, col = 4\n" +
+            "playerAt: row = -1, col = 4\n" +
+            "playerAt: row = -1, col = 3\n" +
+            "playerAt: row = -2, col = 3\n" +
+            "playerAt: row = -3, col = 3\n" +
             "validMove: row = -2, col = 5\n" +
             "validMove: row = -1, col = -5\n" +
-            "validMove: row = -1, col = -4\n" +
-            "validMove: row = -1, col = -3\n" +
-            "validMove: row = -1, col = -2\n" +
-            "validMove: row = -1, col = -1\n" +
-            "validMove: row = -1, col = 0\n" +
-            "validMove: row = -1, col = 1\n" +
-            "validMove: row = -1, col = 2\n" +
-            "validMove: row = -1, col = 3\n" +
-            "validMove: row = -1, col = 4\n" +
-            "validMove: row = -1, col = 5\n" +
-            "validMove: row = 0, col = -5\n" +
-            "validMove: row = 0, col = -4\n" +
-            "validMove: row = 0, col = -3\n" +
-            "validMove: row = 0, col = -2\n" +
-            "validMove: row = 0, col = -1\n" +
-            "validMove: row = 0, col = 0\n" +
-            "validMove: row = 0, col = 1\n" +
-            "validMove: row = 0, col = 2\n" +
-            "validMove: row = 0, col = 3\n" +
-            "validMove: row = 0, col = 4\n" +
-            "validMove: row = 0, col = 5\n" +
-            "validMove: row = 1, col = -5\n" +
-            "validMove: row = 1, col = -4\n" +
-            "validMove: row = 1, col = -3\n" +
-            "validMove: row = 1, col = -2\n" +
-            "validMove: row = 1, col = -1\n" +
-            "validMove: row = 1, col = 0\n" +
-            "validMove: row = 1, col = 1\n" +
-            "validMove: row = 1, col = 2\n" +
-            "validMove: row = 1, col = 3\n" +
-            "validMove: row = 1, col = 4\n" +
-            "validMove: row = 1, col = 5\n" +
-            "validMove: row = 2, col = -5\n" +
-            "validMove: row = 2, col = -4\n" +
-            "validMove: row = 2, col = -3\n" +
-            "validMove: row = 2, col = -2\n" +
-            "validMove: row = 2, col = -1\n" +
-            "validMove: row = 2, col = 0\n" +
-            "validMove: row = 2, col = 1\n" +
-            "validMove: row = 2, col = 2\n" +
-            "validMove: row = 2, col = 3\n" +
-            "validMove: row = 2, col = 4\n" +
-            "validMove: row = 2, col = 5\n" +
-            "validMove: row = 3, col = -5\n" +
-            "validMove: row = 3, col = -4\n" +
-            "validMove: row = 3, col = -3\n" +
-            "validMove: row = 3, col = -2\n" +
-            "validMove: row = 3, col = -1\n" +
-            "validMove: row = 3, col = 0\n" +
-            "validMove: row = 3, col = 1\n" +
-            "validMove: row = 3, col = 2\n" +
-            "validMove: row = 3, col = 3\n" +
-            "validMove: row = 3, col = 4\n" +
-            "validMove: row = 3, col = 5\n" +
-            "validMove: row = 4, col = -5\n" +
-            "validMove: row = 4, col = -4\n" +
-            "validMove: row = 4, col = -3\n" +
-            "validMove: row = 4, col = -2\n" +
-            "validMove: row = 4, col = -1\n" +
-            "validMove: row = 4, col = 0\n" +
-            "validMove: row = 4, col = 1\n" +
-            "validMove: row = 4, col = 2\n" +
-            "validMove: row = 4, col = 3\n" +
-            "validMove: row = 4, col = 4\n" +
-            "validMove: row = 4, col = 5\n" +
-            "validMove: row = 5, col = -5\n" +
-            "validMove: row = 5, col = -4\n" +
-            "validMove: row = 5, col = -3\n" +
-            "validMove: row = 5, col = -2\n" +
-            "validMove: row = 5, col = -1\n" +
-            "validMove: row = 5, col = 0\n" +
-            "validMove: row = 5, col = 1\n" +
-            "validMove: row = 5, col = 2\n" +
-            "validMove: row = 5, col = 3\n" +
-            "validMove: row = 5, col = 4\n" +
-            "validMove: row = 5, col = 5\n" +
-            "getModel\n" +
-            "startGame\n" +
-            "placePiece: row = -2, col = 0\n" +
-            "getPlayerScore: player\n" +
-            "getModel\n" +
-            "startGame\n" +
-            "placePiece: row = -1, col = -2\n" +
-            "getPlayerScore: player\n" +
-            "getModel\n" +
-            "startGame\n" +
-            "placePiece: row = -1, col = 1\n" +
-            "getPlayerScore: player\n" +
-            "getModel\n" +
-            "startGame\n" +
-            "placePiece: row = 1, col = -2\n" +
-            "getPlayerScore: player\n" +
-            "getModel\n" +
-            "startGame\n" +
-            "placePiece: row = 1, col = 1\n" +
-            "getPlayerScore: player\n" +
-            "getModel\n" +
-            "startGame\n" +
-            "placePiece: row = 2, col = 0\n" +
-            "getPlayerScore: player\n", output.toString());
-  }
-
-  @Test
-  public void MockStringViewTest() {
-    StringBuilder output = new StringBuilder();
-    ReadOnlyReversiModel mockModel = new CaptureInputReversi(output,
-            Arrays.asList(new MachinePlayer(Name.X, new CaptureMaxStrategy()),
-                    new MachinePlayer(Name.O, new CaptureMaxStrategy())));
-    Appendable log = new StringBuilder();
-    ReversiView textView = new TextReversiView(mockModel.getModel(), log);
-    Assert.assertEquals("     - - - - - -       \n" +
-            "    - - - - - - -     \n" +
-            "   - - - - - - - -     \n" +
-            "  - - - - - - - - -   \n" +
-            " - - - - O X - - - -   \n" +
-            "- - - - X - O - - - - \n" +
-            " - - - - O X - - - -   \n" +
-            "  - - - - - - - - -   \n" +
-            "   - - - - - - - -     \n" +
-            "    - - - - - - -     \n" +
-            "     - - - - - -       \n", textView.toString());
-    CompleteReversiStrategyFromFallible captureMax =
-            new CompleteReversiStrategyFromFallible(new CaptureMaxStrategy());
-    LinearCoord bestMove = captureMax.chooseMove(mockModel,
-            new MachinePlayer(Name.X, new CaptureMaxStrategy()));
-    Assert.assertEquals(new BasicPoint(-2, 0), bestMove);
-    Assert.assertEquals("getModel\n" +
-            "getTopRow\n" +
-            "getBottomRow\n" +
-            "getRightCol\n" +
-            "getLeftCol\n" +
-            "playerAt: row = -5, col = -5\n" +
-            "playerAt: row = -5, col = -4\n" +
-            "playerAt: row = -5, col = -3\n" +
-            "playerAt: row = -5, col = -2\n" +
-            "playerAt: row = -5, col = -1\n" +
-            "playerAt: row = -5, col = 0\n" +
-            "playerAt: row = -5, col = 1\n" +
-            "playerAt: row = -5, col = 2\n" +
-            "playerAt: row = -5, col = 3\n" +
-            "playerAt: row = -5, col = 4\n" +
-            "playerAt: row = -5, col = 5\n" +
-            "getRightCol\n" +
-            "getLeftCol\n" +
-            "playerAt: row = -4, col = -5\n" +
-            "playerAt: row = -4, col = -4\n" +
-            "playerAt: row = -4, col = -3\n" +
-            "playerAt: row = -4, col = -2\n" +
-            "playerAt: row = -4, col = -1\n" +
-            "playerAt: row = -4, col = 0\n" +
-            "playerAt: row = -4, col = 1\n" +
-            "playerAt: row = -4, col = 2\n" +
-            "playerAt: row = -4, col = 3\n" +
-            "playerAt: row = -4, col = 4\n" +
-            "playerAt: row = -4, col = 5\n" +
-            "getRightCol\n" +
-            "getLeftCol\n" +
-            "playerAt: row = -3, col = -5\n" +
-            "playerAt: row = -3, col = -4\n" +
-            "playerAt: row = -3, col = -3\n" +
-            "playerAt: row = -3, col = -2\n" +
-            "playerAt: row = -3, col = -1\n" +
-            "playerAt: row = -3, col = 0\n" +
-            "playerAt: row = -3, col = 1\n" +
-            "playerAt: row = -3, col = 2\n" +
-            "playerAt: row = -3, col = 3\n" +
-            "playerAt: row = -3, col = 4\n" +
-            "playerAt: row = -3, col = 5\n" +
-            "getRightCol\n" +
-            "getLeftCol\n" +
-            "playerAt: row = -2, col = -5\n" +
             "playerAt: row = -2, col = -4\n" +
-            "playerAt: row = -2, col = -3\n" +
-            "playerAt: row = -2, col = -2\n" +
-            "playerAt: row = -2, col = -1\n" +
-            "playerAt: row = -2, col = 0\n" +
-            "playerAt: row = -2, col = 1\n" +
-            "playerAt: row = -2, col = 2\n" +
-            "playerAt: row = -2, col = 3\n" +
-            "playerAt: row = -2, col = 4\n" +
-            "playerAt: row = -2, col = 5\n" +
-            "getRightCol\n" +
-            "getLeftCol\n" +
-            "playerAt: row = -1, col = -5\n" +
             "playerAt: row = -1, col = -4\n" +
+            "playerAt: row = 0, col = -4\n" +
+            "playerAt: row = 0, col = -5\n" +
+            "validMove: row = -1, col = -4\n" +
+            "playerAt: row = -2, col = -3\n" +
             "playerAt: row = -1, col = -3\n" +
+            "playerAt: row = 0, col = -3\n" +
+            "playerAt: row = 0, col = -4\n" +
+            "playerAt: row = -1, col = -5\n" +
+            "playerAt: row = -2, col = -4\n" +
+            "validMove: row = -1, col = -3\n" +
+            "playerAt: row = -2, col = -2\n" +
             "playerAt: row = -1, col = -2\n" +
+            "playerAt: row = 0, col = -2\n" +
+            "playerAt: row = 0, col = -3\n" +
+            "playerAt: row = -1, col = -4\n" +
+            "playerAt: row = -2, col = -3\n" +
+            "validMove: row = -1, col = -2\n" +
+            "playerAt: row = -2, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
             "playerAt: row = -1, col = -1\n" +
             "playerAt: row = -1, col = 0\n" +
-            "playerAt: row = -1, col = 1\n" +
-            "playerAt: row = -1, col = 2\n" +
-            "playerAt: row = -1, col = 3\n" +
-            "playerAt: row = -1, col = 4\n" +
-            "playerAt: row = -1, col = 5\n" +
-            "getRightCol\n" +
-            "getLeftCol\n" +
-            "playerAt: row = 0, col = -5\n" +
-            "playerAt: row = 0, col = -4\n" +
-            "playerAt: row = 0, col = -3\n" +
-            "playerAt: row = 0, col = -2\n" +
+            "playerAt: row = -1, col = 0\n" +
             "playerAt: row = 0, col = -1\n" +
-            "playerAt: row = 0, col = 0\n" +
-            "playerAt: row = 0, col = 1\n" +
-            "playerAt: row = 0, col = 2\n" +
-            "playerAt: row = 0, col = 3\n" +
-            "playerAt: row = 0, col = 4\n" +
-            "playerAt: row = 0, col = 5\n" +
-            "getRightCol\n" +
-            "getLeftCol\n" +
-            "playerAt: row = 1, col = -5\n" +
-            "playerAt: row = 1, col = -4\n" +
-            "playerAt: row = 1, col = -3\n" +
-            "playerAt: row = 1, col = -2\n" +
-            "playerAt: row = 1, col = -1\n" +
-            "playerAt: row = 1, col = 0\n" +
-            "playerAt: row = 1, col = 1\n" +
-            "playerAt: row = 1, col = 2\n" +
-            "playerAt: row = 1, col = 3\n" +
-            "playerAt: row = 1, col = 4\n" +
-            "playerAt: row = 1, col = 5\n" +
-            "getRightCol\n" +
-            "getLeftCol\n" +
-            "playerAt: row = 2, col = -5\n" +
-            "playerAt: row = 2, col = -4\n" +
-            "playerAt: row = 2, col = -3\n" +
-            "playerAt: row = 2, col = -2\n" +
-            "playerAt: row = 2, col = -1\n" +
-            "playerAt: row = 2, col = 0\n" +
-            "playerAt: row = 2, col = 1\n" +
-            "playerAt: row = 2, col = 2\n" +
-            "playerAt: row = 2, col = 3\n" +
-            "playerAt: row = 2, col = 4\n" +
-            "playerAt: row = 2, col = 5\n" +
-            "getRightCol\n" +
-            "getLeftCol\n" +
-            "playerAt: row = 3, col = -5\n" +
-            "playerAt: row = 3, col = -4\n" +
-            "playerAt: row = 3, col = -3\n" +
-            "playerAt: row = 3, col = -2\n" +
-            "playerAt: row = 3, col = -1\n" +
-            "playerAt: row = 3, col = 0\n" +
-            "playerAt: row = 3, col = 1\n" +
-            "playerAt: row = 3, col = 2\n" +
-            "playerAt: row = 3, col = 3\n" +
-            "playerAt: row = 3, col = 4\n" +
-            "playerAt: row = 3, col = 5\n" +
-            "getRightCol\n" +
-            "getLeftCol\n" +
-            "playerAt: row = 4, col = -5\n" +
-            "playerAt: row = 4, col = -4\n" +
-            "playerAt: row = 4, col = -3\n" +
-            "playerAt: row = 4, col = -2\n" +
-            "playerAt: row = 4, col = -1\n" +
-            "playerAt: row = 4, col = 0\n" +
-            "playerAt: row = 4, col = 1\n" +
-            "playerAt: row = 4, col = 2\n" +
-            "playerAt: row = 4, col = 3\n" +
-            "playerAt: row = 4, col = 4\n" +
-            "playerAt: row = 4, col = 5\n" +
-            "getRightCol\n" +
-            "getLeftCol\n" +
-            "playerAt: row = 5, col = -5\n" +
-            "playerAt: row = 5, col = -4\n" +
-            "playerAt: row = 5, col = -3\n" +
-            "playerAt: row = 5, col = -2\n" +
-            "playerAt: row = 5, col = -1\n" +
-            "playerAt: row = 5, col = 0\n" +
-            "playerAt: row = 5, col = 1\n" +
-            "playerAt: row = 5, col = 2\n" +
-            "playerAt: row = 5, col = 3\n" +
-            "playerAt: row = 5, col = 4\n" +
-            "playerAt: row = 5, col = 5\n" +
-            "getModel\n" +
-            "startGame\n" +
-            "getModel\n" +
-            "startGame\n" +
-            "getPlayerScore: player\n" +
-            "startGame\n" +
-            "getBottomRow\n" +
-            "getRightCol\n" +
-            "getLeftCol\n" +
-            "getTopRow\n" +
-            "validMove: row = -5, col = -5\n" +
-            "validMove: row = -5, col = -4\n" +
-            "validMove: row = -5, col = -3\n" +
-            "validMove: row = -5, col = -2\n" +
-            "validMove: row = -5, col = -1\n" +
-            "validMove: row = -5, col = 0\n" +
-            "validMove: row = -5, col = 1\n" +
-            "validMove: row = -5, col = 2\n" +
-            "validMove: row = -5, col = 3\n" +
-            "validMove: row = -5, col = 4\n" +
-            "validMove: row = -5, col = 5\n" +
-            "validMove: row = -4, col = -5\n" +
-            "validMove: row = -4, col = -4\n" +
-            "validMove: row = -4, col = -3\n" +
-            "validMove: row = -4, col = -2\n" +
-            "validMove: row = -4, col = -1\n" +
-            "validMove: row = -4, col = 0\n" +
-            "validMove: row = -4, col = 1\n" +
-            "validMove: row = -4, col = 2\n" +
-            "validMove: row = -4, col = 3\n" +
-            "validMove: row = -4, col = 4\n" +
-            "validMove: row = -4, col = 5\n" +
-            "validMove: row = -3, col = -5\n" +
-            "validMove: row = -3, col = -4\n" +
-            "validMove: row = -3, col = -3\n" +
-            "validMove: row = -3, col = -2\n" +
-            "validMove: row = -3, col = -1\n" +
-            "validMove: row = -3, col = 0\n" +
-            "validMove: row = -3, col = 1\n" +
-            "validMove: row = -3, col = 2\n" +
-            "validMove: row = -3, col = 3\n" +
-            "validMove: row = -3, col = 4\n" +
-            "validMove: row = -3, col = 5\n" +
-            "validMove: row = -2, col = -5\n" +
-            "validMove: row = -2, col = -4\n" +
-            "validMove: row = -2, col = -3\n" +
-            "validMove: row = -2, col = -2\n" +
-            "validMove: row = -2, col = -1\n" +
-            "validMove: row = -2, col = 0\n" +
-            "validMove: row = -2, col = 1\n" +
-            "validMove: row = -2, col = 2\n" +
-            "validMove: row = -2, col = 3\n" +
-            "validMove: row = -2, col = 4\n" +
-            "validMove: row = -2, col = 5\n" +
-            "validMove: row = -1, col = -5\n" +
-            "validMove: row = -1, col = -4\n" +
-            "validMove: row = -1, col = -3\n" +
-            "validMove: row = -1, col = -2\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -2\n" +
+            "playerAt: row = -1, col = -3\n" +
+            "playerAt: row = -2, col = -2\n" +
             "validMove: row = -1, col = -1\n" +
             "validMove: row = -1, col = 0\n" +
             "validMove: row = -1, col = 1\n" +
+            "playerAt: row = -2, col = 2\n" +
+            "playerAt: row = -1, col = 2\n" +
+            "playerAt: row = 0, col = 2\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -2, col = 1\n" +
             "validMove: row = -1, col = 2\n" +
+            "playerAt: row = -2, col = 3\n" +
+            "playerAt: row = -1, col = 3\n" +
+            "playerAt: row = 0, col = 3\n" +
+            "playerAt: row = 0, col = 2\n" +
+            "playerAt: row = -1, col = 1\n" +
+            "playerAt: row = -2, col = 2\n" +
             "validMove: row = -1, col = 3\n" +
+            "playerAt: row = -2, col = 4\n" +
+            "playerAt: row = -1, col = 4\n" +
+            "playerAt: row = 0, col = 4\n" +
+            "playerAt: row = 0, col = 3\n" +
+            "playerAt: row = -1, col = 2\n" +
+            "playerAt: row = -2, col = 3\n" +
             "validMove: row = -1, col = 4\n" +
+            "playerAt: row = 0, col = 5\n" +
+            "playerAt: row = 0, col = 4\n" +
+            "playerAt: row = -1, col = 3\n" +
+            "playerAt: row = -2, col = 4\n" +
             "validMove: row = -1, col = 5\n" +
             "validMove: row = 0, col = -5\n" +
+            "playerAt: row = -1, col = -5\n" +
+            "playerAt: row = 0, col = -4\n" +
+            "playerAt: row = 1, col = -5\n" +
             "validMove: row = 0, col = -4\n" +
+            "playerAt: row = -1, col = -4\n" +
+            "playerAt: row = 0, col = -3\n" +
+            "playerAt: row = 1, col = -4\n" +
+            "playerAt: row = 1, col = -5\n" +
+            "playerAt: row = 0, col = -5\n" +
+            "playerAt: row = -1, col = -5\n" +
             "validMove: row = 0, col = -3\n" +
+            "playerAt: row = -1, col = -3\n" +
+            "playerAt: row = 0, col = -2\n" +
+            "playerAt: row = 1, col = -3\n" +
+            "playerAt: row = 1, col = -4\n" +
+            "playerAt: row = 0, col = -4\n" +
+            "playerAt: row = -1, col = -4\n" +
             "validMove: row = 0, col = -2\n" +
+            "playerAt: row = -1, col = -2\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 1, col = -2\n" +
+            "playerAt: row = 1, col = -3\n" +
+            "playerAt: row = 0, col = -3\n" +
+            "playerAt: row = -1, col = -3\n" +
             "validMove: row = 0, col = -1\n" +
             "validMove: row = 0, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 2\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 2, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = -2, col = -1\n" +
             "validMove: row = 0, col = 1\n" +
             "validMove: row = 0, col = 2\n" +
+            "playerAt: row = -1, col = 2\n" +
+            "playerAt: row = 0, col = 3\n" +
+            "playerAt: row = 1, col = 2\n" +
+            "playerAt: row = 1, col = 1\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 0\n" +
+            "playerAt: row = -1, col = 1\n" +
             "validMove: row = 0, col = 3\n" +
+            "playerAt: row = -1, col = 3\n" +
+            "playerAt: row = 0, col = 4\n" +
+            "playerAt: row = 1, col = 3\n" +
+            "playerAt: row = 1, col = 2\n" +
+            "playerAt: row = 0, col = 2\n" +
+            "playerAt: row = -1, col = 2\n" +
             "validMove: row = 0, col = 4\n" +
+            "playerAt: row = -1, col = 4\n" +
+            "playerAt: row = 0, col = 5\n" +
+            "playerAt: row = 1, col = 4\n" +
+            "playerAt: row = 1, col = 3\n" +
+            "playerAt: row = 0, col = 3\n" +
+            "playerAt: row = -1, col = 3\n" +
             "validMove: row = 0, col = 5\n" +
+            "playerAt: row = 1, col = 4\n" +
+            "playerAt: row = 0, col = 4\n" +
+            "playerAt: row = -1, col = 4\n" +
             "validMove: row = 1, col = -5\n" +
+            "playerAt: row = 0, col = -4\n" +
+            "playerAt: row = 1, col = -4\n" +
+            "playerAt: row = 2, col = -4\n" +
+            "playerAt: row = 0, col = -5\n" +
             "validMove: row = 1, col = -4\n" +
+            "playerAt: row = 0, col = -3\n" +
+            "playerAt: row = 1, col = -3\n" +
+            "playerAt: row = 2, col = -3\n" +
+            "playerAt: row = 2, col = -4\n" +
+            "playerAt: row = 1, col = -5\n" +
+            "playerAt: row = 0, col = -4\n" +
             "validMove: row = 1, col = -3\n" +
+            "playerAt: row = 0, col = -2\n" +
+            "playerAt: row = 1, col = -2\n" +
+            "playerAt: row = 2, col = -2\n" +
+            "playerAt: row = 2, col = -3\n" +
+            "playerAt: row = 1, col = -4\n" +
+            "playerAt: row = 0, col = -3\n" +
             "validMove: row = 1, col = -2\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 2, col = -1\n" +
+            "playerAt: row = 2, col = -2\n" +
+            "playerAt: row = 1, col = -3\n" +
+            "playerAt: row = 0, col = -2\n" +
             "validMove: row = 1, col = -1\n" +
             "validMove: row = 1, col = 0\n" +
             "validMove: row = 1, col = 1\n" +
+            "playerAt: row = 0, col = 2\n" +
+            "playerAt: row = 1, col = 2\n" +
+            "playerAt: row = 2, col = 2\n" +
+            "playerAt: row = 2, col = 1\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
             "validMove: row = 1, col = 2\n" +
+            "playerAt: row = 0, col = 3\n" +
+            "playerAt: row = 1, col = 3\n" +
+            "playerAt: row = 2, col = 3\n" +
+            "playerAt: row = 2, col = 2\n" +
+            "playerAt: row = 1, col = 1\n" +
+            "playerAt: row = 0, col = 2\n" +
             "validMove: row = 1, col = 3\n" +
+            "playerAt: row = 0, col = 4\n" +
+            "playerAt: row = 1, col = 4\n" +
+            "playerAt: row = 2, col = 4\n" +
+            "playerAt: row = 2, col = 3\n" +
+            "playerAt: row = 1, col = 2\n" +
+            "playerAt: row = 0, col = 3\n" +
             "validMove: row = 1, col = 4\n" +
+            "playerAt: row = 0, col = 5\n" +
+            "playerAt: row = 2, col = 4\n" +
+            "playerAt: row = 1, col = 3\n" +
+            "playerAt: row = 0, col = 4\n" +
             "validMove: row = 1, col = 5\n" +
             "validMove: row = 2, col = -5\n" +
             "validMove: row = 2, col = -4\n" +
+            "playerAt: row = 1, col = -4\n" +
+            "playerAt: row = 2, col = -3\n" +
+            "playerAt: row = 3, col = -4\n" +
+            "playerAt: row = 1, col = -5\n" +
             "validMove: row = 2, col = -3\n" +
+            "playerAt: row = 1, col = -3\n" +
+            "playerAt: row = 2, col = -2\n" +
+            "playerAt: row = 3, col = -3\n" +
+            "playerAt: row = 3, col = -4\n" +
+            "playerAt: row = 2, col = -4\n" +
+            "playerAt: row = 1, col = -4\n" +
             "validMove: row = 2, col = -2\n" +
+            "playerAt: row = 1, col = -2\n" +
+            "playerAt: row = 2, col = -1\n" +
+            "playerAt: row = 3, col = -2\n" +
+            "playerAt: row = 3, col = -3\n" +
+            "playerAt: row = 2, col = -3\n" +
+            "playerAt: row = 1, col = -3\n" +
             "validMove: row = 2, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 0, col = 0\n" +
+            "playerAt: row = 2, col = 0\n" +
+            "playerAt: row = 3, col = -1\n" +
+            "playerAt: row = 3, col = -2\n" +
+            "playerAt: row = 2, col = -2\n" +
+            "playerAt: row = 1, col = -2\n" +
             "validMove: row = 2, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 2, col = 1\n" +
+            "playerAt: row = 3, col = 0\n" +
+            "playerAt: row = 3, col = -1\n" +
+            "playerAt: row = 2, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
             "validMove: row = 2, col = 1\n" +
+            "playerAt: row = 1, col = 1\n" +
+            "playerAt: row = 2, col = 2\n" +
+            "playerAt: row = 3, col = 1\n" +
+            "playerAt: row = 3, col = 0\n" +
+            "playerAt: row = 2, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
             "validMove: row = 2, col = 2\n" +
+            "playerAt: row = 1, col = 2\n" +
+            "playerAt: row = 2, col = 3\n" +
+            "playerAt: row = 3, col = 2\n" +
+            "playerAt: row = 3, col = 1\n" +
+            "playerAt: row = 2, col = 1\n" +
+            "playerAt: row = 1, col = 1\n" +
             "validMove: row = 2, col = 3\n" +
+            "playerAt: row = 1, col = 3\n" +
+            "playerAt: row = 2, col = 4\n" +
+            "playerAt: row = 3, col = 3\n" +
+            "playerAt: row = 3, col = 2\n" +
+            "playerAt: row = 2, col = 2\n" +
+            "playerAt: row = 1, col = 2\n" +
             "validMove: row = 2, col = 4\n" +
+            "playerAt: row = 1, col = 4\n" +
+            "playerAt: row = 3, col = 3\n" +
+            "playerAt: row = 2, col = 3\n" +
+            "playerAt: row = 1, col = 3\n" +
             "validMove: row = 2, col = 5\n" +
             "validMove: row = 3, col = -5\n" +
             "validMove: row = 3, col = -4\n" +
+            "playerAt: row = 2, col = -3\n" +
+            "playerAt: row = 3, col = -3\n" +
+            "playerAt: row = 4, col = -3\n" +
+            "playerAt: row = 2, col = -4\n" +
             "validMove: row = 3, col = -3\n" +
+            "playerAt: row = 2, col = -2\n" +
+            "playerAt: row = 3, col = -2\n" +
+            "playerAt: row = 4, col = -2\n" +
+            "playerAt: row = 4, col = -3\n" +
+            "playerAt: row = 3, col = -4\n" +
+            "playerAt: row = 2, col = -3\n" +
             "validMove: row = 3, col = -2\n" +
+            "playerAt: row = 2, col = -1\n" +
+            "playerAt: row = 3, col = -1\n" +
+            "playerAt: row = 4, col = -1\n" +
+            "playerAt: row = 4, col = -2\n" +
+            "playerAt: row = 3, col = -3\n" +
+            "playerAt: row = 2, col = -2\n" +
             "validMove: row = 3, col = -1\n" +
+            "playerAt: row = 2, col = 0\n" +
+            "playerAt: row = 3, col = 0\n" +
+            "playerAt: row = 4, col = 0\n" +
+            "playerAt: row = 4, col = -1\n" +
+            "playerAt: row = 3, col = -2\n" +
+            "playerAt: row = 2, col = -1\n" +
             "validMove: row = 3, col = 0\n" +
+            "playerAt: row = 2, col = 1\n" +
+            "playerAt: row = 3, col = 1\n" +
+            "playerAt: row = 4, col = 1\n" +
+            "playerAt: row = 4, col = 0\n" +
+            "playerAt: row = 3, col = -1\n" +
+            "playerAt: row = 2, col = 0\n" +
             "validMove: row = 3, col = 1\n" +
+            "playerAt: row = 2, col = 2\n" +
+            "playerAt: row = 3, col = 2\n" +
+            "playerAt: row = 4, col = 2\n" +
+            "playerAt: row = 4, col = 1\n" +
+            "playerAt: row = 3, col = 0\n" +
+            "playerAt: row = 2, col = 1\n" +
             "validMove: row = 3, col = 2\n" +
+            "playerAt: row = 2, col = 3\n" +
+            "playerAt: row = 3, col = 3\n" +
+            "playerAt: row = 4, col = 3\n" +
+            "playerAt: row = 4, col = 2\n" +
+            "playerAt: row = 3, col = 1\n" +
+            "playerAt: row = 2, col = 2\n" +
             "validMove: row = 3, col = 3\n" +
+            "playerAt: row = 2, col = 4\n" +
+            "playerAt: row = 4, col = 3\n" +
+            "playerAt: row = 3, col = 2\n" +
+            "playerAt: row = 2, col = 3\n" +
             "validMove: row = 3, col = 4\n" +
             "validMove: row = 3, col = 5\n" +
             "validMove: row = 4, col = -5\n" +
             "validMove: row = 4, col = -4\n" +
             "validMove: row = 4, col = -3\n" +
+            "playerAt: row = 3, col = -3\n" +
+            "playerAt: row = 4, col = -2\n" +
+            "playerAt: row = 5, col = -3\n" +
+            "playerAt: row = 3, col = -4\n" +
             "validMove: row = 4, col = -2\n" +
+            "playerAt: row = 3, col = -2\n" +
+            "playerAt: row = 4, col = -1\n" +
+            "playerAt: row = 5, col = -2\n" +
+            "playerAt: row = 5, col = -3\n" +
+            "playerAt: row = 4, col = -3\n" +
+            "playerAt: row = 3, col = -3\n" +
             "validMove: row = 4, col = -1\n" +
+            "playerAt: row = 3, col = -1\n" +
+            "playerAt: row = 4, col = 0\n" +
+            "playerAt: row = 5, col = -1\n" +
+            "playerAt: row = 5, col = -2\n" +
+            "playerAt: row = 4, col = -2\n" +
+            "playerAt: row = 3, col = -2\n" +
             "validMove: row = 4, col = 0\n" +
+            "playerAt: row = 3, col = 0\n" +
+            "playerAt: row = 4, col = 1\n" +
+            "playerAt: row = 5, col = 0\n" +
+            "playerAt: row = 5, col = -1\n" +
+            "playerAt: row = 4, col = -1\n" +
+            "playerAt: row = 3, col = -1\n" +
             "validMove: row = 4, col = 1\n" +
+            "playerAt: row = 3, col = 1\n" +
+            "playerAt: row = 4, col = 2\n" +
+            "playerAt: row = 5, col = 1\n" +
+            "playerAt: row = 5, col = 0\n" +
+            "playerAt: row = 4, col = 0\n" +
+            "playerAt: row = 3, col = 0\n" +
             "validMove: row = 4, col = 2\n" +
+            "playerAt: row = 3, col = 2\n" +
+            "playerAt: row = 4, col = 3\n" +
+            "playerAt: row = 5, col = 2\n" +
+            "playerAt: row = 5, col = 1\n" +
+            "playerAt: row = 4, col = 1\n" +
+            "playerAt: row = 3, col = 1\n" +
             "validMove: row = 4, col = 3\n" +
+            "playerAt: row = 3, col = 3\n" +
+            "playerAt: row = 5, col = 2\n" +
+            "playerAt: row = 4, col = 2\n" +
+            "playerAt: row = 3, col = 2\n" +
             "validMove: row = 4, col = 4\n" +
             "validMove: row = 4, col = 5\n" +
             "validMove: row = 5, col = -5\n" +
             "validMove: row = 5, col = -4\n" +
             "validMove: row = 5, col = -3\n" +
+            "playerAt: row = 4, col = -2\n" +
+            "playerAt: row = 5, col = -2\n" +
+            "playerAt: row = 4, col = -3\n" +
             "validMove: row = 5, col = -2\n" +
+            "playerAt: row = 4, col = -1\n" +
+            "playerAt: row = 5, col = -1\n" +
+            "playerAt: row = 5, col = -3\n" +
+            "playerAt: row = 4, col = -2\n" +
             "validMove: row = 5, col = -1\n" +
+            "playerAt: row = 4, col = 0\n" +
+            "playerAt: row = 5, col = 0\n" +
+            "playerAt: row = 5, col = -2\n" +
+            "playerAt: row = 4, col = -1\n" +
             "validMove: row = 5, col = 0\n" +
+            "playerAt: row = 4, col = 1\n" +
+            "playerAt: row = 5, col = 1\n" +
+            "playerAt: row = 5, col = -1\n" +
+            "playerAt: row = 4, col = 0\n" +
             "validMove: row = 5, col = 1\n" +
+            "playerAt: row = 4, col = 2\n" +
+            "playerAt: row = 5, col = 2\n" +
+            "playerAt: row = 5, col = 0\n" +
+            "playerAt: row = 4, col = 1\n" +
             "validMove: row = 5, col = 2\n" +
+            "playerAt: row = 4, col = 3\n" +
+            "playerAt: row = 5, col = 1\n" +
+            "playerAt: row = 4, col = 2\n" +
             "validMove: row = 5, col = 3\n" +
             "validMove: row = 5, col = 4\n" +
             "validMove: row = 5, col = 5\n" +
             "getModel\n" +
             "startGame\n" +
             "placePiece: row = -2, col = 0\n" +
+            "playerAt: row = -3, col = 0\n" +
+            "playerAt: row = -2, col = 1\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = -2, col = -1\n" +
+            "playerAt: row = -3, col = -1\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
             "startGame\n" +
             "placePiece: row = -1, col = -2\n" +
+            "playerAt: row = -2, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = -1, col = -1\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -2\n" +
+            "playerAt: row = -1, col = -3\n" +
+            "playerAt: row = -2, col = -2\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
             "startGame\n" +
             "placePiece: row = -1, col = 1\n" +
+            "playerAt: row = -2, col = 2\n" +
+            "playerAt: row = -1, col = 2\n" +
+            "playerAt: row = 0, col = 2\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -2, col = 1\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
             "startGame\n" +
             "placePiece: row = 1, col = -2\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 2, col = -1\n" +
+            "playerAt: row = 2, col = -2\n" +
+            "playerAt: row = 1, col = -3\n" +
+            "playerAt: row = 0, col = -2\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
             "startGame\n" +
             "placePiece: row = 1, col = 1\n" +
+            "playerAt: row = 0, col = 2\n" +
+            "playerAt: row = 1, col = 2\n" +
+            "playerAt: row = 2, col = 2\n" +
+            "playerAt: row = 2, col = 1\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = 0, col = 1\n" +
+            "playerAt: row = -1, col = 0\n" +
+            "playerAt: row = -1, col = 0\n" +
             "getPlayerScore: player\n" +
             "getModel\n" +
             "startGame\n" +
             "placePiece: row = 2, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 1, col = 0\n" +
+            "playerAt: row = 2, col = 1\n" +
+            "playerAt: row = 3, col = 0\n" +
+            "playerAt: row = 3, col = -1\n" +
+            "playerAt: row = 2, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 1, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
+            "playerAt: row = 0, col = -1\n" +
             "getPlayerScore: player\n", output.toString());
   }
 
@@ -977,7 +1682,7 @@ public class StrategyMockTests {
     StringBuilder output = new StringBuilder();
     ReadOnlyReversiModel mockModel = new FalseLegalityReversi(output,
             Arrays.asList(new MachinePlayer(Name.X, new CaptureMaxStrategy()),
-                    new MachinePlayer(Name.O, new CaptureMaxStrategy())));
+                    new MachinePlayer(Name.O, new CaptureMaxStrategy())), false);
     CompleteReversiStrategyFromFallible captureMax =
             new CompleteReversiStrategyFromFallible(new CaptureMaxStrategy());
     LinearCoord bestMove = captureMax.chooseMove(mockModel,
@@ -1117,6 +1822,12 @@ public class StrategyMockTests {
             "getModel\n" +
             "startGame\n" +
             "placePiece: row = 2, col = 2\n" +
+            "playerAt: row = 1, col = 2\n" +
+            "playerAt: row = 2, col = 3\n" +
+            "playerAt: row = 3, col = 2\n" +
+            "playerAt: row = 3, col = 1\n" +
+            "playerAt: row = 2, col = 1\n" +
+            "playerAt: row = 1, col = 1\n" +
             "getPlayerScore: player\n", output.toString());
   }
 }

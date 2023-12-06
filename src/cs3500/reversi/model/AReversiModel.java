@@ -29,7 +29,7 @@ abstract class AReversiModel implements ReversiModel {
    * Existence of coordinate indicates the tile exists in the board and the Player indicates who is
    * there. <code>null</code> indicates the tile is empty.
    */
-  protected final HashMap<CubeCoord, Player> tiles;
+  protected final HashMap<LinearCoord, Player> tiles;
 
   /**
    * Length of players > 1 is a class invariant.
@@ -42,31 +42,32 @@ abstract class AReversiModel implements ReversiModel {
   private boolean gameOver;
   private boolean gameStarted;
   protected final List<ModelObserver> observers;
-
+  private boolean square;
 
   /**
    * Constructs abstract reversi model. In concrete implementations new board shapes with starting
    * locations and lists of players can easily be passed in to create new game modes.
    *
-   * @param hexs    A map of hex tiles to put in the board with <code>null</code> or a Player as
+   * @param tiles    A map of hex tiles to put in the board with <code>null</code> or a Player as
    *                the values corresponding to if the tile is empty or if there is a player in the
    *                starting position.
    * @param players The list of players that will be in the game.
    */
-  protected AReversiModel(HashMap<CubeCoord, Player> hexs, List<Player> players) {
+  protected AReversiModel(HashMap<LinearCoord, Player> tiles, List<Player> players, boolean square) {
     if (players.size() <= 1) {
       throw new IllegalArgumentException("Length of players must be greater than 1");
     }
-    if (hexs.isEmpty()) {
+    if (tiles.isEmpty()) {
       throw new IllegalArgumentException("Size of hexes must be greater than 0");
     }
     this.gameStarted = false;
     this.gameOver = false;
     this.tiles = new HashMap<>();
-    this.tiles.putAll(hexs);
+    this.tiles.putAll(tiles);
     this.players = new LinkedList<>();
     this.players.addAll(players);
     this.observers = new ArrayList<>();
+    this.square = square;
   }
 
   @Override
@@ -126,7 +127,7 @@ abstract class AReversiModel implements ReversiModel {
     for (Row r : rows) {
       if (r.length > 0 && validCoord(r.next()) && this.tiles.get(r.next()) != null &&
               this.tiles.get(r.next()).equals(this.players.peek())) {
-        for (CubeCoord c : r.getCoordsInRow()) {
+        for (LinearCoord c : r.getCoordsInRow()) {
           this.tiles.put(c, this.players.peek());
         }
         this.tiles.put(new CubeCoord(row, column), this.players.peek());
@@ -179,14 +180,27 @@ abstract class AReversiModel implements ReversiModel {
     if (this.tiles.get(move) != null) {
       throw new IllegalStateException("Someone is already here");
     }
-
-    List<Row> directions = Arrays.asList(
-            new Row(0, Direction.UP_RIGHT, move),
-            new Row(0, Direction.RIGHT, move),
-            new Row(0, Direction.DOWN_RIGHT, move),
-            new Row(0, Direction.DOWN_LEFT, move),
-            new Row(0, Direction.LEFT, move),
-            new Row(0, Direction.UP_LEFT, move));
+    List<Row> directions;
+    if (this.square) {
+      directions = Arrays.asList(
+              new Row(0, SquareDirection.UP_RIGHT, move, true),
+              new Row(0, SquareDirection.RIGHT, move, true),
+              new Row(0, SquareDirection.DOWN_RIGHT, move, true),
+              new Row(0, SquareDirection.DOWN_LEFT, move, true),
+              new Row(0, SquareDirection.LEFT, move, true),
+              new Row(0, SquareDirection.UP_LEFT, move, true),
+              new Row(0, SquareDirection.UP, move, true),
+              new Row(0, SquareDirection.DOWN, move, true));
+    }
+    else {
+      directions = Arrays.asList(
+              new Row(0, HexDirection.UP_RIGHT, move, false),
+              new Row(0, HexDirection.RIGHT, move, false),
+              new Row(0, HexDirection.DOWN_RIGHT, move, false),
+              new Row(0, HexDirection.DOWN_LEFT, move, false),
+              new Row(0, HexDirection.LEFT, move, false),
+              new Row(0, HexDirection.UP_LEFT, move, false));
+    }
     for (Row r : directions) {
       while (validCoord(r.next()) &&
               playerAt(r.next()) != null &&
@@ -250,14 +264,14 @@ abstract class AReversiModel implements ReversiModel {
   }
 
   //returns true if given coordinate exists in tiles.
-  private boolean validCoord(CubeCoord coordinate) {
+  private boolean validCoord(LinearCoord coordinate) {
     return this.tiles.containsKey(coordinate);
   }
 
   @Override
   public int getTopRow() {
     int min = this.tiles.keySet().stream().findAny().get().row();
-    for (CubeCoord c : this.tiles.keySet()) {
+    for (LinearCoord c : this.tiles.keySet()) {
       if (c.row() < min) {
         min = c.row();
       }
@@ -269,7 +283,7 @@ abstract class AReversiModel implements ReversiModel {
   @Override
   public int getBottomRow() {
     int max = this.tiles.keySet().stream().findAny().get().row();
-    for (CubeCoord c : this.tiles.keySet()) {
+    for (LinearCoord c : this.tiles.keySet()) {
       if (c.row() > max) {
         max = c.row();
       }
@@ -281,7 +295,7 @@ abstract class AReversiModel implements ReversiModel {
   @Override
   public int getLeftCol() {
     int min = this.tiles.keySet().stream().findAny().get().column();
-    for (CubeCoord c : this.tiles.keySet()) {
+    for (LinearCoord c : this.tiles.keySet()) {
       if (c.column() < min) {
         min = c.column();
       }
@@ -292,7 +306,7 @@ abstract class AReversiModel implements ReversiModel {
   @Override
   public int getRightCol() {
     int max = this.tiles.keySet().stream().findAny().get().column();
-    for (CubeCoord c : this.tiles.keySet()) {
+    for (LinearCoord c : this.tiles.keySet()) {
       if (c.column() > max) {
         max = c.column();
       }

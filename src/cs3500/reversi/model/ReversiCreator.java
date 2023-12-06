@@ -28,11 +28,11 @@ public final class ReversiCreator {
         throw new IllegalArgumentException("Incorrect num params");
       }
       if (params.length == 1) {
-        return new BasicReversi((Integer) params[0], new HumanPlayer(Name.X),
+        return new BasicHexReversi((Integer) params[0], new HumanPlayer(Name.X),
                 new HumanPlayer(Name.O));
       }
       if (params.length == 3) {
-        return new BasicReversi((Integer) params[0], (Player) params[1], (Player) params[2]);
+        return new BasicHexReversi((Integer) params[0], (Player) params[1], (Player) params[2]);
       }
     }
     throw new IllegalArgumentException("Something incorrect was provided");

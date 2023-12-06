@@ -21,16 +21,18 @@ public class FalseLegalityReadOnlyReversi implements ReadOnlyReversiModel {
   private final StringBuilder log;
   final Queue<Player> players;
 
-  final HashMap<CubeCoord, Player> tiles;
+  final HashMap<LinearCoord, Player> tiles;
   List<ModelObserver> observers;
   boolean gameStarted = true;
+  boolean square;
 
-  protected FalseLegalityReadOnlyReversi(StringBuilder log, List<Player> players) {
+  protected FalseLegalityReadOnlyReversi(StringBuilder log, List<Player> players, boolean square) {
     this.tiles = new HashMap<>();
     this.tiles.putAll(makeBoard(6));
     this.log = log;
     this.players = new LinkedList<>(players);
     this.observers = new ArrayList<>();
+    this.square = square;
   }
 
   private static HashMap<CubeCoord, Player> makeBoard(int sideLength)
@@ -70,7 +72,7 @@ public class FalseLegalityReadOnlyReversi implements ReadOnlyReversiModel {
     return move.row() == 2 && move.column() == 2;
   }
 
-  boolean validCoord(CubeCoord coordinate) {
+  boolean validCoord(LinearCoord coordinate) {
     return this.tiles.containsKey(coordinate);
   }
 
@@ -84,14 +86,27 @@ public class FalseLegalityReadOnlyReversi implements ReadOnlyReversiModel {
     if (this.tiles.get(move) != null) {
       throw new IllegalStateException("Someone is already here");
     }
-
-    List<Row> directions = Arrays.asList(
-            new Row(0, Direction.UP_RIGHT, move),
-            new Row(0, Direction.RIGHT, move),
-            new Row(0, Direction.DOWN_RIGHT, move),
-            new Row(0, Direction.DOWN_LEFT, move),
-            new Row(0, Direction.LEFT, move),
-            new Row(0, Direction.UP_LEFT, move));
+    List<Row> directions;
+    if (this.square) {
+      directions = Arrays.asList(
+              new Row(0, SquareDirection.UP_RIGHT, move, true),
+              new Row(0, SquareDirection.RIGHT, move, true),
+              new Row(0, SquareDirection.DOWN_RIGHT, move, true),
+              new Row(0, SquareDirection.DOWN_LEFT, move, true),
+              new Row(0, SquareDirection.LEFT, move, true),
+              new Row(0, SquareDirection.UP_LEFT, move, true),
+              new Row(0, SquareDirection.UP, move, true),
+              new Row(0, SquareDirection.DOWN, move, true));
+    }
+    else {
+      directions = Arrays.asList(
+              new Row(0, HexDirection.UP_RIGHT, move, false),
+              new Row(0, HexDirection.RIGHT, move, false),
+              new Row(0, HexDirection.DOWN_RIGHT, move, false),
+              new Row(0, HexDirection.DOWN_LEFT, move, false),
+              new Row(0, HexDirection.LEFT, move, false),
+              new Row(0, HexDirection.UP_LEFT, move, false));
+    }
     for (Row r : directions) {
       while (validCoord(r.next()) &&
               playerAt(r.next()) != null &&
@@ -154,7 +169,7 @@ public class FalseLegalityReadOnlyReversi implements ReadOnlyReversiModel {
   @Override
   public ReversiModel getModel() {
     log.append("getModel\n");
-    return new FalseLegalityReversi(this.log, new ArrayList<>(this.players));
+    return new FalseLegalityReversi(this.log, new ArrayList<>(this.players), this.square);
   }
 
   @Override
