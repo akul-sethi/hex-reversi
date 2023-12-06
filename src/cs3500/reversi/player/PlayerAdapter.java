@@ -7,6 +7,7 @@ import cs3500.provider.IPlayer;
 import cs3500.provider.model.Hexagon;
 import cs3500.provider.model.HexagonState;
 import cs3500.reversi.controller.InputObserver;
+import cs3500.reversi.model.AdapterUtils;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
 public class PlayerAdapter implements IPlayer, Player {
@@ -15,6 +16,11 @@ public class PlayerAdapter implements IPlayer, Player {
   public PlayerAdapter(Player player) {
     Objects.requireNonNull(player);
     this.delegate = player;
+  }
+
+  public PlayerAdapter(IPlayer p) {
+    Objects.requireNonNull(p);
+    this.delegate = AdapterUtils.hexagonStateToPlayer(p.getHexagonState());
   }
   @Override
   public void startTurn(ReadOnlyReversiModel model) {

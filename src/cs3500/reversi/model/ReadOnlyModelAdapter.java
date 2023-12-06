@@ -96,7 +96,17 @@ public class ReadOnlyModelAdapter implements IReadonlyReversiModel, ReadOnlyReve
     if(!coordExists(cube)) {
       return false;
     }
+    Hexagon left = AdapterUtils.cubeCoordToHexagon(new Row(0, Direction.LEFT, cube).next());
+    Hexagon upLeft = AdapterUtils.cubeCoordToHexagon(new Row(0, Direction.UP_LEFT, cube).next());
+    Hexagon upRight = AdapterUtils.cubeCoordToHexagon(new Row(0, Direction.UP_RIGHT, cube).next());
+    Hexagon right = AdapterUtils.cubeCoordToHexagon(new Row(0, Direction.RIGHT, cube).next());
+    Hexagon downRight = AdapterUtils.cubeCoordToHexagon(new Row(0, Direction.DOWN_RIGHT, cube).next());
+    Hexagon downLeft = AdapterUtils.cubeCoordToHexagon(new Row(0, Direction.DOWN_LEFT, cube).next());
 
+
+    return this.isHexagonInCorner(left) || this.isHexagonInCorner(upLeft) ||
+            this.isHexagonInCorner(upRight) || this.isHexagonInCorner(right) ||
+            this.isHexagonInCorner(downRight) || this.isHexagonInCorner(downLeft);
   }
 
   
@@ -143,56 +153,56 @@ public class ReadOnlyModelAdapter implements IReadonlyReversiModel, ReadOnlyReve
 
   @Override
   public boolean validMove(LinearCoord coord) {
-    return false;
+    return this.delegate.validMove(coord);
   }
 
   @Override
   public PlayerAdapter getWinner() {
-    return null;
+    return this.delegate.getWinner();
   }
 
   @Override
   public boolean gameOver() {
-    return false;
+    return this.delegate.gameOver();
   }
 
   @Override
   public Player playerAt(LinearCoord coord) {
-    return null;
+    return this.delegate.playerAt(coord);
   }
 
   @Override
   public int getRightCol() {
-    return 0;
+    return this.delegate.getRightCol();
   }
 
   @Override
   public int getLeftCol() {
-    return 0;
+    return this.delegate.getLeftCol();
   }
 
   @Override
   public int getTopRow() {
-    return 0;
+    return this.delegate.getTopRow();
   }
 
   @Override
   public int getBottomRow() {
-    return 0;
+    return this.delegate.getBottomRow();
   }
 
   @Override
   public ReversiModel getModel() {
-    return null;
+    return this.delegate.getModel();
   }
 
   @Override
   public int getPlayerScore(Player player) {
-    return 0;
+    return this.delegate.getPlayerScore(player);
   }
 
   @Override
   public Player nextToPlay() {
-    return null;
+    return this.delegate.nextToPlay();
   }
 }
