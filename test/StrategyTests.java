@@ -30,7 +30,7 @@ public class StrategyTests {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
             6, new MachinePlayer(Name.X, new CaptureMaxStrategy()), new MachinePlayer(
                     Name.O, new CaptureMaxStrategy()));
-    ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
+    ReversiView textView = new TextReversiView(basicModel, emptyBuilder, false);
     basicModel.startGame();
     CompleteReversiStrategyFromFallible captureMax =
             new CompleteReversiStrategyFromFallible(new CaptureMaxStrategy());
@@ -137,7 +137,7 @@ public class StrategyTests {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
             6, new MachinePlayer(Name.X, new CaptureCornersStrategy()),
             new MachinePlayer(Name.O, new CaptureCornersStrategy()));
-    ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
+    ReversiView textView = new TextReversiView(basicModel, emptyBuilder, false);
     basicModel.startGame();
     CompleteReversiStrategyFromFallible captureCorners =
             new CompleteReversiStrategyFromFallible(new CaptureCornersStrategy());
@@ -595,7 +595,7 @@ public class StrategyTests {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
             6, new MachinePlayer(Name.X, new AvoidNextToCornersStrategy()),
             new MachinePlayer(Name.O, new AvoidNextToCornersStrategy()));
-    ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
+    ReversiView textView = new TextReversiView(basicModel, emptyBuilder, false);
     basicModel.startGame();
     CompleteReversiStrategyFromFallible avoidCorners =
             new CompleteReversiStrategyFromFallible(new AvoidNextToCornersStrategy());
@@ -866,7 +866,7 @@ public class StrategyTests {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
             6, new MachinePlayer(Name.X, new MiniMaxStrategy()),
             new MachinePlayer(Name.O, new MiniMaxStrategy()));
-    ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
+    ReversiView textView = new TextReversiView(basicModel, emptyBuilder, false);
     basicModel.startGame();
     CompleteReversiStrategyFromFallible miniMax =
             new CompleteReversiStrategyFromFallible(new MiniMaxStrategy());
@@ -1141,7 +1141,7 @@ public class StrategyTests {
     Player captureMaxPlayer = new MachinePlayer(Name.O, new CaptureMaxStrategy());
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
             6, superPlayer, captureMaxPlayer);
-    ReversiView textView = new TextReversiView(basicModel, emptyBuilder);
+    ReversiView textView = new TextReversiView(basicModel, emptyBuilder, false);
     basicModel.startGame();
     CompleteReversiStrategyFromFallible captureMax =
             new CompleteReversiStrategyFromFallible(new CaptureMaxStrategy());

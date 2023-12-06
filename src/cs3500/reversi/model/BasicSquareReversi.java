@@ -9,21 +9,24 @@ import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
 
+/**
+ * A concrete basic square implementation of a ReversiModel.
+ */
 public class BasicSquareReversi extends AReversiModel {
   /**
-   * Creates a BasicReversi with the given arguments.
+   * Creates a BasicSquareReversi with the given arguments.
    *
    * @param sideLength The side length of the board.
    * @param one        The first player to move. Can be AI or Human.
    * @param two        The second player to move. Can be AI or Human.
    */
-  BasicSquareReversi(int sideLength, Player one, Player two) {
+  public BasicSquareReversi(int sideLength, Player one, Player two) {
     super(makeBoard(sideLength),
-            Arrays.asList(one, two), false);
+            Arrays.asList(one, two), true);
   }
 
-  BasicSquareReversi(HashMap<LinearCoord, Player> map, List<Player> players) {
-    super(map, players, false);
+  public BasicSquareReversi(HashMap<LinearCoord, Player> map, List<Player> players) {
+    super(map, players, true);
   }
 
 
@@ -35,20 +38,16 @@ public class BasicSquareReversi extends AReversiModel {
     if (sideLength < 2) {
       throw new IllegalArgumentException("Side length too small");
     }
+    if (sideLength % 2 != 0) {
+      throw new IllegalArgumentException("Side length must be even!");
+    }
     HashMap<LinearCoord, Player> tiles = new HashMap<>();
-    int qStart = 1;
-    for (int r = -(sideLength - 1); r <= 0; r++) {
-      qStart -= 1;
-      for (int q = qStart; q < sideLength; q++) {
-        tiles.put(new CubeCoord(q, r, -q - r), null);
+    for (int r = 0; r < sideLength; r += 1) {
+      for (int c = 0; c < sideLength; c += 1) {
+        tiles.put(new BasicPoint(r, c), null);
       }
     }
-    for (int r = 1; r <= sideLength - 1; r++) {
-      for (int q = qStart; q < sideLength - r; q++) {
-        tiles.put(new CubeCoord(q, r, -q - r), null);
-      }
-    }
-    placeStarting(tiles);
+    placeStarting(tiles, sideLength);
     return tiles;
   }
 
@@ -57,11 +56,12 @@ public class BasicSquareReversi extends AReversiModel {
    *
    * @param tiles The board on which to place the tiles.
    */
-  private static void placeStarting(HashMap<LinearCoord, Player> tiles) {
-    tiles.put(new BasicPoint(0, 1), new HumanPlayer(Name.X));
-    tiles.put(new BasicPoint(-1, 1), new HumanPlayer(Name.X));
-    tiles.put(new BasicPoint(0, 0), new HumanPlayer(Name.X));
-    tiles.put(new BasicPoint(-1, 0), new HumanPlayer(Name.X));
+  private static void placeStarting(HashMap<LinearCoord, Player> tiles, int sideLength) {
+    int m = sideLength / 2;
+    tiles.put(new BasicPoint(m - 1, m), new HumanPlayer(Name.O));
+    tiles.put(new BasicPoint(m - 1, m - 1), new HumanPlayer(Name.X));
+    tiles.put(new BasicPoint(m, m - 1), new HumanPlayer(Name.O));
+    tiles.put(new BasicPoint(m, m), new HumanPlayer(Name.X));
   }
 
   @Override

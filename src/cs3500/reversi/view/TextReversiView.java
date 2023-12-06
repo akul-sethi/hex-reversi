@@ -1,5 +1,6 @@
 package cs3500.reversi.view;
 
+import java.awt.*;
 import java.io.IOException;
 
 import javax.swing.KeyStroke;
@@ -22,17 +23,20 @@ public final class TextReversiView implements ReversiView {
   //appendable to append rendering to
   private final Appendable appendable;
 
+  private boolean square;
+
   /**
    * The constructor.
    *
    * @param model      a Reversi Model passed in.
    * @param appendable an appendable to render output to.
    */
-  public TextReversiView(ReversiModel model, Appendable appendable) {
+  public TextReversiView(ReversiModel model, Appendable appendable, Boolean square) {
     assert model != null;
     assert appendable != null;
     this.model = model;
     this.appendable = appendable;
+    this.square = square;
   }
 
   /**
@@ -78,38 +82,64 @@ public final class TextReversiView implements ReversiView {
    */
   @Override
   public String toString() {
-    int top = this.model.getTopRow();
-    int bottom = this.model.getBottomRow();
-    String rendering = "";
-    for (int row = top; row < bottom + 1; row += 1) {
-      boolean oddRow = row % 2 != 0;
-      if (oddRow) {
-        rendering += " ";
+    String rendering;
+    if (this.square) {
+      int top = this.model.getRightCol();
+      rendering = "";
+      for (int row = 0; row < top + 1; row += 1) {
+        rendering += renderRow(row) + "\n";
       }
-      rendering += renderRow(row) + "\n";
+      return rendering;
+    } else {
+      int top = this.model.getTopRow();
+      int bottom = this.model.getBottomRow();
+      rendering = "";
+      for (int row = top; row < bottom + 1; row += 1) {
+        boolean oddRow = row % 2 != 0;
+        if (oddRow) {
+          rendering += " ";
+        }
+        rendering += renderRow(row) + "\n";
+      }
     }
     return rendering;
   }
 
   //Renders a single row of the board.
   private String renderRow(int row) {
-    int right = this.model.getRightCol();
-    int left = this.model.getLeftCol();
-    String rowString = "";
-    for (int col = left; col < right + 1; col += 1) {
-      try {
-        Player chipInPos = this.model.playerAt(new BasicPoint(row, col));
-        if (chipInPos == null) {
-          rowString += "- ";
-        } else {
-          rowString += chipInPos + " ";
+    String rowString;
+    if (this.square) {
+      int right = this.model.getRightCol();
+      rowString = "";
+      for (int col = 0; col < right + 1; col += 1) {
+        try {
+          Player chipInPos = this.model.playerAt(new BasicPoint(row, col));
+          if (chipInPos == null) {
+            rowString += "- ";
+          } else {
+            rowString += chipInPos + " ";
+          }
+        } catch (IllegalArgumentException e) {
+          rowString += "  ";
         }
-      } catch (IllegalArgumentException e) {
-        rowString += "  ";
+      }
+    } else {
+      int right = this.model.getRightCol();
+      int left = this.model.getLeftCol();
+      rowString = "";
+      for (int col = left; col < right + 1; col += 1) {
+        try {
+          Player chipInPos = this.model.playerAt(new BasicPoint(row, col));
+          if (chipInPos == null) {
+            rowString += "- ";
+          } else {
+            rowString += chipInPos + " ";
+          }
+        } catch (IllegalArgumentException e) {
+          rowString += "  ";
+        }
       }
     }
-
     return rowString;
-
   }
 }

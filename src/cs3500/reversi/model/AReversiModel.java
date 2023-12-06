@@ -42,7 +42,7 @@ abstract class AReversiModel implements ReversiModel {
   private boolean gameOver;
   private boolean gameStarted;
   protected final List<ModelObserver> observers;
-  private boolean square;
+  private final boolean square;
 
   /**
    * Constructs abstract reversi model. In concrete implementations new board shapes with starting
@@ -130,7 +130,12 @@ abstract class AReversiModel implements ReversiModel {
         for (LinearCoord c : r.getCoordsInRow()) {
           this.tiles.put(c, this.players.peek());
         }
-        this.tiles.put(new CubeCoord(row, column), this.players.peek());
+        if (square) {
+          this.tiles.put(new BasicPoint(row, column), this.players.peek());
+        }
+        else {
+          this.tiles.put(new CubeCoord(row, column), this.players.peek());
+        }
         noGoodRows = false;
       }
     }
@@ -143,7 +148,12 @@ abstract class AReversiModel implements ReversiModel {
 
   @Override
   public Player playerAt(LinearCoord coord) throws IllegalArgumentException {
-    return playerAt(new CubeCoord(coord.row(), coord.column()));
+    if (this.square) {
+      return playerAtHelp(new BasicPoint(coord.row(), coord.column()));
+    }
+    else {
+      return playerAtHelp(new CubeCoord(coord.row(), coord.column()));
+    }
   }
 
   /**
@@ -153,7 +163,7 @@ abstract class AReversiModel implements ReversiModel {
    * @return The player at the coordinate, null if nobody is there.
    * @throws IllegalArgumentException If coordinate doesn't exist.
    */
-  private Player playerAt(CubeCoord coordinate) throws IllegalArgumentException {
+  private Player playerAtHelp(LinearCoord coordinate) throws IllegalArgumentException {
     if (!this.tiles.containsKey(coordinate)) {
       throw new IllegalArgumentException("Coordinates do not exist");
     }
@@ -172,8 +182,13 @@ abstract class AReversiModel implements ReversiModel {
    */
   private List<Row> getRadiatingRows(int row, int column) throws IllegalStateException,
           IllegalArgumentException {
-    CubeCoord move = new CubeCoord(row, column);
-
+    LinearCoord move;
+    if (square) {
+      move = new BasicPoint(row, column);
+    }
+    else {
+       move = new CubeCoord(row, column);
+    }
     if (!validCoord(move)) {
       throw new IllegalArgumentException("Invalid coordinate");
     }
@@ -265,7 +280,12 @@ abstract class AReversiModel implements ReversiModel {
 
   //returns true if given coordinate exists in tiles.
   private boolean validCoord(LinearCoord coordinate) {
-    return this.tiles.containsKey(coordinate);
+    if (square) {
+      return this.tiles.containsKey(new BasicPoint(coordinate.row(), coordinate.column()));
+    }
+    else {
+      return this.tiles.containsKey(coordinate);
+    }
   }
 
   @Override

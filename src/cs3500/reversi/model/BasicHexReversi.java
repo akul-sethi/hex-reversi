@@ -13,16 +13,16 @@ import cs3500.reversi.player.Player;
  * A concrete implementation of a ReversiModel as described in the Overview section of the
  * README.txt.
  */
-final class BasicHexReversi extends AReversiModel {
+public final class BasicHexReversi extends AReversiModel {
 
   /**
-   * Creates a BasicReversi with the given arguments.
+   * Creates a BasicHexReversi with the given arguments.
    *
    * @param sideLength The side length of the board.
    * @param one        The first player to move. Can be AI or Human.
    * @param two        The second player to move. Can be AI or Human.
    */
-  BasicHexReversi(int sideLength, Player one, Player two) {
+  public BasicHexReversi(int sideLength, Player one, Player two) {
     super(makeBoard(sideLength),
             Arrays.asList(one, two), false);
   }
