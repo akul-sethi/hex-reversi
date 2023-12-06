@@ -9,7 +9,6 @@ import cs3500.provider.strategy.IReversiStrategy;
 import cs3500.reversi.model.AdapterUtils;
 import cs3500.reversi.model.CubeCoord;
 import cs3500.reversi.model.LinearCoord;
-import cs3500.reversi.model.ModelAdapter;
 import cs3500.reversi.model.ReadOnlyModelAdapter;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.player.Player;
@@ -18,7 +17,7 @@ import cs3500.reversi.player.PlayerAdapter;
 public class FallibleStrategyAdapter implements FallibleReversiStrategy{
 
   private final IReversiStrategy delegate;
-  FallibleStrategyAdapter(IReversiStrategy adaptee) {
+  public FallibleStrategyAdapter(IReversiStrategy adaptee) {
     this.delegate = adaptee;
   }
 

@@ -4,6 +4,7 @@ import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
+import cs3500.reversi.player.PlayerAdapter;
 
 /**
  * A mock implementation of a ReversiModel which throws an error any time someone tries to pass or
@@ -19,8 +20,8 @@ public class FakeDataThrowingMockModel implements ReversiModel {
   }
 
   @Override
-  public Player getWinner() {
-    return new HumanPlayer(Name.X);
+  public PlayerAdapter getWinner() {
+    return new PlayerAdapter(new HumanPlayer(Name.X));
   }
 
   @Override
