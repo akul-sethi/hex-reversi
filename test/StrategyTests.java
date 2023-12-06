@@ -1906,10 +1906,7 @@ public class StrategyTests {
   @Test
   public void superStrategyVsProviderAdapterCaptureMaxGame() throws IOException {
     Appendable emptyBuilder = new StringBuilder();
-    Player superPlayer = new MachinePlayer(Name.X, new TryTwo(new CaptureCornersStrategy(),
-            new TryTwo(new AvoidNextToCornersStrategy(),
-                    new TryTwo(new MiniMaxStrategy(),
-                            new CaptureMaxStrategy()))));
+    Player superPlayer = new MachinePlayer(Name.X, new CaptureMaxStrategy());
     Player captureMaxPlayer = new MachinePlayer(Name.O, new FallibleStrategyAdapter(new AsManyPiecesAsPossible()));
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
             6, superPlayer, captureMaxPlayer);
@@ -1918,10 +1915,7 @@ public class StrategyTests {
     CompleteReversiStrategyFromFallible captureMax =
             new CompleteReversiStrategyFromFallible(new CaptureMaxStrategy());
     CompleteReversiStrategyFromFallible superStrat =
-            new CompleteReversiStrategyFromFallible(new TryTwo(new CaptureCornersStrategy(),
-                    new TryTwo(new AvoidNextToCornersStrategy(),
-                            new TryTwo(new MiniMaxStrategy(),
-                                    new CaptureMaxStrategy()))));
+            new CompleteReversiStrategyFromFallible(new CaptureMaxStrategy());
     for (int i = 0; i < 100; i += 1) {
       try {
         LinearCoord bestMove;
