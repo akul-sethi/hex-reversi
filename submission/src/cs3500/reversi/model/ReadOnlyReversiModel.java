@@ -1,6 +1,7 @@
 package cs3500.reversi.model;
 
 import cs3500.reversi.player.Player;
+import cs3500.reversi.player.PlayerAdapter;
 
 /**
  * Represents an interface for making observations on ReversiModels. Masks all behavior of the model

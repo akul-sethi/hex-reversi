@@ -4,20 +4,32 @@ package cs3500.reversi;
 import java.util.HashMap;
 import java.util.function.Function;
 
+import javax.swing.*;
+
+import cs3500.provider.model.Hexagon;
+import cs3500.provider.model.HexagonState;
+import cs3500.provider.strategy.AsManyPiecesAsPossible;
+import cs3500.provider.strategy.AvoidNextToCorners;
+import cs3500.provider.strategy.GoForCorners;
+import cs3500.provider.view.IReversiView;
 import cs3500.reversi.controller.BasicReversiController;
 import cs3500.reversi.model.GameType;
+import cs3500.reversi.model.ReadOnlyModelAdapter;
 import cs3500.reversi.model.ReversiCreator;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.MachinePlayer;
 import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
+import cs3500.reversi.player.PlayerAdapter;
 import cs3500.reversi.strategy.AvoidNextToCornersStrategy;
 import cs3500.reversi.strategy.CaptureCornersStrategy;
 import cs3500.reversi.strategy.CaptureMaxStrategy;
+import cs3500.reversi.strategy.FallibleStrategyAdapter;
 import cs3500.reversi.strategy.MiniMaxStrategy;
 import cs3500.reversi.view.GUIReversiView;
 import cs3500.reversi.view.ReversiView;
+import cs3500.reversi.view.TwoWayViewAdapter;
 
 /**
  * Entry point to a game of Reversi game is played by provided two command line arguments describing
@@ -31,6 +43,11 @@ import cs3500.reversi.view.ReversiView;
  * avoid-corners -> A machine player which tries to avoid the spots next to a corner on its turn
  * minimax -> A machine player which tries to minimize the max capture the opponent can do on its
  * turn.
+ * provider-capture-max -> A machine player which follows the strategy of capturing the max number
+ * of pieces on its turn.
+ * provider-corners -> A machine player which follows the strategy of capturing the corners.
+ * provider-avoid-corners -> A machine player which follows the strategy of avoiding the spots
+ * next to corners.
  */
 public final class Reversi {
   /**
@@ -48,9 +65,15 @@ public final class Reversi {
     playerTypes.put("human", (name) -> new HumanPlayer(name));
     playerTypes.put("capture-max", (name) -> new MachinePlayer(name, new CaptureMaxStrategy()));
     playerTypes.put("corners", (name) -> new MachinePlayer(name, new CaptureCornersStrategy()));
-    playerTypes.put("avoid-corners", (name) -> new MachinePlayer(name,
+    playerTypes.put("avoid-near-corners", (name) -> new MachinePlayer(name,
             new AvoidNextToCornersStrategy()));
     playerTypes.put("minimax", (name) -> new MachinePlayer(name, new MiniMaxStrategy()));
+    playerTypes.put("provider-capture-max", (name) -> new MachinePlayer(name,
+            new FallibleStrategyAdapter(new AsManyPiecesAsPossible())));
+    playerTypes.put("provider-corners", (name) -> new MachinePlayer(name,
+            new FallibleStrategyAdapter(new GoForCorners())));
+    playerTypes.put("provider-avoid-corners", (name) -> new MachinePlayer(name,
+            new FallibleStrategyAdapter(new AvoidNextToCorners())));
   }
 
   /**
@@ -69,9 +92,15 @@ public final class Reversi {
 
     ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView view1 = new GUIReversiView(model, "Player 1");
-    ReversiView view2 = new GUIReversiView(model, "Player 2");
+
+    //PROVIDER VIEW SETUP
+    IReversiView view2 = new cs3500.provider.view.ReversiView(new ReadOnlyModelAdapter(model));
+    view2.setHotKey(KeyStroke.getKeyStroke("typed m"), "movePlay");
+    view2.setHotKey(KeyStroke.getKeyStroke("typed p"), "movePass");
+    view2.setTitle(HexagonState.WHITE);
+
     BasicReversiController controller1 = new BasicReversiController(p1, view1, model);
-    BasicReversiController controller2 = new BasicReversiController(p2, view2, model);
+    BasicReversiController controller2 = new BasicReversiController(p2, new TwoWayViewAdapter(view2), model);
     model.startGame();
   }
 

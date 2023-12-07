@@ -39,7 +39,7 @@ public class CompleteReversiStrategyFromFallible implements InfallibleReversiStr
     testModel.startGame();
     Optional<ArrayList<LinearCoord>> maybeAns = this.strategyToTry.chooseMove(testModel, forWhom,
             new ArrayList<>());
-    if (maybeAns.isPresent()) {
+    if (maybeAns.isPresent() && !maybeAns.get().isEmpty()) {
       return maybeAns.get().get(0);
     }
     throw new IllegalStateException("The strategy given can't come up with a move!");

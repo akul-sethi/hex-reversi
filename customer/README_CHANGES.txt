@@ -1,0 +1,1 @@
+There were no changes the customer requested from us and so we did not change anything.

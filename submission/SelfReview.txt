@@ -34,5 +34,5 @@ requests from customers.
  requests to them. First, their model interview exposed a large concrete class which we did not have
  access to, so we requested that their provide us with an interface describing the object so that we
  could create an adapter or object for it. They provided us with this very quicky. However, we then
- asked that they change their code so that it used this interface rather than the old object which
- they did.
+ asked that they change their code so that it used this interface rather than the old object. They
+ have not yet responded. 

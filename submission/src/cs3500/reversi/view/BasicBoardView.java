@@ -19,6 +19,7 @@ import javax.swing.AbstractAction;
 
 import cs3500.reversi.controller.InputObserver;
 import cs3500.reversi.model.BasicPoint;
+import cs3500.reversi.model.CubeCoord;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
@@ -116,7 +117,8 @@ class BasicBoardView extends JPanel implements BoardView {
           this.at.inverseTransform(e.getPoint(), transformedPoint);
           if (t.hex.contains(transformedPoint)) {
             this.previewMove(row, column);
-
+            System.out.println(new CubeCoord(row+model.getTopRow()
+                    , column+model.getLeftCol()));
           }
         } catch (NoninvertibleTransformException exc) {
           // Cannot happen due to our transform

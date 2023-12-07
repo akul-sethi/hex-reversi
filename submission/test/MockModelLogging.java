@@ -2,6 +2,7 @@ import cs3500.reversi.controller.ModelObserver;
 import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.player.Player;
+import cs3500.reversi.player.PlayerAdapter;
 
 /**
  * A mock implementation of a ReversiModel which logs all inputs made to it. Necessary to test

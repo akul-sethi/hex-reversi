@@ -11,6 +11,7 @@ import java.util.Queue;
 
 import cs3500.reversi.controller.ModelObserver;
 import cs3500.reversi.player.Player;
+import cs3500.reversi.player.PlayerAdapter;
 
 /**
  * An abstract representation of a reversi board allowing for games to be played with different

@@ -56,6 +56,7 @@ public class ReversiExamples {
   public void basicGameTestSimpleMove() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
+    basicModel.startGame();
     basicModel.placePiece(new BasicPoint(-1, 1));
     textRV.render();
     Assert.assertEquals("     - - - - - -       \n" +
@@ -75,6 +76,7 @@ public class ReversiExamples {
   public void basicGameTestTwoMoves() throws IOException {
     ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder());
+    basicModel.startGame();
     basicModel.placePiece(new BasicPoint(-1, 1));
     basicModel.placePiece(new BasicPoint(-1, 2));
     textRV.render();

@@ -4,7 +4,7 @@ package cs3500.reversi.model;
  * Represents a Cube coordinate in hexagonal boards. This makes it easier to see which coordinates
  * are in a row as compared to offset coordinates.
  */
-final class CubeCoord implements LinearCoord {
+public final class CubeCoord implements LinearCoord {
   //Fields are public as they must exist by definition of the class.
   public final int q;
   public final int r;
@@ -33,7 +33,7 @@ final class CubeCoord implements LinearCoord {
    * @param row    The row of this coordinate.
    * @param column The column of this coordinate.
    */
-  CubeCoord(int row, int column) {
+  public CubeCoord(int row, int column) {
     this.q = column - (row - (row & 1)) / 2;
     this.r = row;
     this.s = -this.q - this.r;
@@ -66,5 +66,9 @@ final class CubeCoord implements LinearCoord {
    */
   public int column() {
     return this.q + (this.r - (this.r & 1)) / 2;
+  }
+
+  public String toString(){
+    return "(" + this.q + ", " + this.s + ", " + this.r + ")";
   }
 }

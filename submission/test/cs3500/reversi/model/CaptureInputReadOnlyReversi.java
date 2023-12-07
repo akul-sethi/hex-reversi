@@ -11,6 +11,7 @@ import cs3500.reversi.controller.ModelObserver;
 import cs3500.reversi.player.HumanPlayer;
 import cs3500.reversi.player.Name;
 import cs3500.reversi.player.Player;
+import cs3500.reversi.player.PlayerAdapter;
 
 /**
  * A mock implementation of reversi. Used to tests for mutability.
