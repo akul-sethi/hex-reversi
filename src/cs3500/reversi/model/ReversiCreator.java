@@ -24,15 +24,24 @@ public final class ReversiCreator {
     //WRITTEN AS IF STATEMENT FOR COMPLIANCE WITH STYlE GUIDE!
     //WILL CHANGE TO SWITCH STATEMENT IN FUTURE
     if (Objects.requireNonNull(type) == GameType.BASIC) {
-      if (params.length != 3 && params.length != 1) {
+      if (params.length != 4 && params.length != 2) {
         throw new IllegalArgumentException("Incorrect num params");
       }
-      if (params.length == 1) {
-        return new BasicHexReversi((Integer) params[0], new HumanPlayer(Name.X),
-                new HumanPlayer(Name.O));
+      if (params.length == 2) {
+        if (params[0].equals("hex")) {
+          return new BasicHexReversi((Integer) params[1], new HumanPlayer(Name.X),
+                  new HumanPlayer(Name.O));
+        } else if (params[0].equals("square")) {
+          return new BasicSquareReversi((Integer) params[1], new HumanPlayer(Name.X),
+                  new HumanPlayer(Name.O));
+        }
       }
-      if (params.length == 3) {
-        return new BasicHexReversi((Integer) params[0], (Player) params[1], (Player) params[2]);
+      if (params.length == 4) {
+        if (params[0].equals("hex")) {
+          return new BasicHexReversi((Integer) params[1], (Player) params[2], (Player) params[3]);
+        } else if (params[0].equals("square")) {
+          return new BasicSquareReversi((Integer) params[1], (Player) params[2], (Player) params[3]);
+        }
       }
     }
     throw new IllegalArgumentException("Something incorrect was provided");

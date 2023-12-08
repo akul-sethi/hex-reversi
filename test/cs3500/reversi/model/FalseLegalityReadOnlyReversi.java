@@ -89,23 +89,23 @@ public class FalseLegalityReadOnlyReversi implements ReadOnlyReversiModel {
     List<Row> directions;
     if (this.square) {
       directions = Arrays.asList(
-              new Row(0, SquareDirection.UP_RIGHT, move, true),
-              new Row(0, SquareDirection.RIGHT, move, true),
-              new Row(0, SquareDirection.DOWN_RIGHT, move, true),
-              new Row(0, SquareDirection.DOWN_LEFT, move, true),
-              new Row(0, SquareDirection.LEFT, move, true),
-              new Row(0, SquareDirection.UP_LEFT, move, true),
-              new Row(0, SquareDirection.UP, move, true),
-              new Row(0, SquareDirection.DOWN, move, true));
+              new Row(0, SquareDirection.UP_RIGHT, move),
+              new Row(0, SquareDirection.RIGHT, move),
+              new Row(0, SquareDirection.DOWN_RIGHT, move),
+              new Row(0, SquareDirection.DOWN_LEFT, move),
+              new Row(0, SquareDirection.LEFT, move),
+              new Row(0, SquareDirection.UP_LEFT, move),
+              new Row(0, SquareDirection.UP, move),
+              new Row(0, SquareDirection.DOWN, move));
     }
     else {
       directions = Arrays.asList(
-              new Row(0, HexDirection.UP_RIGHT, move, false),
-              new Row(0, HexDirection.RIGHT, move, false),
-              new Row(0, HexDirection.DOWN_RIGHT, move, false),
-              new Row(0, HexDirection.DOWN_LEFT, move, false),
-              new Row(0, HexDirection.LEFT, move, false),
-              new Row(0, HexDirection.UP_LEFT, move, false));
+              new Row(0, HexDirection.UP_RIGHT, move),
+              new Row(0, HexDirection.RIGHT, move),
+              new Row(0, HexDirection.DOWN_RIGHT, move),
+              new Row(0, HexDirection.DOWN_LEFT, move),
+              new Row(0, HexDirection.LEFT, move),
+              new Row(0, HexDirection.UP_LEFT, move));
     }
     for (Row r : directions) {
       while (validCoord(r.next()) &&

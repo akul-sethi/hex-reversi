@@ -17,13 +17,14 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 
 import cs3500.reversi.controller.InputObserver;
+import cs3500.reversi.model.GameType;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
 /**
  * A concrete implementation of a view which has a GUI and a board which supports previewing.
  */
 public final class GUIReversiView extends JFrame implements ReversiView {
-  private BasicBoardView board;
+  private final ABoardView board;
   private Optional<String> name;
 
   /**
@@ -41,7 +42,7 @@ public final class GUIReversiView extends JFrame implements ReversiView {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     this.setLayout(new BorderLayout());
-    BasicBoardView basic = new BasicBoardView(m);
+    ABoardView basic = new HexBoardView(m);
     this.board = basic;
     add(basic, BorderLayout.CENTER);
 
@@ -52,12 +53,34 @@ public final class GUIReversiView extends JFrame implements ReversiView {
     pack();
   }
 
-
   /**
    * Creates a view with a given name indicating who the view represents.
    */
-  public GUIReversiView(ReadOnlyReversiModel model, String name) {
-    this(model);
+  public GUIReversiView(ReadOnlyReversiModel model, String name, GameType type) {
+    super("Reversi");
+    Objects.requireNonNull(model);
+
+    setSize(500, 300);
+    setLocation(200, 200);
+    setResizable(false);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    this.setLayout(new BorderLayout());
+    if (type.equals(GameType.SQUARE)) {
+      ABoardView basic = new SquareBoardView(model);
+      this.board = basic;
+      add(basic, BorderLayout.CENTER);
+    }
+    else {
+      ABoardView basic = new HexBoardView(model);
+      this.board = basic;
+      add(basic, BorderLayout.CENTER);
+    }
+
+    this.setHotKey(KeyStroke.getKeyStroke("typed p"), "pass");
+    this.setHotKey(KeyStroke.getKeyStroke("typed m"), "moveHere");
+
+    pack();
     Font font = new Font("SansSerif", Font.BOLD, 20);
     JLabel label = new JLabel(name, SwingConstants.CENTER);
     label.setFont(font);

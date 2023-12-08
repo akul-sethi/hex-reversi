@@ -9,9 +9,9 @@ enum HexDirection implements Direction {
   DOWN_RIGHT(0, 1, -1), DOWN_LEFT(-1, 1, 0),
   LEFT(-1, 0, 1), UP_LEFT(0, -1, 1);
 
-  public final int deltaQ;
-  public final int deltaS;
-  public final int deltaR;
+  private final int deltaQ;
+  private final int deltaS;
+  private final int deltaR;
 
   /**
    * Creates a Direction object using the given deltas.
@@ -24,5 +24,23 @@ enum HexDirection implements Direction {
     this.deltaQ = deltaQ;
     this.deltaR = deltaR;
     this.deltaS = deltaS;
+  }
+
+  /**
+   * The number of dimensions the direction is represented in. How many axes it has.
+   *
+   * @return The number of axes needed to represent this direction.
+   */
+  @Override
+  public int numDimensions() {
+    return 3;
+  }
+
+  /**
+   * @return
+   */
+  @Override
+  public int[] changeByAxes() {
+    return new int[]{this.deltaQ, this.deltaR, this.deltaS};
   }
 }

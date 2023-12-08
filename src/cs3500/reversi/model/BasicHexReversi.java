@@ -24,11 +24,11 @@ public final class BasicHexReversi extends AReversiModel {
    */
   public BasicHexReversi(int sideLength, Player one, Player two) {
     super(makeBoard(sideLength),
-            Arrays.asList(one, two), false);
+            Arrays.asList(one, two), List.of(HexDirection.values()));
   }
 
   BasicHexReversi(HashMap<LinearCoord, Player> map, List<Player> players) {
-    super(map, players, false);
+    super(map, players, List.of(HexDirection.values()));
   }
 
 

@@ -42,7 +42,7 @@ abstract class AReversiModel implements ReversiModel {
   private boolean gameOver;
   private boolean gameStarted;
   protected final List<ModelObserver> observers;
-  private final boolean notCube;
+  private final List<Direction> directions;
 
   /**
    * Constructs abstract reversi model. In concrete implementations new board shapes with starting
@@ -53,7 +53,7 @@ abstract class AReversiModel implements ReversiModel {
    *                starting position.
    * @param players The list of players that will be in the game.
    */
-  protected AReversiModel(HashMap<LinearCoord, Player> tiles, List<Player> players, boolean notCube) {
+  protected AReversiModel(HashMap<LinearCoord, Player> tiles, List<Player> players, List<Direction> directions) {
     if (players.size() <= 1) {
       throw new IllegalArgumentException("Length of players must be greater than 1");
     }
@@ -67,7 +67,7 @@ abstract class AReversiModel implements ReversiModel {
     this.players = new LinkedList<>();
     this.players.addAll(players);
     this.observers = new ArrayList<>();
-    this.notCube = notCube;
+    this.directions = List.copyOf(directions);
   }
 
   @Override
@@ -130,12 +130,7 @@ abstract class AReversiModel implements ReversiModel {
         for (LinearCoord c : r.getCoordsInRow()) {
           this.tiles.put(c, this.players.peek());
         }
-        if (notCube) {
-          this.tiles.put(new BasicPoint(row, column), this.players.peek());
-        }
-        else {
-          this.tiles.put(new CubeCoord(row, column), this.players.peek());
-        }
+        this.tiles.put(new CubeCoord(row, column), this.players.peek());
         noGoodRows = false;
       }
     }
@@ -148,12 +143,7 @@ abstract class AReversiModel implements ReversiModel {
 
   @Override
   public Player playerAt(LinearCoord coord) throws IllegalArgumentException {
-    if (this.notCube) {
-      return playerAtHelp(new BasicPoint(coord.row(), coord.column()));
-    }
-    else {
-      return playerAtHelp(new CubeCoord(coord.row(), coord.column()));
-    }
+    return playerAtHelp(new CubeCoord(coord.row(), coord.column()));
   }
 
   /**
@@ -182,41 +172,18 @@ abstract class AReversiModel implements ReversiModel {
    */
   List<Row> getRadiatingRows(int row, int column) throws IllegalStateException,
           IllegalArgumentException {
-    LinearCoord move;
-    if (notCube) {
-      move = new BasicPoint(row, column);
-    }
-    else {
-       move = new CubeCoord(row, column);
-    }
+    LinearCoord move = new CubeCoord(row, column);
     if (!validCoord(move)) {
       throw new IllegalArgumentException("Invalid coordinate");
     }
     if (this.tiles.get(move) != null) {
       throw new IllegalStateException("Someone is already here");
     }
-    List<Row> directions;
-    if (this.notCube) {
-      directions = Arrays.asList(
-              new Row(0, SquareDirection.UP_RIGHT, move, true),
-              new Row(0, SquareDirection.RIGHT, move, true),
-              new Row(0, SquareDirection.DOWN_RIGHT, move, true),
-              new Row(0, SquareDirection.DOWN_LEFT, move, true),
-              new Row(0, SquareDirection.LEFT, move, true),
-              new Row(0, SquareDirection.UP_LEFT, move, true),
-              new Row(0, SquareDirection.UP, move, true),
-              new Row(0, SquareDirection.DOWN, move, true));
+    List<Row> directionRows = new ArrayList<>();
+    for (Direction dir : this.directions) {
+      directionRows.add(new Row(0, dir, move));
     }
-    else {
-      directions = Arrays.asList(
-              new Row(0, HexDirection.UP_RIGHT, move, false),
-              new Row(0, HexDirection.RIGHT, move, false),
-              new Row(0, HexDirection.DOWN_RIGHT, move, false),
-              new Row(0, HexDirection.DOWN_LEFT, move, false),
-              new Row(0, HexDirection.LEFT, move, false),
-              new Row(0, HexDirection.UP_LEFT, move, false));
-    }
-    for (Row r : directions) {
+    for (Row r : directionRows) {
       while (validCoord(r.next()) &&
               playerAt(r.next()) != null &&
               !playerAt(r.next()).equals(this.players.peek())) {
@@ -224,7 +191,7 @@ abstract class AReversiModel implements ReversiModel {
       }
     }
 
-    return directions;
+    return directionRows;
   }
 
   @Override
@@ -280,12 +247,7 @@ abstract class AReversiModel implements ReversiModel {
 
   //returns true if given coordinate exists in tiles.
   private boolean validCoord(LinearCoord coordinate) {
-    if (notCube) {
-      return this.tiles.containsKey(new BasicPoint(coordinate.row(), coordinate.column()));
-    }
-    else {
-      return this.tiles.containsKey(coordinate);
-    }
+    return this.tiles.containsKey(coordinate);
   }
 
   @Override

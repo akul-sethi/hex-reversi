@@ -16,7 +16,6 @@ class Row {
   public int length;
   public Direction direction;
   public LinearCoord start;
-  private final boolean square;
 
   /**
    * Creates a new Row given the following parameters.
@@ -26,28 +25,29 @@ class Row {
    * @param direction The direction of this row.
    * @param start     The starting coordinate in the row. The first endpoint.
    */
-  Row(int length, Direction direction, LinearCoord start, boolean square) {
+  Row(int length, Direction direction, LinearCoord start) {
     this.length = length;
     this.direction = direction;
     this.start = start;
-    this.square = square;
   }
 
   /**
    * Returns the next Coordinate in the row.
    */
   public LinearCoord next() {
-    if (square) {
-      SquareDirection dir = (SquareDirection) this.direction;
-      return new BasicPoint(start.row() + (this.length + 1) * dir.deltaR,
-              start.column() + (this.length + 1) * dir.deltaC);
-    }
-    else {
-      HexDirection dir = (HexDirection) this.direction;
-      CubeCoord start = (CubeCoord) this.start;
-      return new CubeCoord(start.q + (this.length + 1) * dir.deltaQ,
-              start.r + (this.length + 1) * dir.deltaR,
-              start.s + (this.length + 1) * dir.deltaS);
+    int numAxes = this.direction.numDimensions();
+    int[] axes = this.direction.changeByAxes();
+    CubeCoord start = (CubeCoord) this.start;
+    switch (numAxes) {
+      case 2:
+        return new CubeCoord(start.row() + (this.length + 1) * axes[0],
+                start.column() + (this.length + 1) * axes[1]);
+      case 3:
+        return new CubeCoord(start.q + (this.length + 1) * axes[0],
+                start.r + (this.length + 1) * axes[1],
+                start.s + (this.length + 1) * axes[2]);
+      default:
+        throw new IllegalArgumentException("Direction not yet supported!");
     }
   }
 
@@ -57,7 +57,7 @@ class Row {
   public List<LinearCoord> getCoordsInRow() {
     List<LinearCoord> out = new ArrayList<>();
     for (int length = 0; length < this.length; length++) {
-      out.add(new Row(length, this.direction, this.start, this.square).next());
+      out.add(new Row(length, this.direction, this.start).next());
     }
     return out;
   }

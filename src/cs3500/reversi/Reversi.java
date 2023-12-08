@@ -1,6 +1,5 @@
 package cs3500.reversi;
 
-
 import java.util.HashMap;
 import java.util.function.Function;
 
@@ -68,12 +67,20 @@ public final class Reversi {
       return;
     }
 
-    Player p1 = playerTypes.get(args[0]).apply(Name.X);
-    Player p2 = playerTypes.get(args[1]).apply(Name.O);
-
-    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
-    ReversiView view1 = new GUIReversiView(model, "Player 1");
-    ReversiView view2 = new GUIReversiView(model, "Player 2");
+    Player p1 = playerTypes.get(args[1]).apply(Name.X);
+    Player p2 = playerTypes.get(args[2]).apply(Name.O);
+    GameType type = GameType.HEX;
+    int size = 6;
+    if (args[0].equals("hex")) {
+      type = GameType.HEX;
+      size = 6;
+    } else if (args[0].equals("square")) {
+      type = GameType.SQUARE;
+      size = 10;
+    }
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, args[0], size);
+    ReversiView view1 = new GUIReversiView(model, "Player 1", type);
+    ReversiView view2 = new GUIReversiView(model, "Player 2", type);
     BasicReversiController controller1 = new BasicReversiController(p1, view1, model);
     BasicReversiController controller2 = new BasicReversiController(p2, view2, model);
     model.startGame();
@@ -85,12 +92,16 @@ public final class Reversi {
    * Provides error messages to the console depending on the type of error in the input.
    */
   private static boolean correctInputProvided(String[] args) {
-    if (args.length != 2) {
-      System.out.println("Incorrect number of args provided; requires 2");
+    if (args.length != 3) {
+      System.out.println("Incorrect number of args provided; requires game type, and two players");
       return false;
     }
-
-    if (!playerTypes.containsKey(args[0]) || !playerTypes.containsKey(args[1])) {
+    if (!args[0].equals("square") && !args[0].equals("hex")) {
+      System.out.println("Incorrect game type provided. Only accepts the following: \n" +
+              "square\n" + "hex\n");
+      return false;
+    }
+    if (!playerTypes.containsKey(args[1]) || !playerTypes.containsKey(args[2])) {
       System.out.println("Cannot recognize one of the player names provided. Only excepts the " +
               "following: ");
       for (String name : playerTypes.keySet()) {
@@ -98,6 +109,7 @@ public final class Reversi {
       }
       return false;
     }
+
     return true;
   }
 

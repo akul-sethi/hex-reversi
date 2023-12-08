@@ -22,11 +22,11 @@ public class BasicSquareReversi extends AReversiModel {
    */
   public BasicSquareReversi(int sideLength, Player one, Player two) {
     super(makeBoard(sideLength),
-            Arrays.asList(one, two), true);
+            Arrays.asList(one, two), List.of(SquareDirection.values()));
   }
 
   public BasicSquareReversi(HashMap<LinearCoord, Player> map, List<Player> players) {
-    super(map, players, true);
+    super(map, players, List.of(SquareDirection.values()));
   }
 
 
@@ -44,7 +44,7 @@ public class BasicSquareReversi extends AReversiModel {
     HashMap<LinearCoord, Player> tiles = new HashMap<>();
     for (int r = 0; r < sideLength; r += 1) {
       for (int c = 0; c < sideLength; c += 1) {
-        tiles.put(new BasicPoint(r, c), null);
+        tiles.put(new CubeCoord(r, c), null);
       }
     }
     placeStarting(tiles, sideLength);
@@ -58,17 +58,17 @@ public class BasicSquareReversi extends AReversiModel {
    */
   private static void placeStarting(HashMap<LinearCoord, Player> tiles, int sideLength) {
     int m = sideLength / 2;
-    tiles.put(new BasicPoint(m - 1, m), new HumanPlayer(Name.O));
-    tiles.put(new BasicPoint(m - 1, m - 1), new HumanPlayer(Name.X));
-    tiles.put(new BasicPoint(m, m - 1), new HumanPlayer(Name.O));
-    tiles.put(new BasicPoint(m, m), new HumanPlayer(Name.X));
+    tiles.put(new CubeCoord(m - 1, m), new HumanPlayer(Name.O));
+    tiles.put(new CubeCoord(m - 1, m - 1), new HumanPlayer(Name.X));
+    tiles.put(new CubeCoord(m, m - 1), new HumanPlayer(Name.O));
+    tiles.put(new CubeCoord(m, m), new HumanPlayer(Name.X));
   }
 
   @Override
   public ReversiModel getModel() {
     List<Player> players = new ArrayList<>(this.players);
     HashMap<LinearCoord, Player> map = new HashMap<>(this.tiles);
-    return new BasicHexReversi(map, players);
+    return new BasicSquareReversi(map, players);
   }
 
 

@@ -17,37 +17,37 @@ public class RowTests {
 
   @Test
   public void testRightNext() {
-    Row right = new Row(0, HexDirection.RIGHT, this.center, false);
+    Row right = new Row(0, HexDirection.RIGHT, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(1, 0, -1));
   }
 
   @Test
   public void testUpRightNext() {
-    Row right = new Row(0, HexDirection.UP_RIGHT, this.center, false);
+    Row right = new Row(0, HexDirection.UP_RIGHT, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(1, -1, 0));
   }
 
   @Test
   public void testDownRightNext() {
-    Row right = new Row(0, HexDirection.DOWN_RIGHT, this.center, false);
+    Row right = new Row(0, HexDirection.DOWN_RIGHT, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(0, 1, -1));
   }
 
   @Test
   public void testDownLeftNext() {
-    Row right = new Row(0, HexDirection.DOWN_LEFT, this.center, false);
+    Row right = new Row(0, HexDirection.DOWN_LEFT, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(-1, 1, 0));
   }
 
   @Test
   public void testLeftNext() {
-    Row right = new Row(0, HexDirection.LEFT, this.center, false);
+    Row right = new Row(0, HexDirection.LEFT, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(-1, 0, 1));
   }
 
   @Test
   public void testUpLeftNext() {
-    Row right = new Row(0, HexDirection.UP_LEFT, this.center, false);
+    Row right = new Row(0, HexDirection.UP_LEFT, this.center);
     Assert.assertEquals(right.next(), new CubeCoord(0, -1, 1));
   }
 

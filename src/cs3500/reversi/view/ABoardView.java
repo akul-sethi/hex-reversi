@@ -1,10 +1,6 @@
 package cs3500.reversi.view;
 
-import java.awt.Point;
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,32 +10,33 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import javax.swing.JPanel;
-import javax.swing.AbstractAction;
+import javax.swing.*;
 
 import cs3500.reversi.controller.InputObserver;
 import cs3500.reversi.model.BasicPoint;
-import cs3500.reversi.player.Player;
 import cs3500.reversi.model.ReadOnlyReversiModel;
+import cs3500.reversi.player.Player;
 
-/**
- * A concrete implementation of BoardView which shows the board as it is shown in the assignment.
- */
-class BasicBoardView extends JPanel implements BoardView {
-  private final int SIDE_LENGTH = 30;
-  private final double HEX_HEIGHT = 2 * SIDE_LENGTH;
-  private final double VERT_GAP = HEX_HEIGHT * 0.75;
-  private final double HEX_WIDTH = Math.sqrt(3) * SIDE_LENGTH;
-  private Optional<Tile> selected;
-  private AffineTransform at;
-  private InputObserver features;
+abstract class ABoardView extends JPanel implements BoardView {
+  final int SIDE_LENGTH;
+  final double SHAPE_HEIGHT;
+  final double VERT_GAP;
+  final double SHAPE_WIDTH;
+  Optional<ABoardView.Tile> selected;
+  AffineTransform at;
+  InputObserver features;
 
-  private final ReadOnlyReversiModel model;
+  final ReadOnlyReversiModel model;
 
   /**
    * Creates a BasicBoardView backed by the given model.
    */
-  BasicBoardView(ReadOnlyReversiModel model) {
+  ABoardView(ReadOnlyReversiModel model, int SIDE_LENGTH, double SHAPE_HEIGHT, double VERT_GAP,
+             double SHAPE_WIDTH) {
+    this.SIDE_LENGTH = SIDE_LENGTH;
+    this.SHAPE_HEIGHT = SHAPE_HEIGHT;
+    this.SHAPE_WIDTH = SHAPE_WIDTH;
+    this.VERT_GAP = VERT_GAP;
     this.model = model;
     this.setVisible(true);
     this.selected = Optional.empty();
@@ -65,7 +62,7 @@ class BasicBoardView extends JPanel implements BoardView {
 
   /*
    * Sends the features object a request to move to the coordinates of the selected tile.*/
-  private void attemptMove() {
+  void attemptMove() {
     this.selected.ifPresent((tile) -> {
       this.features.moveHere(new BasicPoint(tile.row, tile.column));
     });
@@ -74,11 +71,11 @@ class BasicBoardView extends JPanel implements BoardView {
   /*
    * Sets the transform of the board based on the logical coordinates of the model.
    */
-  private void setTransform() {
+  void setTransform() {
     this.at = new AffineTransform();
 
-    this.at.translate(-HEX_WIDTH * (this.model.getLeftCol() - 0.5),
-            -VERT_GAP * (this.model.getTopRow()) + 0.5 * HEX_HEIGHT);
+    this.at.translate(-SHAPE_WIDTH * (this.model.getLeftCol() - 0.5),
+            -VERT_GAP * (this.model.getTopRow()) + 0.5 * SHAPE_HEIGHT);
   }
 
   @Override
@@ -90,7 +87,7 @@ class BasicBoardView extends JPanel implements BoardView {
    * Adds listeners to the board which do not need to send their events to be sent to a Features
    * object. Currently, it implements previewing as this is not something which every Reversi game
    * needs. */
-  private void addListeners() {
+  void addListeners() {
     this.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
@@ -103,18 +100,18 @@ class BasicBoardView extends JPanel implements BoardView {
 
   /*
    * Attempts to preview a move using a MouseEvent. (Screen Coordinates). */
-  private void attemptPreview(MouseEvent e) {
-    ArrayList<ArrayList<Tile>> hexs = getTiles();
-    for (int row = 0; row < hexs.size(); row++) {
-      for (int column = 0; column < hexs.get(row).size(); column++) {
-        Tile t = hexs.get(row).get(column);
+  void attemptPreview(MouseEvent e) {
+    ArrayList<ArrayList<ABoardView.Tile>> shapes = getTiles();
+    for (int row = 0; row < shapes.size(); row++) {
+      for (int column = 0; column < shapes.get(row).size(); column++) {
+        ABoardView.Tile t = shapes.get(row).get(column);
         if (t == null || t.player != null) {
           continue;
         }
         try {
           Point2D transformedPoint = new Point();
           this.at.inverseTransform(e.getPoint(), transformedPoint);
-          if (t.hex.contains(transformedPoint)) {
+          if (t.shape.contains(transformedPoint)) {
             this.previewMove(row, column);
 
           }
@@ -128,8 +125,8 @@ class BasicBoardView extends JPanel implements BoardView {
   @Override
   public Dimension getPreferredSize() {
     Dimension logicalSize = this.getPreferredLogicalSize();
-    return new Dimension((int) (logicalSize.width * HEX_WIDTH),
-            (int) (logicalSize.height * VERT_GAP + HEX_HEIGHT / 4));
+    return new Dimension((int) (logicalSize.width * SHAPE_WIDTH),
+            (int) (logicalSize.height * VERT_GAP + SHAPE_HEIGHT / 4));
   }
 
 
@@ -148,16 +145,16 @@ class BasicBoardView extends JPanel implements BoardView {
 
     g2.transform(this.at);
 
-    ArrayList<ArrayList<Tile>> hexs = getTiles();
+    ArrayList<ArrayList<ABoardView.Tile>> shapes = getTiles();
 
-    for (int row = 0; row < hexs.size(); row++) {
-      for (int column = 0; column < hexs.get(row).size(); column++) {
-        Tile t = hexs.get(row).get(column);
+    for (int row = 0; row < shapes.size(); row++) {
+      for (int column = 0; column < shapes.get(row).size(); column++) {
+        ABoardView.Tile t = shapes.get(row).get(column);
         if (t == null) {
           continue;
         }
         g2.setColor(Color.BLACK);
-        g2.draw(t.hex);
+        g2.draw(t.shape);
 
         Player p = t.player;
 
@@ -168,13 +165,13 @@ class BasicBoardView extends JPanel implements BoardView {
         } else {
           g2.setColor(Color.WHITE);
         }
-        g2.fill(t.hex);
+        g2.fill(t.shape);
       }
     }
 
     selected.ifPresent((tile) -> {
       g2.setColor(Color.BLUE);
-      g2.fill(tile.hex);
+      g2.fill(tile.shape);
     });
 
     g2.setTransform(oldTransform);
@@ -183,10 +180,10 @@ class BasicBoardView extends JPanel implements BoardView {
   /*
    Correctly sets the currently previewed move based on the logical coordinates provided.
    (Indexing starts at 0).*/
-  private void previewMove(int row, int column) {
-    Tile t = getTiles().get(row).get(column);
+  void previewMove(int row, int column) {
+    ABoardView.Tile t = getTiles().get(row).get(column);
     if (t != null) {
-      if (this.selected.isPresent() && t.hex.equals(this.selected.get().hex)) {
+      if (this.selected.isPresent() && t.shape.equals(this.selected.get().shape)) {
         this.selected = Optional.empty();
       } else if (t.player == null) {
         this.selected = Optional.of(t);
@@ -202,20 +199,20 @@ class BasicBoardView extends JPanel implements BoardView {
   /*
    * Returns A 2-dimensional list of Tiles which is represents the current state of the model.
    * Indexing is shifted to be all non-negative.*/
-  private ArrayList<ArrayList<Tile>> getTiles() {
+  ArrayList<ArrayList<ABoardView.Tile>> getTiles() {
     setTransform();
-    ArrayList<ArrayList<Tile>> output = new ArrayList<>();
+    ArrayList<ArrayList<ABoardView.Tile>> output = new ArrayList<>();
 
     for (int row = this.model.getTopRow(); row <= this.model.getBottomRow(); row++) {
       output.add(new ArrayList<>());
       for (int column = this.model.getLeftCol(); column <= this.model.getRightCol(); column++) {
-        ArrayList<Tile> rowList = output.get(output.size() - 1);
+        ArrayList<ABoardView.Tile> rowList = output.get(output.size() - 1);
         try {
           double shiftedColumn = column + (row & 1) * 0.5;
           Player p = this.model.playerAt(new BasicPoint(row, column));
-          Hexagon hex = new Hexagon(HEX_WIDTH * shiftedColumn, VERT_GAP *
+          Hexagon hex = new Hexagon(SHAPE_WIDTH * shiftedColumn, VERT_GAP *
                   row, SIDE_LENGTH);
-          rowList.add(new Tile(hex, p, row, column));
+          rowList.add(new ABoardView.Tile(hex, p, row, column));
         } catch (IllegalArgumentException e) {
           rowList.add(null);
         }
@@ -235,9 +232,9 @@ class BasicBoardView extends JPanel implements BoardView {
    * Represents a Tile on the board. Contains its bounding Hexagon and the Player which is within it
    * Fields are public as they are essential to the definition of the class.
    */
-  private final class Tile {
+  final class Tile {
     //Field is public as by definition the tile must have a Hexagon.
-    public final Hexagon hex;
+    public final MyShape shape;
     //Field is public as by definition the tile must have a Player.
     public final Player player;
     public final int row;
@@ -246,14 +243,12 @@ class BasicBoardView extends JPanel implements BoardView {
     /**
      * Creates a Tile with the given Hexagon and Player.
      */
-    Tile(Hexagon hex, Player player, int row, int column) {
-      this.hex = hex;
+    Tile(MyShape shape, Player player, int row, int column) {
+      this.shape = shape;
       this.player = player;
       this.row = row;
       this.column = column;
     }
 
   }
-
-
 }

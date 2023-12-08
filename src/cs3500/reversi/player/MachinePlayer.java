@@ -23,6 +23,11 @@ public class MachinePlayer extends AbstractPlayer {
 
   @Override
   public void startTurn(ReadOnlyReversiModel model) {
+    try {
+      Thread.sleep(500);
+    } catch (InterruptedException e) {
+      // do nothing
+    }
     this.observer.ifPresent((obs -> {
       try {
         obs.moveHere(this.strategy.chooseMove(model.getModel(), this));
