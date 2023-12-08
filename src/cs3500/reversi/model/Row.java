@@ -61,6 +61,4 @@ class Row {
     }
     return out;
   }
-
-
 }
