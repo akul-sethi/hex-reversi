@@ -278,4 +278,51 @@ Program Usage:
      we would now like to specify that clicking on a tile which contains a player is prohibited.
      Finally, the game notifies both players when the game is over and provides them with the score.
 
+Changes for Extra Credit:
+    Model:
+        The model required some abstraction, but minimal refactoring to enable square reversi.
+        Since we already had an abstract AReversiModel class that our hex reversi implementation was
+        using, all we had to do was create a new BasicSquareReversiModel class, with a different
+        configuration of starting tiles.
+        We also added a List<Direction> parameter to the abstract model's constructor, which allows
+        it to determine the radiating rows from a point dynamically.
+    Direction (interface):
+        We created a new direction interface that is implemented by both Hex and SquareDirection
+        enumerations. These enums have their unique directions in them. The direction interface
+        promises that its implementors will be able to tell you:
+        1.) The number of axes in the direction (square = 2, hex = 3)
+        2.) The change in each of these axes for a given direction
+    Row:
+        We changed the row class to check the number of axes and use a switch statement to
+        determine which type of coordinate constructor to use. This is dynamic, as it could work for
+        any type of three or two axis coordinate system, not only square and hex.
+    MyShape:
+        We created an abstract myShape class to represent the GUI shape we want to construct the
+        board with. Hexagon and Square both extend this class. This can easily be used to create any
+        other shape with any given number of vertices.
+    ABoardView:
+        We abstracted our previous HexBoardView class, enabling us to create another board view and
+        use it simultaneously with our GUI. The new board views that implement this only need some
+        geometric values.
+    GUIReversiView:
+        We parameterized GUIReversiView to take in a GameType, which for now is either Square or
+        hex, and chooses either a square or hex board view. Nothing else was changed.
+    ReversiCreator:
+        ReversiCreator now takes in a GameType to determine which type of game to create.
+    GameType:
+        Hex and Square were both added to the GameType enum
+    Strategies:
+        There was a slight change in our getCorners utility methods. Other than this, we added a
+        method in utils to get adjacent points to a given point, and tweaked our nextToCorners utils
+        method. No other changes were needed for strategies.
 
+    Controller:
+        There were ZERO changes done to our controller.
+
+    Testing:
+        We have the following classes for tests:
+            - InDepthSquareReversiTests    Tests square reversi edge cases
+            - SquareStrategyTests          Tests for the strategies, applied to square games
+            - RowTests                     Tests for the new SquareDirection and row features
+            - SquareReversiTests           Some very basic large tests for square reversi and text
+            - StrategyMockTests            Includes some new tests that mock square strategies

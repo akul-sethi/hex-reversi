@@ -20,17 +20,6 @@ public class SquareBoardView extends ABoardView {
     super(model, SIDE_LENGTH, SQUARE_HEIGHT, VERT_GAP, SQUARE_WIDTH);
   }
 
-  /*
-   * Sets the transform of the board based on the logical coordinates of the model.
-   */
-  @Override
-  protected void setTransform() {
-    this.at = new AffineTransform();
-
-    this.at.translate(-SQUARE_WIDTH * (this.model.getLeftCol() - 0.5),
-            -VERT_GAP * (this.model.getTopRow()) + 0.5 * SQUARE_HEIGHT);
-  }
-
   ArrayList<ArrayList<Tile>> getTiles() {
     setTransform();
     ArrayList<ArrayList<ABoardView.Tile>> output = new ArrayList<>();

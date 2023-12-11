@@ -23,17 +23,6 @@ class HexBoardView extends ABoardView {
     super(model, SIDE_LENGTH, HEX_HEIGHT, VERT_GAP, HEX_WIDTH);
   }
 
-  /*
-   * Sets the transform of the board based on the logical coordinates of the model.
-   */
-  @Override
-  protected void setTransform() {
-    this.at = new AffineTransform();
-
-    this.at.translate(-HEX_WIDTH * (this.model.getLeftCol() - 0.5),
-            -VERT_GAP * (this.model.getTopRow()) + 0.5 * HEX_HEIGHT);
-  }
-
   ArrayList<ArrayList<ABoardView.Tile>> getTiles() {
     setTransform();
     ArrayList<ArrayList<ABoardView.Tile>> output = new ArrayList<>();

@@ -25,7 +25,6 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
  */
 public final class GUIReversiView extends JFrame implements ReversiView {
   private final ABoardView board;
-  private Optional<String> name;
 
   /**
    * Creates a GUIReversiView using the given ReadOnlyReversiModel m.
@@ -59,6 +58,7 @@ public final class GUIReversiView extends JFrame implements ReversiView {
   public GUIReversiView(ReadOnlyReversiModel model, String name, GameType type) {
     super("Reversi");
     Objects.requireNonNull(model);
+    Optional<String> name1 = Optional.ofNullable(name);
 
     setSize(500, 300);
     setLocation(200, 200);
@@ -66,16 +66,15 @@ public final class GUIReversiView extends JFrame implements ReversiView {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     this.setLayout(new BorderLayout());
+    ABoardView basic;
     if (type.equals(GameType.SQUARE)) {
-      ABoardView basic = new SquareBoardView(model);
-      this.board = basic;
-      add(basic, BorderLayout.CENTER);
+      basic = new SquareBoardView(model);
     }
     else {
-      ABoardView basic = new HexBoardView(model);
-      this.board = basic;
-      add(basic, BorderLayout.CENTER);
+      basic = new HexBoardView(model);
     }
+    this.board = basic;
+    add(basic, BorderLayout.CENTER);
 
     this.setHotKey(KeyStroke.getKeyStroke("typed p"), "pass");
     this.setHotKey(KeyStroke.getKeyStroke("typed m"), "moveHere");
