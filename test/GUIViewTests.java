@@ -21,7 +21,7 @@ public class GUIViewTests {
 
   @Test
   public void testNullObserver() {
-    Assert.assertThrows(NullPointerException.class, () -> {
+    Assert.assertThrows(IllegalArgumentException.class, () -> {
       ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
       ReversiView view = new GUIReversiView(model);
       view.addObserver(null);

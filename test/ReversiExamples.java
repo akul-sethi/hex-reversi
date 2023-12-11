@@ -19,7 +19,7 @@ public class ReversiExamples {
 
   @Test
   public void basicGameTestDimensions() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     Assert.assertEquals(-5, basicModel.getLeftCol());
     Assert.assertEquals(5, basicModel.getRightCol());
@@ -41,7 +41,7 @@ public class ReversiExamples {
 
   @Test
   public void basicGameAssertStartPlayerCoordinates() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     Assert.assertEquals(new HumanPlayer(Name.X), basicModel.playerAt(new BasicPoint(1, 0)));
     Assert.assertEquals(new HumanPlayer(Name.X), basicModel.playerAt(new BasicPoint(-1, 0)));
@@ -54,7 +54,7 @@ public class ReversiExamples {
 
   @Test
   public void basicGameTestSimpleMove() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.startGame();
     basicModel.placePiece(new BasicPoint(-1, 1));
@@ -74,7 +74,7 @@ public class ReversiExamples {
 
   @Test
   public void basicGameTestTwoMoves() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.startGame();
     basicModel.placePiece(new BasicPoint(-1, 1));

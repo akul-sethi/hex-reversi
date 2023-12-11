@@ -56,7 +56,10 @@ public class ControllerTests {
     controller.giveControlTo(new HumanPlayer(Name.O));
     controller.moveHere(new BasicPoint(1, 1));
     Assert.assertEquals(model.log, "addObserver()\n");
-    Assert.assertEquals(view.log, "addObserver()\nsetVisible(true)\nrender()\n");
+    Assert.assertEquals(view.log, "addObserver()\n" +
+            "setVisible(true)\n" +
+            "render()\n" +
+            "alertMessage(It is not your turn)\n");
     Assert.assertEquals(player.log, "addObserver()\n");
   }
 
@@ -65,7 +68,10 @@ public class ControllerTests {
     controller.giveControlTo(new HumanPlayer(Name.O));
     controller.pass();
     Assert.assertEquals(model.log, "addObserver()\n");
-    Assert.assertEquals(view.log, "addObserver()\nsetVisible(true)\nrender()\n");
+    Assert.assertEquals(view.log, "addObserver()\n" +
+            "setVisible(true)\n" +
+            "render()\n" +
+            "alertMessage(It is not your turn)\n");
     Assert.assertEquals(player.log, "addObserver()\n");
   }
 

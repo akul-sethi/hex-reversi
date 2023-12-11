@@ -37,7 +37,7 @@ public class InDepthReversiTests {
 
   @Test(expected = IllegalStateException.class)
   public void basicGameTestInvalidMoveNoneToFlip() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 2);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex",  2);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.placePiece(new BasicPoint(0, 0));
     textRV.render();
@@ -46,7 +46,7 @@ public class InDepthReversiTests {
 
   @Test(expected = IllegalStateException.class)
   public void basicGameTestTwoMovesGameNotOver() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.placePiece(new BasicPoint(-1, 1));
     basicModel.placePiece(new BasicPoint(-1, 2));
@@ -67,7 +67,7 @@ public class InDepthReversiTests {
 
   @Test
   public void basicGameTestTwoPassesGameOver() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.placePiece(new BasicPoint(-1, 1));
@@ -91,7 +91,7 @@ public class InDepthReversiTests {
 
   @Test
   public void basicGameTestFromStartTwoPassesGameOverIsNull() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.pass();
@@ -113,7 +113,7 @@ public class InDepthReversiTests {
 
   @Test(expected = IllegalStateException.class)
   public void basicGamePassThreeTimes() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.pass();
     basicModel.pass();
@@ -134,7 +134,7 @@ public class InDepthReversiTests {
 
   @Test
   public void passCountGetsSetBackToZeroOnMove() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.pass();
@@ -158,7 +158,7 @@ public class InDepthReversiTests {
 
   @Test(expected = IllegalStateException.class)
   public void cantMoveAfterGameOver() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.pass();
     basicModel.placePiece(new BasicPoint(-1, 1));
@@ -182,7 +182,7 @@ public class InDepthReversiTests {
 
   @Test
   public void placeChangesAllDirections() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.placePiece(new BasicPoint(-1, 1));
@@ -205,7 +205,7 @@ public class InDepthReversiTests {
 
   @Test
   public void placeChangesDownRightRightUpRight() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.placePiece(new BasicPoint(-1, 1));
@@ -230,7 +230,7 @@ public class InDepthReversiTests {
 
   @Test(expected = IllegalStateException.class)
   public void invalidMoveDiagonals() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.placePiece(new BasicPoint(-1, 1));
     basicModel.placePiece(new BasicPoint(-1, 2));
@@ -255,7 +255,7 @@ public class InDepthReversiTests {
 
   @Test
   public void noMovesLeft() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.placePiece(new BasicPoint(-1, 1));
@@ -282,7 +282,7 @@ public class InDepthReversiTests {
 
   @Test
   public void playerAtValid() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.placePiece(new BasicPoint(-1, 1));
@@ -312,7 +312,7 @@ public class InDepthReversiTests {
 
   @Test(expected = IllegalArgumentException.class)
   public void playerAtOutOfBounds() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.placePiece(new BasicPoint(-1, 1));
@@ -341,7 +341,7 @@ public class InDepthReversiTests {
 
   @Test
   public void onlyGivesYouTilesOnYourMove() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.placePiece(new BasicPoint(1, -2));
@@ -365,7 +365,7 @@ public class InDepthReversiTests {
 
   @Test
   public void onlyConvertsUpToYourNextTile() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 6);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.placePiece(new BasicPoint(1, -2));
@@ -392,7 +392,7 @@ public class InDepthReversiTests {
 
   @Test
   public void doesntChangeWithWallOnOtherSide() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 3);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     textRV.render();
@@ -410,7 +410,7 @@ public class InDepthReversiTests {
 
   @Test(expected = IllegalStateException.class)
   public void invalidMoveWithGaps() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 4);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 4);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     textRV.render();
     basicModel.pass();
@@ -426,7 +426,7 @@ public class InDepthReversiTests {
 
   @Test
   public void validMoveNone() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 2);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 2);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     textRV.render();
     Assert.assertFalse(basicModel.validMove(new BasicPoint(0, 0)));
@@ -434,7 +434,7 @@ public class InDepthReversiTests {
 
   @Test
   public void validMoveSimple() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 3);
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     textRV.render();
     Assert.assertEquals("  - - -   \n" +
@@ -447,7 +447,7 @@ public class InDepthReversiTests {
 
   @Test
   public void validMoveNoneButEmptySpaces() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 3);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.pass();
@@ -467,7 +467,7 @@ public class InDepthReversiTests {
 
   @Test
   public void invalidMoveOutOfBoundaries() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 3);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.pass();
@@ -487,7 +487,7 @@ public class InDepthReversiTests {
 
   @Test
   public void invalidMoveDoesntMakeSense() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 3);
     basicModel.startGame();
     ReversiView textRV = new TextReversiView(basicModel, new StringBuilder(), false);
     basicModel.pass();
@@ -507,7 +507,7 @@ public class InDepthReversiTests {
 
   @Test
   public void fullGameTest() throws IOException {
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 3);
     basicModel.startGame();
     Appendable output = new StringBuilder();
     ReversiView textRV = new TextReversiView(basicModel, output, false);
@@ -590,7 +590,7 @@ public class InDepthReversiTests {
 
   @Test
   public void giveControlToObserverTest() {
-    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, "hex", 6);
     ControllerWithLog controller = new ControllerWithLog();
     model.addObserver(controller);
     Assert.assertEquals(controller.log, "");
@@ -599,12 +599,13 @@ public class InDepthReversiTests {
     model.pass();
     Assert.assertEquals(controller.log, "giveControlTo(X)\ngiveControlTo(O)\n");
     model.placePiece(new BasicPoint(-1, 1));
-    Assert.assertEquals(controller.log, "giveControlTo(X)\ngiveControlTo(O)\ngiveControlTo(X)\n");
+    Assert.assertEquals(controller.log,
+            "giveControlTo(X)\ngiveControlTo(O)\ngiveControlTo(X)\n");
   }
 
   @Test
   public void gameOverNotifiedTest() {
-    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, "hex", 6);
     ControllerWithLog controller = new ControllerWithLog();
     model.addObserver(controller);
     Assert.assertEquals(controller.log, "");
@@ -618,7 +619,7 @@ public class InDepthReversiTests {
 
   @Test
   public void nullObserver() {
-    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, "hex", 6);
     Assert.assertThrows(NullPointerException.class, () -> {
       model.addObserver(null);
     });

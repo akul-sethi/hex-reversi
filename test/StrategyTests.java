@@ -27,7 +27,7 @@ public class StrategyTests {
   @Test
   public void gameJustStartedCaptureMaxTest() throws IOException {
     Appendable emptyBuilder = new StringBuilder();
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex",
             6, new MachinePlayer(Name.X, new CaptureMaxStrategy()), new MachinePlayer(
                     Name.O, new CaptureMaxStrategy()));
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder, false);
@@ -134,7 +134,7 @@ public class StrategyTests {
   @Test
   public void gameJustStartedCaptureCornersTest() throws IOException {
     Appendable emptyBuilder = new StringBuilder();
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex",
             6, new MachinePlayer(Name.X, new CaptureCornersStrategy()),
             new MachinePlayer(Name.O, new CaptureCornersStrategy()));
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder, false);
@@ -592,7 +592,7 @@ public class StrategyTests {
   @Test
   public void gameJustStartedAvoidNextToCornersTest() throws IOException {
     Appendable emptyBuilder = new StringBuilder();
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex",
             6, new MachinePlayer(Name.X, new AvoidNextToCornersStrategy()),
             new MachinePlayer(Name.O, new AvoidNextToCornersStrategy()));
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder, false);
@@ -863,7 +863,7 @@ public class StrategyTests {
   @Test
   public void gameJustStartedMiniMaxTest() throws IOException {
     Appendable emptyBuilder = new StringBuilder();
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex",
             6, new MachinePlayer(Name.X, new MiniMaxStrategy()),
             new MachinePlayer(Name.O, new MiniMaxStrategy()));
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder, false);
@@ -1139,7 +1139,7 @@ public class StrategyTests {
                     new TryTwo(new MiniMaxStrategy(),
                             new CaptureMaxStrategy()))));
     Player captureMaxPlayer = new MachinePlayer(Name.O, new CaptureMaxStrategy());
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC,
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex",
             6, superPlayer, captureMaxPlayer);
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder, false);
     basicModel.startGame();

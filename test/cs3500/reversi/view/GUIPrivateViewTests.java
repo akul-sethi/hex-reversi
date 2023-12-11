@@ -17,7 +17,7 @@ public class GUIPrivateViewTests {
   @Test
   public void testSendsPassToObserver() {
     ControllerWithLog controller = new ControllerWithLog();
-    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, "hex" ,6);
     GUIReversiView view = new GUIReversiView(model);
     view.addObserver(controller);
     view.performAction("pass", null);
@@ -28,7 +28,7 @@ public class GUIPrivateViewTests {
   @Test
   public void testSendsMoveToObserverIllegalWithinBounds() {
     ControllerWithLog controller = new ControllerWithLog();
-    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, "hex", 6);
     Hexagon hex = new Hexagon(0, 0, 100);
     GUIReversiView view = new GUIReversiView(model);
     view.getBoardMouseListeners()[0].mouseClicked(new MouseEvent(view, 0,
@@ -42,7 +42,7 @@ public class GUIPrivateViewTests {
   @Test
   public void testSendsMoveToObserverIllegalOnPlayer() {
     ControllerWithLog controller = new ControllerWithLog();
-    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, "hex", 6);
     Hexagon hex = new Hexagon(0, 0, 100);
     GUIReversiView view = new GUIReversiView(model);
     view.getBoardMouseListeners()[0].mouseClicked(new MouseEvent(view, 0,
@@ -56,7 +56,7 @@ public class GUIPrivateViewTests {
   @Test
   public void testSendsMoveToObserverIllegalOutBounds() {
     ControllerWithLog controller = new ControllerWithLog();
-    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, "hex", 6);
     Hexagon hex = new Hexagon(0, 0, 100);
     GUIReversiView view = new GUIReversiView(model);
     view.getBoardMouseListeners()[0].mouseClicked(new MouseEvent(view, 0,
@@ -70,7 +70,7 @@ public class GUIPrivateViewTests {
   @Test
   public void testSendsMoveToObserverLegal() {
     ControllerWithLog controller = new ControllerWithLog();
-    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, "hex", 6);
     Hexagon hex = new Hexagon(0, 0, 100);
     GUIReversiView view = new GUIReversiView(model);
     view.getBoardMouseListeners()[0].mouseClicked(new MouseEvent(view, 0,
@@ -84,7 +84,7 @@ public class GUIPrivateViewTests {
   @Test
   public void testSendsNoMoveToObserver() {
     ControllerWithLog controller = new ControllerWithLog();
-    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, "hex", 6);
     Hexagon hex = new Hexagon(0, 0, 100);
     GUIReversiView view = new GUIReversiView(model);
     view.addObserver(controller);

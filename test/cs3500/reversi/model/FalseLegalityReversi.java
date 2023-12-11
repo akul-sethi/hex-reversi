@@ -15,8 +15,9 @@ import cs3500.reversi.player.Player;
 public class FalseLegalityReversi extends FalseLegalityReadOnlyReversi implements ReversiModel {
   private final StringBuilder log;
 
-  protected FalseLegalityReversi(StringBuilder log, List<Player> players, boolean square) {
-    super(log, players, square);
+  protected FalseLegalityReversi(StringBuilder log, List<Player> players,
+                                 List<Direction> directions) {
+    super(log, players, directions);
     this.log = log;
   }
 

@@ -76,7 +76,7 @@ public final class Reversi {
       size = 6;
     } else if (args[0].equals("square")) {
       type = GameType.SQUARE;
-      size = 10;
+      size = 8;
     }
     ReversiModel model = ReversiCreator.create(GameType.BASIC, args[0], size);
     ReversiView view1 = new GUIReversiView(model, "Player 1", type);

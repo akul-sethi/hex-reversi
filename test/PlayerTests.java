@@ -51,7 +51,7 @@ public class PlayerTests {
 
   @Test
   public void testMachinePlayerNotifyObserver() {
-    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, "hex", 6);
     Player machine = new MachinePlayer(Name.X, new CaptureMaxStrategy());
     ControllerWithLog controller = new ControllerWithLog();
     machine.addObserver(controller);
@@ -61,7 +61,7 @@ public class PlayerTests {
 
   @Test
   public void testHumanPlayNotifyObserver() {
-    ReversiModel model = ReversiCreator.create(GameType.BASIC, 6);
+    ReversiModel model = ReversiCreator.create(GameType.BASIC, "hex", 6);
     Player human = new HumanPlayer(Name.O);
     ControllerWithLog controller = new ControllerWithLog();
     human.addObserver(controller);

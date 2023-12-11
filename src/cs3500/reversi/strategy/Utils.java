@@ -100,10 +100,6 @@ final class Utils {
         corners.remove(1);
       }
     }
-    for (LinearCoord lc : corners) {
-      System.out.println("corner: " + lc.column() + "," + lc.row());
-    }
-    System.out.println();
     return corners;
   }
 

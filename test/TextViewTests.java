@@ -22,7 +22,7 @@ public class TextViewTests {
   @Test(expected = AssertionError.class)
   public void nullAppendableTextView() {
     Appendable nullApp = null;
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 3);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 3);
     ReversiView textView = new TextReversiView(basicModel, nullApp, false);
     Assert.assertEquals(1, 2 - 1);
   }
@@ -77,7 +77,7 @@ public class TextViewTests {
   @Test
   public void gameJustStartedSmallTextView() throws IOException {
     Appendable emptyBuilder = new StringBuilder();
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 2);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 2);
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder, false);
     textView.render();
     Assert.assertEquals(" O X   \n" +
@@ -88,7 +88,7 @@ public class TextViewTests {
   @Test
   public void gameJustStartedOddTextView() throws IOException {
     Appendable emptyBuilder = new StringBuilder();
-    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, 7);
+    ReversiModel basicModel = ReversiCreator.create(GameType.BASIC, "hex", 7);
     ReversiView textView = new TextReversiView(basicModel, emptyBuilder, false);
     textView.render();
     Assert.assertEquals("      - - - - - - -       \n" +
