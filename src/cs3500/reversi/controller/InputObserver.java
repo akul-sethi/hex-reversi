@@ -20,5 +20,8 @@ public interface InputObserver {
    * A request from the user to pass their turn.
    */
   void pass();
+  void previewMove(LinearCoord coord);
+
+  void hints();
 
 }

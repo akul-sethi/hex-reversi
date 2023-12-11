@@ -35,4 +35,14 @@ public class ControllerWithLog implements ReversiController {
   public void pass() {
     this.log += "pass()\n";
   }
+
+  @Override
+  public void previewMove(LinearCoord coord) {
+
+  }
+
+  @Override
+  public void hints() {
+
+  }
 }

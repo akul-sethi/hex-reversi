@@ -8,6 +8,7 @@ import javax.swing.KeyStroke;
 import cs3500.reversi.controller.InputObserver;
 import cs3500.reversi.model.BasicPoint;
 
+import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.model.ReversiModel;
@@ -63,6 +64,16 @@ public final class TextReversiView implements ReversiView {
   @Override
   public void resetFocus() {
     //placeholder
+  }
+
+  @Override
+  public void previewMove(LinearCoord coord) {
+
+  }
+
+  @Override
+  public void previewMove(LinearCoord coord, int hint) {
+
   }
 
   @Override

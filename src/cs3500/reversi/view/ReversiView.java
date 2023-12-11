@@ -1,10 +1,12 @@
 package cs3500.reversi.view;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 import javax.swing.KeyStroke;
 
 import cs3500.reversi.controller.InputObserver;
+import cs3500.reversi.model.LinearCoord;
 
 /**
  * Represents a view for a Reversi game. It is observed by an InputObserver and sends the observer
@@ -36,7 +38,10 @@ public interface ReversiView {
    */
   void resetFocus();
 
-  /**
+  void previewMove(LinearCoord coord);
+  void previewMove(LinearCoord coord, int hint);
+
+                   /**
    * Sets an action to be performed for a given keystroke.
    */
   void setHotKey(KeyStroke keyStroke, String featureName);

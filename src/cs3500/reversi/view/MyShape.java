@@ -1,11 +1,13 @@
 package cs3500.reversi.view;
 
+import java.awt.*;
 import java.awt.geom.Path2D;
 
-abstract class MyShape extends Path2D.Double {
-  final double sideLength;
-  final double centerY;
-  final double centerX;
+abstract class MyShape extends Path2D.Double implements BoardShape {
+  final protected double sideLength;
+  final protected double centerY;
+  final protected double centerX;
+
 
   MyShape(double centerX, double centerY, double sideLength, int numVertices) {
     super();
@@ -31,4 +33,12 @@ abstract class MyShape extends Path2D.Double {
     }
     this.closePath();
   }
+
+  @Override
+  public void draw(Graphics2D g2) {
+    g2.fill(this);
+    g2.setColor(Color.BLACK);
+    g2.draw(this);
+  }
 }
+

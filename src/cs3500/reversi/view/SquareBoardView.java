@@ -4,6 +4,7 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import cs3500.reversi.model.BasicPoint;
+import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.player.Player;
 
@@ -40,4 +41,6 @@ public class SquareBoardView extends ABoardView {
     }
     return output;
   }
+
+
 }

@@ -1,6 +1,7 @@
 package cs3500.reversi.view;
 
 import cs3500.reversi.controller.InputObserver;
+import cs3500.reversi.model.LinearCoord;
 
 /**
  * Represents a view of the board and methods it must implement.
@@ -19,7 +20,10 @@ public interface BoardView {
    */
   void refresh();
 
-  /**
+  void previewMove(LinearCoord coord);
+  void previewMove(LinearCoord coord, int hint);
+
+                   /**
    * Resets the focus of the application to the board so that it can receive key events.
    */
   void resetFocus();

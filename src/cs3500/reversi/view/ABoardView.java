@@ -14,6 +14,7 @@ import javax.swing.*;
 
 import cs3500.reversi.controller.InputObserver;
 import cs3500.reversi.model.BasicPoint;
+import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.player.Player;
 
@@ -53,6 +54,12 @@ abstract class ABoardView extends JPanel implements BoardView {
       @Override
       public void actionPerformed(ActionEvent e) {
         features.pass();
+      }
+    });
+    this.getActionMap().put("hints", new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        features.hints();
       }
     });
     setTransform();
@@ -112,7 +119,8 @@ abstract class ABoardView extends JPanel implements BoardView {
           Point2D transformedPoint = new Point();
           this.at.inverseTransform(e.getPoint(), transformedPoint);
           if (t.shape.contains(transformedPoint)) {
-            this.previewMove(row, column);
+            this.features.previewMove(new BasicPoint(row + model.getTopRow(),
+                    column + model.getLeftCol()));
 
           }
         } catch (NoninvertibleTransformException exc) {
@@ -154,7 +162,7 @@ abstract class ABoardView extends JPanel implements BoardView {
           continue;
         }
         g2.setColor(Color.BLACK);
-        g2.draw(t.shape);
+        t.shape.draw(g2);
 
         Player p = t.player;
 
@@ -165,13 +173,13 @@ abstract class ABoardView extends JPanel implements BoardView {
         } else {
           g2.setColor(Color.WHITE);
         }
-        g2.fill(t.shape);
+        t.shape.draw(g2);
       }
     }
 
     selected.ifPresent((tile) -> {
       g2.setColor(Color.BLUE);
-      g2.fill(tile.shape);
+      tile.shape.draw(g2);
     });
 
     g2.setTransform(oldTransform);
@@ -227,6 +235,20 @@ abstract class ABoardView extends JPanel implements BoardView {
     this.requestFocus();
   }
 
+  @Override
+  public void previewMove(LinearCoord coord) {
+    this.previewMove(coord.row() - this.model.getTopRow(), coord.column() -
+            this.model.getLeftCol());
+  }
+
+  @Override
+  public void previewMove(LinearCoord coord, int hint) {
+    this.previewMove(coord);
+    this.selected.ifPresent((tile) -> {
+      tile.shape = new AddHint(tile.shape, hint);
+    });
+  }
+
 
   /**
    * Represents a Tile on the board. Contains its bounding Hexagon and the Player which is within it
@@ -234,7 +256,7 @@ abstract class ABoardView extends JPanel implements BoardView {
    */
   final class Tile {
     //Field is public as by definition the tile must have a Hexagon.
-    public final MyShape shape;
+    public  BoardShape shape;
     //Field is public as by definition the tile must have a Player.
     public final Player player;
     public final int row;
@@ -243,7 +265,7 @@ abstract class ABoardView extends JPanel implements BoardView {
     /**
      * Creates a Tile with the given Hexagon and Player.
      */
-    Tile(MyShape shape, Player player, int row, int column) {
+    Tile(BoardShape shape, Player player, int row, int column) {
       this.shape = shape;
       this.player = player;
       this.row = row;

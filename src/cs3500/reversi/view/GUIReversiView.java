@@ -18,6 +18,7 @@ import java.awt.Font;
 
 import cs3500.reversi.controller.InputObserver;
 import cs3500.reversi.model.GameType;
+import cs3500.reversi.model.LinearCoord;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
 /**
@@ -48,6 +49,7 @@ public final class GUIReversiView extends JFrame implements ReversiView {
 
     this.setHotKey(KeyStroke.getKeyStroke("typed p"), "pass");
     this.setHotKey(KeyStroke.getKeyStroke("typed m"), "moveHere");
+    this.setHotKey(KeyStroke.getKeyStroke("typed h"), "hints");
 
     pack();
   }
@@ -78,6 +80,7 @@ public final class GUIReversiView extends JFrame implements ReversiView {
 
     this.setHotKey(KeyStroke.getKeyStroke("typed p"), "pass");
     this.setHotKey(KeyStroke.getKeyStroke("typed m"), "moveHere");
+    this.setHotKey(KeyStroke.getKeyStroke("typed h"), "hints");
 
     pack();
     Font font = new Font("SansSerif", Font.BOLD, 20);
@@ -113,6 +116,16 @@ public final class GUIReversiView extends JFrame implements ReversiView {
   public void resetFocus() {
     this.setFocusable(true);
     this.requestFocus();
+  }
+
+  @Override
+  public void previewMove(LinearCoord coord) {
+    this.board.previewMove(coord);
+  }
+
+  @Override
+  public void previewMove(LinearCoord coord, int hint) {
+    this.board.previewMove(coord, hint);
   }
 
   void performAction(String actionName, ActionEvent event) {

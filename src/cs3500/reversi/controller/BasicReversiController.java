@@ -22,6 +22,7 @@ public class BasicReversiController implements ReversiController {
   private final ReversiModel model;
   private boolean hasControl;
   private boolean gameOver;
+  private boolean hints;
 
   /**
    * Creates a controller which is responsible for given player and view and uses the given model
@@ -37,6 +38,7 @@ public class BasicReversiController implements ReversiController {
     this.model = model;
     this.hasControl = false;
     this.gameOver = false;
+    this.hints = false;
 
     p.addObserver(this);
     view.addObserver(this);
@@ -107,6 +109,42 @@ public class BasicReversiController implements ReversiController {
 
     } else {
       this.view.alertMessage("It is not your turn");
+    }
+  }
+
+  @Override
+  public void previewMove(LinearCoord coord) {
+    if(hasControl) {
+      if(hints) {
+        int before = model.getPlayerScore(player);
+        ReversiModel newModel = model.getModel();
+        newModel.startGame();
+        try {
+          newModel.placePiece(coord);
+        }
+        catch(Exception e) {
+          //DID NOT WORK
+        }
+
+        int after = newModel.getPlayerScore(player);
+        this.view.previewMove(coord, after - before);
+      } else {
+        this.view.previewMove(coord);
+      }
+
+    } else {
+      this.view.alertMessage("It is not your turn");
+    }
+  }
+
+  @Override
+  public void hints() {
+
+    this.hints = !this.hints;
+    try {
+      view.render();
+    } catch (IOException e){
+      //ASDASDD
     }
   }
 }
