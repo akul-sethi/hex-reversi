@@ -58,6 +58,6 @@ public class TryTwo implements FallibleReversiStrategy {
       }
       return ans;
     }
-    return this.second.chooseMove(model, forWhom, new ArrayList<LinearCoord>());
+    return this.second.chooseMove(model, forWhom, legalMoves);
   }
 }

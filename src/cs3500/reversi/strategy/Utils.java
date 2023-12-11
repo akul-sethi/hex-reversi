@@ -73,14 +73,37 @@ final class Utils {
     ArrayList<LinearCoord> corners = new ArrayList<>();
     ArrayList<LinearCoord> allInMap = getAll(model);
     List<Comparator<LinearCoord>> comparators =
-            Arrays.asList(new LefterCoordComparer(), new UpperLefterCoordComparer(),
-                    new UpperRighterCoordComparer(), new RighterCoordComparer(),
-                    new LowerRighterCoordComparer(), new LowerLefterCoordComparer());
+            Arrays.asList(new LefterCoordComparer(), new RighterCoordComparer(),
+                    new UpperLefterCoordComparer(), new UpperRighterCoordComparer(),
+                    new LowerLefterCoordComparer(), new LowerRighterCoordComparer());
     for (Comparator<LinearCoord> comparator : comparators) {
       ArrayList<LinearCoord> allCopy = new ArrayList<>(allInMap);
       allCopy.sort(comparator);
       corners.add(allCopy.get(0));
     }
+    boolean removeLeft = false;
+    boolean removeRight = false;
+    if (corners.get(0).column() == corners.get(2).column()) {
+      removeLeft = true;
+    }
+    if (corners.get(1).column() == corners.get(3).column()) {
+      removeRight = true;
+    }
+    if (removeLeft) {
+      corners.remove(0);
+    }
+    if (removeRight) {
+      if (removeLeft) {
+        corners.remove(0);
+      }
+      else {
+        corners.remove(1);
+      }
+    }
+    for (LinearCoord lc : corners) {
+      System.out.println("corner: " + lc.column() + "," + lc.row());
+    }
+    System.out.println();
     return corners;
   }
 
@@ -100,11 +123,19 @@ final class Utils {
     adjacent.add(new BasicPoint(row, col - 1));
     adjacent.add(new BasicPoint(row + 1, col));
     adjacent.add(new BasicPoint(row - 1, col));
-    if (row % 2 == 0) {
+    if (getCorners(model).size() == 6) {
+      if (row % 2 == 0) {
+        adjacent.add(new BasicPoint(row - 1, col - 1));
+        adjacent.add(new BasicPoint(row + 1, col - 1));
+      } else {
+        adjacent.add(new BasicPoint(row - 1, col + 1));
+        adjacent.add(new BasicPoint(row + 1, col + 1));
+      }
+    }
+    else {
       adjacent.add(new BasicPoint(row - 1, col - 1));
-      adjacent.add(new BasicPoint(row + 1, col - 1));
-    } else {
       adjacent.add(new BasicPoint(row - 1, col + 1));
+      adjacent.add(new BasicPoint(row + 1, col - 1));
       adjacent.add(new BasicPoint(row + 1, col + 1));
     }
     ArrayList<LinearCoord> copyAdj = new ArrayList<>(adjacent);

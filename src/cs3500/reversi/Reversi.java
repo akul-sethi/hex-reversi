@@ -51,9 +51,9 @@ public final class Reversi {
     playerTypes.put("avoid-corners", (name) -> new MachinePlayer(name,
             new AvoidNextToCornersStrategy()));
     playerTypes.put("minimax", (name) -> new MachinePlayer(name, new MiniMaxStrategy()));
-    playerTypes.put("super", (name) -> new MachinePlayer(name, new TryTwo(new TryTwo(new TryTwo(
-            new AvoidNextToCornersStrategy(), new CaptureMaxStrategy()), new MiniMaxStrategy()),
-            new CaptureCornersStrategy())));
+    playerTypes.put("super", (name) -> new MachinePlayer(name, new TryTwo(
+            new CaptureCornersStrategy(), new TryTwo(new AvoidNextToCornersStrategy(),
+            new TryTwo(new MiniMaxStrategy(), new CaptureMaxStrategy())))));
   }
 
   /**
